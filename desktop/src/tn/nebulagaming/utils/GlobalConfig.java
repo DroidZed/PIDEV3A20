@@ -30,6 +30,7 @@ public class GlobalConfig {
 
         try {
             CONNECTION = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println ("Connecting !") ; 
         }
 
         catch(SQLException ex) {
@@ -53,7 +54,7 @@ public class GlobalConfig {
         return _instance;
     }
 
-    public Connection getCONNECTION() {
+    public Connection getCnx() {
         return CONNECTION;
     }
 
