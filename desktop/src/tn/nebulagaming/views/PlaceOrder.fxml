@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tn.nebulagaming.views.PlaceOrderController">
+   <children>
+      <Label layoutX="40.0" layoutY="31.0" prefHeight="54.0" prefWidth="148.0" text="Checkout">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="paybtn" layoutX="424.0" layoutY="249.0" onAction="#PayCheckout" prefHeight="41.0" prefWidth="88.0" text="Pay" textFill="#7808b9" />
+      <JFXListView fx:id="orderList" layoutX="36.0" layoutY="82.0" prefHeight="312.0" prefWidth="296.0" />
+      <Label layoutX="364.0" layoutY="134.0" prefHeight="52.0" prefWidth="70.0" text="Total:" />
+      <Label fx:id="total" layoutX="465.0" layoutY="132.0" prefHeight="56.0" prefWidth="102.0" />
+   </children>
+</AnchorPane>
