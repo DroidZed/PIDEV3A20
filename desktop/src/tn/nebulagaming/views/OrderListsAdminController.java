@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,7 +31,7 @@ import tn.nebulagaming.services.UserOrderService;
 /**
  * FXML Controller class
  *
- * @author ASUS
+ * @author Aymen
  */
 public class OrderListsAdminController implements Initializable {
 
@@ -49,9 +50,6 @@ public class OrderListsAdminController implements Initializable {
 
     private Pattern pat;
 
-    @FXML
-    private JFXButton chkBtn;
-
     private UserOrderService usr;
     @FXML
     private TableView<UserOrderCombined> tabStats;
@@ -65,6 +63,8 @@ public class OrderListsAdminController implements Initializable {
     private TableColumn<UserOrderCombined, String> colPayT;
     @FXML
     private TableColumn<UserOrderCombined, String> colStatus;
+    @FXML
+    private TableColumn<UserOrderCombined, Float> colTot;
 
     /**
      * Initializes the controller class.
@@ -84,6 +84,7 @@ public class OrderListsAdminController implements Initializable {
 	colPaidAt.setCellValueFactory(new PropertyValueFactory<>("payDTM"));
 	colPayT.setCellValueFactory(new PropertyValueFactory<>("payType"));
 	colStatus.setCellValueFactory(new PropertyValueFactory<>("statusOrder"));
+	colTot.setCellValueFactory(new PropertyValueFactory<>("tot"));
 
 	tabStats.setItems(orders);
 
@@ -104,14 +105,50 @@ public class OrderListsAdminController implements Initializable {
 		    case "Status":
 			tabStats.setItems(filterStatus(orders, g4.toUpperCase()));
 			break;
+		    case "Total":
+			tabStats.setItems(filterTotal(orders, Float.parseFloat(g4)));
 		    default:
 			break;
 		}
-	    }
-
-	    else {
+	    } else {
 		tabStats.setItems(orders);
 	    }
+	});
+
+	tabStats.setRowFactory(tv -> {
+
+	    TableRow<UserOrderCombined> row = new TableRow<>();
+
+	    row.setOnMouseClicked(event -> {
+
+		if (!row.isEmpty()) {
+
+		    try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("DisplayUserOrder.fxml"));
+			Parent root = loader.load();
+			btnHome.getScene().setRoot(root);
+
+			DisplayUserOrderController duo = loader.getController();
+			final UserOrderCombined selectedItem = tabStats.getSelectionModel().getSelectedItem();
+
+			try {
+			    duo.setBy(selectedItem.getFullName());
+			    duo.setOrderNum(selectedItem.getOrderNumber() + "");
+			    duo.setPayType(selectedItem.getPayType());
+			    duo.setStatus(selectedItem.getStatusOrder());
+			    duo.setSubAt(selectedItem.getCreatedDTM().toString());
+			    duo.setSum(selectedItem.getTot());
+			} catch (NumberFormatException n) {
+			    System.out.println(selectedItem);
+			}
+
+		    } catch (IOException ex) {
+			Logger.getLogger(OrderListsAdminController.class.getName()).log(Level.SEVERE, null, ex);
+		    }
+		}
+	    });
+
+	    return row;
 	});
 
     }
@@ -119,31 +156,6 @@ public class OrderListsAdminController implements Initializable {
     @FXML
     void Home(ActionEvent event) {
 
-    }
-
-    @FXML
-    void checkOrderDetails(ActionEvent event) {
-
-	try {
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("DisplayUserOrder.fxml"));
-	    Parent root = loader.load();
-	    btnHome.getScene().setRoot(root);
-
-	    DisplayUserOrderController duo = loader.getController();
-
-	    try {
-		duo.setBy(tabStats.getSelectionModel().getSelectedItem().getFullName());
-		duo.setOrderNum(tabStats.getSelectionModel().getSelectedItem().getOrderNumber() + "");
-		duo.setPayType(tabStats.getSelectionModel().getSelectedItem().getPayType());
-		duo.setStatus(tabStats.getSelectionModel().getSelectedItem().getStatusOrder());
-		duo.setSubAt(tabStats.getSelectionModel().getSelectedItem().getCreatedDTM().toString());
-	    } catch (NumberFormatException n) {
-		System.out.println(tabStats.getSelectionModel().getSelectedItem());
-	    }
-
-	} catch (IOException ex) {
-	    Logger.getLogger(OrderListsAdminController.class.getName()).log(Level.SEVERE, null, ex);
-	}
     }
 
     @FXML
@@ -156,13 +168,18 @@ public class OrderListsAdminController implements Initializable {
     }
 
     private ObservableList<UserOrderCombined> filterByFullName(ObservableList<UserOrderCombined> orders, String g4) {
-	
+
 	return orders.filtered(p -> p.getFullName().contains(g4));
-	
+
     }
 
     private ObservableList<UserOrderCombined> filterStatus(ObservableList<UserOrderCombined> orders, String g4) {
+
 	return orders.filtered(p -> p.getStatusOrder().equals(g4));
     }
 
+    private ObservableList<UserOrderCombined> filterTotal(ObservableList<UserOrderCombined> orders, Float g4) {
+
+	return orders.filtered(p -> p.getTot().equals(g4));
+    }
 }

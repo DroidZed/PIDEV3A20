@@ -14,12 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import tn.nebulagaming.services.OrderLineService;
 
 /**
  * FXML Controller class
  *
- * @author ASUS
+ * @author Aymen
  */
 public class DisplayUserOrderController implements Initializable {
 
@@ -54,10 +53,11 @@ public class DisplayUserOrderController implements Initializable {
 
     public void setOrderNum(String orderNum) {
 	this.orderNum.setText(orderNum);
+    }
 
-	OrderLineService ord = new OrderLineService();
+    public void setSum(Float sum) {
 
-	this.sum.setText(this.sum.getText()+" "+ ord.calculateTotal(Integer.parseInt(orderNum)));
+	this.sum.setText(sum.toString());
     }
 
     public void setSubAt(String subAt) {

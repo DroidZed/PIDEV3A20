@@ -27,13 +27,14 @@ public class UserOrderCombined  {
     private String fullName;
     private Float tot;
 
-    public UserOrderCombined(int orderNumber, Date createdDTM, Date payDTM, String fullName, String statusOrder) {
+    public UserOrderCombined(int orderNumber, Date createdDTM, Date payDTM, String fullName, String statusOrder, Float tot) {
 	
 	this.orderNumber = orderNumber;
 	this.createdDTM = createdDTM;
 	this.payDTM = payDTM;
 	this.fullName = fullName;
 	this.statusOrder = statusOrder;
+	this.tot = tot;
     }
 
     

@@ -188,6 +188,8 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
 
 	List<UserOrderCombined> userOrders = new ArrayList<>();
 
+	OrderLineService ols = new OrderLineService();
+
 	try {
 	    ResultSet res = conn.prepareStatement(sql).executeQuery();
 
@@ -198,7 +200,8 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
 			res.getDate(3),
 			res.getDate(4),
 			res.getString(2),
-			res.getString(5)
+			res.getString(5),
+			ols.calculateTotal(res.getInt(1))
 		));
 	    }
 	} catch (SQLException e) {
