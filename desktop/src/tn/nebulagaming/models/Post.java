@@ -43,7 +43,15 @@ public class Post {
     }
       
 
-    
+    public Post (int idPost ,String titlePost ,String descPost ,int statusPost,String photoPost , Date startDTM, Date endDTM) {
+    this.idPost = idPost ;
+    this.titlePost = titlePost ;
+    this.descPost = descPost ;
+    this.statusPost = statusPost ;
+    this.photoPost = photoPost ;
+    this.startDTM = startDTM ;
+    this.endDTM  = endDTM ;
+    }
   
     
     public Post (int idPost ,Date postedDTM , String titlePost , String descPost , int statusPost, String photoPost , int idOwnerUser) {  
@@ -52,6 +60,19 @@ public class Post {
         this.titlePost = titlePost ;
         this.descPost = descPost ;  
         this.statusPost = statusPost ;
+        this.photoPost = photoPost ;
+        this.idOwnerUser = idOwnerUser ; 
+    }
+    
+    //Add Event or Quiz
+    public Post (int idPost , Date postedDTM ,String titlePost ,String descPost ,int statusPost, String photoPost ,Date startDTM, Date endDTM, int idOwnerUser) {
+        this.idPost = idPost ;
+        this.postedDTM = postedDTM ;
+        this.titlePost = titlePost ;
+        this.descPost = descPost ;  
+        this.statusPost = statusPost ;
+        this.startDTM = startDTM ;
+        this.endDTM = endDTM ;
         this.photoPost = photoPost ;
         this.idOwnerUser = idOwnerUser ; 
     }

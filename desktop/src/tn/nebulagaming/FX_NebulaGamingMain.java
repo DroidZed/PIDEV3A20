@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -23,11 +24,11 @@ public class FX_NebulaGamingMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/ManagePosts.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/MainBackOffice.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         
-        primaryStage.setTitle("Workshop PIDEV");
+        primaryStage.setTitle("Nebula Gaming");
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();

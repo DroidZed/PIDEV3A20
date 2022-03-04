@@ -5,10 +5,13 @@
 package tn.nebulagaming;
 
 import java.util.Calendar;
+import java.util.List;
 import tn.nebulagaming.models.Badge;
+import tn.nebulagaming.models.Participation;
 import tn.nebulagaming.models.Post;
 import tn.nebulagaming.services.ServiceBadge;
 import tn.nebulagaming.services.ServiceEvent;
+import tn.nebulagaming.services.ServiceParticipation;
 import tn.nebulagaming.services.ServicePost;
 
 
@@ -21,7 +24,7 @@ public class NebulaGamingMain {
     public static void main(String args[]) {
 	
         ServiceBadge sb = new ServiceBadge () ; 
-	Badge b = new Badge (9,"new Badge","new Badge desc","photoBadgeUpdated") ;
+	//Badge b = new Badge (9,"new Badge","new Badge desc","photoBadgeUpdated") ;
         //sb.add(b) ;
         //sb.update(b);
         //sb.delete(b);
@@ -36,6 +39,12 @@ public class NebulaGamingMain {
         java.sql.Date postedDTM = new java.sql.Date (Calendar.getInstance().getTime().getTime());
         System.out.println (postedDTM) ;
         
+        ServiceParticipation spar = new ServiceParticipation () ;
+        
+        List<Participation> listpar =spar.displayParticipationByEvent(14);
+        for (Participation element : listpar) {
+            System.out.println(element);
+        }
         
     }
     

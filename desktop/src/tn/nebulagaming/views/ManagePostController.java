@@ -36,18 +36,18 @@ import tn.nebulagaming.services.ServicePost;
  *
  * @author SuperNova
  */
-public class ManagePostsController implements Initializable {
+public class ManagePostController implements Initializable {
 
     @FXML
-    private Button btnGoBack;
+    private Button btnGoBackPost;
     @FXML
     private TableView<Post> tvPost;
     @FXML
     private TableColumn<Post, String> titlePostCol;
     @FXML
-    private TableColumn<Post, String>descPostCol;
+    private TableColumn<Post, String> descPostCol;
     @FXML
-    private TableColumn<Post, String>postedAtPostCol;
+    private TableColumn<Post, String> postedAtPostCol;
     @FXML
     private TableColumn<Post, String> postedByPostCol;
     @FXML
@@ -56,24 +56,20 @@ public class ManagePostsController implements Initializable {
     private TableColumn<Post, String> visibilityPostCol;
     @FXML
     private TableColumn<Post, String> idPostCol;
+    @FXML
+    private Button btnAddPost;
     
     ServicePost sp = new ServicePost () ; 
     static Post postRecup;
     
-    @FXML
-    private Button btnAddPost;
-    
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         displayPosts();
         addButtonUpdateToTable () ; 
         addButtonDeleteToTable () ;
-        //Add New Post button Action 
         btnAddPost.setOnAction(event -> {
             try {
                 Parent page1 = FXMLLoader.load(getClass().getResource("AddPost.fxml"));
@@ -82,15 +78,24 @@ public class ManagePostsController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(ManagePostsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
+            }    
         });
         
-        
-    }    
-   
-    private void displayPosts () {
+        btnGoBackPost.setOnAction(event -> {
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("MainBackOffice.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        });
+    }
+
+private void displayPosts () {
         idPostCol.setCellValueFactory(new PropertyValueFactory<>("idPost"));
         idPostCol.setVisible(false);
         
@@ -99,14 +104,13 @@ public class ManagePostsController implements Initializable {
         postedAtPostCol.setCellValueFactory(new PropertyValueFactory<>("postedDTM"));
         visibilityPostCol.setCellValueFactory(new PropertyValueFactory<>("statusPost"));
         photoPostCol.setCellValueFactory(new PropertyValueFactory<>("photoPost")) ;
-        postedByPostCol.setCellValueFactory(new PropertyValueFactory<>("idUser")) ; 
+        postedByPostCol.setCellValueFactory(new PropertyValueFactory<>("idOwnerUser")) ; 
         
         ObservableList<Post> listPost = FXCollections.observableArrayList(sp.display()) ;
         tvPost.setItems(listPost) ;
-    
-    }
-    
-     private void addButtonUpdateToTable() {        
+    } 
+
+private void addButtonUpdateToTable() {        
         TableColumn<Post, Void> colBtn = new TableColumn("Update");
 
         Callback<TableColumn<Post, Void>, TableCell<Post, Void>> cellFactory = new Callback<TableColumn<Post, Void>, TableCell<Post, Void>>() {
@@ -126,7 +130,7 @@ public class ManagePostsController implements Initializable {
                                 stage.setScene(scene);
                                 stage.show();
                             } catch (IOException ex) {
-                                Logger.getLogger(ManagePostsController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         });
                     }
@@ -147,8 +151,8 @@ public class ManagePostsController implements Initializable {
         colBtn.setCellFactory(cellFactory);
         tvPost.getColumns().add(colBtn);
     }
-     
-     private void addButtonDeleteToTable() {
+
+private void addButtonDeleteToTable() {
         TableColumn<Post, Void> colBtn = new TableColumn("Remove");
 
         Callback<TableColumn<Post, Void>, TableCell<Post, Void>> cellFactory = new Callback<TableColumn<Post, Void>, TableCell<Post, Void>>() {
@@ -178,7 +182,7 @@ public class ManagePostsController implements Initializable {
                                 stage.setScene(scene);
                                 stage.show();
                             } catch (IOException ex) {
-                                Logger.getLogger(ManagePostsController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
                             }
         });
                     }
@@ -198,6 +202,10 @@ public class ManagePostsController implements Initializable {
         colBtn.setCellFactory(cellFactory);
 
         tvPost.getColumns().add(colBtn);
+    }
+
+    @FXML
+    private void goBackToMain(ActionEvent event) {
     }
     
 }

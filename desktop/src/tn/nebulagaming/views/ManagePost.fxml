@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.ManagePostController">
+   <children>
+      <ImageView fitHeight="768.0" fitWidth="1387.0" layoutX="2.0" layoutY="-60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/POST.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnGoBackPost" layoutX="1095.0" layoutY="641.0" mnemonicParsing="false" onAction="#goBackToMain" prefHeight="33.0" prefWidth="76.0" text="Go Back" />
+      <TableView fx:id="tvPost" layoutX="222.0" layoutY="182.0" prefHeight="450.0" prefWidth="947.0">
+         <columns>
+            <TableColumn fx:id="titlePostCol" prefWidth="111.0" text="Title" />
+            <TableColumn fx:id="descPostCol" prefWidth="228.33331298828125" text="Description" />
+            <TableColumn fx:id="postedAtPostCol" minWidth="0.0" prefWidth="117.66668701171875" text="posted At" />
+            <TableColumn fx:id="postedByPostCol" prefWidth="139.6666259765625" text="posted By" />
+            <TableColumn fx:id="photoPostCol" prefWidth="77.0" text="Photo link" />
+            <TableColumn fx:id="visibilityPostCol" prefWidth="127.66668701171875" text="Visibility" />
+            <TableColumn fx:id="idPostCol" prefWidth="111.0" text="idPost" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnAddPost" layoutX="224.0" layoutY="130.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="104.0" text="Add new Post" />
+   </children>
+</AnchorPane>

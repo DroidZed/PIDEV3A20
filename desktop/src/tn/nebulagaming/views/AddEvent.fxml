@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tn.nebulagaming.views.AddEventController">
+   <children>
+      <ImageView fitHeight="772.0" fitWidth="1368.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/event.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="127.0" layoutY="204.0" prefHeight="45.0" prefWidth="240.0" text="Add new Event" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Montserrat Regular" size="29.0" />
+         </font>
+      </Label>
+      <VBox layoutX="130.0" layoutY="286.0" prefHeight="73.0" prefWidth="206.0" spacing="15.0">
+         <children>
+            <Label text="Title" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="10.0" text="Description" textFill="WHITE" />
+         </children>
+      </VBox>
+      <VBox layoutX="130.0" layoutY="387.0" prefHeight="191.0" prefWidth="206.0" spacing="15.0">
+         <children>
+            <Label layoutX="10.0" layoutY="27.0" text="Visibility" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="44.0" text="Cover photo" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="43.0" text="Start Date" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="76.0" text="End Date" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="109.0" text="Address Event" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="142.0" text="Number of Tickets" textFill="WHITE" />
+         </children>
+      </VBox>
+      <VBox layoutX="311.0" layoutY="280.0" prefHeight="314.0" prefWidth="228.0" spacing="6.0">
+         <children>
+            <TextField fx:id="tfTitleEvent" />
+            <TextField fx:id="tfDescEvent" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="228.0" />
+            <ComboBox fx:id="cbVisibilityEvent" prefHeight="25.0" prefWidth="230.0" />
+            <TextField fx:id="tfPhotoEvent" layoutX="10.0" layoutY="60.0" />
+            <DatePicker fx:id="tfStartDateEvent" prefHeight="25.0" prefWidth="232.0" />
+            <DatePicker fx:id="tfEndDateEvent" prefHeight="25.0" prefWidth="234.0" />
+            <TextField fx:id="tfAddressEvent" />
+            <TextField fx:id="tfNbTickets" />
+         </children>
+      </VBox>
+      <HBox layoutX="410.0" layoutY="593.0" prefHeight="40.0" prefWidth="130.0" spacing="15.0">
+         <children>
+            <Button fx:id="btnAddEvent" mnemonicParsing="false" onAction="#addEvent" text="Submit" />
+            <Button fx:id="btnGoBack" mnemonicParsing="false" text="Go Back" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
