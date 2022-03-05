@@ -44,14 +44,6 @@ import tn.nebulagaming.services.ServicePost;
 public class ManageContentController implements Initializable {
 
     
-    
-    
-    
-    
-    
-
-    
-    
     @FXML
     public static TabPane tabPane;
     @FXML

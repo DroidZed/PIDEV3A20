@@ -106,6 +106,7 @@ private void displayPosts () {
         photoPostCol.setCellValueFactory(new PropertyValueFactory<>("photoPost")) ;
         postedByPostCol.setCellValueFactory(new PropertyValueFactory<>("idOwnerUser")) ; 
         
+        
         ObservableList<Post> listPost = FXCollections.observableArrayList(sp.display()) ;
         tvPost.setItems(listPost) ;
     } 
@@ -176,7 +177,7 @@ private void addButtonDeleteToTable() {
                             }
 
                             try {
-                                Parent page1 = FXMLLoader.load(getClass().getResource("ManagePosts.fxml"));
+                                Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
                                 Scene scene = new Scene(page1);
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 stage.setScene(scene);

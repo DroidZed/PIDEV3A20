@@ -4,9 +4,18 @@
  */
 package tn.nebulagaming.views;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +33,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import tn.nebulagaming.models.Event;
 import tn.nebulagaming.services.ServiceEvent;
+import static tn.nebulagaming.utils.Consts.IMG_PATH;
+import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
+import tn.nebulagaming.utils.PostUtils;
 
 /**
  * FXML Controller class
@@ -42,7 +58,6 @@ public class AddEventController implements Initializable {
     private TextField tfDescEvent;
     @FXML
     private ComboBox<String> cbVisibilityEvent;
-    @FXML
     private TextField tfPhotoEvent;
     @FXML
     private DatePicker tfStartDateEvent;
@@ -58,7 +73,14 @@ public class AddEventController implements Initializable {
     private Button btnGoBack;
     
     ServiceEvent se = new ServiceEvent () ;
+    @FXML
+    private TextField tfLat;
+    @FXML
+    private TextField tfLong;
+    @FXML
+    private ImageView coverPhotoPost;
 
+    File filePhotoPost = null ;
     /**
      * Initializes the controller class.
      */
@@ -74,7 +96,7 @@ public class AddEventController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AddEventController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }    
@@ -152,7 +174,7 @@ public class AddEventController implements Initializable {
     }
     
     @FXML
-    private void addEvent(ActionEvent event) {
+    private void addEvent(ActionEvent event) throws IOException {
         
         if (validateInputs()) {
          java.sql.Date postedDTM = new java.sql.Date (Calendar.getInstance().getTime().getTime());
@@ -165,11 +187,65 @@ public class AddEventController implements Initializable {
                 visibilityInt = 1 ;
             else 
                 visibilityInt = 0 ;
+        
+        if (filePhotoPost == null) {
+            Alert alert2 = new Alert(Alert.AlertType.WARNING);
+            alert2.setTitle("Warning !");
+            alert2.setContentText("Select a photCover !");
+            alert2.setHeaderText(null);
+            alert2.show();
+        }
+        String photoPost = copyPhoto();
+  
             
-        se.add(new Event (postedDTM , tfTitleEvent.getText(), tfDescEvent.getText(),visibilityInt, tfPhotoEvent.getText(),"Event" , startDTM,endDTM,1,tfAddressEvent.getText(), Integer.parseInt(tfNbTickets.getText()))) ; 
+        se.add(new Event (postedDTM , tfTitleEvent.getText(), tfDescEvent.getText(),visibilityInt, photoPost,"Event" , startDTM,endDTM,1,tfAddressEvent.getText(), Integer.parseInt(tfNbTickets.getText()) , Double.parseDouble(tfLat.getText()) , Double.parseDouble(tfLong.getText()))) ; 
         JOptionPane.showMessageDialog(null, "Event Added !");                                   
         }
         
+    }
+
+     @FXML
+    private void photoUpload(ActionEvent event) throws IOException {
+        
+        try {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("image files", "jpg","png","jpeg");
+            chooser.setFileFilter(filter);
+            chooser.showOpenDialog(null);
+            filePhotoPost = chooser.getSelectedFile();
+            String photo = copyPhoto() ;
+        } catch (Exception x) {
+            Alert dg = new Alert(Alert.AlertType.INFORMATION);
+            dg.setTitle("Warning");
+            dg.setContentText("Please select a Photo for your Post cover !");
+            dg.show();
+
+        }
+        
+    }
+    
+    public String copyPhoto() throws IOException, IOException {
+        PostUtils pu = new PostUtils();
+        Date d = new Date();
+        String strTimestamp = String.valueOf(d.getTime());
+        String randomString = pu.randomString() + "_" + strTimestamp + ".jpg";
+        Path copied = Paths.get(IMG_PATH + randomString);
+        Path originalPath = Paths.get(filePhotoPost.getAbsolutePath());
+        System.out.println(copied);
+        Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+            Image image = new Image((IMG_PATH_LOAD + randomString));
+        coverPhotoPost.setImage(image);
+        return randomString;
+    }
+
+    @FXML
+    private void openGetLatLong(ActionEvent event) throws URISyntaxException, IOException { 
+        Desktop.getDesktop().browse(new URI("https://www.latlong.net"));
+    }
+
+    @FXML
+    private void openLinkGoogleMaps(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.google.com/maps/@36.4455434,10.9813806,10z"));
     }
     
 }

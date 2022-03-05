@@ -4,8 +4,18 @@
  */
 package tn.nebulagaming.views;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,10 +35,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import tn.nebulagaming.models.Event;
-import tn.nebulagaming.models.Post;
 import tn.nebulagaming.services.ServiceEvent;
+import static tn.nebulagaming.utils.Consts.IMG_PATH;
+import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
+import tn.nebulagaming.utils.MapHandler;
+import tn.nebulagaming.utils.PostUtils;
+
 
 /**
  * FXML Controller class
@@ -44,8 +62,6 @@ public class UpdateEventController implements Initializable {
     @FXML
     private ComboBox<String> cbVisibilityEvent;
     @FXML
-    private TextField tfPhotoEvent;
-    @FXML
     private DatePicker tfStartDateEvent;
     @FXML
     private DatePicker tfEndDateEvent;
@@ -59,21 +75,37 @@ public class UpdateEventController implements Initializable {
     private TextField tfAddressEvent;
 
     ServiceEvent se = new ServiceEvent () ;
+
+    
+    @FXML
+    private TextField tfLat;
+    @FXML
+    private TextField tfLong;
+    @FXML
+    private ImageView coverPhotoPost;
+    
+    File filePhotoPost = null;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        //System.out.println (ManageEventController.eventRecup.getPhotoPost()) ;
         populateListViewVisibility() ;
         tfTitleEvent.setText(ManageEventController.eventRecup.getTitlePost());
         tfDescEvent.setText(ManageEventController.eventRecup.getDescPost());
-        tfPhotoEvent.setText(ManageEventController.eventRecup.getPhotoPost());
+        //Display Post photo
+        Image image = new Image((IMG_PATH_LOAD + ManageEventController.eventRecup.getPhotoPost()));
+        coverPhotoPost.setImage(image);
+        
         tfStartDateEvent.setValue(ManageEventController.eventRecup.getStartDTM().toLocalDate());
         tfEndDateEvent.setValue(ManageEventController.eventRecup.getEndDTM().toLocalDate());
         tfAddressEvent.setText(ManageEventController.eventRecup.getAddressEvent());
         tfNbTickets.setText(Integer.toString(ManageEventController.eventRecup.getNbTicketAvailable()));
-        
+        tfLat.setText(Double.toString(ManageEventController.eventRecup.getLatitude()));
+        tfLong.setText(Double.toString(ManageEventController.eventRecup.getLongitude()));
         
         if (ManageEventController.eventRecup.getStatusPost() == 1) 
             cbVisibilityEvent.getSelectionModel().selectLast();
@@ -88,7 +120,7 @@ public class UpdateEventController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UpdateEventController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -150,7 +182,14 @@ public class UpdateEventController implements Initializable {
                 alert2.setHeaderText(null);
                 alert2.show();
                 return false;
-        }
+        }/*else if (! tfLat.getText().chars().allMatch( Character::isDigit) || ! tfLong.getText().chars().allMatch( Character::isDigit)) {
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("Failed !");
+                alert2.setContentText("Latitude and Longitude must of type doubles !");
+                alert2.setHeaderText(null);
+                alert2.show();
+                return false;
+        }*/
         return true;
     }
 
@@ -165,7 +204,7 @@ public void populateListViewVisibility () {
     }    
 
     @FXML
-    private void updateEvent(ActionEvent event) {
+    private void updateEvent(ActionEvent event) throws IOException {
         if (validateInputs()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Update event");
@@ -187,9 +226,26 @@ public void populateListViewVisibility () {
                                 java.sql.Date startDTM =java.sql.Date.valueOf(tfStartDateEvent.getValue());
                                 java.sql.Date endDTM =java.sql.Date.valueOf(tfEndDateEvent.getValue());
                                 
-                             se.update(new Event(ManageEventController.eventRecup.getIdPost(),tfTitleEvent.getText() , tfDescEvent.getText(),visibilityInt , tfPhotoEvent.getText() ,startDTM , endDTM , tfAddressEvent.getText() , Integer.parseInt(tfNbTickets.getText())));
+                                //Image
+                                File filePhoto = filePhotoPost;
+                                
+                                //Display Post photo
+                                Image image = new Image((IMG_PATH_LOAD + ManageEventController.eventRecup.getPhotoPost()));
+                                coverPhotoPost.setImage(image);
+                                
+                                //Get name
+                                String photo = ManageEventController.eventRecup.getPhotoPost();
+                                
+                                if (filePhoto != null) {
+                                    photo = copyPhoto() ;
+                                }
+                                
+                                System.out.println (filePhoto) ;
+                                
+                                
+                                se.update(new Event(ManageEventController.eventRecup.getIdPost(),tfTitleEvent.getText() , tfDescEvent.getText(),visibilityInt , photo ,startDTM , endDTM , tfAddressEvent.getText() , Integer.parseInt(tfNbTickets.getText()) , Double.parseDouble(tfLat.getText()) ,Double.parseDouble(tfLong.getText()) ));
                                  try {
-                                    Parent page1 = FXMLLoader.load(getClass().getResource("ManagePosts.fxml"));
+                                    Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
                                     
                                     Scene scene = new Scene(page1);
                                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -200,6 +256,54 @@ public void populateListViewVisibility () {
                                 }
                          }
                       }
+    }
+
+    
+    @FXML
+    private void map(ActionEvent event) {
+        MapHandler m = new MapHandler("Map");
+        m.getInformation(parseDouble(tfLat.getText()),parseDouble(tfLong.getText())); 
+    }
+
+    @FXML
+    private void photoUpload(ActionEvent event) throws IOException {
+        try {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("image files", "jpg","png","jpeg");
+            chooser.setFileFilter(filter);
+            chooser.showOpenDialog(null);
+            filePhotoPost = chooser.getSelectedFile();
+            String photo = copyPhoto() ;
+        } catch (Exception x) {
+            Alert dg = new Alert(Alert.AlertType.INFORMATION);
+            dg.setTitle("Warning");
+            dg.setContentText("Please select a Photo for your Post cover !");
+            dg.show();
+        }
+    }
+
+    @FXML
+    private void openGetLatLong(ActionEvent event) throws URISyntaxException, IOException { 
+        Desktop.getDesktop().browse(new URI("https://www.latlong.net"));
+    }
+
+    @FXML
+    private void openLinkGoogleMaps(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.google.com/maps/@36.4455434,10.9813806,10z"));
+    }
+    
+     public String copyPhoto() throws IOException, IOException {
+        PostUtils pu = new PostUtils();
+        Date d = new Date();
+        String strTimestamp = String.valueOf(d.getTime());
+        String randomString = pu.randomString() + "_" + strTimestamp + ".jpg";
+        Path copied = Paths.get(IMG_PATH + randomString);
+        Path originalPath = Paths.get(filePhotoPost.getAbsolutePath());
+        System.out.println(copied);
+        Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+            Image image = new Image((IMG_PATH_LOAD + randomString));
+        coverPhotoPost.setImage(image);
+        return randomString;
     }
     
 }

@@ -36,5 +36,13 @@ public class Reaction {
     this.idUser = idUser ;
     this.idPost = idPost ; 
     this.idComment = idComment ;  
-}
+    }
+    
+    public Reaction (int idReaction ,int idTypeReact , Date reactedDTM,int idPost,int idUser) {
+    this.idReaction = idReaction ;
+    this.idTypeReact = idTypeReact ;
+    this.reactedDTM = reactedDTM ;
+    this.idUser = idUser ;
+    this.idPost = idPost ; 
+    }
 }

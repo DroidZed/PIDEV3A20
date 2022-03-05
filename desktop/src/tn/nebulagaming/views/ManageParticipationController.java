@@ -61,6 +61,8 @@ public class ManageParticipationController implements Initializable {
     ServiceEvent se = new ServiceEvent () ; 
     @FXML
     private Button btnGoBack;
+    @FXML
+    private Label nbParticipation;
     
     
     
@@ -70,6 +72,7 @@ public class ManageParticipationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         displayParticipations (idEvent) ;
+        nbParticipation.setText(String.valueOf(spar.countParticipationByEvent(idEvent)));
          btnGoBack.setOnAction(event -> {
             try {
                 Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));

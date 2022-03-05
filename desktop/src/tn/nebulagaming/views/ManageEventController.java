@@ -71,6 +71,10 @@ public class ManageEventController implements Initializable {
     
     static Event eventRecup ;
     static Event eventRecupParticipation ;
+    @FXML
+    private TableColumn<Event, String> latCol;
+    @FXML
+    private TableColumn<Event, String> longCol;
 
     /**
      * Initializes the controller class.
@@ -111,8 +115,13 @@ public class ManageEventController implements Initializable {
     
     private void displayEvents () {
         idEventCol.setCellValueFactory(new PropertyValueFactory<>("idPost"));
-        idEventCol.setVisible(false);
+        latCol.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        longCol.setCellValueFactory(new PropertyValueFactory<>("longitude"));
         
+        idEventCol.setVisible(false);
+        latCol.setVisible(false);
+        longCol.setVisible(false);
+ 
         titleEventCol.setCellValueFactory(new PropertyValueFactory<>("titlePost"));
         descEventCol.setCellValueFactory(new PropertyValueFactory<>("descPost"));
         postedDateEventCol.setCellValueFactory(new PropertyValueFactory<>("postedDTM"));
@@ -154,15 +163,15 @@ public class ManageEventController implements Initializable {
                     }
                     
                     @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(btn);
+                        public void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setGraphic(null);
+                            } else {
+                                setGraphic(btn);
+                            }
                         }
-                    }
-                };
+                    };
                 return cell;
             }
         };
@@ -194,7 +203,7 @@ public class ManageEventController implements Initializable {
                             }
 
                             try {
-                                Parent page1 = FXMLLoader.load(getClass().getResource("ManagePosts.fxml"));
+                                Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
                                 Scene scene = new Scene(page1);
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 stage.setScene(scene);
@@ -243,7 +252,7 @@ public class ManageEventController implements Initializable {
                             } catch (IOException ex) {
                                 Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
                             }
-        });
+                        });
                     }
                     @Override
                     public void updateItem(Void item, boolean empty) {
@@ -264,6 +273,7 @@ public class ManageEventController implements Initializable {
 
     @FXML
     private void goBackToMain(ActionEvent event) {
+        
     }
     
 }

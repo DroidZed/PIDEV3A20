@@ -63,4 +63,20 @@ public class ServiceParticipation implements IService<Participation> {
        return listParticipation ; 
     }
     
+    public int countParticipationByEvent (int idEvent) {
+         int countParticipation = 0 ;
+
+        try {
+           String query = "SELECT count(idParticipation) as nbPar FROM tbl_participation WHERE idPost="+idEvent; 
+           Statement st = cnx.createStatement();
+           ResultSet rs = st.executeQuery(query) ;
+           if (rs.next()) {
+                countParticipation = rs.getInt(1) ;
+           }
+       }catch (SQLException e) {
+           System.err.println(e.getMessage());
+       }
+       return countParticipation ; 
+    }
+    
 }

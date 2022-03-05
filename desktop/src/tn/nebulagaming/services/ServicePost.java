@@ -76,6 +76,8 @@ public class ServicePost implements IService<Post> {
         List<Post> listPost = new ArrayList<>(); 
 
         try {
+            
+            /* SELECT tbl_user.nameUser , tbl_post.idPost , tbl_post.postedDTM , tbl_post.titlePost , tbl_post.descPost , tbl_post.statusPost , tbl_post.photoPost , tbl_post.idUser FROM tbl_post JOIN tbl_user ON tbl_post.idUser = tbl_user.idUser WHERE typePost = 'Post' */
            String query = "SELECT idPost , postedDTM , titlePost , descPost  , statusPost , photoPost , idUser FROM tbl_post WHERE typePost = 'Post'"; 
            Statement st = cnx.createStatement();
            ResultSet rs = st.executeQuery(query) ;

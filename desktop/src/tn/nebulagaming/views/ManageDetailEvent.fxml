@@ -10,19 +10,19 @@
         <tabs>
           <Tab text="Manage Event Participations">
             <content>
-               <fx:include fx:id="tabParticipation" source="ManageParticipation.fxml"/>
+               <fx:include fx:id="tabParticipation" source="ManageParticipation.fxml" />
             </content>  
           </Tab>
           <Tab text="Manage Comments">
             <content>
-                <fx:include fx:id="tabComment" source="ManageComment.fxml"/>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <fx:include fx:id="tabComment" source="ManageComment.fxml" />
             </content>
           </Tab>
             <Tab text="Manage Reactions">
                <content>
-                   <fx:include fx:id="tabReaction" source="ManageReaction.fxml"/>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                   <fx:include fx:id="tabReaction" source="ManageReaction.fxml" />
                </content>
             </Tab>
         </tabs>

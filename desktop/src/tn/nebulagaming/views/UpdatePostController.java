@@ -165,7 +165,6 @@ public class UpdatePostController implements Initializable {
                                 }
                                 
 
-        
                                 int visibilityInt ; 
                                 if (visibilityStr.equals("Visible")) 
                                     visibilityInt = 1 ;
