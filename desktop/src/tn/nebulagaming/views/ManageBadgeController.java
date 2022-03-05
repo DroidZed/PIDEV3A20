@@ -197,6 +197,7 @@ public class ManageBadgeController implements Initializable {
         
         ObservableList<Badge> listBadge = FXCollections.observableArrayList(sb.display()) ;
         tvBadge.setItems(listBadge) ;
+        
     } 
     
     private void addButtonUpdateToTable() {        

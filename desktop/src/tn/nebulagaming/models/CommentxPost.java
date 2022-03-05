@@ -8,4 +8,8 @@ package tn.nebulagaming.models;
  *
  * @author SuperNova
  */
-
+public class CommentxPost {
+    
+     
+    
+}
