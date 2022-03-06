@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.MembreModifController">
+    <stylesheets>
+        <URL value="@membremodif.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" styleClass="mainFxmlClass">
+             
+               <children>
+                  <Button fx:id="modifMembre" layoutX="82.0" layoutY="492.0" mnemonicParsing="false" onAction="#modifMembre" text="Modifier les information" />
+                  <TextField fx:id="nomMembre" layoutX="72.0" layoutY="130.0" promptText="Nom" />
+                  <TextField fx:id="mailMembre" layoutX="72.0" layoutY="193.0" promptText="Email" />
+                  <TextField fx:id="telMembre" layoutX="72.0" layoutY="261.0" promptText="Telephone" />
+                  <Label layoutX="83.0" layoutY="105.0" text="Nom" />
+                  <Label layoutX="83.0" layoutY="235.0" text="Telephone" />
+                  <Label layoutX="83.0" layoutY="168.0" text="Email" />
+                  <Label layoutX="74.0" layoutY="565.0" text="Ancien mot de passe" />
+                  <Label layoutX="73.0" layoutY="626.0" text="Nouveau mot de passe" />
+                  <Label layoutX="74.0" layoutY="686.0" text="Confirmez mot de passe" />
+                  <Button fx:id="modifPw" layoutX="83.0" layoutY="755.0" mnemonicParsing="false" onAction="#modifPw" text="Modifier mot de passe" />
+                  <Label fx:id="usernameEnt" layoutX="57.0" layoutY="29.0" prefHeight="36.0" prefWidth="400.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink fx:id="logOut" layoutX="661.0" layoutY="18.0" onAction="#logOut" text="retour" />
+                  <PasswordField fx:id="actualPw" layoutX="78.0" layoutY="587.0" promptText="Ancien mot de passe" />
+                  <PasswordField fx:id="newPw" layoutX="78.0" layoutY="655.0" promptText="Nouveau mot de passe" />
+                  <PasswordField fx:id="cnewPw" layoutX="78.0" layoutY="711.0" promptText="Confirmez mot de passe" />
+                  <Button fx:id="nvPhoto" layoutX="524.0" layoutY="312.0" mnemonicParsing="false" onAction="#nvPhoto" text="inserer une photo" />
+                  <Button fx:id="modifPhoto" layoutX="525.0" layoutY="369.0" mnemonicParsing="false" onAction="#modifPhoto" text="Modifier la photo" />
+                  <ImageView fx:id="photoMembre" fitHeight="246.0" fitWidth="400.0" layoutX="383.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="photoName" layoutX="617.0" layoutY="660.0" />
+                  <TextField fx:id="descr" layoutX="39.0" layoutY="333.0" prefHeight="134.0" prefWidth="277.0" />
+                  <Label layoutX="82.0" layoutY="302.0" text="description" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
