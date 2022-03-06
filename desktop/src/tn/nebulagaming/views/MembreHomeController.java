@@ -31,6 +31,8 @@ import javafx.stage.Stage;
 import tn.nebulagaming.models.Entreprise;
 import tn.nebulagaming.models.Membre;
 import tn.nebulagaming.models.Reclamation;
+import tn.nebulagaming.models.Streaming;
+import tn.nebulagaming.services.ServiceMembre;
 import tn.nebulagaming.services.ServiceReclamation;
 import tn.nebulagaming.utils.GlobalConfig;
 import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
@@ -84,6 +86,16 @@ String id;
     private TableColumn<Reclamation, String> rep;
     @FXML
     private TableColumn<Reclamation, String> message;
+    @FXML
+    private TableView<Streaming> tabStream;
+    @FXML
+    private TableColumn<Streaming, String> userStream;
+    @FXML
+    private TableColumn<Streaming, String> descStream;
+    @FXML
+    private TableColumn<Streaming, String> vuStream;
+    @FXML
+    private Button stream;
     /**
      * Initializes the controller class.
      */
@@ -95,6 +107,13 @@ String id;
         ObservableList<String> listCritereR;
         listCritereR = FXCollections.observableArrayList(listCritereRec);
         affichageTabRec();
+        
+        
+        List<String> listCritereStream;
+        listCritereStream = Arrays.asList("nomUser", "description", "link","nbVu");
+        ObservableList<String> listCritereS;
+        listCritereS = FXCollections.observableArrayList(listCritereRec);
+        affichageTabStreaming();
     }    
  public void iniializeFxml(Membre e) {
         System.out.println(e.getNom());
@@ -233,6 +252,34 @@ String id;
         HomeScene.showData(a);
         Stage window = (Stage) modifInfo.getScene().getWindow();
         window.setScene(new Scene(root, 800, 800));
+    }
+
+    private void affichageTabStreaming() {
+       ServiceMembre sm=new ServiceMembre();
+        ObservableList<Streaming> list = FXCollections.observableArrayList(sm.afficherStreamers());
+        userStream.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+        descStream.setCellValueFactory(new PropertyValueFactory<>("description"));
+        vuStream.setCellValueFactory(new PropertyValueFactory<>("nbVu"));
+               
+
+        
+        tabStream.setItems(list);
+        
+    }
+
+    @FXML
+    private void streamer(ActionEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("./Streamer.fxml"));
+        Parent root = loader.load();
+        StreamerController HomeScene = loader.getController();
+        HomeScene.user2 = this.user2;
+        HomeScene.id=id;
+        Membre a= this.user2;
+        HomeScene.iniializeFxml(a);
+        HomeScene.showData(a);
+        Stage window = (Stage) modifInfo.getScene().getWindow();
+        window.setScene(new Scene(root, 800, 800));
+        
     }
     
 }

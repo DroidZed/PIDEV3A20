@@ -81,6 +81,23 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
+                            <Tab text="Streaming">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="tabStream" layoutX="12.0" layoutY="24.0" prefHeight="234.0" prefWidth="770.0">
+                                            <columns>
+                                              <TableColumn fx:id="userStream" prefWidth="182.0" text="USER" />
+                                              <TableColumn fx:id="descStream" prefWidth="350.0" text="DESCRIPTION" />
+                                              <TableColumn fx:id="vuStream" prefWidth="237.0" text="NOMBRE DE VUES" />
+                                            </columns>
+                                          </TableView>
+                                          <Button layoutX="196.0" layoutY="558.0" mnemonicParsing="false" text="Regarder" />
+                                          <Button fx:id="stream" layoutX="485.0" layoutY="558.0" mnemonicParsing="false" onAction="#streamer" text="Streamer" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
                           </tabs>
                         </TabPane>
                      </children>

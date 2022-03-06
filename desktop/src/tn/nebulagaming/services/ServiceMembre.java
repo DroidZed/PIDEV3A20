@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import tn.nebulagaming.models.Entreprise;
+import tn.nebulagaming.models.Streaming;
 import tn.nebulagaming.services.IService;
 import tn.nebulagaming.utils.GlobalConfig;
 import tn.nebulagaming.utils.MailUtiles;
@@ -241,4 +242,56 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
         sortedByNameAndTel.forEach(System.out::println);
         return sortedByNameAndTel;
     }
+   public List<Streaming> afficherStreamers()
+   {
+       PreparedStatement stmt = null;
+        List<Streaming> streamers = new ArrayList<>();
+
+        try {
+
+            String sql = "select * from tbl_streaming ";
+            stmt = cnx.prepareStatement(sql);
+            
+
+            ResultSet rst = stmt.executeQuery();
+
+            while (rst.next()) {
+                Streaming s = new Streaming();
+                s.setIdStream(rst.getInt("idStream"));
+
+               s.setDescription(rst.getString("description"));
+
+                s.setLink(rst.getString("link"));
+                s.setNbVu(rst.getInt("nbVu"));
+               
+                streamers.add(s);
+                // System.out.println(" nom: "+e.getNom()+ ", desciption:  "+e.getDescription()+ ", mail: "+e.getEmail() +", tel: "+e.getTel() + " ");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+
+        return streamers;
+   }
+   public void ajouterStram(Streaming s)
+   {
+            PreparedStatement stmt = null;
+
+            try {
+                String sql = "INSERT INTO tbl_streaming (idUser,link,description,nbVu,etat) VALUES(?,?,?,?,?)";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setInt(1,GlobalConfig.getInstance().getSession() );
+                stmt.setString(2, s.getLink());
+                stmt.setString(3, s.getDescription());
+                stmt.setInt(4, s.getNbVu());
+                stmt.setInt(5, Integer.parseInt("1"));
+               
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+   }
 }
