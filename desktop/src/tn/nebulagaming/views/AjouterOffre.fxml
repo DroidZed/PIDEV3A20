@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="618.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AjouterOffreController">
+   <children>
+      <Label layoutX="51.0" layoutY="71.0" text="Type :" />
+      <ComboBox fx:id="typeOfferCombo" layoutX="127.0" layoutY="67.0" prefWidth="150.0" />
+      <Label layoutX="319.0" layoutY="44.0" text="Descrtiption :" />
+      <TextField fx:id="descinput" layoutX="394.0" layoutY="40.0" />
+      <Label layoutX="52.0" layoutY="44.0" text="Titre :" />
+      <TextField fx:id="titreinput" layoutX="127.0" layoutY="40.0" />
+      <Label layoutX="159.0" layoutY="14.0" text="Ajouter Offre" />
+      <Label layoutX="54.0" layoutY="102.0" text="Date Debut :" />
+      <Label layoutX="319.0" layoutY="102.0" text="Date Fin :" />
+      <Label layoutX="600.0" layoutY="102.0" text="Salaire :" />
+      <DatePicker fx:id="datedebinput" layoutX="127.0" layoutY="98.0" />
+      <DatePicker fx:id="datefininput" layoutX="392.0" layoutY="98.0" />
+      <TextField fx:id="salaireinput" layoutX="672.0" layoutY="98.0" />
+      <Label layoutX="318.0" layoutY="71.0" text="Region :" />
+      <Label layoutX="600.0" layoutY="42.0" text="Adresse :" />
+      <TextField fx:id="adresseinput" layoutX="671.0" layoutY="40.0" />
+      <Button layoutX="394.0" layoutY="142.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
+      <ComboBox fx:id="ComboRegion" layoutX="394.0" layoutY="67.0" prefWidth="150.0" />
+      <Label layoutX="599.0" layoutY="71.0" text="Domaine :" />
+      <ComboBox fx:id="ComboDomain" layoutX="671.0" layoutY="67.0" prefWidth="150.0" />
+      <Label fx:id="idmodif" layoutX="572.0" layoutY="370.0" text="Label" />
+      <TableView fx:id="tableoffre" layoutX="44.0" layoutY="213.0" onMouseClicked="#LoadModif" prefHeight="192.0" prefWidth="880.0">
+        <columns>
+          <TableColumn fx:id="idt" prefWidth="48.0" text="Id" visible="false" />
+            <TableColumn fx:id="titret" prefWidth="124.0" text="Titre" />
+          <TableColumn fx:id="desct" prefWidth="124.0" text="Descrtiption" />
+            <TableColumn fx:id="typet" prefWidth="78.0" text="Type" />
+            <TableColumn fx:id="datedebt" prefWidth="87.0" text="Date Debut" />
+            <TableColumn fx:id="datefint" prefWidth="75.0" text="Date Fin" />
+            <TableColumn fx:id="salairet" prefWidth="59.0" text="Salaire" />
+            <TableColumn fx:id="regiont" prefWidth="63.0" text="Region" />
+            <TableColumn fx:id="adresset" prefWidth="126.0" text="Adresse" />
+            <TableColumn fx:id="domaint" prefWidth="99.0" text="Domaine" />
+        </columns>
+      </TableView>
+      <Button layoutX="831.0" layoutY="180.0" mnemonicParsing="false" onAction="#Supprimer" text="Supprimer" />
+      <Button layoutX="491.0" layoutY="142.0" mnemonicParsing="false" onAction="#Modifier" text="Modifier" />
+      <Label layoutX="312.0" layoutY="184.0" text="Recherche :" />
+      <TextField fx:id="recherche" layoutX="396.0" layoutY="180.0" />
+      <TableView fx:id="tableaucandidature" layoutX="44.0" layoutY="432.0" prefHeight="172.0" prefWidth="762.0">
+        <columns>
+          <TableColumn fx:id="idt" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="candidaturet" prefWidth="275.0" text="cadidature" />
+            <TableColumn fx:id="datet" prefWidth="155.0" text="Date" />
+            <TableColumn fx:id="imagecvt" prefWidth="257.0" text="Image CV" />
+        </columns>
+      </TableView>
+      <Button layoutX="817.0" layoutY="434.0" mnemonicParsing="false" onAction="#Autoriser" text="Autoriser a faire le test" />
+      <Button layoutX="817.0" layoutY="467.0" mnemonicParsing="false" onAction="#Refuser" text="Refuser" />
+   </children>
+</AnchorPane>
