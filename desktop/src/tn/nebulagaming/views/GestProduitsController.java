@@ -196,5 +196,28 @@ public class GestProduitsController implements Initializable {
             Logger.getLogger(GestCategoriesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+/*
+    @FXML
+    private void chooseImage(ActionEvent event) {
+        final FileChooser fileChooser = new FileChooser();
+        Node node = (Node) event.getSource();
+        Stage thisStage = (Stage) node.getScene().getWindow();
+        selectedImage = fileChooser.showOpenDialog(thisStage);
 
+        if (selectedImage != null) {
+            selectedImagePath = selectedImage.toURI().toString();
+            Image image = new Image(selectedImage.toURI().toString());
+            
+            File outputFile = new File("C:\\Users\\anony\\Desktop\\Nebula-Gaming\\desktop\\src\\tn\\nebulagaming\\res");
+
+            BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+            try {
+                ImageIO.write(bImage, "png", outputFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+*/
 }
