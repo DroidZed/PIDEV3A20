@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.CreditCardPaymentController">
+   <children>
+      <Label layoutX="107.0" layoutY="107.0" text="Credit Card Number">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="172.0" text="Expiration Date">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="111.0" layoutY="233.0" text="CCV">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="278.0" text="Total to pay">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalPrice" layoutX="259.0" layoutY="274.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="109.0" layoutY="329.0" text="Your email">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="-1.0" prefHeight="74.0" prefWidth="579.0" text="Payment Details" textFill="#972995">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <JFXPasswordField fx:id="ccvTF" focusColor="#7d17c2" labelFloat="true" layoutX="260.0" layoutY="229.0" prefHeight="25.0" prefWidth="55.0" promptText="CCV" />
+      <JFXTextField fx:id="monthTF" focusColor="#8f02e1" labelFloat="true" layoutX="259.0" layoutY="168.0" prefHeight="25.0" prefWidth="57.0" promptText="MM" />
+      <JFXTextField fx:id="yearTF" focusColor="#8f02e1" labelFloat="true" layoutX="350.0" layoutY="168.0" prefHeight="25.0" prefWidth="57.0" promptText="YYYY" />
+      <JFXTextField fx:id="carteTF" focusColor="#8f02e1" labelFloat="true" layoutX="261.0" layoutY="103.0" prefHeight="25.0" prefWidth="159.0" promptText="CC Number Here" />
+      <JFXTextField fx:id="emailTF" focusColor="#8f02e1" labelFloat="true" layoutX="250.0" layoutY="325.0" prefHeight="25.0" prefWidth="181.0" promptText="Email here" />
+      <JFXButton fx:id="sendMailBTN" alignment="CENTER" contentDisplay="CENTER" layoutX="469.0" layoutY="338.0" onAction="#sendReceipt" prefHeight="43.0" prefWidth="114.0" text="Purchase" textFill="#bb00ff" />
+   </children>
+</AnchorPane>
