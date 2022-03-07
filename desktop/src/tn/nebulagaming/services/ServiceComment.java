@@ -18,7 +18,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceComment implements IService<Comment>{
+public class ServiceComment implements IServiceNewsfeed<Comment>{
 
     Connection cnx = GlobalConfig.getInstance().getCnx() ;
         

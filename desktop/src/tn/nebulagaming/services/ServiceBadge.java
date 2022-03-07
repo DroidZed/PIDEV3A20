@@ -17,7 +17,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceBadge implements IService<Badge> {
+public class ServiceBadge implements IServiceNewsfeed<Badge> {
     
     Connection cnx = GlobalConfig.getInstance().getCnx() ;
 

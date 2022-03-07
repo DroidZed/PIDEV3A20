@@ -21,7 +21,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServicePost implements IService<Post> {
+public class ServicePost implements IServiceNewsfeed<Post> {
  
     Connection cnx = GlobalConfig.getInstance().getCnx() ;
 

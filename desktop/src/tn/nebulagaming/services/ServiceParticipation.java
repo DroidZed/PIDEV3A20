@@ -18,7 +18,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceParticipation implements IService<Participation> {
+public class ServiceParticipation implements IServiceNewsfeed<Participation> {
 
     Connection cnx = GlobalConfig.getInstance().getCnx() ;
     

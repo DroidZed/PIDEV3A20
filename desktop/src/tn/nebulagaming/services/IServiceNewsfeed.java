@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author SuperNova
  */
-public interface IService<T> {
+public interface IServiceNewsfeed<T> {
    public void add (T t) ;
    public void delete (int id) ;
    public void update (T t) ; 

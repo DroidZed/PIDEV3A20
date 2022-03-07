@@ -21,7 +21,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceQuiz implements IService<Quiz>{
+public class ServiceQuiz implements IServiceNewsfeed<Quiz>{
 
     Connection cnx = GlobalConfig.getInstance().getCnx() ;
     

@@ -21,7 +21,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceEvent implements IService<Event> {
+public class ServiceEvent implements IServiceNewsfeed<Event> {
 
     Connection cnx = GlobalConfig.getInstance().getCnx() ;  
     

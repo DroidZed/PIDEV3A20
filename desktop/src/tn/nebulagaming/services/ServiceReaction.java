@@ -19,7 +19,7 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceReaction  implements IService<Reaction> {
+public class ServiceReaction  implements IServiceNewsfeed<Reaction> {
 
     Connection cnx = GlobalConfig.getInstance().getCnx() ;
     
