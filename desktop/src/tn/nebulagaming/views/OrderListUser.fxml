@@ -15,7 +15,7 @@
             <Font name="Arial Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tabStats" fixedCellSize="5.0" layoutX="46.0" layoutY="160.0" prefHeight="481.0" prefWidth="914.0">
+      <TableView fx:id="tabStats" layoutX="46.0" layoutY="160.0" prefHeight="481.0" prefWidth="914.0">
          <columns>
             <TableColumn fx:id="colSubAt" editable="false" prefWidth="145.0" text="Submitted At" />
             <TableColumn fx:id="colPaidAt" editable="false" prefWidth="150.0" text="Paid At" />
