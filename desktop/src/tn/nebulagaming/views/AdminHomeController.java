@@ -837,6 +837,7 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     private void traiterRec(ActionEvent event) throws IOException {
+        
         Reclamation r = new Reclamation();
         r.setMessage(tabRec.getSelectionModel().getSelectedItem().getMessage());
         r.setNameUser(tabRec.getSelectionModel().getSelectedItem().getNomUser());
@@ -845,7 +846,7 @@ public class AdminHomeController implements Initializable {
         ServiceReclamation se = new ServiceReclamation();
         r = se.loadDataModify(r);
         //System.out.println(r.getEmail());
-
+if(r.getStatusComplaint().equals("NON TRAITEE")){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("./AfficherReclamation.fxml"));
 
         Parent root = loader.load();
@@ -857,7 +858,7 @@ public class AdminHomeController implements Initializable {
 
         HomeScene.showData(r);
         Stage window = (Stage) traiterRec.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+        window.setScene(new Scene(root, 800, 800)); }
     }
 
 }

@@ -317,7 +317,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     public List<Reclamation> trierMultiThree() {
-        Comparator<Reclamation> compareByName = Comparator.comparing(Reclamation::getNomUser).thenComparing(Reclamation::getStatusComplaint).thenComparing(Reclamation::getTypeComplaint);
+        Comparator<Reclamation> compareByName = Comparator.comparing(Reclamation::getNomUser).thenComparing(Reclamation::getTypeComplaint).thenComparing(Reclamation::getStatusComplaint);
 
         List<Reclamation> sortedByNameAndTel = afficherAll().stream()
                 .sorted(compareByName)
