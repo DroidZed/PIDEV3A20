@@ -38,7 +38,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="989.0" layoutY="500.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="130.0" text="View as User">
+      <Button fx:id="btnViewAsUser" layoutX="989.0" layoutY="500.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="130.0" text="View as User">
          <font>
             <Font size="16.0" />
          </font>

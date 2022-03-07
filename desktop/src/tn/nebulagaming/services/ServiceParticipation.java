@@ -24,7 +24,15 @@ public class ServiceParticipation implements IService<Participation> {
     
     @Override
     public void add(Participation participation) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      try {
+        String query = "INSERT INTO tbl_participation (rank,result,idUser,idPost,idPayType) VALUES ('" +participation.getRank()+"','" +participation.getResult()+"','" +participation.getIdUser()+"','" +participation.getIdPost()+"','" +participation.getPayType()+"')"; 
+        Statement st = cnx.createStatement();
+        st.executeUpdate(query) ;
+        System.out.println("Participation done with success !");
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }  
     }
 
     @Override

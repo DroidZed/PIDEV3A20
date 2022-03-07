@@ -6,10 +6,15 @@ package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +33,7 @@ import tn.nebulagaming.models.Event;
 import tn.nebulagaming.models.Participation;
 import tn.nebulagaming.services.ServiceEvent;
 import tn.nebulagaming.services.ServiceParticipation;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -97,12 +103,62 @@ public class ManageParticipationController implements Initializable {
        idParticipationCol.setCellValueFactory(new PropertyValueFactory<>("idParticipation"));
        idParticipationCol.setVisible(false);
        
-       userIdCol.setCellValueFactory(new PropertyValueFactory<>("idUser"));
        bookedDateCol.setCellValueFactory(new PropertyValueFactory<>("bookedDTM"));
        payTypeCol.setCellValueFactory(new PropertyValueFactory<>("idPayType"));
        rankCol.setCellValueFactory(new PropertyValueFactory<>("rank"));
        resultCol.setCellValueFactory(new PropertyValueFactory<>("result"));
        
+       //get Pay Type as String 
+        payTypeCol.setCellValueFactory(data->{
+           Participation participation = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strPayType = "SELECT payType  FROM tbl_paytype where idPayType ="+participation.getPayType();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageParticipationController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strPayType);
+                if (rs.next()) {
+                    result = rs.getString("payType");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageParticipationController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        ); 
+        
+        
+       //get User Name jointure 
+        userIdCol.setCellValueFactory(data->{
+           Participation participation = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+participation.getIdUser();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strUserName);
+                if (rs.next()) {
+                    result = rs.getString("nameUser");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        ); 
+        
        ObservableList<Participation> listParticipants = FXCollections.observableArrayList(list) ;
        tvParticipation.setItems (listParticipants) ;
     }

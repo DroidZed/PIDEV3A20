@@ -6,10 +6,15 @@ package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +34,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import tn.nebulagaming.models.Event;
+import tn.nebulagaming.models.Post;
 import tn.nebulagaming.services.ServiceEvent;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -125,14 +132,51 @@ public class ManageEventController implements Initializable {
         titleEventCol.setCellValueFactory(new PropertyValueFactory<>("titlePost"));
         descEventCol.setCellValueFactory(new PropertyValueFactory<>("descPost"));
         postedDateEventCol.setCellValueFactory(new PropertyValueFactory<>("postedDTM"));
-        visibilityEventCol.setCellValueFactory(new PropertyValueFactory<>("statusPost"));
-        photoEventCol.setCellValueFactory(new PropertyValueFactory<>("photoPost")) ;
-        postedByEventCol.setCellValueFactory(new PropertyValueFactory<>("idOwnerUser")) ; 
+        //visibilityEventCol.setCellValueFactory(new PropertyValueFactory<>("statusPost"));
         startDateEventCol.setCellValueFactory(new PropertyValueFactory<>("startDTM")) ; 
         endDateEventCol.setCellValueFactory(new PropertyValueFactory<>("endDTM")) ; 
         addressEventCol.setCellValueFactory(new PropertyValueFactory<>("addressEvent")) ; 
         nbTicketEventCol.setCellValueFactory(new PropertyValueFactory<>("nbTicketAvailable")) ; 
-  
+        
+        //get User Name jointure 
+        postedByEventCol.setCellValueFactory(data->{
+           Event event = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+event.getIdOwnerUser();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strUserName);
+                if (rs.next()) {
+                    result = rs.getString("nameUser");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        ); 
+        
+        
+        //Set visibility as String 
+        visibilityEventCol.setCellValueFactory(data->{
+           Event event = data.getValue() ;
+           String visibility = "" ; 
+                   if (event.getStatusPost() == 1) {
+                       visibility = "Visible" ; 
+                   } else {
+                       visibility = "Not Visible" ;
+                   }
+                   return new ReadOnlyStringWrapper(visibility);
+                   });
+        
+        
         ObservableList<Event> listEvent = FXCollections.observableArrayList(se.display()) ;
         tvEvent.setItems(listEvent) ;
     }

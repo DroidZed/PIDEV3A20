@@ -10,6 +10,7 @@ import com.teamdev.jxmaps.MapOptions;
 import com.teamdev.jxmaps.MapReadyHandler;
 import com.teamdev.jxmaps.MapStatus;
 import com.teamdev.jxmaps.MapTypeControlOptions;
+import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.swing.MapView;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -40,6 +41,8 @@ public  MapHandler (String nName){
                 map.setCenter(new LatLng (llat,llong));
                 map.setZoom(11.0);
                 
+                Marker mark = new Marker(map);
+                mark.setPosition(map.getCenter());
                 
             }
         }

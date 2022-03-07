@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -166,6 +167,20 @@ public class AddEventController implements Initializable {
                 Alert alert2 = new Alert(Alert.AlertType.WARNING);
                 alert2.setTitle("Failed !");
                 alert2.setContentText("Number of tickets should be a number , try entering one !");
+                alert2.setHeaderText(null);
+                alert2.show();
+                return false;
+        }else if (tfStartDateEvent.getValue().isAfter(tfEndDateEvent.getValue())) {
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("Failed !");
+                alert2.setContentText("Start Date must be inferior to End Date !");
+                alert2.setHeaderText(null);
+                alert2.show();
+                return false;
+        }else if (tfStartDateEvent.getValue().isBefore(LocalDate.now())) {
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("Failed !");
+                alert2.setContentText("Start Date must be equal or superior to current date !");
                 alert2.setHeaderText(null);
                 alert2.show();
                 return false;

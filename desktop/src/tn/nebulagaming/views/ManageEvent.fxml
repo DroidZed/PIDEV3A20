@@ -27,7 +27,6 @@
             <TableColumn fx:id="postedByEventCol" prefWidth="98.0" text="Posted By" />
             <TableColumn fx:id="visibilityEventCol" prefWidth="59.0" text="Visibility" />
             <TableColumn fx:id="idEventCol" minWidth="7.0" prefWidth="7.0" text="idPost" />
-            <TableColumn fx:id="photoEventCol" prefWidth="156.0" text="Photo Link" />
             <TableColumn fx:id="latCol" prefWidth="156.0" text="Lat" />
             <TableColumn fx:id="longCol" prefWidth="156.0" text="long" />
          </columns>

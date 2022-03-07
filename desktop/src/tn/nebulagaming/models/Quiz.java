@@ -13,13 +13,18 @@ import java.sql.Date;
 
 public class Quiz extends Post{
     
-    private int idCorrectAnswer ;
+    private String correctAnswer ;
     
-     public Quiz (Date postedDTM ,String titlePost , String descPost , int statusPost, String photoPost , String typePost,Date startDTM,Date endDTM, int idOwnerUser, int idCorrectAnswer) {
-        super(postedDTM ,titlePost ,descPost ,statusPost, photoPost , typePost, startDTM, endDTM, idOwnerUser); 
-        this.idCorrectAnswer = idCorrectAnswer ;
+    //Add Quiz
+     public Quiz (String titlePost , String descPost , int statusPost , String typePost,Date startDTM,Date endDTM, int idOwnerUser) {
+        super(titlePost ,descPost ,statusPost,typePost, startDTM, endDTM, idOwnerUser);  
     }
      
-    public int getIdCorrectAnswer () {return this.idCorrectAnswer ;}
-    public void setIdCorrectAnswer (int idCorrectAnswer) {this.idCorrectAnswer = idCorrectAnswer;}  
+      public Quiz (int idPost , Date postedDTM ,String titlePost , String descPost , int statusPost,Date startDTM,Date endDTM, int idOwnerUser, String correctAnswer) {
+        super(idPost ,postedDTM ,titlePost ,descPost ,statusPost, startDTM, endDTM, idOwnerUser); 
+        this.correctAnswer = correctAnswer ;
+    }
+     
+    public String getCorrectAnswer () {return this.correctAnswer ;}
+    public void setCorrectAnswer (String correctAnswer) {this.correctAnswer = correctAnswer;}  
 }

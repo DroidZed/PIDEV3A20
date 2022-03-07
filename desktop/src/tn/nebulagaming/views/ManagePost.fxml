@@ -21,10 +21,12 @@
             <TableColumn fx:id="descPostCol" prefWidth="228.33331298828125" text="Description" />
             <TableColumn fx:id="postedAtPostCol" minWidth="0.0" prefWidth="117.66668701171875" text="posted At" />
             <TableColumn fx:id="postedByPostCol" prefWidth="139.6666259765625" text="posted By" />
-            <TableColumn fx:id="photoPostCol" prefWidth="77.0" text="Photo link" />
             <TableColumn fx:id="visibilityPostCol" prefWidth="127.66668701171875" text="Visibility" />
             <TableColumn fx:id="idPostCol" prefWidth="111.0" text="idPost" />
          </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button fx:id="btnAddPost" layoutX="224.0" layoutY="130.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="104.0" text="Add new Post" />
    </children>

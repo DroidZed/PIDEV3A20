@@ -6,10 +6,15 @@ package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +35,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import tn.nebulagaming.models.Post;
 import tn.nebulagaming.services.ServicePost;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -102,9 +108,48 @@ private void displayPosts () {
         titlePostCol.setCellValueFactory(new PropertyValueFactory<>("titlePost"));
         descPostCol.setCellValueFactory(new PropertyValueFactory<>("descPost"));
         postedAtPostCol.setCellValueFactory(new PropertyValueFactory<>("postedDTM"));
-        visibilityPostCol.setCellValueFactory(new PropertyValueFactory<>("statusPost"));
-        photoPostCol.setCellValueFactory(new PropertyValueFactory<>("photoPost")) ;
-        postedByPostCol.setCellValueFactory(new PropertyValueFactory<>("idOwnerUser")) ; 
+        //visibilityPostCol.setCellValueFactory(new PropertyValueFactory<>("statusPost"));
+        
+        
+        
+        postedByPostCol.setCellValueFactory(new PropertyValueFactory<>("idOwnerUser")) ;
+        
+        visibilityPostCol.setCellValueFactory(data->{
+           Post post = data.getValue() ;
+           String visibility = "" ; 
+                   if (post.getStatusPost() == 1) {
+                       visibility = "Visible" ; 
+                   } else {
+                       visibility = "Not Visible" ;
+                   }
+                   return new ReadOnlyStringWrapper(visibility);
+                   });
+        
+        //get User Name jointure 
+        postedByPostCol.setCellValueFactory(data->{
+           Post post = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+post.getIdOwnerUser();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strUserName);
+                if (rs.next()) {
+                    result = rs.getString("nameUser");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        );
+        
         
         
         ObservableList<Post> listPost = FXCollections.observableArrayList(sp.display()) ;

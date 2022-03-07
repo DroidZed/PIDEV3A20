@@ -31,6 +31,8 @@ public class MainBackOfficeController implements Initializable {
     private Button btnManageGamification;
     @FXML
     private Button btnManageBadges;
+    @FXML
+    private Button btnViewAsUser;
 
     /**
      * Initializes the controller class.
@@ -45,7 +47,7 @@ public class MainBackOfficeController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainBackOfficeController.class.getName()).log(Level.SEVERE, null, ex);
             }    
         });
         
@@ -57,7 +59,7 @@ public class MainBackOfficeController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainBackOfficeController.class.getName()).log(Level.SEVERE, null, ex);
             }    
         });
         
@@ -69,9 +71,23 @@ public class MainBackOfficeController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-                Logger.getLogger(ManageContentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainBackOfficeController.class.getName()).log(Level.SEVERE, null, ex);
             }    
         });
+        
+        btnViewAsUser.setOnAction(event -> {
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("NewsFeed.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(MainBackOfficeController.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        });
+        
+        
     }    
     
 }

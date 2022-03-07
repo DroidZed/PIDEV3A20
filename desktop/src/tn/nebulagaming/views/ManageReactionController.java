@@ -6,10 +6,15 @@ package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +33,7 @@ import tn.nebulagaming.models.Comment;
 import tn.nebulagaming.models.Reaction;
 import tn.nebulagaming.services.ServiceEvent;
 import tn.nebulagaming.services.ServiceReaction;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -88,8 +94,56 @@ public class ManageReactionController implements Initializable {
         
        List<Reaction> list=  sr.displayReactionByEvent(idEvent) ;
        
-       userNameCol.setCellValueFactory(new PropertyValueFactory<>("idUser"));
-       typeReactionCol.setCellValueFactory(new PropertyValueFactory<>("idTypeReact"));
+       //get User Name jointure 
+       userNameCol.setCellValueFactory(data->{
+           Reaction reaction = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+reaction.getIdUser();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strUserName);
+                if (rs.next()) {
+                    result = rs.getString("nameUser");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        );
+       
+        //get Reaction name jointure
+       typeReactionCol.setCellValueFactory(data->{
+           Reaction reaction = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strReactName = "SELECT typeReact FROM tbl_typereact where idTypeReact ="+reaction.getIdTypeReact();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strReactName);
+                if (rs.next()) {
+                    result = rs.getString("typeReact");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        );
+       
        reactedAtCol.setCellValueFactory(new PropertyValueFactory<>("reactedDTM"));
        
        ObservableList<Reaction> listReactions = FXCollections.observableArrayList(list) ;

@@ -6,10 +6,15 @@ package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,8 +31,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import tn.nebulagaming.models.Comment;
 import tn.nebulagaming.models.Participation;
+import tn.nebulagaming.models.Post;
 import tn.nebulagaming.services.ServiceComment;
 import tn.nebulagaming.services.ServiceEvent;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -85,7 +92,32 @@ public class ManageCommentController implements Initializable {
         
        List<Comment> list=  sc.displayCommentByEvent(idEvent) ;
        
-       userNameCol.setCellValueFactory(new PropertyValueFactory<>("idPost"));
+       //get User Name jointure (to be verified)
+        userNameCol.setCellValueFactory(data->{
+           Comment comment = data.getValue();
+           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+comment.getIdUser();
+           Statement st = null ;
+           String result = "" ;
+            try {
+                st = cnx.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           ResultSet rs ;
+            try {
+                rs = st.executeQuery(strUserName);
+                if (rs.next()) {
+                    result = rs.getString("nameUser");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+           return new ReadOnlyStringWrapper(result);
+        }
+        );
+        
+        
        commentCol.setCellValueFactory(new PropertyValueFactory<>("comment"));
        postedAtCol.setCellValueFactory(new PropertyValueFactory<>("postedDTM"));
        

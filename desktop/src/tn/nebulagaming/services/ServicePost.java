@@ -27,8 +27,9 @@ public class ServicePost implements IService<Post> {
 
     @Override
     public void add(Post post) {
+              
         try {
-        String query = "INSERT INTO tbl_post (postedDTM , titlePost,descPost,statusPost,typePost,photoPost,idUser) VALUES ('" +post.getPostedDTM()+"','" +post.getTitlePost()+"','"+post.getDescPost()+"','"+post.getStatusPost()+"','"+post.getTypePost()+"','"+post.getPhotoPost()+"','"+post.getIdOwnerUser()+"')"; 
+        String query = "INSERT INTO tbl_post (titlePost,descPost,statusPost,typePost,photoPost,idUser) VALUES ('" +post.getTitlePost()+"','"+post.getDescPost()+"','"+post.getStatusPost()+"','"+post.getTypePost()+"','"+post.getPhotoPost()+"','"+post.getIdOwnerUser()+"')"; 
         Statement st = cnx.createStatement();
         st.executeUpdate(query) ;
         System.out.println("Post added with success !");
@@ -70,6 +71,8 @@ public class ServicePost implements IService<Post> {
     }
     
     }
+    
+    
 
     @Override
     public List<Post> display() {
@@ -97,21 +100,19 @@ public class ServicePost implements IService<Post> {
        return listPost ; 
     }
     
-    public void search (List<Post> postList ,String keyWord) {
+    public List<Post> search (List<Post> postList ,String keyWord) {
 
+        
         List<Post> searchResult = postList.stream().filter(e -> e.getTitlePost().contains(keyWord) == true).collect(Collectors.toList());
         if ( !searchResult.isEmpty()) {
-            for (Post post : searchResult) {
-                System.err.println(post);
-            }
+            return searchResult ;
         }
         else {
-                System.err.println("Aucun résultat pour le mot clé "+keyWord);
+            return null ;
         }
-    
     }
     
-    public void filterByStatusPost (List<Post> postList ,int statusPost) {
+   /* public void filterByStatusPost (List<Post> postList ,int statusPost) {
 
         List<Post> searchResult = postList.stream().filter(e -> e.getStatusPost() == statusPost).collect(Collectors.toList());
         if ( !searchResult.isEmpty()) {
@@ -122,6 +123,6 @@ public class ServicePost implements IService<Post> {
         else {
                 System.err.println("Aucune poste avec le statut "+statusPost);
         }   
-    }
+    }*/
     
 }

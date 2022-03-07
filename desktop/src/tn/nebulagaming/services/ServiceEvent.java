@@ -28,7 +28,7 @@ public class ServiceEvent implements IService<Event> {
     @Override
     public void add(Event event) {
       try {
-        String query = "INSERT INTO tbl_post (postedDTM,titlePost,descPost,statusPost,typePost,startDTM,endDTM,idUser,addressEvent,nbTicketAvailable,latitude,longitude,photoPost) VALUES ('" +event.getPostedDTM()+"' , '" +event.getTitlePost()+"','"+event.getDescPost()+"','"+event.getStatusPost()+"','"+event.getTypePost()+"','"+event.getStartDTM()+"','"+event.getEndDTM()+"','"+event.getIdOwnerUser()+"','"+event.getAddressEvent()+"','"+event.getNbTicketAvailable()+"','"+event.getLatitude()+"','"+event.getLongitude()+"','"+event.getPhotoPost()+"')"; 
+        String query = "INSERT INTO tbl_post (titlePost,descPost,statusPost,typePost,startDTM,endDTM,idUser,addressEvent,nbTicketAvailable,latitude,longitude,photoPost) VALUES ('" +event.getTitlePost()+"','"+event.getDescPost()+"','"+event.getStatusPost()+"','"+event.getTypePost()+"','"+event.getStartDTM()+"','"+event.getEndDTM()+"','"+event.getIdOwnerUser()+"','"+event.getAddressEvent()+"','"+event.getNbTicketAvailable()+"','"+event.getLatitude()+"','"+event.getLongitude()+"','"+event.getPhotoPost()+"')"; 
         Statement st = cnx.createStatement();
         st.executeUpdate(query) ;
         System.out.println("Event added with success !");

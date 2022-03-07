@@ -23,6 +23,11 @@
                 <fx:include fx:id="tabEvent" source="ManageEvent.fxml"/>
             </content>
           </Tab>
+          <Tab fx:id="tabQuizs" text="Manage Quiz">
+            <content>
+                <fx:include fx:id="tabQuiz" source="ManageQuiz.fxml"/>
+            </content>
+          </Tab>
         </tabs>
       </TabPane>
    </children>

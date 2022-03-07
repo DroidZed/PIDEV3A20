@@ -96,6 +96,38 @@ public class Post {
       this.photoPost = photoPost ;
     }
     
+     public Post (String titlePost ,String descPost ,int statusPost,String typePost, Date startDTM, Date endDTM, int idOwnerUser) {
+         this.titlePost = titlePost ;
+         this.descPost =descPost ;
+         this.statusPost = statusPost ;
+         this.typePost = typePost ;
+         this.startDTM = startDTM ;
+         this.endDTM = endDTM ;
+         this.idOwnerUser = idOwnerUser ;
+     }
+            
+    public Post (int idPost ,Date postedDTM ,String titlePost ,String descPost ,int statusPost,Date startDTM,Date endDTM,int idOwnerUser)  {
+      this.idPost = idPost ;
+      this.postedDTM = postedDTM ;
+      this.titlePost = titlePost ;
+      this.descPost = descPost ;
+      this.statusPost = statusPost ;
+      this.startDTM = startDTM ;
+      this.endDTM = endDTM ;
+      this.idOwnerUser = idOwnerUser ;
+    }
+    
+    public Post (Date postedDTM ,String titlePost ,String descPost ,int statusPost,String typePost ,Date startDTM,Date endDTM,int idOwnerUser)  {
+      this.postedDTM = postedDTM ;
+      this.titlePost = titlePost ;
+      this.descPost = descPost ;
+      this.statusPost = statusPost ;
+      this.startDTM = startDTM ;
+      this.typePost = typePost ; 
+      this.endDTM = endDTM ;
+      this.idOwnerUser = idOwnerUser ;
+    }
+    
     public Post (Date postedDTM, String titlePost, String descPost, int statusPost,String photoPost, int idUser) {
       this.postedDTM = postedDTM ;
       this.titlePost = titlePost ;

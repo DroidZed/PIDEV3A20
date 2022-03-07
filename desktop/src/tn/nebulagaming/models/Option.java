@@ -28,8 +28,7 @@ public class Option {
     @Getter @Setter String contentOption ; 
     @Getter @Setter int idPost ; 
     
-    public Option (Date createdDTM , int statusOption , String contentOption , int idPost) {
-        this.createdDTM = createdDTM ;
+    public Option (int statusOption , String contentOption , int idPost) {
         this.statusOption = statusOption ;
         this.contentOption = contentOption ;
         this.idPost = idPost ;

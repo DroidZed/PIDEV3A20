@@ -17,23 +17,27 @@ import lombok.ToString;
  * @author SuperNova
  */
 
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class Answer {
     
-    @Getter private int idAnswer ;
-    @Getter @Setter private int idPost ; 
-    @Getter @Setter private int idUser ;
-    @Getter @Setter private Date answeredDTM ; 
-    @Getter @Setter private int idOptionAnswer ; 
+    private int idAnswer ;
+    private int idPost ; 
+    private int idUser ;
+    private Date answeredDTM ; 
+    private String answer ; 
     
-      public Answer (Date answeredDTM ,int idOptionAnswer , int idPost , int idUser ) {
+      public Answer (Date answeredDTM ,String answer , int idPost , int idUser ) {
         this.answeredDTM = answeredDTM ;
-        this.idOptionAnswer = idOptionAnswer ;
+        this.answer = answer ;
         this.idPost = idPost ;
         this.idUser = idUser ;
     }
+      
+      
+      
+      public int getIdUser () { return this.idUser ;}
+      public int getIdPost () { return this.idPost ;}
+      public String getAnswer () { return this.answer ;}
+      public Date getAnsweredDTM () { return this.answeredDTM ;}
+
     
 }
