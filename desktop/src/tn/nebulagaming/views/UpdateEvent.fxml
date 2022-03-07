@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.UpdateEventController">
+   <children>
+      <ImageView fitHeight="770.0" fitWidth="1370.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/event.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="117.0" layoutY="194.0" prefHeight="45.0" prefWidth="240.0" text="Update Event" textFill="WHITE">
+         <font>
+            <Font name="Oswald Light" size="30.0" />
+         </font>
+      </Label>
+      <VBox layoutX="120.0" layoutY="276.0" prefHeight="73.0" prefWidth="206.0" spacing="15.0">
+         <children>
+            <Label text="Title" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="10.0" text="Description" textFill="WHITE" />
+         </children>
+      </VBox>
+      <VBox layoutX="120.0" layoutY="377.0" prefHeight="157.0" prefWidth="206.0" spacing="15.0">
+         <children>
+            <Label layoutX="10.0" layoutY="27.0" text="Visibility" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="44.0" text="Cover photo" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="43.0" text="Start Date" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="76.0" text="End Date" textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="109.0" text="Address Event" textFill="WHITE" />
+            <Label text="Latitude / Lagitude" textFill="WHITE" />
+         </children>
+      </VBox>
+      <VBox layoutX="301.0" layoutY="270.0" prefHeight="314.0" prefWidth="228.0" spacing="6.0">
+         <children>
+            <TextField fx:id="tfTitleEvent" />
+            <TextField fx:id="tfDescEvent" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="228.0" />
+            <ComboBox fx:id="cbVisibilityEvent" prefHeight="25.0" prefWidth="230.0" />
+            <Button mnemonicParsing="false" onAction="#photoUpload" prefHeight="25.0" prefWidth="229.0" text="Upload Cover Photo" />
+            <DatePicker fx:id="tfStartDateEvent" prefHeight="25.0" prefWidth="232.0" />
+            <DatePicker fx:id="tfEndDateEvent" prefHeight="25.0" prefWidth="234.0" />
+            <TextField fx:id="tfAddressEvent" />
+            <HBox prefHeight="27.0" prefWidth="233.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="tfLat" prefHeight="25.0" prefWidth="84.0" />
+                  <TextField fx:id="tfLong" prefHeight="25.0" prefWidth="85.0" />
+                  <Button mnemonicParsing="false" onAction="#map" prefHeight="25.0" prefWidth="48.0" text="Map" />
+               </children>
+            </HBox>
+            <TextField fx:id="tfNbTickets" />
+         </children>
+      </VBox>
+      <HBox layoutX="399.0" layoutY="591.0" prefHeight="40.0" prefWidth="130.0" spacing="15.0">
+         <children>
+            <Button fx:id="btnUpdateEvent" mnemonicParsing="false" onAction="#updateEvent" text="Submit" />
+            <Button fx:id="btnGoBack" mnemonicParsing="false" text="Go Back" />
+         </children>
+      </HBox>
+      <Label layoutX="120.0" layoutY="566.0" text="Number of Tickets" textFill="WHITE" />
+      <Hyperlink layoutX="539.0" layoutY="531.0" onAction="#openGetLatLong" text="Get Latitude and Longitude" />
+      <Hyperlink layoutX="540.0" layoutY="499.0" onAction="#openLinkGoogleMaps" text="Google Maps" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0116288f" height="196.0" layoutX="558.0" layoutY="270.0" stroke="BLACK" strokeType="INSIDE" width="252.0" />
+      <ImageView fx:id="coverPhotoPost" fitHeight="158.0" fitWidth="206.0" layoutX="581.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

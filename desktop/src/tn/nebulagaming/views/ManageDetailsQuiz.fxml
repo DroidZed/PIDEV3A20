@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="760.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.ManageDetailsQuizController">
+   <children>
+      <TabPane prefHeight="768.0" prefWidth="1371.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab fx:id="tabOptions" text="Manage Options"> 
+                 <content>
+                   <fx:include fx:id="tabOption" source="ManageOptions.fxml" />
+               </content>
+            </Tab>
+            <Tab fx:id="tabAnswers" text="Manage Answers"> 
+               <content>
+                   <fx:include fx:id="tabAnswer" source="ManageAnswers.fxml"/>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
