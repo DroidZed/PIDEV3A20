@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AfficherPubController">
+   <children>
+      <TextField fx:id="descriptiontf" alignment="TOP_LEFT" layoutX="600.0" layoutY="153.0" prefHeight="104.0" prefWidth="237.0" />
+      <ComboBox fx:id="ComboJV" layoutX="799.0" layoutY="78.0" prefWidth="150.0" />
+      <Label layoutX="719.0" layoutY="83.0" text="Jeu Video :" />
+      <Label layoutX="435.0" layoutY="153.0" text="Ecrivez votre publication:" />
+      <Button fx:id="btnajouterP" layoutX="685.0" layoutY="269.0" mnemonicParsing="false" onAction="#Ajouter" text="Publier" />
+      <Button fx:id="btnLIKE" layoutX="1256.0" layoutY="542.0" mnemonicParsing="false" onAction="#JaimePub" prefHeight="31.0" prefWidth="78.0" text="J'aime" />
+      <TableView fx:id="tablePublication" layoutX="383.0" layoutY="438.0" onKeyPressed="#PressedGetDesc" onMouseClicked="#AffCommentaires" prefHeight="271.0" prefWidth="1133.0">
+        <columns>
+          <TableColumn fx:id="idP" prefWidth="75.0" text="ID" visible="false" />
+            <TableColumn fx:id="like" prefWidth="168.0" text="J'aimes" visible="false" />
+            <TableColumn fx:id="Date" prefWidth="156.0" text="Date" />
+          <TableColumn fx:id="Descriptiont" prefWidth="925.0" text="Description" />
+        </columns>
+      </TableView>
+      <TableView fx:id="TableCommentaire" layoutX="383.0" layoutY="708.0" prefHeight="238.0" prefWidth="1133.0">
+        <columns>
+          <TableColumn fx:id="DateCom" prefWidth="171.0" text="Date du commentaire" />
+          <TableColumn fx:id="DescriptionC" onEditCommit="#ChangeCom" prefWidth="465.0" text="Commentaire" />
+            <TableColumn fx:id="IDcom" prefWidth="625.0" text="ID" visible="false" />
+        </columns>
+      </TableView>
+      <TextField fx:id="descriptiontfC" alignment="TOP_LEFT" layoutX="1073.0" layoutY="153.0" prefHeight="104.0" prefWidth="237.0" />
+      <Label layoutX="894.0" layoutY="153.0" text="Ecrivez votre commentaire:" />
+      <Button fx:id="btncommenter" layoutX="1142.0" layoutY="269.0" mnemonicParsing="false" onAction="#AjouterCom" text="Commenter" />
+      <Line endX="4.0" endY="141.0" layoutX="870.0" layoutY="134.0" opacity="0.53" startX="4.0" />
+      <Button fx:id="ModifPub" layoutX="761.0" layoutY="269.0" mnemonicParsing="false" onAction="#ModifierPub" text="Modifier" />
+      <Label layoutX="619.0" layoutY="402.0" text="Rechercher:" />
+      <TextField fx:id="recherchePub" layoutX="697.0" layoutY="397.0" />
+      <Button fx:id="supprimerPub" layoutX="1540.0" layoutY="525.0" mnemonicParsing="false" onAction="#supprimerPub" text="Supprimer" />
+   </children>
+</AnchorPane>

@@ -4,6 +4,17 @@
  */
 package tn.nebulagaming;
 
+import java.util.Calendar;
+import java.util.List;
+import tn.nebulagaming.models.Badge;
+import tn.nebulagaming.models.Participation;
+import tn.nebulagaming.models.Post;
+import tn.nebulagaming.services.ServiceBadge;
+import tn.nebulagaming.services.ServiceEvent;
+import tn.nebulagaming.services.ServiceParticipation;
+import tn.nebulagaming.services.ServicePost;
+
+
 /**
  *
  * @author Aymen Dhahri
@@ -12,7 +23,29 @@ public class NebulaGamingMain {
 
     public static void main(String args[]) {
 	
-	// TODO: make this a GUI main function.
+        ServiceBadge sb = new ServiceBadge () ; 
+	//Badge b = new Badge (9,"new Badge","new Badge desc","photoBadgeUpdated") ;
+        //sb.add(b) ;
+        //sb.update(b);
+        //sb.delete(b);
+        
+        ServicePost sp = new ServicePost () ; 
+        //Post p = new Post (9,"test title","test desc",0,"Post","test photoUpdated",1) ;
+        //sp.add (p) ;
+        //sp.update(p);
+        //sp.delete(p);
+        
+        
+        java.sql.Date postedDTM = new java.sql.Date (Calendar.getInstance().getTime().getTime());
+        System.out.println (postedDTM) ;
+        
+        ServiceParticipation spar = new ServiceParticipation () ;
+        
+        List<Participation> listpar =spar.displayParticipationByEvent(14);
+        for (Participation element : listpar) {
+            System.out.println(element);
+        }
+        
     }
     
 }

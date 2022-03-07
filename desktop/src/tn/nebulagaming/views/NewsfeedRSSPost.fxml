@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="444.0" prefWidth="395.0" style="-fx-background-color: #000E21;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.NewsfeedRSSPostController">
+   <children>
+      <HBox layoutX="17.0" layoutY="14.0" prefHeight="54.0" prefWidth="199.0">
+         <children>
+            <ImageView fx:id="ivUserPhoto" fitHeight="35.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/219986.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbAuthor" text="User Name" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="5.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <VBox layoutX="14.0" layoutY="94.0" prefHeight="35.0" prefWidth="376.0">
+         <children>
+            <Label fx:id="lbTitlePost" text="Title of the Post" textFill="#277aa1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label fx:id="lbPostedOn" layoutX="17.0" layoutY="141.0" text="Posted on : " textFill="WHITE" underline="true">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Hyperlink fx:id="linkWebSite" layoutX="296.0" layoutY="23.0" text="Visit website" />
+      <Label fx:id="lbPostedOn" layoutX="117.0" layoutY="142.0" text="label" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label fx:id="lbDescPost" layoutX="24.0" layoutY="181.0" prefHeight="224.0" prefWidth="334.0" text="Label" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

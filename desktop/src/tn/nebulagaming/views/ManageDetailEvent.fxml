@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.ManageDetailEventController">
+   <children>
+      <TabPane prefHeight="770.0" prefWidth="1366.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Manage Event Participations">
+            <content>
+               <fx:include fx:id="tabParticipation" source="ManageParticipation.fxml" />
+            </content>  
+          </Tab>
+          <Tab text="Manage Comments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <fx:include fx:id="tabComment" source="ManageComment.fxml" />
+            </content>
+          </Tab>
+            <Tab text="Manage Reactions">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                   <fx:include fx:id="tabReaction" source="ManageReaction.fxml" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
