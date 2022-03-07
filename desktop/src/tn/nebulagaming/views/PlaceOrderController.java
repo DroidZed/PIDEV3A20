@@ -13,8 +13,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,8 +23,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import tn.nebulagaming.models.FidelityCard;
 import tn.nebulagaming.models.UserOrder;
 import tn.nebulagaming.models.UserOrderCombined;
+import tn.nebulagaming.services.FidelityCardService;
 import tn.nebulagaming.services.UserOrderService;
 import tn.nebulagaming.utils.JavaMail;
 
@@ -108,10 +108,35 @@ public class PlaceOrderController implements Initializable {
 		    break;
 	    }
 
+	    FidelityCardService fdS = new FidelityCardService();
+
+	    FidelityCard ofUser = fdS.getOfUser(1);
+
+	    if (ofUser.getIdCardType() != 3) {
+
+		fdS.addPoints(1, getRandomNumber(1, 10));
+
+		if (ofUser.getNbPointsFid() > 100) {
+
+		    ofUser.setIdCardType(2);
+
+		    fdS.upgradeCardType(ofUser);
+
+		} else if (ofUser.getNbPointsFid() > 200) {
+
+		    ofUser.setIdCardType(3);
+
+		    fdS.upgradeCardType(ofUser);
+		}
+	    }
+
 	} catch (IOException ex) {
 	    System.out.println(ex.getMessage());
 	}
+    }
 
+    private int getRandomNumber(int min, int max) {
+	return (int) ((Math.random() * (max - min)) + min);
     }
 
     private void handleDeliveryPayment(UserOrder oneValue) {

@@ -15,15 +15,14 @@ import tn.nebulagaming.models.FidelityCard;
  *
  * @author Aymen Dhahri
  */
-public class FidelityCardService extends ServiceMotherClass implements IService<FidelityCard> {
+public class FidelityCardService extends ServiceMotherClass {
 
     public FidelityCardService() {
 
 	TABLE_NAME = "tbl_fidcard";
     }
 
-    @Override
-    public List<FidelityCard> getAll() {
+    private List<FidelityCard> getAll() {
 
 	String sql = "SELECT * FROM " + TABLE_NAME;
 
@@ -49,47 +48,21 @@ public class FidelityCardService extends ServiceMotherClass implements IService<
 	return fidCards;
     }
 
-    @Override
-    public void update(FidelityCard t, int id) {
-
-	String sql = "UPDATE " + TABLE_NAME +
-	 " SET nbPointsFid = ?, idCardType = ? Where idFidelityCard = ? and idUser = ?";
-	
-	try {
-	    PreparedStatement stm = conn.prepareStatement(sql);
-
-	    stm.setInt(1, t.getNbPointsFid());
-	    stm.setInt(2, t.getIdCardType());
-	    stm.setInt(3, t.getIdFidelityCard());
-	    stm.setInt(4, t.getIdUser());
-
-	    if (stm.executeUpdate() == 1)
-		System.out.println("Operation success !!");
-	   
-	} catch (SQLException e) {
-	    System.out.println(e.getMessage());
-	}
-
-    }
-
-    @Override
     public void create(FidelityCard t) {
 
-	String sql = "INSERT INTO" + TABLE_NAME 
-	+ "(nbPointsFid, createdDTM, idCardType, idUser) VALUES (?, ?, ?, ?)";
+	String sql = "INSERT INTO" + TABLE_NAME
+		+ "(nbPointsFid, createdDTM, idCardType, idUser) VALUES (?, ?, ?, ?)";
 
 	try {
 	    PreparedStatement stm = conn.prepareStatement(sql);
 
 	    stm.setInt(1, t.getIdUser());
-
-	     // TODO: ask this: t.getCreatedDTM()
 	    stm.setDate(2, Date.valueOf(LocalDate.now()));
 	    stm.setInt(3, t.getIdCardType());
 	    stm.setInt(4, t.getIdUser());
 
 	    stm.executeUpdate();
-	   
+
 	} catch (SQLException e) {
 	    System.out.println(e.getMessage());
 	}
@@ -99,8 +72,74 @@ public class FidelityCardService extends ServiceMotherClass implements IService<
     public FidelityCard getOfUser(int idUser) {
 
 	return this.getAll().stream()
-	    .filter(f -> f.getIdUser() == idUser)
-	    .collect(Collectors.toList())
-	    .get(0);
+		.filter(f -> f.getIdUser() == idUser)
+		.collect(Collectors.toList())
+		.get(0);
+    }
+
+    public void upgradeCardType(FidelityCard fd) {
+
+	String sql = "UPDATE " + TABLE_NAME + " set idCardType = ? Where idFidelityCard = ?";
+
+	try {
+	    PreparedStatement stm = conn.prepareStatement(sql);
+
+	    stm.setInt(1, fd.getIdCardType());
+	    stm.setInt(2, fd.getIdFidelityCard());
+
+	    if (stm.executeUpdate() == 1) {
+		System.out.println("Operation success !!");
+	    }
+
+	} catch (SQLException e) {
+	    System.out.println(e.getMessage());
+	}
+    }
+
+    public String getCardTypeById(int idCardType) {
+
+	String cardType = "";
+
+	try {
+	    String sql = "SELECT cardType FROM tbl_cardtype where idCardType = ?";
+
+	    PreparedStatement stm = conn.prepareStatement(sql);
+
+	    stm.setInt(1, idCardType);
+
+	    ResultSet res = stm.executeQuery();
+
+	    if (res.next()) {
+
+		cardType = res.getString(1);
+	    }
+	} catch (SQLException e) {
+	    System.out.println(e.getMessage());
+	}
+
+	return cardType;
+    }
+
+    public void addPoints(int idUser, int nbPoints) {
+
+	try {
+
+	    FidelityCard fd = this.getOfUser(idUser);
+
+	    String sql = "UPDATE " + TABLE_NAME + " set nbPointsFid = ? Where idFidelityCard = ?";
+
+	    PreparedStatement stm = conn.prepareStatement(sql);
+
+	    stm.setInt(1, fd.getNbPointsFid());
+	    stm.setInt(2, fd.getIdCardType());
+	    stm.setInt(3, fd.getIdFidelityCard());
+
+	    if (stm.executeUpdate() == 1) {
+		System.out.println("Operation success !!");
+	    }
+
+	} catch (SQLException e) {
+	    System.out.println(e.getMessage());
+	}
     }
 }
