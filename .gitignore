@@ -2,4 +2,8 @@
 /mobile/build/
 /desktop/nbproject/private/
 /desktop/src/tn/nebulagaming/ProductGui.java
-/desktop/build/
+/mailerTest/nbproject/private/
+/desktop/src/tn/nebulagaming/VenteGUI.java
+/desktop/dist/
+/desktop/src/tn/nebulagaming/views/MainScreen.fxml
+/desktop/src/tn/nebulagaming/views/MainScreenController.java
