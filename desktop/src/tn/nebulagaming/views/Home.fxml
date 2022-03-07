@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.AppBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="641.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.HomeController">
+   <children>
+      <AppBar layoutX="-1.0" minHeight="62.0" prefHeight="70.0" prefWidth="1080.0" progressBarVisible="true" spacing="15.0" style="-fx-background-color: #6b087f; -fx-min-height: 70;" titleText="" />
+      <ImageView fitHeight="70.0" fitWidth="97.0">
+         <image>
+            <Image url="@../res/nebula_firstshot.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="126.0" layoutY="26.0" text="Nebula Gaming" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="494.0" layoutY="17.0" text="HOME" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="133.0" layoutY="381.0" text="Choisir une Categorie" textFill="#6b087f">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="207.0" fitWidth="272.0" layoutX="102.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../res/Buyer.jpg" />
+         </image></ImageView>
+      <Button fx:id="GestP" layoutX="727.0" layoutY="409.0" mnemonicParsing="false" onAction="#GestP" prefHeight="56.0" prefWidth="227.0" style="-fx-background-color: #6b087f; -fx-background-radius: 30;" text="Gerer vos produits" textFill="WHITE" />
+      <Button fx:id="GestCat" layoutX="426.0" layoutY="509.0" mnemonicParsing="false" onAction="#GestCat" prefHeight="56.0" prefWidth="227.0" style="-fx-background-color: #6b087f; -fx-background-radius: 30;" text="Gestion Categories" textFill="WHITE" />
+      <ImageView fitHeight="233.0" fitWidth="208.0" layoutX="775.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../res/Seller.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="154.0" layoutY="107.0" text="Acheter Un Produit" textFill="#6b087f">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="727.0" layoutY="107.0" text="Vous êtes Un vendeur ?" textFill="#6b087f">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="Cat" layoutX="126.0" layoutY="451.0" onAction="#handleSelection" prefHeight="28.0" prefWidth="228.0" />
+   </children>
+</AnchorPane>

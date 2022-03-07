@@ -47,8 +47,9 @@ public class MailConfig {
 
     public static MailConfig getInstance() {
 
-	if (_instance == null)
+	if (_instance == null) {
 	    _instance = new MailConfig();
+	}
 
 	return _instance;
     }
