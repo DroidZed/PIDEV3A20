@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PostulerCandidatureController">
+   <children>
+      <Label layoutX="27.0" layoutY="50.0" text="Selectionner un offre :" />
+      <TableView fx:id="tableoffre" layoutX="27.0" layoutY="81.0" onMouseClicked="#LoadData" prefHeight="200.0" prefWidth="880.0">
+         <columns>
+            <TableColumn fx:id="idt" prefWidth="48.0" text="Id" visible="false" />
+            <TableColumn fx:id="titret" prefWidth="124.0" text="Titre" />
+            <TableColumn fx:id="desct" prefWidth="124.0" text="Descrtiption" />
+            <TableColumn fx:id="typet" prefWidth="78.0" text="Type" />
+            <TableColumn fx:id="datedebt" prefWidth="87.0" text="Date Debut" />
+            <TableColumn fx:id="datefint" prefWidth="75.0" text="Date Fin" />
+            <TableColumn fx:id="salairet" prefWidth="59.0" text="Salaire" />
+            <TableColumn fx:id="regiont" prefWidth="63.0" text="Region" />
+            <TableColumn fx:id="adresset" prefWidth="126.0" text="Adresse" />
+            <TableColumn fx:id="domaint" prefWidth="99.0" text="Domaine" />
+         </columns>
+      </TableView>
+      <Label layoutX="37.0" layoutY="301.0" text="Saisir votre CV :" />
+      <TextField fx:id="affiche" layoutX="133.0" layoutY="297.0" />
+      <Button fx:id="uploadbutton" layoutX="280.0" layoutY="297.0" mnemonicParsing="false" onAction="#Uploadfile" text="Upload" />
+      <Button fx:id="btnpostuler" layoutX="144.0" layoutY="343.0" mnemonicParsing="false" onAction="#postuler" text="Postuler" />
+      <Label fx:id="Alert" layoutX="225.0" layoutY="347.0" textFill="#dd1313" />
+      <Button layoutX="396.0" layoutY="297.0" mnemonicParsing="false" onAction="#PDFbtn" text="PDF" />
+   </children>
+</AnchorPane>
