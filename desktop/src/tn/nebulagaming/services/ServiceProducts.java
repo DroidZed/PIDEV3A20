@@ -17,7 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
-import tn.nebulagaming.models.ProductByCategory;
+import tn.nebulagaming.models.ProductsByCategory;
 import org.controlsfx.control.Notifications;
 import tn.nebulagaming.utils.JavaMail;
 
@@ -141,16 +141,15 @@ public class ServiceProducts implements IProduct<Products> {
                 .limit(LIMIT_COUNT).collect(Collectors.toList());
     }
 
-    public List<ProductByCategory> getProductsByCategory() {
-        List<ProductByCategory> list = new ArrayList<>();
+    public List<ProductsByCategory> getProductsByCategory() {
+        List<ProductsByCategory> list = new ArrayList<>();
 
         try {
             String request = "SELECT IdProduct, nameProduct, priceProduct, QtyProduct, imageProduct, nameCategory FROM tbl_product JOIN tbl_category USING(idCategory)";
             PreparedStatement st = cnx.prepareStatement(request);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(
-                        new ProductByCategory(
+                list.add(new ProductsByCategory(
                                 rs.getInt(1),
                                 rs.getString(2),
                                 rs.getFloat(3),

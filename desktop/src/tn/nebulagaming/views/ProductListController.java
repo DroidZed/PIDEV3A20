@@ -27,7 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import tn.nebulagaming.models.ProductByCategory;
+import tn.nebulagaming.models.ProductsByCategory;
 import tn.nebulagaming.models.Products;
 import tn.nebulagaming.services.ServiceCategories;
 import tn.nebulagaming.services.ServiceProducts;

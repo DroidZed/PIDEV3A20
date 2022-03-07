@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductByCategory {
-    
+public class ProductsByCategory {
+
     private int idProd;
     private String nom;
     private Float prix;

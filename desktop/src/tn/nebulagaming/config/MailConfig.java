@@ -6,7 +6,7 @@ package tn.nebulagaming.config;
 
 /**
  *
- * @author ASUS
+ * @author Aymen Dhahri
  */
 import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvException;
@@ -25,31 +25,32 @@ public class MailConfig {
 
     private MailConfig() throws DotenvException {
 
-	Dotenv dotenv = Dotenv.configure().load();
+        Dotenv dotenv = Dotenv.configure().load();
 
-	EMAIL = dotenv.get("EMAIL");
-	PASSWORD = dotenv.get("PASSWORD");
-	HOST = dotenv.get("HOST");
-	PORT = dotenv.get("PORT");
+        EMAIL = dotenv.get("EMAIL");
+        PASSWORD = dotenv.get("PASSWORD");
+        HOST = dotenv.get("HOST");
+        PORT = dotenv.get("PORT");
     }
 
     public HashMap<String, String> getConfig() {
 
-	CONFIG = new HashMap<>();
+        CONFIG = new HashMap<>();
 
-	CONFIG.put("EMAIL", EMAIL);
-	CONFIG.put("PWD", PASSWORD);
-	CONFIG.put("HOST", HOST);
-	CONFIG.put("PORT", PORT);
+        CONFIG.put("EMAIL", EMAIL);
+        CONFIG.put("PWD", PASSWORD);
+        CONFIG.put("HOST", HOST);
+        CONFIG.put("PORT", PORT);
 
-	return CONFIG;
+        return CONFIG;
     }
 
     public static MailConfig getInstance() {
 
-	if (_instance == null)
-	    _instance = new MailConfig();
+        if (_instance == null) {
+            _instance = new MailConfig();
+        }
 
-	return _instance;
+        return _instance;
     }
 }

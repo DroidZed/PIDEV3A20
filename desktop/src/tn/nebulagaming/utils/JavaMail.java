@@ -38,110 +38,110 @@ public class JavaMail {
 
     public JavaMail() {
 
-    CONF = MailConfig.getInstance().getConfig();
-    PROPS = new Properties();
+        CONF = MailConfig.getInstance().getConfig();
+        PROPS = new Properties();
 
-    PROPS.setProperty("mail.smtp.auth", "true");
-    PROPS.setProperty("mail.smtp.starttls.enable", "true");
-    PROPS.setProperty("mail.smtp.host", CONF.get("HOST"));
-    PROPS.setProperty("mail.smtp.port", CONF.get("PORT"));
-    PROPS.setProperty("mail.default-encoding", "UTF-8");
+        PROPS.setProperty("mail.smtp.auth", "true");
+        PROPS.setProperty("mail.smtp.starttls.enable", "true");
+        PROPS.setProperty("mail.smtp.host", CONF.get("HOST"));
+        PROPS.setProperty("mail.smtp.port", CONF.get("PORT"));
+        PROPS.setProperty("mail.default-encoding", "UTF-8");
 
-    SESSION = Session.getDefaultInstance(PROPS, new Authenticator() {
+        SESSION = Session.getDefaultInstance(PROPS, new Authenticator() {
 
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
 
-        return new PasswordAuthentication(CONF.get("EMAIL"), CONF.get("PWD"));
-        }
-    });
+                return new PasswordAuthentication(CONF.get("EMAIL"), CONF.get("PWD"));
+            }
+        });
     }
 
     public void sendEmailWithAttach(String subject, String to, String body, File f) {
 
-    System.out.println("Preparing to send email...");
+        System.out.println("Preparing to send email...");
 
-    try {
+        try {
 
-        MimeMessage attch = prepareMailWithAttach(to, subject, body, f);
+            MimeMessage attch = prepareMailWithAttach(to, subject, body, f);
 
-        Transport.send(attch);
+            Transport.send(attch);
 
-        System.out.println("Message sent successfully !!");
+            System.out.println("Message sent successfully !!");
 
-    } catch (MessagingException ex) {
-        System.out.println(ex.getMessage());
-    }
+        } catch (MessagingException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public void sendTextMail(String subject, String to, String body) {
 
-    System.out.println("Preparing to send email...");
+        System.out.println("Preparing to send email...");
 
-    try {
+        try {
 
-        MimeMessage textMail = createTextMessage(to, subject, body);
+            MimeMessage textMail = createTextMessage(to, subject, body);
 
-        Transport.send(textMail);
+            Transport.send(textMail);
 
-        System.out.println("Message sent successfully !!");
+            System.out.println("Message sent successfully !!");
 
-    } catch (MessagingException ex) {
-        System.out.println(ex.getMessage());
-    }
+        } catch (MessagingException ex) {
+            System.out.println(ex.getMessage());
+        }
 
     }
 
     private MimeMessage prepareMailWithAttach(String to, String subject, String body, File f) throws AddressException, MessagingException {
 
-    MimeMessage message = prepareMessage(to, subject);
+        MimeMessage message = prepareMessage(to, subject);
 
-    BodyPart messageBodyPart = new MimeBodyPart();
+        BodyPart messageBodyPart = new MimeBodyPart();
 
-    Multipart multipart = new MimeMultipart();
+        Multipart multipart = new MimeMultipart();
 
-    messageBodyPart.setText(body);
+        messageBodyPart.setText(body);
 
-    multipart.addBodyPart(messageBodyPart);
+        multipart.addBodyPart(messageBodyPart);
 
-    messageBodyPart = new MimeBodyPart();
+        messageBodyPart = new MimeBodyPart();
 
-    DataSource source = new FileDataSource(f.getAbsolutePath());
+        DataSource source = new FileDataSource(f.getAbsolutePath());
 
-    System.out.println(f.getAbsolutePath());
+        System.out.println(f.getAbsolutePath());
 
-    messageBodyPart.setDataHandler(new DataHandler(source));
+        messageBodyPart.setDataHandler(new DataHandler(source));
 
-    messageBodyPart.setFileName(f.getName());
+        messageBodyPart.setFileName(f.getName());
 
-    multipart.addBodyPart(messageBodyPart);
+        multipart.addBodyPart(messageBodyPart);
 
-    message.setContent(multipart);
+        message.setContent(multipart);
 
-    return message;
+        return message;
     }
 
     private MimeMessage createTextMessage(String to, String subject, String body) throws MessagingException {
 
-    MimeMessage message = prepareMessage(to, subject);
+        MimeMessage message = prepareMessage(to, subject);
 
-    message.setSentDate(new Date());
+        message.setSentDate(new Date());
 
-    message.setText(body);
+        message.setText(body);
 
-    return message;
+        return message;
     }
 
     private MimeMessage prepareMessage(String to, String subject) throws AddressException, MessagingException {
 
-    MimeMessage message = new MimeMessage(SESSION);
+        MimeMessage message = new MimeMessage(SESSION);
 
-    message.setFrom(new InternetAddress(CONF.get("EMAIL")));
+        message.setFrom(new InternetAddress(CONF.get("EMAIL")));
 
-    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-    message.setSubject(subject);
+        message.setSubject(subject);
 
-    return message;
+        return message;
     }
 }

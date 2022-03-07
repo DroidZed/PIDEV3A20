@@ -25,7 +25,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import tn.nebulagaming.models.ProductByCategory;
+import tn.nebulagaming.models.ProductsByCategory;
 import tn.nebulagaming.models.Products;
 import tn.nebulagaming.services.ServiceCategories;
 import tn.nebulagaming.services.ServiceProducts;
@@ -41,15 +41,15 @@ public class GestProduitsController implements Initializable {
     @FXML
     private Button retour;
     @FXML
-    private TableView<ProductByCategory> tblProd;
+    private TableView<ProductsByCategory> tblProd;
     @FXML
-    private TableColumn<ProductByCategory, String> tbNom;
+    private TableColumn<ProductsByCategory, String> tbNom;
     @FXML
-    private TableColumn<ProductByCategory, Float> tbPrix;
+    private TableColumn<ProductsByCategory, Float> tbPrix;
     @FXML
-    private TableColumn<ProductByCategory, Integer> tbQuant;
+    private TableColumn<ProductsByCategory, Integer> tbQuant;
     @FXML
-    private TableColumn<ProductByCategory, String> tbCat;
+    private TableColumn<ProductsByCategory, String> tbCat;
     @FXML
     private TextField tfNom;
     @FXML
@@ -73,7 +73,7 @@ public class GestProduitsController implements Initializable {
     @FXML
     private Label error;
 
-    ObservableList<ProductByCategory> list;
+    ObservableList<ProductsByCategory> list;
 
     ServiceCategories servCat;
 
@@ -98,12 +98,12 @@ public class GestProduitsController implements Initializable {
         //SelectOnclick
         tblProd.setRowFactory(tv -> {
 
-            TableRow<ProductByCategory> row = new TableRow<>();
+            TableRow<ProductsByCategory> row = new TableRow<>();
 
             row.setOnMouseClicked(event -> {
 
                 if (!row.isEmpty()) {
-                    final ProductByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
+                    final ProductsByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
 
                     tfNom.setText(selectedItem.getNom());
                     tfPrix.setText(selectedItem.getPrix().toString());
@@ -158,7 +158,7 @@ public class GestProduitsController implements Initializable {
 
     @FXML
     private void DelP(ActionEvent event) {
-        final ProductByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
+        final ProductsByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
         Products prod = Sp.findByID_Product(selectedItem.getIdProd());
         Sp.supprimer(prod);
         Sp.Notificationmanager(1);
@@ -171,7 +171,7 @@ public class GestProduitsController implements Initializable {
         final int idCategory = servCat.getIdByCategoryName(combCat.getValue());
 
         // FIXME: change the id user from 1 to the current logged in user.
-        final ProductByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
+        final ProductsByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
         Products prod = Sp.findByID_Product(selectedItem.getIdProd());
         prod.setNameProduct(tfNom.getText());
         prod.setPriceProduct(Float.parseFloat(tfPrix.getText()));
