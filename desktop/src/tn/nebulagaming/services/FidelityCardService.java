@@ -13,7 +13,7 @@ import tn.nebulagaming.models.FidelityCard;
 
 /**
  *
- * @author ASUS
+ * @author Aymen Dhahri
  */
 public class FidelityCardService extends ServiceMotherClass implements IService<FidelityCard> {
 

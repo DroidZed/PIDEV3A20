@@ -7,16 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="584.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tn.nebulagaming.views.WishListController">
+<AnchorPane id="AnchorPane" prefHeight="643.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.WishListController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="23.0" prefHeight="56.0" prefWidth="255.0" text="My Wish List">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="23.0" prefHeight="58.0" prefWidth="294.0" style="-fx-font-size: 40; -fx-text-alignment: center;" text="My WishList">
          <font>
-            <Font name="Orbitron Bold" size="30.0" />
+            <Font name="Orbitron Bold" size="28.0" />
          </font>
       </Label>
-      <JFXListView fx:id="wishList" layoutX="18.0" layoutY="186.0" prefHeight="392.0" prefWidth="452.0" />
-      <JFXButton fx:id="del" layoutX="485.0" layoutY="186.0" onAction="#Delete" prefHeight="45.0" prefWidth="101.0" text="DEL" textFill="#fc0000" />
-      <JFXComboBox fx:id="sortBy" layoutX="124.0" layoutY="146.0" onAction="#HandleSort" prefHeight="25.0" prefWidth="268.0" promptText="Sort By" />
+      <JFXListView fx:id="wishList" layoutX="152.0" layoutY="205.0" prefHeight="392.0" prefWidth="452.0" />
+      <JFXButton fx:id="del" layoutX="503.0" layoutY="147.0" onAction="#delete" prefHeight="45.0" prefWidth="101.0" text="DEL 🗑" textFill="#fc0000">
+         <font>
+            <Font name="Calibri Light" size="16.0" />
+         </font></JFXButton>
+      <JFXComboBox fx:id="sortBy" layoutX="152.0" layoutY="157.0" onAction="#handleSort" prefHeight="25.0" prefWidth="268.0" promptText="Sort By" />
+      <JFXButton fx:id="btnHome" layoutX="618.0" layoutY="33.0" onAction="#Home" prefHeight="39.0" prefWidth="102.0" text="Home 🏠" textFill="#b57cf2">
+         <font>
+            <Font name="Calibri Light" size="16.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

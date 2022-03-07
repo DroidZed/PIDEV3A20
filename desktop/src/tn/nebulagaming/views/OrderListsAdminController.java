@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +32,7 @@ import tn.nebulagaming.services.UserOrderService;
 /**
  * FXML Controller class
  *
- * @author Aymen
+ * @author Aymen Dhahri
  */
 public class OrderListsAdminController implements Initializable {
 
@@ -65,6 +66,8 @@ public class OrderListsAdminController implements Initializable {
     private TableColumn<UserOrderCombined, String> colStatus;
     @FXML
     private TableColumn<UserOrderCombined, Float> colTot;
+    @FXML
+    private JFXComboBox<String> cbxSort;
 
     /**
      * Initializes the controller class.
@@ -121,7 +124,7 @@ public class OrderListsAdminController implements Initializable {
 
 	    row.setOnMouseClicked(event -> {
 
-		if (!row.isEmpty()) {
+		if ((event.getClickCount() == 2) && (!row.isEmpty())) {
 
 		    try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DisplayUserOrder.fxml"));
@@ -151,10 +154,24 @@ public class OrderListsAdminController implements Initializable {
 	    return row;
 	});
 
+	String[] sortingTypes = {"TOTAL ▲", "TOTAL ▼", "Status ▲", "Status ▼", "Payment Date ▲", "Payment Date ▼"};
+
+	ObservableList<String> values = FXCollections.observableArrayList(sortingTypes);
+
+	cbxSort.setItems(values);
+
     }
 
     @FXML
     void Home(ActionEvent event) {
+
+	try {
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
+	    Parent root = loader.load();
+	    btnHome.getScene().setRoot(root);
+	} catch (IOException ex) {
+	    Logger.getLogger(OrderListsAdminController.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
     }
 
@@ -181,5 +198,35 @@ public class OrderListsAdminController implements Initializable {
     private ObservableList<UserOrderCombined> filterTotal(ObservableList<UserOrderCombined> orders, Float g4) {
 
 	return orders.filtered(p -> p.getTot().equals(g4));
+    }
+
+    @FXML
+    void sortTable(ActionEvent event) {
+
+	switch (cbxSort.getValue()) {
+
+	    case "TOTAL ▲":
+		tabStats.setItems(orders.sorted((o1, o2) -> o1.getTot().compareTo(o2.getTot())));
+		break;
+	    case "TOTAL ▼":
+		tabStats.setItems(orders.sorted((o1, o2) -> -1 * o1.getTot().compareTo(o2.getTot())));
+		break;
+	    case "Status ▲":
+		tabStats.setItems(orders.sorted((o1, o2) -> o1.getStatusOrder().compareTo(o2.getStatusOrder())));
+		break;
+	    case "Status ▼":
+		tabStats.setItems(orders.sorted((o1, o2) -> -1 * o1.getStatusOrder().compareTo(o2.getStatusOrder())));
+		break;
+	    case "Payment Date ▲":
+		tabStats.setItems(orders.sorted((o1, o2) -> o1.getPayDTM().compareTo(o2.getPayDTM())));
+		break;
+	    case "Payment Date ▼":
+		tabStats.setItems(orders.sorted((o1, o2) -> -1 * o1.getPayDTM().compareTo(o2.getPayDTM())));
+		break;
+	    default:
+		break;
+
+	}
+
     }
 }

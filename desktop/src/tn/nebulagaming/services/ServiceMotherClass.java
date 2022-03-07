@@ -5,7 +5,7 @@ import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  *
- * @author ASUS
+ * @author Aymen Dhahri
  */
 public abstract class ServiceMotherClass {
 

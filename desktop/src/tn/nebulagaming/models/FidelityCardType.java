@@ -6,7 +6,7 @@ package tn.nebulagaming.models;
 
 /**
  *
- * @author Aymen
+ * @author Aymen Dhahri
  */
 public enum FidelityCardType {
     Bronze,

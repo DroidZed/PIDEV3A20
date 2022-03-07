@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 /**
  *
- * @author Aymen
+ * @author Aymen Dhahri
  */
 @Data
 @AllArgsConstructor
@@ -25,7 +25,6 @@ public class UserOrder {
     private int idPayType;
     private String orderAddress;
     private int idUser;
-
 
     public UserOrder(Date createdDTM, String orderAddress, int idUser) {
 	this.createdDTM = createdDTM;
@@ -44,5 +43,5 @@ public class UserOrder {
 	this.orderAddress = orderAddress;
 	this.idUser = idUser;
     }
-    
+
 }

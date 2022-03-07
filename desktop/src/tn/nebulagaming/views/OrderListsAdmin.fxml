@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -32,6 +33,7 @@
         </columns>
       </TableView>
       <DatePicker fx:id="dateSub" layoutX="22.0" layoutY="138.0" onAction="#searchBySubDate" prefHeight="31.0" prefWidth="196.0" promptText="Submission Date" />
-      <TextField fx:id="tfSearch" layoutX="756.0" layoutY="138.0" prefHeight="31.0" prefWidth="235.0" promptText="Criteria: value" />
+      <JFXTextField fx:id="tfSearch" focusColor="#d400f5" labelFloat="true" layoutX="780.0" layoutY="141.0" prefHeight="25.0" prefWidth="211.0" promptText="Criteria: value" />
+      <JFXComboBox fx:id="cbxSort" focusColor="#b209eb" labelFloat="true" layoutX="377.0" layoutY="141.0" onAction="#sortTable" prefHeight="25.0" prefWidth="297.0" promptText="Sort by..." />
    </children>
 </AnchorPane>

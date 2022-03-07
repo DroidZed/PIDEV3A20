@@ -9,7 +9,6 @@ package tn.nebulagaming.models;
  * @author Aymen
  */
 public enum PaymentType {
-    PAYPAL,
     CREDIT_CARD,
     DELIVERY;
 }

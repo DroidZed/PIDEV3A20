@@ -14,7 +14,7 @@ import tn.nebulagaming.models.UserOrderCombined;
 
 /**
  *
- * @author Aymen
+ * @author Aymen Dhahri
  */
 public class UserOrderService extends ServiceMotherClass implements IService<UserOrder> {
 
@@ -55,15 +55,13 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
     @Override
     public void update(UserOrder t, int orderNumber) {
 
-	String sql = "UPDATE " + TABLE_NAME + " SET createdDTM = ?, idStatusOrder = ?, orderAddress = ? where numberOrder = ?";
+	String sql = "UPDATE " + TABLE_NAME + " SET idStatusOrder = ? where numberOrder = ?";
 
 	try {
 	    PreparedStatement stm = conn.prepareStatement(sql);
 
-	    stm.setDate(1, t.getCreatedDTM());
-	    stm.setInt(2, t.getIdStatusOrder());
-	    stm.setString(3, t.getOrderAddress());
-	    stm.setInt(4, orderNumber);
+	    stm.setInt(1, t.getIdStatusOrder());
+	    stm.setInt(2, orderNumber);
 
 	    if (stm.executeUpdate() == 1) {
 		System.out.println("Operation complete !");
@@ -75,14 +73,16 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
     }
 
     public void updateOnPayment(UserOrder t, int orderNumber) {
-	String sql = "UPDATE " + TABLE_NAME + " SET payDTM = ?, idPayType = ? where numberOrder = ?";
+	String sql = "UPDATE " + TABLE_NAME + " SET payDTM = ?, idStatusOrder = ?,idPayType = ?, orderAddress = ? where numberOrder = ?";
 
 	try {
 	    PreparedStatement stm = conn.prepareStatement(sql);
 
 	    stm.setDate(1, t.getPayDTM());
-	    stm.setInt(2, t.getIdPayType());
-	    stm.setInt(3, orderNumber);
+	    stm.setInt(2, t.getIdStatusOrder());
+	    stm.setInt(3, t.getIdPayType());
+	    stm.setString(4, t.getOrderAddress());
+	    stm.setInt(5, orderNumber);
 
 	    if (stm.executeUpdate() == 1) {
 		System.out.println("Operation complete !");
@@ -97,15 +97,14 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
     @Override
     public void create(UserOrder t) {
 
-	String sql = "INSERT INTO " + TABLE_NAME + "(createdDTM, idPayType, orderAddress, idUser) VALUES (?, ?, ?, ?)";
+	String sql = "INSERT INTO " + TABLE_NAME + "(createdDTM, idPayType, idUser) VALUES (?, ?, ?)";
 
 	try {
 	    PreparedStatement stm = conn.prepareStatement(sql);
 
 	    stm.setDate(1, Date.valueOf(LocalDate.now()));
 	    stm.setInt(2, t.getIdPayType());
-	    stm.setString(3, t.getOrderAddress());
-	    stm.setInt(4, t.getIdUser());
+	    stm.setInt(3, t.getIdUser());
 
 	    if (stm.executeUpdate() == 1) {
 		System.out.println("Operation complete !");
@@ -184,7 +183,7 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
 
     public List<UserOrderCombined> getAssociated() {
 
-	String sql = "SELECT numberOrder, nameUser, uo.createdDTM, uo.payDTM, st.statusOrder FROM tbl_userorder AS uo JOIN tbl_user AS u USING(idUser) JOIN tbl_statusorder st using(idStatusOrder) ORDER BY nameUser";
+	String sql = "SELECT numberOrder, nameUser, uo.createdDTM, uo.payDTM, st.statusOrder, idUser, payType FROM tbl_userorder AS uo JOIN tbl_user AS u USING(idUser) JOIN tbl_statusorder st using(idStatusOrder) join tbl_paytype using (idPayType) ORDER BY nameUser";
 
 	List<UserOrderCombined> userOrders = new ArrayList<>();
 
@@ -201,7 +200,9 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
 			res.getDate(4),
 			res.getString(2),
 			res.getString(5),
-			ols.calculateTotal(res.getInt(1))
+			ols.calculateTotal(res.getInt(1)),
+			res.getInt(6),
+			res.getString(7)
 		));
 	    }
 	} catch (SQLException e) {

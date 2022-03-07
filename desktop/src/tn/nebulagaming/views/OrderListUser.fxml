@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.OrderListUserController">
-    
+<AnchorPane id="AnchorPaneUsrO" prefHeight="808.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.OrderListUserController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="41.0" prefHeight="74.0" prefWidth="466.0" text="MY ORDERS">
+         <font>
+            <Font name="Arial Bold" size="32.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tabStats" fixedCellSize="5.0" layoutX="46.0" layoutY="160.0" prefHeight="481.0" prefWidth="914.0">
+         <columns>
+            <TableColumn fx:id="colSubAt" editable="false" prefWidth="145.0" text="Submitted At" />
+            <TableColumn fx:id="colPaidAt" editable="false" prefWidth="150.0" text="Paid At" />
+            <TableColumn fx:id="colPayT" editable="false" prefWidth="166.0" text="Payment Type" />
+            <TableColumn fx:id="colStatus" editable="false" prefWidth="174.0" text="Order Status" />
+            <TableColumn fx:id="colTot" editable="false" minWidth="0.0" prefWidth="176.0" text="Total" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btnHome" layoutX="874.0" layoutY="41.0" onAction="#goBack" prefHeight="39.0" prefWidth="102.0" text="Home 🏠" textFill="#b57cf2">
+         <font>
+            <Font name="Calibri Light" size="16.0" />
+         </font>
+      </JFXButton>
+      <Pagination fx:id="paginationOrders" layoutX="228.0" layoutY="656.0" pageCount="10" prefHeight="74.0" prefWidth="550.0" />
+   </children>
 </AnchorPane>

@@ -11,7 +11,7 @@ import tn.nebulagaming.models.WishList;
 
 /**
  *
- * @author Aymen
+ * @author Aymen Dhahri
  */
 public class WishListService extends ServiceMotherClass{
 

@@ -18,7 +18,7 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author Aymen
+ * @author Aymen Dhahri
  */
 public class DisplayUserOrderController implements Initializable {
 
@@ -47,8 +47,6 @@ public class DisplayUserOrderController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 	// TODO
 
-	
-	
     }
 
     public void setOrderNum(String orderNum) {
@@ -57,7 +55,7 @@ public class DisplayUserOrderController implements Initializable {
 
     public void setSum(Float sum) {
 
-	this.sum.setText(sum.toString());
+	this.sum.setText("SUM: " + sum.toString() + " TND");
     }
 
     public void setSubAt(String subAt) {
@@ -75,22 +73,19 @@ public class DisplayUserOrderController implements Initializable {
     public void setPayType(String payType) {
 	this.payType.setText(payType);
     }
-    
 
     @FXML
-    private void GoBack(ActionEvent event) {
+    void goBack(ActionEvent event) {
 
 	try {
 
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderListsAdmin.fxml"));
-
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
 	    Parent root = loader.load();
-
 	    btnBack.getScene().setRoot(root);
-
 	} catch (IOException ex) {
 	    System.out.println(ex.getMessage());
 	}
     }
+
 
 }

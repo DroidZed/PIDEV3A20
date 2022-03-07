@@ -16,7 +16,7 @@ import static tn.nebulagaming.services.ServiceMotherClass.conn;
 
 /**
  *
- * @author ASUS
+ * @author Aymen Dhahri
  */
 public class OrderLineService extends ServiceMotherClass implements IService<OrderLine> {
 
