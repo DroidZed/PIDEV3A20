@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="738.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VideoGameController">
+   <children>
+      <Label layoutX="293.0" layoutY="71.0" text="Nom :" />
+      <Label layoutX="293.0" layoutY="111.0" text="Image : " />
+      <TextField fx:id="nomtxt" layoutX="353.0" layoutY="67.0" />
+      <Button fx:id="btnajouter" layoutX="388.0" layoutY="145.0" mnemonicParsing="false" onAction="#Ajouter" text="Ajouter" />
+      <Label fx:id="idlabel" layoutX="300.0" layoutY="373.0" prefHeight="80.0" prefWidth="23.0" />
+      <TableView fx:id="tableVideoGame" layoutX="232.0" layoutY="328.0" onMouseClicked="#clickedColumn" prefHeight="462.0" prefWidth="539.0">
+        <columns>
+          <TableColumn fx:id="idt" prefWidth="75.0" text="ID" visible="false" />
+          <TableColumn fx:id="nomt" prefWidth="113.0" text="Nom" />
+            <TableColumn fx:id="imaget" prefWidth="226.0" text="Image" />
+            <TableColumn fx:id="NoteVG" prefWidth="172.0" />
+        </columns>
+      </TableView>
+      <Button layoutX="618.0" layoutY="261.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
+      <Label layoutX="279.0" layoutY="265.0" text="Recherche :" />
+      <TextField fx:id="affiche" layoutX="353.0" layoutY="107.0" />
+      <Button fx:id="uploadbutton" layoutX="471.0" layoutY="107.0" mnemonicParsing="false" onAction="#Uploadfile" text="Upload" />
+      <TextField fx:id="recherche" layoutX="369.0" layoutY="261.0" />
+      <Button fx:id="btnLIKE" layoutX="570.0" layoutY="328.0" mnemonicParsing="false" onAction="#DonnerJaime" prefHeight="31.0" prefWidth="175.0" text="J'aime ce Jeu" />
+      <Button fx:id="btnMODIF" layoutX="463.0" layoutY="145.0" mnemonicParsing="false" onAction="#ModifierJeu" text="Modifier" />
+      <Button fx:id="PDFbtn" layoutX="720.0" layoutY="74.0" mnemonicParsing="false" onAction="#ExportPDF" prefHeight="31.0" prefWidth="51.0" text="PDF" />
+      <Button fx:id="PRINTbtn" layoutX="720.0" layoutY="107.0" mnemonicParsing="false" onAction="#PrintGames" text="Print" />
+      <Button fx:id="QRbtn" layoutX="720.0" layoutY="140.0" mnemonicParsing="false" onAction="#genererQR" prefHeight="31.0" prefWidth="51.0" text="QR" />
+      <BarChart fx:id="barChart" layoutX="806.0" layoutY="359.0" prefHeight="423.0" prefWidth="187.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>
