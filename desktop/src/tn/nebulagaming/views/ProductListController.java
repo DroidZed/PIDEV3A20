@@ -38,6 +38,7 @@ import tn.nebulagaming.services.ServiceProducts;
  * @author anony
  */
 public class ProductListController implements Initializable {
+    ServiceProducts Sp = new ServiceProducts();
 
     @FXML
     private Button retour;

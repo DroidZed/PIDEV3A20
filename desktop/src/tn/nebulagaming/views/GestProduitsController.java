@@ -70,6 +70,7 @@ public class GestProduitsController implements Initializable {
     @FXML
     private ComboBox<String> combCat;
 
+    @FXML
     private Label error;
 
     ObservableList<ProductByCategory> list;
@@ -144,12 +145,15 @@ public class GestProduitsController implements Initializable {
     private void AddP(ActionEvent event) {
 
         final int idCategory = servCat.getIdByCategoryName(combCat.getValue());
-
-        // FIXME: change the id user from 1 to the current logged in user.
+        if (tfPrix.getText().isEmpty()){
+        error.setText("Verifier les entrées s'il vous plait");}
+       else
+        {// FIXME: change the id user from 1 to the current logged in user.
         Sp.ajouter(new Products(tfNom.getText(), Float.parseFloat(tfPrix.getText()), Integer.parseInt(tfQuant.getText()), tfimg.getText(), 1, idCategory));
         tblProd.setItems(FXCollections.observableArrayList(Sp.getProductsByCategory()));
+        Sp.Notificationmanager(3);
         tblProd.refresh();
-
+}
     }
 
     @FXML
@@ -157,6 +161,7 @@ public class GestProduitsController implements Initializable {
         final ProductByCategory selectedItem = tblProd.getSelectionModel().getSelectedItem();
         Products prod = Sp.findByID_Product(selectedItem.getIdProd());
         Sp.supprimer(prod);
+        Sp.Notificationmanager(1);
         list.remove(selectedItem);
     }
 
@@ -176,6 +181,7 @@ public class GestProduitsController implements Initializable {
         Sp.modifier(prod);
         tblProd.setItems(FXCollections.observableArrayList(Sp.getProductsByCategory()));
         tblProd.refresh();
+        Sp.Notificationmanager(2);
     }
 
     @FXML

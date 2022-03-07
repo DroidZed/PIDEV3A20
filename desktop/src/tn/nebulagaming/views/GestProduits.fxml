@@ -60,5 +60,10 @@
       <Button fx:id="EdP" layoutX="33.0" layoutY="546.0" mnemonicParsing="false" onAction="#EdP" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: #6b087f; -fx-background-radius: 30;" text="Modifier" textFill="WHITE" />
       <Button fx:id="AddC" disable="true" layoutX="33.0" layoutY="599.0" mnemonicParsing="false" onAction="#AddC" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: #6b087f; -fx-background-radius: 30;" text="Ajouter Code Promo" textFill="WHITE" />
       <ComboBox fx:id="combCat" layoutX="35.0" layoutY="370.0" prefWidth="150.0" />
+      <Label fx:id="error" layoutX="226.0" layoutY="161.0" prefHeight="198.0" prefWidth="122.0" textFill="RED" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

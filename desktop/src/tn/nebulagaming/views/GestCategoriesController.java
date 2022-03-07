@@ -99,8 +99,8 @@ public class GestCategoriesController implements Initializable {
         } else {
             Sc.ajouter(new Categories(tfnomcat.getText()));
             list = FXCollections.observableArrayList(Sc.afficher());
-            UpdateTable();
             Sp.Notificationmanager(0);
+            UpdateTable();
         }
     }
 
@@ -109,16 +109,22 @@ public class GestCategoriesController implements Initializable {
     void DeleteCat(ActionEvent event) {
         Categories cat = tblCat.getSelectionModel().getSelectedItem();
         Sc.supprimer(cat);
+        Sp.Notificationmanager(1);
         list.remove(cat);
     }
 
     //Modifier
     @FXML
     void EditCat(ActionEvent event) {
+        if (tfnomcat.getText().isEmpty())
+        { error.setText("Tu dois saisir un nom de categorie valide");
+        }else {
         Categories cat = tblCat.getSelectionModel().getSelectedItem();
         cat.setNameCategory(tfnomcat.getText());
         Sc.modifier(cat);
+        Sp.Notificationmanager(2);
         tblCat.refresh();
+    }
     }
 
     //Return Home

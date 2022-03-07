@@ -18,10 +18,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import tn.nebulagaming.models.Categories;
 import tn.nebulagaming.models.Promos;
+import tn.nebulagaming.services.ServiceProducts;
 import tn.nebulagaming.services.ServicePromos;
 
 /**
@@ -30,7 +33,8 @@ import tn.nebulagaming.services.ServicePromos;
  * @author anony
  */
 public class PromoController implements Initializable {
-
+   
+    ServiceProducts Sp = new ServiceProducts();
     @FXML
     private Button retour;
 
@@ -75,6 +79,8 @@ public class PromoController implements Initializable {
         tblProm.setItems(listPromos);
 
         System.out.println(listPromos);
+        
+        
 
     }
 
@@ -104,14 +110,27 @@ public class PromoController implements Initializable {
         servPr.ajouter(new Promos(tfCode.getText(), Integer.parseInt(tfPromo.getText()), prodId));
         tblProm.setItems(FXCollections.observableArrayList(servPr.getOfProduct(prodId)));
         tblProm.refresh();
+        Sp.Notificationmanager(4);
     }
 
     @FXML
     private void DelC(ActionEvent event) {
+         final Promos promo = tblProm.getSelectionModel().getSelectedItem();
+        servPr.supprimer(promo);
+        
+        Sp.Notificationmanager(1);
+        listPromos.remove(promo);
     }
 
     @FXML
     private void EditC(ActionEvent event) {
+          Promos promo = tblProm.getSelectionModel().getSelectedItem();
+        promo.setCodePromo(tfCode.getText());
+        promo.setDiscountPromo(Integer.parseInt(tfPromo.getText()));
+        
+        servPr.modifier(promo);
+        Sp.Notificationmanager(2);
+        tblProm.refresh();
     }
 
 }

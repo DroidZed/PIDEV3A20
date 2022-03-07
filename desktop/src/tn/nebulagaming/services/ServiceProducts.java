@@ -169,7 +169,7 @@ public class ServiceProducts implements IProduct<Products> {
     public void Notificationmanager(int mode) {
         Notifications not = Notifications.create()
                 .graphic(null)
-                .hideAfter(Duration.seconds(10))
+                .hideAfter(Duration.seconds(7))
                 .position(Pos.BOTTOM_RIGHT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -182,7 +182,7 @@ public class ServiceProducts implements IProduct<Products> {
             case 0:
 
                 not.title("Success");
-                not.text("Produit ajouté et notifié par un mail");
+                not.text("Categorie crée");
                 not.showInformation();
                 break;
             case 1:
@@ -193,27 +193,29 @@ public class ServiceProducts implements IProduct<Products> {
                 break;
             case 2:
 
-                not.text("Modification terminé");
                 not.title("Success");
+                not.text("Modification terminé");
+
                 not.showInformation();
                 break;
             case 3:
 
-                not.text("Categorie  creé");
+                not.text("Produit  ajouté et notifié Par mail");
                 not.title("Success");
                 not.showConfirm();
                 break;
-            case 4:
+           
 
-                not.text("Please create a product first");
-                not.title("No project found");
+            case 4:
+                not.text("Code Promo ajouté");
+                not.title("Success");
+                not.showWarning(); 
+                break;
+            case 5: 
+                not.text("Mettez une entrée valide s'il vous plait");
+                not.title("Entrée Non Valide");
                 not.showWarning();
                 break;
-
-            case 5:
-                not.text("Code Promo crée");
-                not.title("Rien est trouvé");
-                not.showWarning();
             default:
 
         }
