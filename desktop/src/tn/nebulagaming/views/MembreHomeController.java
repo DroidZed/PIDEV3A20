@@ -6,9 +6,11 @@ package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -96,6 +98,10 @@ String id;
     private TableColumn<Streaming, String> vuStream;
     @FXML
     private Button stream;
+    @FXML
+    private Button regarder;
+    @FXML
+    private TableColumn<Streaming, Integer> idStream;
     /**
      * Initializes the controller class.
      */
@@ -110,7 +116,7 @@ String id;
         
         
         List<String> listCritereStream;
-        listCritereStream = Arrays.asList("nomUser", "description", "link","nbVu");
+        listCritereStream = Arrays.asList("nomUser", "description", "link","nbVu","idSteam");
         ObservableList<String> listCritereS;
         listCritereS = FXCollections.observableArrayList(listCritereRec);
         affichageTabStreaming();
@@ -257,7 +263,7 @@ String id;
     private void affichageTabStreaming() {
        ServiceMembre sm=new ServiceMembre();
         ObservableList<Streaming> list = FXCollections.observableArrayList(sm.afficherStreamers());
-        userStream.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+        userStream.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
         descStream.setCellValueFactory(new PropertyValueFactory<>("description"));
         vuStream.setCellValueFactory(new PropertyValueFactory<>("nbVu"));
                
@@ -269,6 +275,8 @@ String id;
 
     @FXML
     private void streamer(ActionEvent event) throws IOException {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.exec("C:\\Users\\houba\\Desktop\\Nebula-Gaming\\desktop\\ScreenTask-master\\ScreenTask.v1.1.exe");
          FXMLLoader loader = new FXMLLoader(getClass().getResource("./Streamer.fxml"));
         Parent root = loader.load();
         StreamerController HomeScene = loader.getController();
@@ -280,6 +288,25 @@ String id;
         Stage window = (Stage) modifInfo.getScene().getWindow();
         window.setScene(new Scene(root, 800, 800));
         
+    }
+
+    @FXML
+    private void regarder(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("./StreamHome.fxml"));
+        Parent root = loader.load();
+        String link=tabStream.getSelectionModel().getSelectedItem().getLink();
+        String nom=tabStream.getSelectionModel().getSelectedItem().getNameUser();
+        ServiceMembre sm=new ServiceMembre();
+        Streaming s=sm.loadS(link,nom);
+        sm.augmenterVu(s);
+        StreamHomeController HomeScene = loader.getController();
+        HomeScene.user2 = this.user2;
+        HomeScene.id=id;
+        Membre a= this.user2;
+        HomeScene.iniializeFxml(a,s);
+        //HomeScene.showData(a);
+        Stage window = (Stage) modifInfo.getScene().getWindow();
+        window.setScene(new Scene(root, 800, 800));
     }
     
 }

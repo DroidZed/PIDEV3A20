@@ -12,13 +12,14 @@
         <URL value="@streamhome.css" />
     </stylesheets>
    <children>
-      <BorderPane prefHeight="533.0" prefWidth="688.0">
+      <BorderPane layoutX="3.0" prefHeight="533.0" prefWidth="688.0">
          <bottom>
             <AnchorPane prefHeight="447.0" prefWidth="694.0" BorderPane.alignment="CENTER">
                <children>
-                  <WebView fx:id="web" layoutY="-74.0" prefHeight="520.0" prefWidth="489.0" />
-                  <Button fx:id="envoyerm" layoutX="558.0" layoutY="359.0" mnemonicParsing="false" onAction="#retour" text="retour" />
-                  <Label fx:id="nbVu" layoutX="491.0" layoutY="-75.0" onMouseExited="#afficherChat" prefHeight="60.0" prefWidth="196.0" />
+                  <WebView fx:id="web" layoutY="-87.0" prefHeight="533.0" prefWidth="524.0" />
+                  <Button fx:id="retour" layoutX="558.0" layoutY="359.0" mnemonicParsing="false" onAction="#retour" text="retour" />
+                  <Label fx:id="nbVu" layoutX="618.0" layoutY="52.0" onMouseExited="#afficherChat" prefHeight="39.0" prefWidth="47.0" />
+                  <Label layoutX="535.0" layoutY="22.0" text="nombre de vues" />
                </children>
             </AnchorPane>
          </bottom>

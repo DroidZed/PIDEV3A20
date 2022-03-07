@@ -14,6 +14,7 @@ public class Streaming {
     private int nbVu;
     private String link;
     private int idStream;
+    private String nameUser;
     
     public Streaming(int idUser, String descr,String link)
     {
@@ -23,6 +24,14 @@ public class Streaming {
     }
     public Streaming()
     {}
+    public String getNameUser()
+    {
+        return this.nameUser;
+    }
+    public void setNameUser(String nom)
+    {
+        this.nameUser=nom;
+    }
    public void setDescription(String descr)
    {
      this.description=descr;   

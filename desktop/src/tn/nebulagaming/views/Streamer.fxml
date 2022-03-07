@@ -17,6 +17,6 @@
       <TextField fx:id="linkS" layoutX="207.0" layoutY="57.0" prefHeight="31.0" prefWidth="285.0" />
       <TextField fx:id="descS" layoutX="207.0" layoutY="159.0" prefHeight="102.0" prefWidth="285.0" />
       <Button fx:id="ajouterS" layoutX="268.0" layoutY="312.0" mnemonicParsing="false" onAction="#ajouterS" text="commencer" />
-      <Hyperlink layoutX="492.0" layoutY="314.0" text="retour" />
+      <Hyperlink fx:id="retour" layoutX="492.0" layoutY="314.0" onAction="#retour" text="retour" />
    </children>
 </AnchorPane>

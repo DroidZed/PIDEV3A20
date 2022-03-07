@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.mail.Service;
@@ -38,6 +39,8 @@ public class StreamerController implements Initializable {
     private TextField linkS;
     @FXML
     private TextField descS;
+    @FXML
+    private Hyperlink retour;
 
     /**
      * Initializes the controller class.
@@ -67,10 +70,26 @@ public class StreamerController implements Initializable {
           FXMLLoader loader = new FXMLLoader(getClass().getResource("./StreamHome.fxml"));
         Parent root = loader.load();
         StreamHomeController HomeScene = loader.getController();
-      
-        HomeScene.iniializeFxml(s);
+      HomeScene.user2 = this.user2;
+        HomeScene.id=id;
+        Membre a= this.user2;
+        HomeScene.iniializeFxml(s,a);
         HomeScene.showData(s);
         Stage window = (Stage) ajouterS.getScene().getWindow();
+        window.setScene(new Scene(root, 800, 800));
+    }
+
+    @FXML
+    private void retour(ActionEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("./MembreHome.fxml"));
+        Parent root = loader.load();
+        MembreHomeController HomeScene = loader.getController();
+        HomeScene.user2 = this.user2;
+        HomeScene.id=id;
+        Membre a= this.user2;
+        HomeScene.iniializeFxml(a);
+        HomeScene.showData(a);
+        Stage window = (Stage) retour.getScene().getWindow();
         window.setScene(new Scene(root, 800, 800));
     }
         

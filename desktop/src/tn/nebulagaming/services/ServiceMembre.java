@@ -249,7 +249,7 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
 
         try {
 
-            String sql = "select * from tbl_streaming ";
+            String sql = "select description,idStream,tbl_streaming.idUser,link,nbVu,etat,nameUser from tbl_streaming,tbl_user where tbl_streaming.idUser=tbl_user.idUser and etat=1";
             stmt = cnx.prepareStatement(sql);
             
 
@@ -258,7 +258,7 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
             while (rst.next()) {
                 Streaming s = new Streaming();
                 s.setIdStream(rst.getInt("idStream"));
-
+               s.setNameUser(rst.getString("nameUser"));
                s.setDescription(rst.getString("description"));
 
                 s.setLink(rst.getString("link"));
@@ -274,10 +274,28 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
 
         return streamers;
    }
+   public boolean verifStream( Streaming s)
+   {
+        PreparedStatement stmt = null;
+        ResultSet rst = null;
+        try {
+            String sql = "SELECT idUser FROM tbl_streaming WHERE idUser=?";
+            stmt = cnx.prepareStatement(sql);
+            stmt.setInt(1, s.getIdUser());
+            rst = stmt.executeQuery();
+            if (rst.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+       
+   }
    public void ajouterStram(Streaming s)
    {
             PreparedStatement stmt = null;
-
+if(!verifStream(s)){
             try {
                 String sql = "INSERT INTO tbl_streaming (idUser,link,description,nbVu,etat) VALUES(?,?,?,?,?)";
                 stmt = cnx.prepareStatement(sql);
@@ -293,6 +311,25 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
+}
+
+else {
+    try {
+                String sql = "update  tbl_streaming set description=? ,link=? , etat=1 where idUser=?";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setString(1, s.getDescription());
+                stmt.setString(2, s.getLink());
+                stmt.setInt(3,s.getIdUser() );
+                
+                
+              
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+}
    }
  public void envoyerM(String m)
  {
@@ -373,4 +410,89 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
 
         return String.valueOf(message);
  }
+
+ 
+ public void finishStream(Streaming s){
+       PreparedStatement stmt = null;
+
+            try {
+                String sql = "UPDATE tbl_streaming set etat=0 where idUser=?";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setInt(1,GlobalConfig.getInstance().getSession() );
+               
+            
+               
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ }
+ public void augmenterVu(Streaming s)
+ {
+     PreparedStatement stmt = null;
+
+            try {
+                String sql = "UPDATE tbl_streaming set nbVu=? where idUser=? ";
+                stmt = cnx.prepareStatement(sql);
+                
+                stmt.setInt(1, Integer.parseInt(getVue(s))+1);
+                stmt.setInt(2,s.getIdUser() );
+                System.out.println(Integer.parseInt(getVue(s)+1)+" user id est"+ s.getIdUser());
+               
+            
+               
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ }
+ public void reduireVu(Streaming s)
+ {
+     PreparedStatement stmt = null;
+
+            try {
+                String sql = "UPDATE tbl_streaming set nbVu=? where idUser=? ";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setInt(1, Integer.parseInt(getVue(s))-1);
+                stmt.setInt(2,s.getIdUser() );
+               
+            
+               
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ }
+ public Streaming loadS(String link,String nom) throws SQLException
+ {
+     
+    Streaming s = new Streaming();
+        PreparedStatement stmt;
+
+        try {
+            String sql = "SELECT idStream,tbl_streaming.idUser,link,description,nbVu,etat FROM tbl_streaming,tbl_user WHERE link=? and (select nameUser from tbl_user where tbl_user.idUser=tbl_streaming.idUser)=?";
+            stmt = cnx.prepareStatement(sql);
+            stmt.setString(1, link);
+            stmt.setString(2, nom);
+            ResultSet rst = stmt.executeQuery();
+            while (rst.next()) {
+                s.setDescription(rst.getString("description"));
+                s.setIdStream(rst.getInt("idStream"));
+                s.setLink(rst.getString("link"));
+                s.setNbVu(rst.getInt("nbVu"));
+                s.setIdUser(Integer.parseInt(rst.getString("idUser")));
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return s;
+ }
+ 
 }

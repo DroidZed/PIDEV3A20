@@ -4,6 +4,7 @@
  */
 package tn.nebulagaming.views;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -26,6 +30,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import tn.nebulagaming.models.Membre;
 import tn.nebulagaming.models.Reclamation;
 import tn.nebulagaming.models.Streaming;
 import tn.nebulagaming.services.ServiceChat;
@@ -44,12 +50,13 @@ public class StreamHomeController implements Initializable  {
     Streaming stream;
     public Label chat;
     public TextField message;
-    @FXML
-    private Button envoyerm;
     private TableColumn<String, String> messageT;
     @FXML
     private Label nbVu;
-    
+    Membre user2;
+    String id;
+    @FXML
+    private Button retour;
     /**
      * Initializes the controller class.
      */
@@ -69,8 +76,9 @@ public class StreamHomeController implements Initializable  {
       
     }    
 
-    void iniializeFxml(Streaming s) throws InterruptedException {
+    void iniializeFxml(Streaming s,Membre a) throws InterruptedException {
         stream=s;
+        this.user2=a;
         ServiceMembre se=new ServiceMembre();
         System.out.println(stream.getLink());
           final WebEngine Web=web.getEngine();
@@ -110,7 +118,40 @@ nbVu.setText(nb);
     }
 
     @FXML
-    private void retour(ActionEvent event) {
+    private void retour(ActionEvent event) throws IOException {
+        ServiceMembre sm=new ServiceMembre();
+        if(stream.getIdUser()==GlobalConfig.getInstance().getSession())
+        { sm.finishStream(stream); }
+        else
+            sm.reduireVu(stream);
+         Membre a= this.user2;
+         System.out.println(this.user2.getNom());
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("./Streamer.fxml"));
+        Parent root = loader.load();
+        StreamerController HomeScene = loader.getController();
+        HomeScene.user2 = this.user2;
+        
+        HomeScene.id=id;
+       
+        HomeScene.iniializeFxml(a);
+        HomeScene.showData(a);
+        Stage window = (Stage) retour.getScene().getWindow();
+        window.setScene(new Scene(root, 800, 800));
+    }
+
+    void iniializeFxml(Membre a, Streaming s) {
+        stream=s;
+        this.user2=a;
+        ServiceMembre se=new ServiceMembre();
+        System.out.println(stream.getLink());
+          final WebEngine Web=web.getEngine();
+        String urlweb=stream.getLink();
+        Web.load(urlweb);
+      
+        //    ServiceChat sc=new ServiceChat();
+            String nb=se.getVue(s);
+            System.out.println(nb);
+nbVu.setText(nb);
     }
 
     
