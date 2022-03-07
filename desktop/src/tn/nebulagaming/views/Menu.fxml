@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
    <left>
       <VBox prefHeight="400.0" prefWidth="134.0" style="-fx-background-color: #0D1824;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnJeuVideo" mnemonicParsing="false" onAction="#JeuVideo" prefHeight="206.0" prefWidth="134.0" text="Jeu Video" />
             <Button fx:id="btnPublication" mnemonicParsing="false" onAction="#InterPub" prefHeight="201.0" prefWidth="134.0" text="Publication" />
-            <Button mnemonicParsing="false" prefHeight="498.0" prefWidth="134.0" />
+            <Button mnemonicParsing="false" prefHeight="844.0" prefWidth="134.0" />
          </children>
       </VBox>
    </left>
