@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.AdminHomeController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" styleClass="mainFxmlClass">
+         <children>
+            <TabPane layoutX="14.0" layoutY="16.0" prefHeight="800.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Informations">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="686.0" prefWidth="720.0">
+                           <children>
+                              <TextField fx:id="nomAdm" layoutX="44.0" layoutY="189.0" promptText="Nom" />
+                              <TextField fx:id="mailAdm" layoutX="44.0" layoutY="252.0" promptText="Email" />
+                              <TextField fx:id="telAdmin" layoutX="44.0" layoutY="320.0" promptText="Telephone" />
+                              <Label layoutX="44.0" layoutY="161.0" text="Nom" />
+                              <Label layoutX="44.0" layoutY="291.0" text="Telephone" />
+                              <Label layoutX="44.0" layoutY="231.0" text="Email" />
+                              <Button fx:id="modifInfo" layoutX="288.0" layoutY="547.0" mnemonicParsing="false" onAction="#modifPw" text="Modifier informations" />
+                              <Label fx:id="usernameLab" layoutX="135.0" layoutY="14.0" prefHeight="36.0" prefWidth="400.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <Hyperlink fx:id="logOut" layoutX="667.0" layoutY="22.0" onAction="#logOut" text="Deconnecter" />
+                              <ImageView fx:id="photoAdmin" fitHeight="213.0" fitWidth="212.0" layoutX="402.0" layoutY="55.0" onMousePressed="#animate" onMouseReleased="#afficherPhotoAd" pickOnBounds="true" preserveRatio="true" />
+                              <Label fx:id="photoName" layoutX="508.0" layoutY="526.0" />
+                              <ImageView fx:id="animation" fitHeight="33.0" fitWidth="40.0" layoutX="438.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Images/lunettes.jpeg" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="crown" fitHeight="58.0" fitWidth="91.0" layoutX="16.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Images/crown.jpeg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Liste des Entreprises">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tabEnt" layoutX="1.0" layoutY="22.0" onMouseClicked="#afficherPhoto" prefHeight="473.0" prefWidth="782.0">
+                                <columns>
+                                  <TableColumn fx:id="nomEnt" prefWidth="96.0" text="NOM" />
+                                    <TableColumn fx:id="emailEnt" prefWidth="121.0" text="EMAIL" />
+                                    <TableColumn fx:id="cvEnt" prefWidth="132.0" text="CV" />
+                                    <TableColumn fx:id="telEnt" prefWidth="124.0" text="TEL" />
+                                    <TableColumn fx:id="etatCompteEnt" prefWidth="109.0" text="ETAT COMPTE" />
+                                    <TableColumn fx:id="photoEnt" prefWidth="196.0" text="Photo" />
+                                    <TableColumn fx:id="dateEnt" prefWidth="196.0" text="DATE CREATION" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="afficherCv" layoutX="241.0" layoutY="511.0" mnemonicParsing="false" onAction="#afficherCv" text="Afficher CV" />
+                              <Button fx:id="afficherPhotoEnt" layoutX="347.0" layoutY="511.0" mnemonicParsing="false" onAction="#afficherPhotoEnt" text="Afficher la photo" />
+                              <Button fx:id="modifEtatCompteEnt" layoutX="652.0" layoutY="511.0" mnemonicParsing="false" onAction="#etatCompteEnt" text="Affecter état" />
+                              <CheckBox fx:id="triNomEnt" layoutX="80.0" layoutY="516.0" mnemonicParsing="false" onAction="#affichageTabEntreprise" text="Nom" />
+                              <CheckBox fx:id="triTelEnt" layoutX="177.0" layoutY="516.0" mnemonicParsing="false" onAction="#affichageTabEntreprise" text="Tel" />
+                              <Label layoutX="23.0" layoutY="516.0" text="Trier :" />
+                              <TextField fx:id="rechercherEnt" layoutX="132.0" layoutY="603.0" onAction="#affichageTabEntreprise" onKeyReleased="#affichageTabEntreprise" prefHeight="31.0" prefWidth="311.0" promptText="nom ou telephone ou email ou etat compte" />
+                              <Label layoutX="44.0" layoutY="608.0" text="Rechercher" />
+                              <ComboBox fx:id="etatsEnt" layoutX="490.0" layoutY="511.0" prefWidth="150.0" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="465.0" layoutY="577.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="photoEntr" fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="566.0" pickOnBounds="true" preserveRatio="true" />
+                              <Hyperlink fx:id="pdfEnt" layoutX="347.0" layoutY="665.0" onAction="#afficherCv" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Liste des Membres">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tabMembre" layoutX="6.0" layoutY="21.0" onMouseClicked="#afficherPhotoMem" prefHeight="474.0" prefWidth="789.0">
+                                 <columns>
+                                    <TableColumn fx:id="nomMembre" prefWidth="75.0" text="NOM" />
+                                    <TableColumn fx:id="emailMembre" prefWidth="168.0" text="EMAIL" />
+                                    <TableColumn fx:id="descMembre" minWidth="0.0" prefWidth="118.0" text="DESCRIPTION" />
+                                    <TableColumn fx:id="telMembre" prefWidth="121.0" text="TEL" />
+                                    <TableColumn fx:id="etatCompteMembre" prefWidth="115.0" text="ETAT COMPTE" />
+                                    <TableColumn fx:id="photoMembre" prefWidth="139.0" text="Photo" />
+                                    <TableColumn fx:id="dateMembre" prefWidth="196.0" text="DATE CREATION" />
+
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="afficherPhotoMembre" layoutX="313.0" layoutY="532.0" mnemonicParsing="false" onAction="#afficherPhotoMembre" text="Afficher la photo" />
+                              <Label layoutX="36.0" layoutY="537.0" text="Tirer :" />
+                              <CheckBox fx:id="trierNomMembre" layoutX="88.0" layoutY="537.0" mnemonicParsing="false" onAction="#affichageTabMembre" text="Nom" />
+                              <CheckBox fx:id="trierTelMembre" layoutX="194.0" layoutY="537.0" mnemonicParsing="false" onAction="#affichageTabMembre" text="Tel" />
+                              <ComboBox fx:id="etatsMembre" layoutX="477.0" layoutY="532.0" prefWidth="150.0" />
+                              <Button fx:id="modifEtatMembre" layoutX="665.0" layoutY="532.0" mnemonicParsing="false" onAction="#etatCompteMembre" text="Affecter etat" />
+                              <TextField fx:id="rechercherMembre" layoutX="159.0" layoutY="638.0" onAction="#affichageTabMembre" onKeyReleased="#affichageTabMembre" prefHeight="31.0" prefWidth="316.0" promptText="nom ou telephone ou email ou etat compte" />
+                              <Label layoutX="57.0" layoutY="643.0" text="Rechercher" />
+                              <ImageView fx:id="photoMem" fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="579.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Liste des Reclamations">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tabRec" layoutX="4.0" layoutY="25.0" prefHeight="335.0" prefWidth="785.0">
+                                <columns>
+                                  <TableColumn fx:id="nomUser" prefWidth="96.0" text="USER" />
+                                  <TableColumn fx:id="etatRec" prefWidth="121.0" text="ETAT" />
+                                    <TableColumn fx:id="typeRec" prefWidth="121.0" text="TYPE" />
+                                    <TableColumn fx:id="message" prefWidth="121.0" text="MESSAGE" />
+                                    <TableColumn fx:id="rep" prefWidth="121.0" text="REPONSE" />
+                                    
+                                </columns>
+                              </TableView>
+                              <TextField fx:id="rechercherRec" layoutX="124.0" layoutY="387.0" onKeyReleased="#affichageTabRec" prefHeight="31.0" prefWidth="235.0" promptText="user ou type ou etat" />
+                              <Label layoutX="29.0" layoutY="392.0" text="Rechercher" />
+                              <CheckBox fx:id="triNomRec" layoutX="518.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="user" />
+                              <CheckBox fx:id="triTypeRec" layoutX="592.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="type" />
+                              <CheckBox fx:id="triEtatRec" layoutX="678.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="etat" />
+                              <Label layoutX="439.0" layoutY="392.0" text="Trier" />
+                              <Button fx:id="traiterRec" layoutX="327.0" layoutY="653.0" mnemonicParsing="false" onAction="#traiterRec" text="traiter" />
+                             
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
