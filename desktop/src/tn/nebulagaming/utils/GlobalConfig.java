@@ -30,30 +30,33 @@ public class GlobalConfig {
 
         try {
             CONNECTION = DriverManager.getConnection(URL, USER, PASSWORD);
-        }
 
-        catch(SQLException ex) {
+            System.out.println("Connected");
+          
+        } catch (SQLException ex) {
+
             System.out.println(ex.getMessage());
         }
 
     }
 
     public int getSession() {
-      return SESSION;
+        return SESSION;
     }
 
     public void setSession(int s) {
-      SESSION = s;
+        SESSION = s;
     }
 
     public static GlobalConfig getInstance() {
 
-        if(_instance == null)
+        if (_instance == null) {
             _instance = new GlobalConfig();
+        }
         return _instance;
     }
 
-    public Connection getCONNECTION() {
+    public Connection getCnx() {
         return CONNECTION;
     }
 

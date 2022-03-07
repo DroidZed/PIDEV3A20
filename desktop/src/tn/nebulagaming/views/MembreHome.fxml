@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.MembreHomeController">
+    <stylesheets>
+        <URL value="@membrehome.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass">
+          <stylesheets>
+              <URL value="@entreprisehome.css" />
+          </stylesheets>
+         <children>
+            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" styleClass="mainFxmlClass">
+                     <children>
+                        <TabPane layoutX="14.0" layoutY="16.0" prefHeight="800.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Informations">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="686.0" prefWidth="720.0">
+                                       <children>
+                                          <TextField fx:id="nomMembre" layoutX="44.0" layoutY="189.0" promptText="Nom" />
+                                          <TextField fx:id="mailMembre" layoutX="44.0" layoutY="252.0" promptText="Email" />
+                                          <TextField fx:id="telMembre" layoutX="44.0" layoutY="320.0" promptText="Telephone" />
+                                          <Label layoutX="44.0" layoutY="161.0" text="Nom" />
+                                          <Label layoutX="44.0" layoutY="291.0" text="Telephone" />
+                                          <Label layoutX="44.0" layoutY="231.0" text="Email" />
+                                          <Button fx:id="modifInfo" layoutX="288.0" layoutY="547.0" mnemonicParsing="false" onAction="#modifPw" text="Modifier informations" />
+                                          <Label fx:id="usernameLab" layoutX="135.0" layoutY="14.0" prefHeight="36.0" prefWidth="400.0">
+                                             <font>
+                                                <Font size="25.0" />
+                                             </font>
+                                          </Label>
+                                          <Hyperlink fx:id="logOut" layoutX="667.0" layoutY="22.0" onAction="#logOut" text="Deconnecter" />
+                                          <ImageView fx:id="photoMembre" fitHeight="213.0" fitWidth="212.0" layoutX="402.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label fx:id="photoName" layoutX="508.0" layoutY="526.0" />
+                                          <TextField fx:id="descr" layoutX="42.0" layoutY="410.0" prefHeight="109.0" prefWidth="208.0" />
+                                          <Label layoutX="43.0" layoutY="370.0" text="Description" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Liste des Reclamations">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="tabRec" layoutX="4.0" layoutY="25.0" prefHeight="335.0" prefWidth="785.0">
+                                            <columns>
+                                              <TableColumn fx:id="nomUser" prefWidth="96.0" text="USER" />
+                                              <TableColumn fx:id="etatRec" prefWidth="121.0" text="ETAT" />
+                                                <TableColumn fx:id="typeRec" prefWidth="121.0" text="TYPE" />
+                                                <TableColumn fx:id="message" prefWidth="121.0" text="MESSAGE" />
+
+                                                <TableColumn fx:id="rep" prefWidth="121.0" text="REPONSE" />
+                                            </columns>
+                                          </TableView>
+                                          <TextField fx:id="rechercherRec" layoutX="124.0" layoutY="387.0" onKeyReleased="#affichageTabRec" prefHeight="31.0" prefWidth="235.0" promptText="user ou type ou etat" />
+                                          <Label layoutX="29.0" layoutY="392.0" text="Rechercher" />
+                                          <CheckBox fx:id="triNomRec" layoutX="518.0" layoutY="392.0" mnemonicParsing="false" text="user" />
+                                          <CheckBox fx:id="triTypeRec" layoutX="592.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="type" />
+                                          <CheckBox fx:id="triEtatRec" layoutX="678.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="etat" />
+                                          <Label layoutX="439.0" layoutY="392.0" text="Trier" />
+                                          <Button fx:id="passerRec" layoutX="50.0" layoutY="541.0" mnemonicParsing="false" onAction="#passeRec" text="Passer une réclamation" />
+                                         
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Streaming">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="tabStream" layoutX="12.0" layoutY="24.0" onSort="#affichageTabStreaming" prefHeight="234.0" prefWidth="770.0">
+                                            <columns>
+                                              <TableColumn fx:id="userStream" prefWidth="182.0" text="USER" />
+                                              <TableColumn fx:id="descStream" prefWidth="350.0" text="DESCRIPTION" />
+                                              <TableColumn fx:id="vuStream" prefWidth="228.0" text="NOMBRE DE VUES" />
+                                              <TableColumn fx:id="idStream" prefWidth="246.0" text="idStream" visible="false" />
+                                            </columns>
+                                          </TableView>
+                                          <Button fx:id="regarder" layoutX="196.0" layoutY="558.0" mnemonicParsing="false" onAction="#regarder" text="Regarder" />
+                                          <Button fx:id="stream" layoutX="485.0" layoutY="558.0" mnemonicParsing="false" onAction="#streamer" text="Streamer" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
