@@ -50,4 +50,11 @@ public class Streaming {
    {
        this.idStream=id;
    }
+   public int getId(){
+   return this.idStream;}
+   
+   public int getIdUser(){
+   return this.idUser;}
+   public void setIdUser(int id){
+   this.idUser=id;}
 }

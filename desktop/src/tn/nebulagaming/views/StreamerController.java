@@ -21,6 +21,7 @@ import tn.nebulagaming.models.Entreprise;
 import tn.nebulagaming.models.Membre;
 import tn.nebulagaming.models.Streaming;
 import tn.nebulagaming.services.ServiceMembre;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -55,11 +56,13 @@ public class StreamerController implements Initializable {
     }
 
     @FXML
-    private void ajouterS(ActionEvent event) throws IOException {
+    private void ajouterS(ActionEvent event) throws IOException, InterruptedException {
         ServiceMembre se=new ServiceMembre();
         Streaming s=new Streaming();
         s.setDescription(descS.getText());
         s.setLink(linkS.getText());
+        s.setNbVu(0);
+        s.setIdUser(GlobalConfig.getInstance().getSession());
         se.ajouterStram(s);
           FXMLLoader loader = new FXMLLoader(getClass().getResource("./StreamHome.fxml"));
         Parent root = loader.load();

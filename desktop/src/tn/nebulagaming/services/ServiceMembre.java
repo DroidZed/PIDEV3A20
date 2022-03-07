@@ -294,4 +294,83 @@ public class ServiceMembre extends ServiceUser implements IService<Membre> {
                 Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
    }
+ public void envoyerM(String m)
+ {
+     PreparedStatement stmt = null;
+
+            try {
+                String sql = "INSERT INTO tbl_chat (idUser,message) VALUES(?,?)";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setInt(1,GlobalConfig.getInstance().getSession() );
+                stmt.setString(2, m);
+            
+               
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ }
+ public String afficherM()
+ {
+     PreparedStatement stmt = null;
+      String message = null;
+
+        try {
+
+            String sql = "select message from tbl_chat ";
+            stmt = cnx.prepareStatement(sql);
+            
+
+            ResultSet rst = stmt.executeQuery();
+
+            while (rst.next()) {
+
+               String newLine = System.getProperty("line.separator");
+
+               message=rst.getString("message");
+
+                
+               
+                
+                // System.out.println(" nom: "+e.getNom()+ ", desciption:  "+e.getDescription()+ ", mail: "+e.getEmail() +", tel: "+e.getTel() + " ");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+
+        return message;
+ }
+ public String getVue(Streaming s){
+     PreparedStatement stmt = null;
+      int message = 0;
+
+        try {
+
+            String sql = "select nbVu from tbl_streaming where idUser=?";
+            stmt = cnx.prepareStatement(sql);
+            
+       stmt.setInt(1, s.getIdUser());
+            ResultSet rst = stmt.executeQuery();
+
+            while (rst.next()) {
+
+               
+
+               message=rst.getInt("nbVu");
+
+                
+               
+                
+                // System.out.println(" nom: "+e.getNom()+ ", desciption:  "+e.getDescription()+ ", mail: "+e.getEmail() +", tel: "+e.getTel() + " ");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+
+        }
+
+        return String.valueOf(message);
+ }
 }
