@@ -56,7 +56,7 @@ public class GlobalConfig {
         return _instance;
     }
 
-    public Connection getCnx() {
+    public Connection getCONNECTION() {
         return CONNECTION;
     }
 

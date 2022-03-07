@@ -1,51 +1,46 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 package tn.nebulagaming;
 
-import java.util.Calendar;
-import java.util.List;
-import tn.nebulagaming.models.Badge;
-import tn.nebulagaming.models.Participation;
-import tn.nebulagaming.models.Post;
-import tn.nebulagaming.services.ServiceBadge;
-import tn.nebulagaming.services.ServiceEvent;
-import tn.nebulagaming.services.ServiceParticipation;
-import tn.nebulagaming.services.ServicePost;
-
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
- * @author Aymen Dhahri
+ * @author ASUS
  */
-public class NebulaGamingMain {
+public class NebulaGamingMain extends Application {
+    
+    @Override
+    public void start(Stage primaryStage) {
 
-    public static void main(String args[]) {
-	
-        ServiceBadge sb = new ServiceBadge () ; 
-	//Badge b = new Badge (9,"new Badge","new Badge desc","photoBadgeUpdated") ;
-        //sb.add(b) ;
-        //sb.update(b);
-        //sb.delete(b);
-        
-        ServicePost sp = new ServicePost () ; 
-        //Post p = new Post (9,"test title","test desc",0,"Post","test photoUpdated",1) ;
-        //sp.add (p) ;
-        //sp.update(p);
-        //sp.delete(p);
-        
-        
-        java.sql.Date postedDTM = new java.sql.Date (Calendar.getInstance().getTime().getTime());
-        System.out.println (postedDTM) ;
-        
-        ServiceParticipation spar = new ServiceParticipation () ;
-        
-        List<Participation> listpar =spar.displayParticipationByEvent(14);
-        for (Participation element : listpar) {
-            System.out.println(element);
-        }
-        
+    	try {
+	    
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("./views/MainScreen.fxml")); //load view
+
+	    Parent root = loader.load();
+	    Scene scene = new Scene(root);
+
+	    primaryStage.setTitle("Nebula Gaming - Vente");
+	    primaryStage.setScene(scene);
+	    primaryStage.show();
+	} catch (IOException ex) {
+	    System.out.println(ex.getMessage());
+	}
+
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+	launch(args);
     }
     
 }
