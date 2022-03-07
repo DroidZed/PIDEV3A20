@@ -85,7 +85,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tabStream" layoutX="12.0" layoutY="24.0" prefHeight="234.0" prefWidth="770.0">
+                                          <TableView fx:id="tabStream" layoutX="12.0" layoutY="24.0" onSort="#affichageTabStreaming" prefHeight="234.0" prefWidth="770.0">
                                             <columns>
                                               <TableColumn fx:id="userStream" prefWidth="182.0" text="USER" />
                                               <TableColumn fx:id="descStream" prefWidth="350.0" text="DESCRIPTION" />

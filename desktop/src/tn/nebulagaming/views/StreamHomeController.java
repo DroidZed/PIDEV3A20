@@ -154,5 +154,13 @@ nbVu.setText(nb);
 nbVu.setText(nb);
     }
 
+    @FXML
+    private void iniializeFxml(MouseEvent event) {
+        ServiceMembre se=new ServiceMembre();
+           String nb=se.getVue(stream);
+            System.out.println(nb);
+nbVu.setText(nb);
+    }
+
     
 }

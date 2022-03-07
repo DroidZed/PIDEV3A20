@@ -260,6 +260,7 @@ String id;
         window.setScene(new Scene(root, 800, 800));
     }
 
+    @FXML
     private void affichageTabStreaming() {
        ServiceMembre sm=new ServiceMembre();
         ObservableList<Streaming> list = FXCollections.observableArrayList(sm.afficherStreamers());

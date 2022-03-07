@@ -19,7 +19,7 @@
                   <WebView fx:id="web" layoutY="-87.0" prefHeight="533.0" prefWidth="524.0" />
                   <Button fx:id="retour" layoutX="558.0" layoutY="359.0" mnemonicParsing="false" onAction="#retour" text="retour" />
                   <Label fx:id="nbVu" layoutX="618.0" layoutY="52.0" onMouseExited="#afficherChat" prefHeight="39.0" prefWidth="47.0" />
-                  <Label layoutX="535.0" layoutY="22.0" text="nombre de vues" />
+                  <Label layoutX="535.0" layoutY="22.0" onMouseExited="#iniializeFxml" text="nombre de vues" />
                </children>
             </AnchorPane>
          </bottom>
