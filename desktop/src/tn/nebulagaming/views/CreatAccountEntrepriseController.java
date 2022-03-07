@@ -35,8 +35,8 @@ import tn.nebulagaming.models.Entreprise;
 import tn.nebulagaming.services.ServiceEntreprise;
 import tn.nebulagaming.services.ServiceNotification;
 import tn.nebulagaming.services.ServiceUser;
-import static tn.nebulagaming.utils.Consts.CV_PATH;
-import static tn.nebulagaming.utils.Consts.IMG_PATH;
+import static tn.nebulagaming.utils.Constantes.CV_PATH;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH;
 import tn.nebulagaming.utils.MailUtiles;
 import tn.nebulagaming.utils.UserUtiles;
 

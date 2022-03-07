@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author houba
  */
-public interface IService<T> {
+public interface IServiceU<T> {
 
 
 void ajouter(T a);

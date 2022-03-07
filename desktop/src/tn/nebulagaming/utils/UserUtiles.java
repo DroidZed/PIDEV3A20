@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.regex.Matcher;
 import tn.nebulagaming.services.ServiceUser;
-//import static projet.esprit.pidev.utiles.Consts.fast_login;
+//import static projet.esprit.pidev.utiles.Constantes.fast_login;
 
 public class UserUtiles {
 
@@ -49,7 +49,7 @@ public class UserUtiles {
 
     public boolean testNom(String nom) {
 
-        Matcher matcher = Consts.VALID_NAME_REGEX.matcher(nom);
+        Matcher matcher = Constantes.VALID_NAME_REGEX.matcher(nom);
         return matcher.find();
 
     }
@@ -83,12 +83,12 @@ public class UserUtiles {
     }
 
     public boolean testEmail(String mail) {
-        Matcher matcher = Consts.VALID_EMAIL_ADDRESS_REGEX.matcher(mail);
+        Matcher matcher = Constantes.VALID_EMAIL_ADDRESS_REGEX.matcher(mail);
         return matcher.find();
     }
 
     public boolean testPassword(String password) {
-        Matcher matcher = Consts.VALID_PASSWORD_REGEX.matcher(password);
+        Matcher matcher = Constantes.VALID_PASSWORD_REGEX.matcher(password);
         return matcher.find();
     }
 

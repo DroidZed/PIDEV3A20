@@ -34,8 +34,8 @@ import tn.nebulagaming.models.Membre;
 import tn.nebulagaming.services.ServiceEntreprise;
 import tn.nebulagaming.services.ServiceMembre;
 import tn.nebulagaming.services.ServiceUser;
-import static tn.nebulagaming.utils.Consts.IMG_PATH;
-import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH_LOAD;
 import tn.nebulagaming.utils.UserUtiles;
 
 /**

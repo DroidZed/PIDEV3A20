@@ -20,10 +20,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import tn.nebulagaming.models.Membre;
-import tn.nebulagaming.services.IService;
 import tn.nebulagaming.services.IServiceUser;
+import tn.nebulagaming.services.IServiceU;
 
-public class ServiceEntreprise extends ServiceUser implements IService<Entreprise> {
+public class ServiceEntreprise extends ServiceUser implements IServiceU<Entreprise> {
 
     Connection cnx;
 

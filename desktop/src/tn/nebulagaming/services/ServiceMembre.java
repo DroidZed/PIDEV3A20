@@ -19,12 +19,12 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import tn.nebulagaming.models.Entreprise;
 import tn.nebulagaming.models.Streaming;
-import tn.nebulagaming.services.IService;
 import tn.nebulagaming.utils.GlobalConfig;
 import tn.nebulagaming.utils.MailUtiles;
 import tn.nebulagaming.utils.UserUtiles;
+import tn.nebulagaming.services.IServiceU;
 
-public class ServiceMembre extends ServiceUser implements IService<Membre> {
+public class ServiceMembre extends ServiceUser implements IServiceU<Membre> {
 
     Connection cnx;
 

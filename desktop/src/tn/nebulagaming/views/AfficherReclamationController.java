@@ -27,7 +27,7 @@ import tn.nebulagaming.models.Reclamation;
 import tn.nebulagaming.services.ServiceAdmin;
 import tn.nebulagaming.services.ServiceReclamation;
 import tn.nebulagaming.services.ServiceUser;
-import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH_LOAD;
 
 /**
  * FXML Controller class

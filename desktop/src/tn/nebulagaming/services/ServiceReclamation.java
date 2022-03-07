@@ -15,15 +15,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import tn.nebulagaming.models.Membre;
-import tn.nebulagaming.services.IService;
 import tn.nebulagaming.utils.GlobalConfig;
 import tn.nebulagaming.models.Reclamation;
+import tn.nebulagaming.services.IServiceU;
 
 /**
  *
  * @author houba
  */
-public class ServiceReclamation implements IService<Reclamation> {
+public class ServiceReclamation implements IServiceU<Reclamation> {
 
     Connection cnx;
 

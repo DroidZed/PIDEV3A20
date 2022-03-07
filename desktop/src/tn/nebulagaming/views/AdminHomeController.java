@@ -63,9 +63,9 @@ import tn.nebulagaming.services.ServiceMembre;
 import tn.nebulagaming.services.ServiceReclamation;
 import tn.nebulagaming.services.ServiceUser;
 import tn.nebulagaming.utils.GlobalConfig;
-import static tn.nebulagaming.utils.Consts.CV_PATH;
-import static tn.nebulagaming.utils.Consts.IMG_PATH;
-import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
+import static tn.nebulagaming.utils.Constantes.CV_PATH;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH_LOAD;
 import tn.nebulagaming.utils.UserUtiles;
 
 /**

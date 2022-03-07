@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import tn.nebulagaming.utils.GlobalConfig;
 
-public class ServiceAdmin implements IService<Admin> {
+public class ServiceAdmin implements IServiceU<Admin> {
 
     Connection cnx;
 

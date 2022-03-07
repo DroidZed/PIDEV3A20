@@ -31,8 +31,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import tn.nebulagaming.models.Membre;
 import tn.nebulagaming.services.ServiceMembre;
-import static tn.nebulagaming.utils.Consts.CV_PATH;
-import static tn.nebulagaming.utils.Consts.IMG_PATH;
+import static tn.nebulagaming.utils.Constantes.CV_PATH;
+import static tn.nebulagaming.utils.Constantes.IMG_PATH;
 import tn.nebulagaming.utils.MailUtiles;
 import tn.nebulagaming.utils.UserUtiles;
 
