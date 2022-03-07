@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author ASUS
+ * @author Aymen Dhahri
  */
 public class NebulaGamingMain extends Application {
     
@@ -27,7 +27,7 @@ public class NebulaGamingMain extends Application {
 	    Parent root = loader.load();
 	    Scene scene = new Scene(root);
 
-	    primaryStage.setTitle("Nebula Gaming - Vente");
+	    primaryStage.setTitle("Nebula Gaming");
 	    primaryStage.setScene(scene);
 	    primaryStage.show();
 	} catch (IOException ex) {
