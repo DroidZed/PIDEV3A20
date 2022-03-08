@@ -9,12 +9,11 @@ import java.util.List;
 /**
  *
  * @author SuperNova
+ * @param <T>
  */
 public interface IServiceNewsfeed<T> {
    public void add (T t) ;
    public void delete (int id) ;
    public void update (T t) ; 
    public List<T> display () ; 
-    /*public List<T> filter (List<T> t) ; 
-    public List<T> search (String keyWord) ;*/ 
 }

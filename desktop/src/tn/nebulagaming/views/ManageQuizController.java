@@ -127,7 +127,7 @@ public class ManageQuizController implements Initializable {
         //get User Name jointure 
         postedByCol.setCellValueFactory(data->{
            Quiz quiz = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+               Connection cnx = GlobalConfig.getInstance().getCONNECTION();
            String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+quiz.getIdOwnerUser();
            Statement st = null ;
            String result = "" ;

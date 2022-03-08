@@ -7,7 +7,7 @@
 package tn.nebulagaming.models;
 
 
-public class etatCompte {
+public class EtatCompte {
     public enum etat {
     active, inactive, banned, restricted;
 
@@ -26,7 +26,7 @@ public class etatCompte {
     private int id;
     private etat name;
 
-    public etatCompte(int id, etat name) {
+    public EtatCompte(int id, etat name) {
         this.id = id;
         this.name = name ;
     }

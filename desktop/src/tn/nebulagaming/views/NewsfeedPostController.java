@@ -62,7 +62,7 @@ public class NewsfeedPostController implements Initializable {
 
     public void setData(Post post) {
         
-        Connection cnx = GlobalConfig.getInstance().getCnx() ;
+        Connection cnx = GlobalConfig.getInstance().getCONNECTION();
         
         
         this.post = post ;

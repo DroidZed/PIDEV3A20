@@ -45,6 +45,7 @@
                                     <ImageView fx:id="photoEnt" fitHeight="213.0" fitWidth="212.0" layoutX="402.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label fx:id="photoName" layoutX="508.0" layoutY="526.0" />
                                     <Hyperlink fx:id="cvEnt" layoutX="87.0" layoutY="457.0" onAction="#afficherCv" />
+                                    <Button fx:id="newsFeedEnt" layoutX="281.0" layoutY="619.0" mnemonicParsing="false" onAction="#goToNFEnt" prefHeight="25.0" prefWidth="156.0" text="News Feed" />
                                  </children>
                               </AnchorPane>
                         </content>

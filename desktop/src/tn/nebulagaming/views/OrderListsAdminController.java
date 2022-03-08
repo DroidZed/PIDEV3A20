@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tn.nebulagaming.models.UserOrderCombined;
 import tn.nebulagaming.services.UserOrderService;
+import static tn.nebulagaming.utils.Constantes.SEARCH_REGEX;
 
 /**
  * FXML Controller class
@@ -35,8 +36,6 @@ import tn.nebulagaming.services.UserOrderService;
  * @author Aymen Dhahri
  */
 public class OrderListsAdminController implements Initializable {
-
-    static final String SEARCH_REGEX = "(^[a-zA-Z ]+)(:) ([a-zA-Z/0-9\\. ]+)";
 
     @FXML
     private TextField tfSearch;
@@ -48,8 +47,6 @@ public class OrderListsAdminController implements Initializable {
     private DatePicker dateSub;
 
     private ObservableList<UserOrderCombined> orders;
-
-    private Pattern pat;
 
     private UserOrderService usr;
     @FXML
@@ -78,8 +75,6 @@ public class OrderListsAdminController implements Initializable {
 
 	usr = new UserOrderService();
 
-	pat = Pattern.compile(SEARCH_REGEX);
-
 	orders = FXCollections.observableArrayList(usr.getAssociated());
 
 	colFullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -93,7 +88,7 @@ public class OrderListsAdminController implements Initializable {
 
 	tfSearch.textProperty().addListener((obs, oldValue, newValue) -> {
 
-	    Matcher matcher = pat.matcher(newValue);
+	    Matcher matcher = SEARCH_REGEX.matcher(newValue);
 	    boolean matchFound = matcher.find();
 
 	    if (matchFound && !newValue.isEmpty()) {

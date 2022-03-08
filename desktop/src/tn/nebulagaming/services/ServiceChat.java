@@ -12,21 +12,20 @@ import javafx.scene.control.Label;
  *
  * @author houba
  */
-public class ServiceChat extends Thread{
-    ServiceMembre se=new ServiceMembre();
-    public void run(Label lab)
-    { 
-        lab.setText(se.afficherM());
-        System.out.println(se.afficherM());
-    
-    try{
-        Thread.sleep(100);
-    
-}       catch (InterruptedException ex) {
-            Logger.getLogger(ServiceChat.class.getName()).log(Level.SEVERE, null, ex);
-        }
+public class ServiceChat extends Thread {
+
+    ServiceMembre se = new ServiceMembre();
+
+    public void run(Label lab) {
+	lab.setText(se.afficherM());
+	System.out.println(se.afficherM());
+
+	try {
+	    Thread.sleep(100);
+
+	} catch (InterruptedException ex) {
+	    Logger.getLogger(ServiceChat.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 
-    
-   
 }

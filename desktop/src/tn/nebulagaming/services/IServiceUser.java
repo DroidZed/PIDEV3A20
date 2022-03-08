@@ -5,27 +5,16 @@
  */
 package tn.nebulagaming.services;
 
-import java.util.List;
+public interface IServiceUser<T> {
 
-
-public interface IServiceUser <T> {
-
-
-    
     public String verifierData(String id, String password);
-    
+
     public int verifEtatCompte(String mail);
-    
+
     public boolean verifierEmailBd(String email);
-    
+
     public boolean verifierPwBd(String password);
-    
+
     public void modifierPassword(String mail, String password);
 
-    
-   // public void modifierEtatCompte(String mail, Boolean etatCompte);
-    
-  //  public void modifierPhoto(String mail , String photo);
-    
-    
 }

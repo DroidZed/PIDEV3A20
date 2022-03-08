@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package tn.nebulagaming.models;
 
 /**
  *
  * @author hp
  */
-public class test {
+public class Test {
    private int idTest;
    private String durationTest;
    private String  questionTest;
@@ -17,7 +17,7 @@ public class test {
    private String question;
    private int idUser;
 
-    public test(String durationTest, String questionTest, int nbQuestion, String choix, String question) {
+    public Test(String durationTest, String questionTest, int nbQuestion, String choix, String question) {
         this.durationTest = durationTest;
         this.questionTest = questionTest;
         this.nbQuestion = nbQuestion;

@@ -136,25 +136,6 @@ public class UserOrderService extends ServiceMotherClass implements IService<Use
 
     }
 
-    List<UserOrder> sortBy(int idUser, String criteria) {
-
-	List<UserOrder> list = this.getOfUser(idUser);
-
-	switch (criteria) {
-
-	    case "CREATION_DATE":
-		list = list.stream().sorted((o1, o2) -> o1.getCreatedDTM().compareTo(o2.getCreatedDTM())).collect(Collectors.toList());
-		break;
-
-	    case "PAID_DATE":
-		list = list.stream().sorted((o1, o2) -> o1.getPayDTM().compareTo(o2.getPayDTM())).collect(Collectors.toList());
-		break;
-	    default:
-		break;
-	}
-	return list;
-    }
-
     public UserOrder getOne(int numberOrder, int idUser) {
 
 	return this.getOfUser(idUser)

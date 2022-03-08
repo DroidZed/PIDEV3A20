@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tn.nebulagaming.models.UserOrderCombined;
 import tn.nebulagaming.services.UserOrderService;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -56,10 +57,13 @@ public class OrderListUserController implements Initializable {
 
     private UserOrderService usr;
 
+    private GlobalConfig conf;
 
 
     public void setIdUser(int idUser) {
 	this.idUser = idUser;
+	
+	conf = GlobalConfig.getInstance();
     }
 
     /**
@@ -70,7 +74,7 @@ public class OrderListUserController implements Initializable {
 	// TODO
 	usr = new UserOrderService();
 
-	orders = FXCollections.observableArrayList(usr.getAssociated().stream().filter(o -> o.getIdUser() == 1).collect(Collectors.toList()));
+	orders = FXCollections.observableArrayList(usr.getAssociated().stream().filter(o -> o.getIdUser() == conf.getSession()).collect(Collectors.toList()));
 
 	colSubAt.setCellValueFactory(new PropertyValueFactory<>("createdDTM"));
 	colPaidAt.setCellValueFactory(new PropertyValueFactory<>("payDTM"));
@@ -123,7 +127,7 @@ public class OrderListUserController implements Initializable {
 
 	try {
 
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeMembre.fxml"));
 
 	    Parent root = loader.load();
 

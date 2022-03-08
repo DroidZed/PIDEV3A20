@@ -22,73 +22,78 @@ import tn.nebulagaming.utils.GlobalConfig;
  */
 public class ServicePromos implements IService<Promos> {
 
-    Connection cnx = GlobalConfig.getInstance().getCONNECTION();
+    Connection cnx;
+
+    public ServicePromos() {
+	cnx = GlobalConfig.getInstance().getCONNECTION();
+
+    }
 
     public void ajouter(Promos t) {
-        try {
-            String request = "INSERT INTO tbl_promo (codePromo, discountPromo,idProduct,createdDTM)VALUES(?, ?,?, ?)";
-            PreparedStatement st = cnx.prepareStatement(request);
-            st.setString(1, t.getCodePromo());
-            st.setInt(2, t.getDiscountPromo());
-            st.setInt(3, t.getIdProduct());
-            st.setDate(4, Date.valueOf(LocalDate.now()));
-            st.executeUpdate();
-            System.out.println("Code Promo ajouté");
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
+	try {
+	    String request = "INSERT INTO tbl_promo (codePromo, discountPromo,idProduct,createdDTM)VALUES(?, ?,?, ?)";
+	    PreparedStatement st = cnx.prepareStatement(request);
+	    st.setString(1, t.getCodePromo());
+	    st.setInt(2, t.getDiscountPromo());
+	    st.setInt(3, t.getIdProduct());
+	    st.setDate(4, Date.valueOf(LocalDate.now()));
+	    st.executeUpdate();
+	    System.out.println("Code Promo ajouté");
+	} catch (SQLException ex) {
+	    System.err.println(ex.getMessage());
+	}
     }
 
     public void supprimer(Promos t) {
-        try {
-            String request = "DELETE FROM tbl_promo WHERE id=?";
-            PreparedStatement st = cnx.prepareStatement(request);
-            st.setInt(1, t.getIdPromo());
-            st.executeUpdate();
-            System.out.println("Code Promo supprimée!");
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
+	try {
+	    String request = "DELETE FROM tbl_promo WHERE id=?";
+	    PreparedStatement st = cnx.prepareStatement(request);
+	    st.setInt(1, t.getIdPromo());
+	    st.executeUpdate();
+	    System.out.println("Code Promo supprimée!");
+	} catch (SQLException ex) {
+	    System.err.println(ex.getMessage());
+	}
 
     }
 
     public void modifier(Promos t) {
-        try {
-            String request = "UPDATE tbl_promo SET codePromo=?, discountPromo=? ,idProduct = ? createdDTM = ?  WHERE id=?";
-            PreparedStatement st = cnx.prepareStatement(request);
+	try {
+	    String request = "UPDATE tbl_promo SET codePromo=?, discountPromo=? ,idProduct = ? createdDTM = ?  WHERE id=?";
+	    PreparedStatement st = cnx.prepareStatement(request);
 
-            st.setString(1, t.getCodePromo());
-            st.setInt(2, t.getDiscountPromo());
-            st.setInt(3, t.getIdProduct());
-            st.setDate(4, Date.valueOf(LocalDate.now()));
-            st.setInt(5, t.getIdPromo());
+	    st.setString(1, t.getCodePromo());
+	    st.setInt(2, t.getDiscountPromo());
+	    st.setInt(3, t.getIdProduct());
+	    st.setDate(4, Date.valueOf(LocalDate.now()));
+	    st.setInt(5, t.getIdPromo());
 
-            st.executeUpdate();
-            System.out.println("Code promo modifié");
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+	    st.executeUpdate();
+	    System.out.println("Code promo modifié");
+	} catch (SQLException ex) {
+	    System.err.println(ex.getMessage());
 
-        }
+	}
 
     }
 
     public List<Promos> afficher() {
-        List<Promos> list = new ArrayList<>();
-        try {
-            String request = "SELECT* FROM tbl_promo";
-            PreparedStatement st = cnx.prepareStatement(request);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Promos(rs.getInt("idPromo"), rs.getString(2), rs.getDate("createdDTM"), rs.getInt(4), rs.getInt(5)));
-            }
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return list;
+	List<Promos> list = new ArrayList<>();
+	try {
+	    String request = "SELECT* FROM tbl_promo";
+	    PreparedStatement st = cnx.prepareStatement(request);
+	    ResultSet rs = st.executeQuery();
+	    while (rs.next()) {
+		list.add(new Promos(rs.getInt("idPromo"), rs.getString(2), rs.getDate("createdDTM"), rs.getInt(4), rs.getInt(5)));
+	    }
+	} catch (SQLException ex) {
+	    System.err.println(ex.getMessage());
+	}
+	return list;
     }
 
     public List<Promos> getOfProduct(int prodId) {
 
-        return this.afficher().stream().filter(c -> c.getIdProduct() == prodId).collect(Collectors.toList());
+	return this.afficher().stream().filter(c -> c.getIdProduct() == prodId).collect(Collectors.toList());
     }
 }

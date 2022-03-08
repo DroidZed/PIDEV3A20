@@ -9,10 +9,7 @@ import javafx.geometry.Pos;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
-/**
- *
- * @author SeifBS
- */
+
 public class ServiceNotification {
 
     public void Notification(String title, String text) {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  *
  * @author msi
  */
-public class MenuController implements Initializable {
+public class MenuFarahController implements Initializable {
 
     @FXML
     private BorderPane bp;

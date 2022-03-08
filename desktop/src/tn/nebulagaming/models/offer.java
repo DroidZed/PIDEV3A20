@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package tn.nebulagaming.models;
 
 import java.sql.Date;
 
@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author hp
  */
-public class offer {
+public class Offer {
     
     
   private int idOffer;
@@ -34,7 +34,24 @@ public class offer {
         this.Domain = Domain;
     }
 
-    public offer(int idOffer, String titleOffer, String Typeoffer, String descOffer, Date startDTM, Date endDTM, float salaryOffer, String regionOffer, String addressOffer, int idUser, int idDomain) {
+    public Offer(int idOffer, String titleOffer, String Typeoffer, String descOffer, Date startDTM, Date endDTM, float salaryOffer, String regionOffer, String addressOffer, int idUser, int idDomain, String Domain) {
+	this.idOffer = idOffer;
+	this.titleOffer = titleOffer;
+	this.Typeoffer = Typeoffer;
+	this.descOffer = descOffer;
+	this.startDTM = startDTM;
+	this.endDTM = endDTM;
+	this.salaryOffer = salaryOffer;
+	this.regionOffer = regionOffer;
+	this.addressOffer = addressOffer;
+	this.idUser = idUser;
+	this.idDomain = idDomain;
+	this.Domain = Domain;
+    }
+
+    
+
+    public Offer(int idOffer, String titleOffer, String Typeoffer, String descOffer, Date startDTM, Date endDTM, float salaryOffer, String regionOffer, String addressOffer, int idUser, int idDomain) {
         this.idOffer = idOffer;
         this.titleOffer = titleOffer;
         this.Typeoffer = Typeoffer;
@@ -50,7 +67,7 @@ public class offer {
     
 
   
-    public offer(String titleOffer, String Typeoffer, String descOffer, java.sql.Date startDTM, java.sql.Date endDTM, float salaryOffer, String regionOffer, String addressOffer,int idDomain) {
+    public Offer(String titleOffer, String Typeoffer, String descOffer, java.sql.Date startDTM, java.sql.Date endDTM, float salaryOffer, String regionOffer, String addressOffer,int idDomain) {
         this.titleOffer = titleOffer;
         this.Typeoffer = Typeoffer;
         this.descOffer = descOffer;
@@ -61,7 +78,7 @@ public class offer {
         this.addressOffer = addressOffer;
         this.idDomain = idDomain;
     }
-    public offer(int idOffer,String titleOffer, String Typeoffer, String descOffer, java.sql.Date startDTM, java.sql.Date endDTM, float salaryOffer, String regionOffer, String addressOffer,int idDomain) {
+    public Offer(int idOffer,String titleOffer, String Typeoffer, String descOffer, java.sql.Date startDTM, java.sql.Date endDTM, float salaryOffer, String regionOffer, String addressOffer,int idDomain) {
         
         this.idOffer = idOffer;
         this.titleOffer = titleOffer;

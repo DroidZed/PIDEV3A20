@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package tn.nebulagaming.views;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -29,13 +27,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,25 +55,21 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.util.converter.IntegerStringConverter;
 import javax.imageio.ImageIO;
-import models.JeuVideo;
-import models.publication;
+import net.glxn.qrgen.QRCode;
+import tn.nebulagaming.models.JeuVideo;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.Rating;
-import service.serviceJeuVideo;
-import service.servicePublication; 
-import utils.jdbc;
+import tn.nebulagaming.services.ServiceJeuVideo;
+import tn.nebulagaming.services.ServicePublication;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -89,7 +80,7 @@ public class VideoGameController implements Initializable {
 
     private Statement ste;
     private Connection con;
-    int ratingJeu=0;
+    int ratingJeu = 0;
 
     @FXML
     private TextField nomtxt;
@@ -103,14 +94,14 @@ public class VideoGameController implements Initializable {
     private TableColumn<JeuVideo, String> nomt;
     @FXML
     private TableColumn<JeuVideo, ImageView> imaget;
-    
+
     private final ObservableList<JeuVideo> data = FXCollections.observableArrayList();
     @FXML
     private TextField affiche;
     @FXML
     private Button uploadbutton;
-    
-    serviceJeuVideo sjv= new serviceJeuVideo();
+
+    ServiceJeuVideo sjv = new ServiceJeuVideo();
     @FXML
     private TextField recherche;
     @FXML
@@ -132,375 +123,324 @@ public class VideoGameController implements Initializable {
     @FXML
     private Rating stars;
     @FXML
-    private ImageView fond;
-    
-    
+    private TableColumn<JeuVideo, Integer> Likes;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        Aff();
-        RechercheAV();
-        idlabel.setDisable(false);
-    } 
-    
-    public void Aff(){
-        
-        try {
-            con = jdbc.getInstance().getCnx();
-            ste = con.createStatement();
-            data.clear();
-            
-            ResultSet rs = ste.executeQuery("select * from tbl_videogame");
-            while(rs.next())
-            {
-                JeuVideo f= new JeuVideo(rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(6));
-                
-                File file = new File(rs.getString(4));
-                Image image = new Image(file.toURI().toString());
-                
-                ImageView imageView =new ImageView(image);
-                imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setFitWidth(100);
-                
-                f.setImg(imageView);
-                data.add(f);
-                
-            }
+	// TODO
+	Aff();
+	RechercheAV();
+	idlabel.setDisable(false);
+    }
 
-            idt.setCellValueFactory(new PropertyValueFactory<>("id"));
-            nomt.setCellValueFactory(new PropertyValueFactory<>("nameVg"));
-            imaget.setCellValueFactory(new PropertyValueFactory<>("img"));
-            NoteVG.setCellValueFactory(new PropertyValueFactory<>("rating"));
-            
+    public void Aff() {
 
-            tableVideoGame.setItems(data);
-        } catch (SQLException ex) {
-            Logger.getLogger(VideoGameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	try {
+	    con = GlobalConfig.getInstance().getCONNECTION();
+	    ste = con.createStatement();
+	    data.clear();
 
+	    ResultSet rs = ste.executeQuery("select * from tbl_videogame");
+	    while (rs.next()) {
+		JeuVideo f = new JeuVideo(rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(6));
+
+		File file = new File(rs.getString(4));
+		Image image = new Image(file.toURI().toString());
+
+		ImageView imageView = new ImageView(image);
+		imageView.setImage(image);
+		imageView.setFitHeight(100);
+		imageView.setFitWidth(100);
+
+		f.setImg(imageView);
+		data.add(f);
+
+	    }
+
+	    idt.setCellValueFactory(new PropertyValueFactory<>("id"));
+	    nomt.setCellValueFactory(new PropertyValueFactory<>("nameVg"));
+	    imaget.setCellValueFactory(new PropertyValueFactory<>("img"));
+	    NoteVG.setCellValueFactory(new PropertyValueFactory<>("rating"));
+
+	    tableVideoGame.setItems(data);
+	} catch (SQLException ex) {
+	    Logger.getLogger(VideoGameController.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
     }
-         
-        public void RechercheAV(){
-                // Wrap the ObservableList in a FilteredList (initially display all data).
-                FilteredList<JeuVideo> filteredData = new FilteredList<>(data, b -> true);
-		
-		// 2. Set the filter Predicate whenever the filter changes.
-		recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(evenement -> {
-				// If filter text is empty, display all persons.
-								
-				if (newValue == null || newValue.isEmpty()) {
-					return true;
-				}
-				
-				// Compare first name and last name of every person with filter text.
-				String lowerCaseFilter = newValue.toLowerCase();
-				
-				if (evenement.getNameVg().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-					return true; // Filter matches first name.
-				}    else  
-				    	 return false; // Does not match.
-			});
-		});
-		
-		// 3. Wrap the FilteredList in a SortedList. 
-		SortedList<JeuVideo> sortedData = new SortedList<>(filteredData);
-		
-		// 4. Bind the SortedList comparator to the TableView comparator.
-		// 	  Otherwise, sorting the TableView would have no effect.
-		sortedData.comparatorProperty().bind(tableVideoGame.comparatorProperty());
-		
-		// 5. Add sorted (and filtered) data to the table.
-		tableVideoGame.setItems(sortedData);
+
+    public void RechercheAV() {
+	// Wrap the ObservableList in a FilteredList (initially display all data).
+	FilteredList<JeuVideo> filteredData = new FilteredList<>(data, b -> true);
+
+	// 2. Set the filter Predicate whenever the filter changes.
+	recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+	    filteredData.setPredicate(evenement -> {
+		// If filter text is empty, display all persons.
+
+		if (newValue == null || newValue.isEmpty()) {
+		    return true;
+		}
+
+		// Compare first name and last name of every person with filter text.
+		String lowerCaseFilter = newValue.toLowerCase();
+
+		if (evenement.getNameVg().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+		    return true; // Filter matches first name.
+		} else {
+		    return false; // Does not match.
+		}
+	    });
+	});
+
+	// 3. Wrap the FilteredList in a SortedList. 
+	SortedList<JeuVideo> sortedData = new SortedList<>(filteredData);
+
+	// 4. Bind the SortedList comparator to the TableView comparator.
+	// 	  Otherwise, sorting the TableView would have no effect.
+	sortedData.comparatorProperty().bind(tableVideoGame.comparatorProperty());
+
+	// 5. Add sorted (and filtered) data to the table.
+	tableVideoGame.setItems(sortedData);
     }
-      
 
     @FXML
     private void Ajouter(ActionEvent event) throws IOException, SQLException {
-        if (affiche.getText().isEmpty() || nomtxt.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Verifiez les champs!");
-            alert.show();
-        }
-        else
-        {
-            File f = new File(affiche.getText());
-            System.out.println(f.getName());
-            System.out.println(nomtxt.getText());
-            JeuVideo jv = new JeuVideo(nomtxt.getText(),"C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum"+f.getName());
-            jv.setRating(stars.getRating());
-            
-            sjv.ajouter(jv);
-            
-            Files.copy(Paths.get(affiche.getText()),Paths.get("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum"+f.getName()),REPLACE_EXISTING);
-            Aff();
-            RechercheAV();
-        }
+	if (affiche.getText().isEmpty() || nomtxt.getText().isEmpty()) {
+	    Alert alert = new Alert(Alert.AlertType.WARNING);
+	    alert.setContentText("Verifiez les champs!");
+	    alert.show();
+	} else {
+	    File f = new File(affiche.getText());
+	    System.out.println(f.getName());
+	    System.out.println(nomtxt.getText());
+	    JeuVideo jv = new JeuVideo(nomtxt.getText(), "C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName());
+	    jv.setRating(stars.getRating());
+
+	    sjv.ajouter(jv);
+
+	    Files.copy(Paths.get(affiche.getText()), Paths.get("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName()), REPLACE_EXISTING);
+	    Aff();
+	    RechercheAV();
+	}
     }
-        
 
     @FXML
     private void Uploadfile(ActionEvent event) {
-               
-        FileChooser fc = new FileChooser();
-        String path = fc.showOpenDialog(uploadbutton.getScene().getWindow()).getPath();
-        affiche.setText(path);
+
+	FileChooser fc = new FileChooser();
+	String path = fc.showOpenDialog(uploadbutton.getScene().getWindow()).getPath();
+	affiche.setText(path);
     }
 
     @FXML
     private void Delete(ActionEvent event) throws SQLException {
-             tableVideoGame.setItems(data);
+	tableVideoGame.setItems(data);
 
-             ObservableList<JeuVideo> allJV,SingleJV ;
-             allJV=tableVideoGame.getItems();
-             SingleJV=tableVideoGame.getSelectionModel().getSelectedItems();
-             JeuVideo A = SingleJV.get(0);
-             sjv.supprimer(A);
-             SingleJV.forEach(allJV::remove);
-             Aff();
-             RechercheAV();
+	ObservableList<JeuVideo> allJV, SingleJV;
+	allJV = tableVideoGame.getItems();
+	SingleJV = tableVideoGame.getSelectionModel().getSelectedItems();
+	JeuVideo A = SingleJV.get(0);
+	sjv.supprimer(A);
+	SingleJV.forEach(allJV::remove);
+	Aff();
+	RechercheAV();
     }
 
     @FXML
     private void clickedColumn(MouseEvent event) {
-                     tableVideoGame.setItems(data);
+	tableVideoGame.setItems(data);
 
-             ObservableList<JeuVideo> allJV,SingleJV ;
-             allJV=tableVideoGame.getItems();
-             SingleJV=tableVideoGame.getSelectionModel().getSelectedItems();
-             JeuVideo A = SingleJV.get(0);
-        
-        nomtxt.setText(A.getNameVg());
-        affiche.setText(A.getImageVg());
-        idlabel.setText(String.valueOf(A.getId()));
-        stars.setRating(A.getRating());
+	ObservableList<JeuVideo> allJV, SingleJV;
+	allJV = tableVideoGame.getItems();
+	SingleJV = tableVideoGame.getSelectionModel().getSelectedItems();
+	JeuVideo A = SingleJV.get(0);
+
+	nomtxt.setText(A.getNameVg());
+	affiche.setText(A.getImageVg());
+	idlabel.setText(String.valueOf(A.getId()));
+	stars.setRating(A.getRating());
     }
 
     @FXML
-    private void ModifierJeu(ActionEvent event) throws IOException {
-        if (affiche.getText().isEmpty() || nomtxt.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Verifiez les champs!");
-            alert.show();
-        }
-        else{
-        try {
-            File f = new File(affiche.getText());
-            JeuVideo jv = new JeuVideo(Integer.valueOf(idlabel.getText()),nomtxt.getText(),"C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum"+f.getName());
-            jv.setRating(stars.getRating());
-            sjv.modifier(jv);
-            
-            Files.copy(Paths.get(affiche.getText()),Paths.get("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum"+f.getName()),REPLACE_EXISTING);
-            Aff();
-            RechercheAV();
-        } catch (SQLException ex) {
-            Logger.getLogger(VideoGameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-       
+    private void ModifierJeu(ActionEvent event) {
+	if (affiche.getText().isEmpty() || nomtxt.getText().isEmpty()) {
+	    Alert alert = new Alert(Alert.AlertType.WARNING);
+	    alert.setContentText("Verifiez les champs!");
+	    alert.show();
+	} else {
+	    try {
+		File f = new File(affiche.getText());
+		JeuVideo jv = new JeuVideo(Integer.valueOf(idlabel.getText()), nomtxt.getText(), "C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName());
+		jv.setRating(stars.getRating());
+		sjv.modifier(jv);
+		Files.copy(Paths.get(affiche.getText()), Paths.get("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName()), REPLACE_EXISTING);
+		Aff();
+		RechercheAV();
+	    } catch (IOException ex) {
+		Logger.getLogger(VideoGameController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+
     }
 
     @FXML
     private void DonnerJaime(ActionEvent event) throws SQLException {
-            
-        tableVideoGame.setItems(data);
 
-        ObservableList<JeuVideo> allJV,SingleJV ;
-        allJV=tableVideoGame.getItems();
-        SingleJV=tableVideoGame.getSelectionModel().getSelectedItems();
-        JeuVideo A = SingleJV.get(0);
-             
-        A.setRating(A.getRating()+1);
-             
-        sjv.modifier(A);
-        Aff();
-        RechercheAV();       
-        
+	tableVideoGame.setItems(data);
+
+	ObservableList<JeuVideo> allJV, SingleJV;
+	allJV = tableVideoGame.getItems();
+	SingleJV = tableVideoGame.getSelectionModel().getSelectedItems();
+	JeuVideo A = SingleJV.get(0);
+
+	A.setLikes(A.getLikes() + 1);
+
+	sjv.modifier(A);
+	Aff();
+	RechercheAV();
+
     }
-
 
     @FXML
     private void ExportPDF(ActionEvent event) throws SQLException {
-        
-          serviceJeuVideo sjv = new serviceJeuVideo();
-              
-         ObservableList<JeuVideo> list = sjv.getGamesList();
-        try {
-            OutputStream file = new FileOutputStream(new File("D:\\pdf\\exportfront.pdf"));
-            com.itextpdf.text.Document document = new  com.itextpdf.text.Document();
-            PdfWriter.getInstance(document, file);
-            document.open();
 
-            com.itextpdf.text.Font font = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 24, Font.BOLD);
-            Paragraph pdfTitle = new Paragraph("Video Games Names List", font);
-            pdfTitle.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+	ServiceJeuVideo sjv = new ServiceJeuVideo();
 
-            document.add(pdfTitle);
-            document.add(new Chunk("\n"));
-            PdfPTable table = new PdfPTable(1);
-            table.setHeaderRows(1);
+	ObservableList<JeuVideo> list = sjv.getGamesList();
+	try {
+	    OutputStream file = new FileOutputStream(new File("D:\\pdf\\exportfront.pdf"));
+	    com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+	    PdfWriter.getInstance(document, file);
+	    document.open();
 
-                        
-            list.forEach((_item) -> {
-                table.addCell(_item.getNameVg());
-            });
+	    com.itextpdf.text.Font font = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 24, Font.BOLD);
+	    Paragraph pdfTitle = new Paragraph("Video Games Names List", font);
+	    pdfTitle.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 
-            document.add(table);
+	    document.add(pdfTitle);
+	    document.add(new Chunk("\n"));
+	    PdfPTable table = new PdfPTable(1);
+	    table.setHeaderRows(1);
 
-            Notifications notificationBuilder = Notifications.create()
-                            .title("NOTIFICATION FORUM").text("PDF EXPORTé")
-                            .graphic(null).hideAfter(javafx.util.Duration.seconds(5))
-                            .position(Pos.BASELINE_RIGHT)
-                            .onAction(new EventHandler<ActionEvent>(){
-                                public void handle(ActionEvent event)
-                                {
-                                    System.out.println("clicked ON");
-                                }
-                            }
-);
-                    notificationBuilder.darkStyle();
-                    notificationBuilder.show();
-            document.close();
+	    list.forEach((_item) -> {
+		table.addCell(_item.getNameVg());
+	    });
 
-            file.close();
+	    document.add(table);
 
-        } catch (DocumentException | IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Cannot export data!");
-            alert.show();
-        }   
+	    Notifications notificationBuilder = Notifications.create()
+		    .title("NOTIFICATION FORUM").text("PDF EXPORTé")
+		    .graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+		    .position(Pos.BASELINE_RIGHT)
+		    .onAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+			    System.out.println("clicked ON");
+			}
+		    }
+		    );
+	    notificationBuilder.darkStyle();
+	    notificationBuilder.show();
+	    document.close();
+
+	    file.close();
+
+	} catch (DocumentException | IOException e) {
+	    Alert alert = new Alert(Alert.AlertType.ERROR);
+	    alert.setTitle("Error");
+	    alert.setContentText("Cannot export data!");
+	    alert.show();
+	}
     }
 
     @FXML
     private void PrintGames(ActionEvent event) {
-        
-        PrinterJob job = PrinterJob.createPrinterJob();
-       
-        Node root= this.tableVideoGame;
-        
-        if(job != null)
-        {
-            job.showPrintDialog(root.getScene().getWindow()); // Window must be your main Stage
-            Printer printer = job.getPrinter();
-            PageLayout pageLayout = printer.createPageLayout(Paper.A3, PageOrientation.PORTRAIT, Printer.MarginType.HARDWARE_MINIMUM);
-            boolean success = job.printPage(pageLayout, root);
-            if(success)
-                {
-                    job.endJob();
-                }
-        }
-        
-        Notifications notificationBuilder = Notifications.create()
-                            .title("NOTIFICATION FORUM").text("TABLE IMPRIMée")
-                            .graphic(null).hideAfter(javafx.util.Duration.seconds(5))
-                            .position(Pos.BASELINE_RIGHT)
-                            .onAction(new EventHandler<ActionEvent>(){
-                                public void handle(ActionEvent event)
-                                {
-                                    System.out.println("clicked ON");
-                                }
-                            }
-);
-                    notificationBuilder.darkStyle();
-                    notificationBuilder.show();
+
+	PrinterJob job = PrinterJob.createPrinterJob();
+
+	Node root = this.tableVideoGame;
+
+	if (job != null) {
+	    job.showPrintDialog(root.getScene().getWindow()); // Window must be your main Stage
+	    Printer printer = job.getPrinter();
+	    PageLayout pageLayout = printer.createPageLayout(Paper.A3, PageOrientation.PORTRAIT, Printer.MarginType.HARDWARE_MINIMUM);
+	    boolean success = job.printPage(pageLayout, root);
+	    if (success) {
+		job.endJob();
+	    }
+	}
+
+	Notifications notificationBuilder = Notifications.create()
+		.title("NOTIFICATION FORUM").text("TABLE IMPRIMée")
+		.graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+		.position(Pos.BASELINE_RIGHT)
+		.onAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent event) {
+			System.out.println("clicked ON");
+		    }
+		}
+		);
+	notificationBuilder.darkStyle();
+	notificationBuilder.show();
     }
 
     @FXML
     private void genererQR(ActionEvent event) {
-        
-        serviceJeuVideo sjv = new serviceJeuVideo();
 
-                if (tableVideoGame.getSelectionModel().getSelectedItem() != null) {
-            JeuVideo jv = new JeuVideo();
-            jv.setNameVg(sjv.liste().get(tableVideoGame.getSelectionModel().getSelectedIndex()).getNameVg());
-            
-            Hashtable hints = new Hashtable();
-            hints.put(com.google.zxing.EncodeHintType.ERROR_CORRECTION, com.google.zxing.qrcode.decoder.ErrorCorrectionLevel.H);
-            com.google.zxing.qrcode.QRCodeWriter writer = new com.google.zxing.qrcode.QRCodeWriter();
-            com.google.zxing.common.BitMatrix bitMatrix = null;
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            try {
-                // Create a qr code with the url as content and a size of 250x250 px
-                bitMatrix = writer.encode("The Game's name= "+jv.getNameVg(), BarcodeFormat.QR_CODE, 250, 250, hints);
-                MatrixToImageConfig config = new MatrixToImageConfig(MatrixToImageConfig.BLACK, MatrixToImageConfig.WHITE);
-                // Load QR image
-                BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-                // Load logo image
-                File file = new File("D:\\QR.png");
-                BufferedImage logoImage = ImageIO.read(file);
-                // Calculate the delta height and width between QR code and logo
-                int deltaHeight = qrImage.getHeight() - logoImage.getHeight();
-                int deltaWidth = qrImage.getWidth() - logoImage.getWidth();
-                // Initialize combined image
-                BufferedImage combined = new BufferedImage(qrImage.getHeight(), qrImage.getWidth(), BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g = (Graphics2D) combined.getGraphics();
-                // Write QR code to new image at position 0/0
-                g.drawImage(qrImage, 0, 0, null);
-                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-                // Write logo into combine image at position (deltaWidth / 2) and
-                // (deltaHeight / 2). Background: Left/Right and Top/Bottom must be
-                // the same space for the logo to be centered
-                g.drawImage(logoImage, (int) Math.round(deltaWidth / 2), (int) Math.round(deltaHeight / 2), null);
-                // Write combined image as PNG to OutputStream
-                ImageIO.write(combined, "png", new File("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\QR\\QR.png"));
-                //System.out.println("done");
-            } catch (Exception ea) {
-                System.out.println(ea);
-            }
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Choose a row !");
-            alert.show();
-        }
-                
-                Notifications notificationBuilder = Notifications.create()
-                            .title("NOTIFICATION FORUM").text("QR CODE GENERé")
-                            .graphic(null).hideAfter(javafx.util.Duration.seconds(5))
-                            .position(Pos.BASELINE_RIGHT)
-                            .onAction(new EventHandler<ActionEvent>(){
-                                public void handle(ActionEvent event)
-                                {
-                                    System.out.println("clicked ON");
-                                }
-                            }
-);
-                    notificationBuilder.darkStyle();
-                    notificationBuilder.show();
+	ServiceJeuVideo sjv = new ServiceJeuVideo();
+
+	if (tableVideoGame.getSelectionModel().getSelectedItem() != null) {
+	    JeuVideo jv = new JeuVideo();
+	    jv.setNameVg(sjv.liste().get(tableVideoGame.getSelectionModel().getSelectedIndex()).getNameVg());
+
+	    try {
+
+		String projectPath = System.getProperty("user.dir").replace("\\", "/");
+		String contenue = "Nom Jeu: " + nomtxt.getText();
+		ByteArrayOutputStream out = QRCode.from(contenue).to(net.glxn.qrgen.image.ImageType.JPG).stream();
+		File f = new File(projectPath + "\\src\\qr\\" + nomtxt.getText() + ".jpg");
+		FileOutputStream fos = new FileOutputStream(f); //creation du fichier de sortie
+		fos.write(out.toByteArray()); //ecrire le fichier du sortie converter
+		fos.flush(); // creation final
+
+	    } catch (IOException ea) {
+		System.out.println(ea);
+	    }
+	} else {
+	    Alert alert = new Alert(Alert.AlertType.WARNING);
+	    alert.setContentText("Choose a row !");
+	    alert.show();
+	}
+
+	Notifications notificationBuilder = Notifications.create()
+		.title("NOTIFICATION FORUM").text("QR CODE GENERé")
+		.graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+		.position(Pos.BASELINE_RIGHT)
+		.onAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent event) {
+			System.out.println("clicked ON");
+		    }
+		}
+		);
+	notificationBuilder.darkStyle();
+	notificationBuilder.show();
     }
-    
-    public void Stat() throws SQLException{
-        
-        servicePublication sp = new servicePublication();
-                XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Répartition des Publications");
-            con = jdbc.getInstance().getCnx();
-            ste = con.createStatement();
-            ResultSet res = ste.executeQuery("select * from tbl_videogame");
-            while(res.next()){
-            series.getData().add(new XYChart.Data<>(res.getString(3), sp.calculer(res.getInt(1))));
-            }        
-        barChart.getData().addAll(series);
+
+    public void Stat() throws SQLException {
+
+	ServicePublication sp = new ServicePublication();
+	XYChart.Series<String, Number> series = new XYChart.Series<>();
+	series.setName("Répartition des Publications");
+	con = GlobalConfig.getInstance().getCONNECTION();
+	ste = con.createStatement();
+	ResultSet res = ste.executeQuery("select * from tbl_videogame");
+	while (res.next()) {
+	    series.getData().add(new XYChart.Data<>(res.getString(3), sp.calculer(res.getInt(1))));
+	}
+	barChart.getData().addAll(series);
 
     }
 }
-    
-
-
-    
-
-   
-       
-    
-        
-    
-
-
-

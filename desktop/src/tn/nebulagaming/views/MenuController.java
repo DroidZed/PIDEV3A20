@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package tn.nebulagaming.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,8 +18,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -27,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author wajih
+ * @author aziz
  */
 public class MenuController implements Initializable {
 
@@ -39,50 +37,45 @@ public class MenuController implements Initializable {
     private Button btnPublication;
     @FXML
     private Button btnJeuVideo;
-    
-    public void changetoAjouterScreen(ActionEvent event) throws IOException
-    {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("AjouterPub.fxml"));
-        Scene tabbleViewScene = new Scene(tableViewParent);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(tabbleViewScene);
-        window.show();
+
+    public void changetoAjouterScreen(ActionEvent event) throws IOException {
+	Parent tableViewParent = FXMLLoader.load(getClass().getResource("AjouterPub.fxml"));
+	Scene tabbleViewScene = new Scene(tableViewParent);
+	Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	window.setScene(tabbleViewScene);
+	window.show();
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        loadPage("VideoGame");
-    }    
-    
+	// TODO
+	loadPage("VideoGame");
+    }
 
+    private void loadPage(String page) {
 
-    private void loadPage(String page){
-                           
-        Parent root = null;
-        try {
-        root = FXMLLoader.load(getClass().getResource(page+".fxml"));
+	Parent root = null;
+	try {
+	    root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
 
-        } catch (Exception ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        bp.setCenter(root);
+	} catch (Exception ex) {
+	    Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	bp.setCenter(root);
     }
 
     @FXML
     private void InterPub(ActionEvent event) {
-    loadPage("AfficherPub");
+	loadPage("AfficherPub");
 
     }
 
     @FXML
     private void JeuVideo(ActionEvent event) {
-    loadPage("VideoGame");
+	loadPage("VideoGame");
     }
-
-    
-
 
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="487.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GererDomaineController">
+<AnchorPane id="AnchorPane" prefHeight="487.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.GererDomaineController">
    <children>
       <Label layoutX="38.0" layoutY="76.0" text="Nom :" />
       <Label layoutX="38.0" layoutY="103.0" text="Description :" />
@@ -18,7 +18,7 @@
       <TextField fx:id="nominput" layoutX="129.0" layoutY="72.0" />
       <TextField fx:id="descinput" layoutX="129.0" layoutY="108.0" />
       <Label layoutX="117.0" layoutY="29.0" text="Ajouter Domaine" />
-      <TableView fx:id="tabledomain" layoutX="350.0" layoutY="46.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="tableDomain" layoutX="350.0" layoutY="46.0" prefHeight="200.0" prefWidth="227.0">
         <columns>
           <TableColumn fx:id="idt" prefWidth="75.0" text="Id" visible="false" />
           <TableColumn fx:id="nomt" onEditCommit="#Change_Nom" prefWidth="75.0" text="Nom" />

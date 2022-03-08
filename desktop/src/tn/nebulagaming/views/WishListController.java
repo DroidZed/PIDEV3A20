@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import tn.nebulagaming.models.ProductByCategory;
 import tn.nebulagaming.services.WishListService;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -43,6 +44,8 @@ public class WishListController implements Initializable {
     @FXML
     private JFXButton btnHome;
 
+    private GlobalConfig conf;
+    
     /**
      * Initializes the controller class.
      */
@@ -50,7 +53,9 @@ public class WishListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 	// TODO
 
-	obsvWL = FXCollections.observableArrayList(wsl.groupByCategory(1));
+	conf = GlobalConfig.getInstance();
+
+	obsvWL = FXCollections.observableArrayList(wsl.groupByCategory(conf.getSession()));
 
 	String criteriasRef[] = {"NAME ▲", "PRICE ▲", "PRICE ▼", "NAME ▼"};
 
@@ -97,7 +102,7 @@ public class WishListController implements Initializable {
     private void Home(ActionEvent event) {
 
 	try {
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("NewsFeed.fxml"));
 	    Parent root = loader.load();
 	    btnHome.getScene().setRoot(root);
 	} catch (IOException ex) {

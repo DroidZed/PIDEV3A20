@@ -19,7 +19,9 @@ import javafx.scene.control.Label;
 import javax.swing.JOptionPane;
 import tn.nebulagaming.models.UserOrder;
 import tn.nebulagaming.models.UserOrderCombined;
+import tn.nebulagaming.services.ServiceUser;
 import tn.nebulagaming.services.UserOrderService;
+import tn.nebulagaming.utils.GlobalConfig;
 import tn.nebulagaming.utils.JavaMail;
 
 /**
@@ -49,6 +51,8 @@ public class CreditCardPaymentController implements Initializable {
     private UserOrderCombined userOrderJoined;
 
     private UserOrderService usr;
+
+    private GlobalConfig conf;
 
     public void setUserOrder(UserOrderCombined userOrderJoined) {
 
@@ -82,14 +86,20 @@ public class CreditCardPaymentController implements Initializable {
 	mailer = new JavaMail();
 
 	usr = new UserOrderService();
+
+	conf = GlobalConfig.getInstance();
     }
 
     @FXML
     private void sendReceipt(ActionEvent event) {
 
+	ServiceUser serv = new ServiceUser();
+
+	String email = serv.getEmailById(conf.getSession());
+
 	JOptionPane.showMessageDialog(null, "Payment successful !!");
 	mailer.sendTextMail("[NEBULA GAMING] Payment Notification",
-		"aymen.dhahri@esprit.tn",
+		email,
 		"Payment successful for Order Number: " + this.userOrderJoined.getOrderNumber() + " with price: " + this.totalPrice.getText() + " TND.");
     }
 

@@ -10,7 +10,7 @@ import tn.nebulagaming.models.Products;
 /**
  *
  * @author anony
- @param <T>
+ * @param <T>
  */
 public interface IProduct <T> {
     public void ajouter(T t);

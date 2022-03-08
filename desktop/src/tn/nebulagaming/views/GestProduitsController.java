@@ -29,6 +29,7 @@ import tn.nebulagaming.models.ProductsByCategory;
 import tn.nebulagaming.models.Products;
 import tn.nebulagaming.services.ServiceCategories;
 import tn.nebulagaming.services.ServiceProducts;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  * FXML Controller class
@@ -79,12 +80,17 @@ public class GestProduitsController implements Initializable {
 
     private int selectedProdID;
 
+    private GlobalConfig conf;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+	conf = GlobalConfig.getInstance();
+	
         //Affichage
         list = FXCollections.observableArrayList(Sp.getProductsByCategory());
 
@@ -149,7 +155,7 @@ public class GestProduitsController implements Initializable {
         error.setText("Verifier les entrées s'il vous plait");}
        else
         {// FIXME: change the id user from 1 to the current logged in user.
-        Sp.ajouter(new Products(tfNom.getText(), Float.parseFloat(tfPrix.getText()), Integer.parseInt(tfQuant.getText()), tfimg.getText(), 1, idCategory));
+        Sp.ajouter(new Products(tfNom.getText(), Float.parseFloat(tfPrix.getText()), Integer.parseInt(tfQuant.getText()), tfimg.getText(), conf.getSession(), idCategory));
         tblProd.setItems(FXCollections.observableArrayList(Sp.getProductsByCategory()));
         Sp.Notificationmanager(3);
         tblProd.refresh();

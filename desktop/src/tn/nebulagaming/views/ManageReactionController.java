@@ -59,95 +59,96 @@ public class ManageReactionController implements Initializable {
     @FXML
     private Label nbDislikes;
 
-    int idEvent =ManageEventController.eventRecupParticipation.getIdPost();
-    ServiceEvent se = new ServiceEvent () ; 
-    ServiceReaction sr = new ServiceReaction () ; 
+    int idEvent = ManageEventController.eventRecupParticipation.getIdPost();
+    ServiceEvent se = new ServiceEvent();
+    ServiceReaction sr = new ServiceReaction();
     @FXML
     private Button btnGoBack;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        nbLikes.setText (String.valueOf(sr.countLikesByPost(idEvent ))); 
-        nbDislikes.setText(String.valueOf(sr.countDislikesByPost(idEvent))); 
-        
-        displayReactions (idEvent) ;
-        btnGoBack.setOnAction(event -> {
-            try {
-                Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }   
-    
-    public void displayReactions (int idEvent) {
-        
-       lbEventName.setText(se.getEventById(idEvent).getTitlePost());
-       createdAtEvent.setText(String.valueOf(se.getEventById(idEvent).getPostedDTM()));
-        
-       List<Reaction> list=  sr.displayReactionByEvent(idEvent) ;
-       
-       //get User Name jointure 
-       userNameCol.setCellValueFactory(data->{
-           Reaction reaction = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
-           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+reaction.getIdUser();
-           Statement st = null ;
-           String result = "" ;
-            try {
-                st = cnx.createStatement();
-            } catch (SQLException ex) {
-                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           ResultSet rs ;
-            try {
-                rs = st.executeQuery(strUserName);
-                if (rs.next()) {
-                    result = rs.getString("nameUser");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-           return new ReadOnlyStringWrapper(result);
-        }
-        );
-       
-        //get Reaction name jointure
-       typeReactionCol.setCellValueFactory(data->{
-           Reaction reaction = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
-           String strReactName = "SELECT typeReact FROM tbl_typereact where idTypeReact ="+reaction.getIdTypeReact();
-           Statement st = null ;
-           String result = "" ;
-            try {
-                st = cnx.createStatement();
-            } catch (SQLException ex) {
-                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           ResultSet rs ;
-            try {
-                rs = st.executeQuery(strReactName);
-                if (rs.next()) {
-                    result = rs.getString("typeReact");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-           return new ReadOnlyStringWrapper(result);
-        }
-        );
-       
-       reactedAtCol.setCellValueFactory(new PropertyValueFactory<>("reactedDTM"));
-       
-       ObservableList<Reaction> listReactions = FXCollections.observableArrayList(list) ;
-       tvReaction.setItems (listReactions) ;
+
+	nbLikes.setText(String.valueOf(sr.countLikesByPost(idEvent)));
+	nbDislikes.setText(String.valueOf(sr.countDislikesByPost(idEvent)));
+
+	displayReactions(idEvent);
+	btnGoBack.setOnAction(event -> {
+	    try {
+		Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
+		Scene scene = new Scene(page1);
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	    } catch (IOException ex) {
+		Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	});
     }
-    
+
+    public void displayReactions(int idEvent) {
+
+	lbEventName.setText(se.getEventById(idEvent).getTitlePost());
+	createdAtEvent.setText(String.valueOf(se.getEventById(idEvent).getPostedDTM()));
+
+	List<Reaction> list = sr.displayReactionByEvent(idEvent);
+
+	//get User Name jointure 
+	userNameCol.setCellValueFactory(data -> {
+	    Reaction reaction = data.getValue();
+	    Connection cnx = GlobalConfig.getInstance().getCONNECTION();
+	    String strUserName = "SELECT nameUser FROM tbl_user where idUser =" + reaction.getIdUser();
+	    Statement st = null;
+	    String result = "";
+	    try {
+		st = cnx.createStatement();
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    ResultSet rs;
+	    try {
+		rs = st.executeQuery(strUserName);
+		if (rs.next()) {
+		    result = rs.getString("nameUser");
+		}
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    return new ReadOnlyStringWrapper(result);
+	}
+	);
+
+	//get Reaction name jointure
+	typeReactionCol.setCellValueFactory(data -> {
+	    Reaction reaction = data.getValue();
+	    Connection cnx = GlobalConfig.getInstance().getCONNECTION();
+	    String strReactName = "SELECT typeReact FROM tbl_typereact where idTypeReact =" + reaction.getIdTypeReact();
+	    Statement st = null;
+	    String result = "";
+	    try {
+		st = cnx.createStatement();
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    ResultSet rs;
+	    try {
+		rs = st.executeQuery(strReactName);
+		if (rs.next()) {
+		    result = rs.getString("typeReact");
+		}
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManageReactionController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    return new ReadOnlyStringWrapper(result);
+	}
+	);
+
+	reactedAtCol.setCellValueFactory(new PropertyValueFactory<>("reactedDTM"));
+
+	ObservableList<Reaction> listReactions = FXCollections.observableArrayList(list);
+	tvReaction.setItems(listReactions);
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  *
  * @author anony
-    @param <T>
+ * @param <T>
  */
 public interface IService<T> {
     public void ajouter(T t);

@@ -46,64 +46,59 @@ public class AfficherReclamationController implements Initializable {
     private Label message;
     @FXML
     private Button valider;
-Reclamation rec;
+    Reclamation rec;
     @FXML
     private TextField rep;
     @FXML
     private Hyperlink retour;
     private String id;
     Admin user;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+	// TODO
+    }
 
     void iniializeFxml(Reclamation r) {
-          ServiceUser su=new ServiceUser();
-        ServiceReclamation sr = new ServiceReclamation();
-      
-        rec=r;
-         
-      
+	ServiceUser su = new ServiceUser();
+	ServiceReclamation sr = new ServiceReclamation();
+
+	rec = r;
+
     }
 
     void showData(Reclamation r) {
-        
-        
-        message.setText(r.getMessage());
-        nomUser.setText(r.getNomUser());
-        typeRec.setText(r.getTypeComplaint());
-        etatRec.setText(r.getStatusComplaint());
-       
-       
-      
-        System.out.println("test rec");
-        
-    
-    
+
+	message.setText(r.getMessage());
+	nomUser.setText(r.getNomUser());
+	typeRec.setText(r.getTypeComplaint());
+	etatRec.setText(r.getStatusComplaint());
+
+	System.out.println("test rec");
+
     }
 
     @FXML
     private void valider(ActionEvent event) {
-        ServiceReclamation sr=new ServiceReclamation();
-        sr.traiterReclamation(rec,rep.getText());
+	ServiceReclamation sr = new ServiceReclamation();
+	sr.traiterReclamation(rec, rep.getText());
     }
 
     @FXML
     private void retour(ActionEvent event) throws IOException {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("./AdminHome.fxml"));
-        Parent root = loader.load();
-        AdminHomeController HomeScene = loader.getController();
-        HomeScene.user = this.user;
-        HomeScene.id=id;
-        Admin a= this.user;
-        HomeScene.iniializeFxml(a);
-        HomeScene.showData(a);
-        Stage window = (Stage) retour.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./AdminHome.fxml"));
+	Parent root = loader.load();
+	AdminHomeController HomeScene = loader.getController();
+	HomeScene.user = this.user;
+	HomeScene.id = id;
+	Admin a = this.user;
+	HomeScene.iniializeFxml(a);
+	HomeScene.showData(a);
+	Stage window = (Stage) retour.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
     }
-    
+
 }

@@ -30,6 +30,7 @@ import tn.nebulagaming.models.FeedMessage;
 import static tn.nebulagaming.utils.Consts.IMG_PATH_LOAD;
 import tn.nebulagaming.utils.GlobalConfig;
 import tn.nebulagaming.utils.RSSFeedParser;
+
 /**
  * FXML Controller class
  *
@@ -49,41 +50,42 @@ public class NewsfeedRSSPostController implements Initializable {
     private Label lbAuthor;
     @FXML
     private Label lbDescPost;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         
-    }    
+
+    }
 
     void setData(FeedMessage feedMessage) {
-       Connection cnx = GlobalConfig.getInstance().getCnx() ;
+	Connection cnx = GlobalConfig.getInstance().getCONNECTION();
 
-        lbTitlePost.setText(feedMessage.getTitle()) ;
-        lbPostedOn.setText(feedMessage.getPubDate()) ;
-        String description = feedMessage.getDescription().replaceAll("\\<.*?\\>", "") ;
-        lbDescPost.setText(description);
-        lbAuthor.setText(feedMessage.getAuthor()); 
-        
-        linkWebSite.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent t) {
-          URI uri = null ;
-           try { 
-                uri = new URI (feedMessage.getLink()) ;
-           } catch (URISyntaxException ex) {
-               Logger.getLogger(NewsfeedRSSPostController.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           try {
-               Desktop.getDesktop().browse(uri);
-           } catch (IOException ex) {
-               Logger.getLogger(NewsfeedRSSPostController.class.getName()).log(Level.SEVERE, null, ex);
-           } 
-         }
-       });
-        
-        /*
+	lbTitlePost.setText(feedMessage.getTitle());
+	lbPostedOn.setText(feedMessage.getPubDate());
+	String description = feedMessage.getDescription().replaceAll("\\<.*?\\>", "");
+	lbDescPost.setText(description);
+	lbAuthor.setText(feedMessage.getAuthor());
+
+	linkWebSite.setOnAction(new EventHandler<ActionEvent>() {
+	    @Override
+	    public void handle(ActionEvent t) {
+		URI uri = null;
+		try {
+		    uri = new URI(feedMessage.getLink());
+		} catch (URISyntaxException ex) {
+		    Logger.getLogger(NewsfeedRSSPostController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		try {
+		    Desktop.getDesktop().browse(uri);
+		} catch (IOException ex) {
+		    Logger.getLogger(NewsfeedRSSPostController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	    }
+	});
+
+	/*
             URI uri = null ;
            try { 
                 uri = new URI (feedMessage.getLink()) ;
@@ -97,11 +99,7 @@ public class NewsfeedRSSPostController implements Initializable {
            }
             
             //System.out.println("hello");
-     */   
-        
-        
+	 */
     }
-    
-}
 
-   
+}

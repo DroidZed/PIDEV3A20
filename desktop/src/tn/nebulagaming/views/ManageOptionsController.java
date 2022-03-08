@@ -57,10 +57,10 @@ public class ManageOptionsController implements Initializable {
     @FXML
     private TextField tfOpt4;
 
-    ServiceOption so = new ServiceOption () ;
-    ServiceQuiz sq = new ServiceQuiz () ; 
-    Quiz quiz = ManageQuizController.quizRecupDetails ; 
-    
+    ServiceOption so = new ServiceOption();
+    ServiceQuiz sq = new ServiceQuiz();
+    Quiz quiz = ManageQuizController.quizRecupDetails;
+
     @FXML
     private ToggleGroup toggleOptions;
     @FXML
@@ -69,28 +69,27 @@ public class ManageOptionsController implements Initializable {
     private Label lbQuizTitle;
     @FXML
     private HBox hboxAddOption;
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        lbQuizTitle.setText("Quiz Title : "+quiz.getTitlePost());
-        btnGoBack.setOnAction(event -> {
-            try {
-                Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(ManageOptionsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        
-        /*if (quiz.getCorrectAnswer() != "" || quiz.getCorrectAnswer() != null) {
+
+	lbQuizTitle.setText("Quiz Title : " + quiz.getTitlePost());
+	btnGoBack.setOnAction(event -> {
+	    try {
+		Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
+		Scene scene = new Scene(page1);
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	    } catch (IOException ex) {
+		Logger.getLogger(ManageOptionsController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	});
+
+	/*if (quiz.getCorrectAnswer() != "" || quiz.getCorrectAnswer() != null) {
             hboxAddOption.setVisible(false);
             hboxCorrectOption.setVisible(true);
             
@@ -105,47 +104,45 @@ public class ManageOptionsController implements Initializable {
                 lbOpt4.setSelected(true);
             }   
         }*/
-    }    
+    }
 
     @FXML
     private void addOptions(ActionEvent event) {
-        
-        so.add(new Option (1, tfOpt1.getText(),quiz.getIdPost())) ; 
-        so.add(new Option (1, tfOpt2.getText(),quiz.getIdPost())) ;
-        so.add(new Option (1, tfOpt3.getText(),quiz.getIdPost())) ;
-        so.add(new Option (1, tfOpt4.getText(),quiz.getIdPost())) ;
-        JOptionPane.showMessageDialog(null, "Options Added with success , please select the correct one !"); 
-        
-        hboxCorrectOption.setVisible(true) ; 
-        setOptionsRadioBox () ; 
-        
+
+	so.add(new Option(1, tfOpt1.getText(), quiz.getIdPost()));
+	so.add(new Option(1, tfOpt2.getText(), quiz.getIdPost()));
+	so.add(new Option(1, tfOpt3.getText(), quiz.getIdPost()));
+	so.add(new Option(1, tfOpt4.getText(), quiz.getIdPost()));
+	JOptionPane.showMessageDialog(null, "Options Added with success , please select the correct one !");
+
+	hboxCorrectOption.setVisible(true);
+	setOptionsRadioBox();
+
     }
-    
-    private void setOptionsRadioBox () {
-        List<String> listOptions = so.getOptionsByQuiz(quiz.getIdPost()) ; 
-        lbOpt1.setText(listOptions.get(0));
-        lbOpt2.setText(listOptions.get(1));
-        lbOpt3.setText(listOptions.get(2));
-        lbOpt4.setText(listOptions.get(3));   
-        System.out.println(listOptions);
+
+    private void setOptionsRadioBox() {
+	List<String> listOptions = so.getOptionsByQuiz(quiz.getIdPost());
+	lbOpt1.setText(listOptions.get(0));
+	lbOpt2.setText(listOptions.get(1));
+	lbOpt3.setText(listOptions.get(2));
+	lbOpt4.setText(listOptions.get(3));
+	System.out.println(listOptions);
     }
 
     @FXML
     private void assignCorrectAnswer(ActionEvent event) {
-        RadioButton checked = (RadioButton) toggleOptions.getSelectedToggle();
-        sq.assignCorrectAnswer(quiz, checked.getText());
-            try {
-               Parent page1 = FXMLLoader.load(getClass().getResource("ManageQuiz.fxml"));
+	RadioButton checked = (RadioButton) toggleOptions.getSelectedToggle();
+	sq.assignCorrectAnswer(quiz, checked.getText());
+	try {
+	    Parent page1 = FXMLLoader.load(getClass().getResource("ManageQuiz.fxml"));
 
-               Scene scene = new Scene(page1);
-               Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-               stage.setScene(scene);
-               stage.show();
-           } catch (IOException ex) {
-               Logger.getLogger(ManageOptionsController.class.getName()).log(Level.SEVERE, null, ex);
-           }
+	    Scene scene = new Scene(page1);
+	    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    stage.setScene(scene);
+	    stage.show();
+	} catch (IOException ex) {
+	    Logger.getLogger(ManageOptionsController.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
-    
-    
-    
+
 }

@@ -5,21 +5,18 @@
  */
 package tn.nebulagaming.models;
 
-import javafx.scene.image.ImageView;
-import tn.nebulagaming.models.etatCompte.etat;
-
 public class Admin extends User {
 
     public Admin(String nom, String email, String password, String tel, String photo, String role, String etatCompte, String date) {
-        super(nom, email, password, tel, photo, role, etatCompte, date);
+	super(nom, email, password, tel, photo, role, etatCompte, date);
     }
 
     public Admin(String nom, String email, String password, String tel, String photo, String role, String etatCompte) {
-        super(nom, email, password, tel, photo, role, etatCompte);
+	super(nom, email, password, tel, photo, role, etatCompte);
     }
 
     public Admin(String nom, String email, String tel) {
-        super(nom, email, tel);
+	super(nom, email, tel);
     }
 
     public Admin() {

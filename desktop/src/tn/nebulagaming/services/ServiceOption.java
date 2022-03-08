@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import tn.nebulagaming.models.Badge;
 import tn.nebulagaming.models.Option;
 import tn.nebulagaming.utils.GlobalConfig;
 
@@ -18,53 +17,57 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceOption implements IServiceNewsfeed<Option>{
+public class ServiceOption implements IServiceNewsfeed<Option> {
 
-    Connection cnx = GlobalConfig.getInstance().getCnx() ;
-    
+    Connection cnx;
+
+    public ServiceOption() {
+	cnx = GlobalConfig.getInstance().getCONNECTION();
+    }
+
     @Override
     public void add(Option option) {
-        try {
-            String query = "INSERT INTO tbl_option (statusOptions,contentOption,idPost) VALUES ('" +option.getStatusOption()+"' , '" +option.getContentOption()+"','"+option.getIdPost()+"')"; 
-            Statement st = cnx.createStatement();
-            st.executeUpdate(query) ;
-            System.out.println("Option added with success !");
+	try {
+	    String query = "INSERT INTO tbl_option (statusOptions,contentOption,idPost) VALUES ('" + option.getStatusOption() + "' , '" + option.getContentOption() + "','" + option.getIdPost() + "')";
+	    Statement st = cnx.createStatement();
+	    st.executeUpdate(query);
+	    System.out.println("Option added with success !");
 
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+	} catch (SQLException e) {
+	    System.out.println(e.getMessage());
+	}
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	// TODO
     }
 
     @Override
     public void update(Option option) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	// TODO
     }
 
     @Override
     public List<Option> display() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	return null; // TODO
     }
-    
-    public List<String> getOptionsByQuiz (int idPost) {
-         List<String> listOption = new ArrayList<>(); 
 
-         try {
-            String query = "SELECT contentOption FROM tbl_option WHERE idPost ="+idPost; 
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(query) ;
-            while (rs.next()) {
-                listOption.add(rs.getString(1)) ;
-            }
+    public List<String> getOptionsByQuiz(int idPost) {
+	List<String> listOption = new ArrayList<>();
 
-        }catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return listOption ; 
+	try {
+	    String query = "SELECT contentOption FROM tbl_option WHERE idPost =" + idPost;
+	    Statement st = cnx.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    while (rs.next()) {
+		listOption.add(rs.getString(1));
+	    }
+
+	} catch (SQLException e) {
+	    System.err.println(e.getMessage());
+	}
+	return listOption;
     }
-    
+
 }

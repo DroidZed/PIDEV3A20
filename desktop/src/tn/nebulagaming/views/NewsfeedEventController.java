@@ -92,7 +92,7 @@ public class NewsfeedEventController implements Initializable {
     
     public void setData(Event event) {
         
-        Connection cnx = GlobalConfig.getInstance().getCnx() ;
+        Connection cnx = GlobalConfig.getInstance().getCONNECTION();
         
         
         this.event = event ;

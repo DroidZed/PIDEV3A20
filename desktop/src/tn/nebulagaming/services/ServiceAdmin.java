@@ -21,186 +21,209 @@ public class ServiceAdmin implements IServiceU<Admin> {
     Connection cnx;
 
     public ServiceAdmin() {
-        cnx = GlobalConfig.getInstance().getCONNECTION();
+	cnx = GlobalConfig.getInstance().getCONNECTION();
     }
 
     public void ajouter(Admin a) {
 
-        PreparedStatement stmt;
-        try {
-            String sql = "INSERT INTO user (nom,email,password,tel,photo,role,etatCompte) VALUES( ?,? ,? ,? , ?,?,?)";
-            stmt = cnx.prepareStatement(sql);
-            stmt.setString(1, a.getNom());
-            stmt.setString(2, a.getEmail());
-            stmt.setString(3, a.getPassword());
-            stmt.setString(4, a.getTel());
-            stmt.setString(5, a.getPhoto());
-            //  stmt.setString(6, a.getRole().getId().toString());
+	PreparedStatement stmt;
+	try {
+	    String sql = "INSERT INTO user (nom,email,password,tel,photo,role,etatCompte) VALUES( ?,? ,? ,? , ?,?,?)";
+	    stmt = cnx.prepareStatement(sql);
+	    stmt.setString(1, a.getNom());
+	    stmt.setString(2, a.getEmail());
+	    stmt.setString(3, a.getPassword());
+	    stmt.setString(4, a.getTel());
+	    stmt.setString(5, a.getPhoto());
+	    //  stmt.setString(6, a.getRole().getId().toString());
 
-            stmt.executeUpdate();
+	    stmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
     }
 
     public void modifier(Admin a) {
 
-        PreparedStatement stmt;
-        try {
+	PreparedStatement stmt;
+	try {
 
-            String sql = "UPDATE tbl_user SET nameUser=? ,phone=? WHERE emailUser=?";
-            stmt = cnx.prepareStatement(sql);
-            stmt.setString(1, a.getNom());
-            stmt.setString(2, a.getTel());
-            stmt.setString(3, a.getEmail());
-            stmt.executeUpdate();
+	    String sql = "UPDATE tbl_user SET nameUser=? ,phone=? WHERE emailUser=?";
+	    stmt = cnx.prepareStatement(sql);
+	    stmt.setString(1, a.getNom());
+	    stmt.setString(2, a.getTel());
+	    stmt.setString(3, a.getEmail());
+	    stmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
     }
 
     public void modifierCv(String mail, String photo) {
-        PreparedStatement stmt;
-        try {
+	PreparedStatement stmt;
+	try {
 
-            String sql = "UPDATE tbl_user SET photo=? WHERE email=?";
-            stmt = cnx.prepareStatement(sql);
-            stmt.setString(1, photo);
-            stmt.setString(2, mail);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceMembre.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	    String sql = "UPDATE tbl_user SET photo=? WHERE email=?";
+	    stmt = cnx.prepareStatement(sql);
+	    stmt.setString(1, photo);
+	    stmt.setString(2, mail);
+	    stmt.executeUpdate();
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServiceMembre.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
     }
 
     @Override
     public Admin loadDataModify(String id) {
-        Admin a = new Admin();
-        PreparedStatement stmt;
-        String photo;
-        try {
+	Admin a = new Admin();
+	PreparedStatement stmt;
+	String photo;
+	try {
             String sql = "SELECT * FROM tbl_user WHERE emailUser=?";
-            stmt = cnx.prepareStatement(sql);
-            stmt.setString(1, id);
+	    stmt = cnx.prepareStatement(sql);
+	    stmt.setString(1, id);
 
-            ResultSet rst = stmt.executeQuery();
-            while (rst.next()) {
-                a.setNom(rst.getString("nameUser"));
-                a.setEmail(rst.getString("emailUser"));
-                a.setTel(rst.getString("phone"));
-                a.setPhoto(rst.getString("photoUser"));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return a;
+	    ResultSet rst = stmt.executeQuery();
+	    while (rst.next()) {
+		a.setNom(rst.getString("nameUser"));
+		a.setEmail(rst.getString("emailUser"));
+		a.setTel(rst.getString("phone"));
+		a.setPhoto(rst.getString("photoUser"));
+	    }
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
+	}
+	return a;
+    }
+
+   public Admin loadDataModifyId(int id) {
+	Admin e = new Admin();
+	PreparedStatement stmt;
+
+	try {
+	    String sql = "SELECT * FROM tbl_user WHERE idUser=?";
+	    stmt = cnx.prepareStatement(sql);
+	    stmt.setInt(1, id);
+
+	    ResultSet rst = stmt.executeQuery();
+	    while (rst.next()) {
+		e.setNom(rst.getString("nameUser"));
+		e.setEmail(rst.getString("emailUser"));
+		e.setTel(rst.getString("phone"));
+		e.setPhoto(rst.getString("photoUser"));
+		e.setRole(rst.getString("roleUser"));
+	    }
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
+	}
+	return e;
     }
 
     public List<Admin> afficher() {
-        PreparedStatement stmt = null;
-        List<Admin> Admin = new ArrayList<>();
+	PreparedStatement stmt = null;
+	List<Admin> Admin = new ArrayList<>();
 
-        try {
+	try {
 
-            String sql = "SELECT * FROM tbl_user WHERE role=? ";
-            stmt = cnx.prepareStatement(sql);
-            stmt.setInt(1, 0);
+	    String sql = "SELECT * FROM tbl_user WHERE role=? ";
+	    stmt = cnx.prepareStatement(sql);
+	    stmt.setInt(1, 0);
 
-            ResultSet rst = stmt.executeQuery();
+	    ResultSet rst = stmt.executeQuery();
 
-            while (rst.next()) {
-                Admin a = new Admin();
-                a.setNom(rst.getString("Nom"));
-                a.setEmail(rst.getString("Email"));
-                a.setTel(rst.getString("Tel"));
-                a.setPhoto(rst.getString("Photo"));
-                // a.setEtatCompte(rst.getString("stateUser"));
-                Admin.add(a);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+	    while (rst.next()) {
+		Admin a = new Admin();
+		a.setNom(rst.getString("Nom"));
+		a.setEmail(rst.getString("Email"));
+		a.setTel(rst.getString("Tel"));
+		a.setPhoto(rst.getString("Photo"));
+		// a.setEtatCompte(rst.getString("stateUser"));
+		Admin.add(a);
+	    }
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
 
-        }
-        return Admin;
+	}
+	return Admin;
 
     }
 
     public boolean verif(String mail) {
 
-        Statement stm;
-        String role = "";
+	Statement stm;
+	String role = "";
 
-        try {
-            stm = cnx.createStatement();
+	try {
+	    stm = cnx.createStatement();
 
-            String query = "SELECT * FROM tbl_user WHERE email='" + mail + "'";
-            ResultSet rst = stm.executeQuery(query);
+	    String query = "SELECT * FROM tbl_user WHERE email='" + mail + "'";
+	    ResultSet rst = stm.executeQuery(query);
 
-            while (rst.next()) {
-                role = rst.getString("role");
-                if ("3".equals(role)) {
+	    while (rst.next()) {
+		role = rst.getString("role");
+		if ("3".equals(role)) {
 
-                    return true;
-                }
-            }
+		    return true;
+		}
+	    }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return false;
     }
 
     public List<Admin> rechercher(String index) {
-        List<Admin> result = afficher().stream().filter(line -> index.equals(line.getEmail())).collect(Collectors.toList());
-        System.out.println("----------");
-        result.forEach(System.out::println);
-        return result;
+	List<Admin> result = afficher().stream().filter(line -> index.equals(line.getEmail())).collect(Collectors.toList());
+	System.out.println("----------");
+	result.forEach(System.out::println);
+	return result;
     }
 
     public List<Admin> trier() {
-        List<Admin> sortedByName = afficher().stream().sorted(Comparator.comparing(Admin::getNom)).collect(Collectors.toList());
-        sortedByName.forEach(System.out::println);
-        return sortedByName;
+	List<Admin> sortedByName = afficher().stream().sorted(Comparator.comparing(Admin::getNom)).collect(Collectors.toList());
+	sortedByName.forEach(System.out::println);
+	return sortedByName;
     }
 
     public List<Admin> trierMulti() {
-        Comparator<Admin> compareByName = Comparator.comparing(Admin::getNom).thenComparing(Admin::getTel);
+	Comparator<Admin> compareByName = Comparator.comparing(Admin::getNom).thenComparing(Admin::getTel);
 
-        List<Admin> sortedByNameAndTel = afficher().stream()
-                .sorted(compareByName)
-                .collect(Collectors.toList());
+	List<Admin> sortedByNameAndTel = afficher().stream()
+		.sorted(compareByName)
+		.collect(Collectors.toList());
 
-        sortedByNameAndTel.forEach(System.out::println);
-        return sortedByNameAndTel;
+	sortedByNameAndTel.forEach(System.out::println);
+	return sortedByNameAndTel;
     }
 
     public boolean verifAdmin(String mail) {
 
-        Statement stm;
-        String role = "";
+	Statement stm;
+	String role = "";
 
-        try {
-            stm = cnx.createStatement();
+	try {
+	    stm = cnx.createStatement();
 
-            String query = "SELECT * FROM tbl_user WHERE emailUser='" + mail + "'";
-            ResultSet rst = stm.executeQuery(query);
+	    String query = "SELECT * FROM tbl_user WHERE emailUser='" + mail + "'";
+	    ResultSet rst = stm.executeQuery(query);
 
-            while (rst.next()) {
-                role = rst.getString("roleUser");
-                if ("Admin".equals(role)) {
+	    while (rst.next()) {
+		role = rst.getString("roleUser");
+		if ("Admin".equals(role)) {
 
-                    return true;
-                }
-            }
+		    return true;
+		}
+	    }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return false;
     }
 }

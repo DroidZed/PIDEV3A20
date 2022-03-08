@@ -2,184 +2,154 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package service;
-import models.publication;
-import utils.jdbc;
+package tn.nebulagaming.services;
+
+import tn.nebulagaming.models.Publication;
 import java.sql.*;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.File;
-import java.io.FileOutputStream;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Side;
-import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.layout.StackPane;
-import models.commentaire;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  *
  * @author dell
  */
-public class servicePublication implements Services<publication> {
-    
-    Connection cnx = jdbc.getInstance().getCnx();
-    String req = "";
-    PreparedStatement st;
-    ResultSet rs;
-    Scanner sc = new Scanner(System.in);
-    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+public class ServicePublication implements Services<Publication> {
 
     private Connection con;
     private Statement ste;
-    private PreparedStatement pst ;
-    private ResultSet res ;
+    private PreparedStatement st;
+    private ResultSet res;
+    private Connection cnx;
+    private String req;
 
+    public ServicePublication() {
 
-    
-
-    public servicePublication() 
-    {
-        con = jdbc.getInstance().getCnx();
+	cnx = GlobalConfig.getInstance().getCONNECTION();
     }
 
-    
     @Override
-    public void ajouter(publication t) 
-    {
-        try {
-            req = "INSERT INTO tbl_publication ( idGV, descriptionPub) VALUES ('" + t.getIdVG()+ "','"+ t.getDescriptionPub()+"')";
-            st = cnx.prepareStatement(req);
-            st.executeUpdate(req);
-            System.out.println("Publication ajoutée !");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+    public void ajouter(Publication t) {
+	try {
+	    req = "INSERT INTO tbl_publication ( idGV, descriptionPub) VALUES ('" + t.getIdVG() + "','" + t.getDescriptionPub() + "')";
+	    st = cnx.prepareStatement(req);
+	    st.executeUpdate(req);
+	    System.out.println("Publication ajoutée !");
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
+	}
     }
 
-    
     @Override
-    public void supprimer (publication t) {
-        try {
-        String query2="DELETE FROM tbl_publication WHERE id = ?";
-        PreparedStatement smt = cnx.prepareStatement(query2) ;
-        smt.setInt(1, t.getIdPub());
-        smt.executeUpdate();
-        System.out.println("Publication supprimée !");}
-    catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-    }}
-    
-    
+    public void supprimer(Publication t) {
+	try {
+	    String query2 = "DELETE FROM tbl_publication WHERE id = ?";
+	    PreparedStatement smt = cnx.prepareStatement(query2);
+	    smt.setInt(1, t.getIdPub());
+	    smt.executeUpdate();
+	    System.out.println("Publication supprimée !");
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
+	}
+    }
+
     @Override
-    public void modifier(publication t) {
-        
-        try {
+    public void modifier(Publication t) {
 
-                String query2="update tbl_publication set descriptionPub=? where DatePub = ?";
+	try {
 
-                PreparedStatement smt = cnx.prepareStatement(query2);
-                smt.setString(1, t.getDescriptionPub());
-                smt.setDate(2, t.getDatePub());
+	    String query2 = "update tbl_publication set descriptionPub=? where DatePub = ?";
 
-                smt.executeUpdate();
-                System.out.println("Publication modifiée !");
-            } 
-            catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+	    PreparedStatement smt = cnx.prepareStatement(query2);
+	    smt.setString(1, t.getDescriptionPub());
+	    smt.setDate(2, t.getDatePub());
+
+	    smt.executeUpdate();
+	    System.out.println("Publication modifiée !");
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
+	}
     }
-    
-    
+
     @Override
-    public List<publication> afficher() {
-        List<publication> list = new ArrayList<>();
-        
-        try {
-            req = "SELECT * FROM tbl_publication";
-            st = cnx.prepareStatement(req);
-            rs = st.executeQuery(req);
-            while(rs.next()) {
-                list.add(new publication(rs.getInt(1), rs.getString(4)));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-        return list;
+    public List<Publication> afficher() {
+	List<Publication> list = new ArrayList<>();
+
+	try {
+	    req = "SELECT * FROM tbl_publication";
+	    st = cnx.prepareStatement(req);
+	    res = st.executeQuery(req);
+	    while (res.next()) {
+		list.add(new Publication(res.getInt(1), res.getString(4)));
+	    }
+	} catch (SQLException ex) {
+	    System.out.println(ex.getMessage());
+	}
+
+	return list;
     }
 
-    public void TriDate () 
-    {
-        List<publication> sortedByDatePub = this.afficher().stream()
-            .sorted(Comparator.comparing(publication::getDatePub))
-            .collect(Collectors.toList());
+    public void TriDate() {
+	List<Publication> sortedByDatePub = this.afficher().stream()
+		.sorted(Comparator.comparing(Publication::getDatePub))
+		.collect(Collectors.toList());
 
-            sortedByDatePub.forEach(System.out::println);
+	sortedByDatePub.forEach(System.out::println);
     }
 
-public void Rechercher(String desc)
-    {
-        List<publication> result = this.afficher();
+    public void Rechercher(String desc) {
+	List<Publication> result = this.afficher();
 
-        result.stream()
-                .filter(t -> t.getDescriptionPub().startsWith(desc))
-                .findFirst()
-                .ifPresent(t -> System.out.println(t));
+	result.stream()
+		.filter(t -> t.getDescriptionPub().startsWith(desc))
+		.findFirst()
+		.ifPresent(t -> System.out.println(t));
     }
 
-public void print ()
-    {
+    public void print() {
 // Récupère un PrinterJob
-      PrinterJob job = PrinterJob.getPrinterJob();
-      // Définit son contenu à imprimer
-      job.defaultPage();
-      // Affiche une boîte de choix d'imprimante
-      if (job.printDialog()){
-         try {
-            // Effectue l'impression
-            job.print();
-         } catch (PrinterException ex) {
-            ex.printStackTrace();
-         }
-      }
-   }
-
-public publication GetByDesc(String n) {
-          publication a = null;
-         String requete = " select * from tbl_publication WHERE descriptionPub='"+n+"';";
-        try {
-            ste = con.createStatement();
-            res=ste.executeQuery(requete);
-            if (res.next())
-            {a=new publication(res.getDate(3),res.getString(5));}
-        } catch (SQLException ex) {
-            Logger.getLogger(servicePublication.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return a ;
-        
+	PrinterJob job = PrinterJob.getPrinterJob();
+	// Définit son contenu à imprimer
+	job.defaultPage();
+	// Affiche une boîte de choix d'imprimante
+	if (job.printDialog()) {
+	    try {
+		// Effectue l'impression
+		job.print();
+	    } catch (PrinterException ex) {
+		ex.printStackTrace();
+	    }
+	}
     }
 
+    public Publication GetByDesc(String n) {
+	Publication a = null;
+	String requete = " select * from tbl_publication WHERE descriptionPub='" + n + "';";
+	try {
+	    ste = con.createStatement();
+	    res = ste.executeQuery(requete);
+	    if (res.next()) {
+		a = new Publication(res.getDate(3), res.getString(5));
+	    }
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServicePublication.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return a;
 
-    public void modifier2(publication t, String ref) throws SQLException  {
-        PreparedStatement PS = con.prepareStatement("UPDATE `tbl_publication` SET `descriptionPub`=? WHERE `descriptionPub`='" +ref+"';");
-        PS.setString(1, t.getDescriptionPub());
-        PS.executeUpdate();
     }
-    
+
+    public void modifier2(Publication t, String ref) throws SQLException {
+	PreparedStatement PS = con.prepareStatement("UPDATE `tbl_publication` SET `descriptionPub`=? WHERE `descriptionPub`='" + ref + "';");
+	PS.setString(1, t.getDescriptionPub());
+	PS.executeUpdate();
+    }
+
     /*public ObservableList<publication> getPubs() throws SQLException {
            
         ObservableList<publication> pubList = FXCollections.observableArrayList();
@@ -200,24 +170,22 @@ public publication GetByDesc(String n) {
         return pubList;
 
     }*/
-
-    
     public int calculer(int idVG) {
-          int l = 0 ;
-         String requete = "SELECT COUNT(*) FROM tbl_publication WHERE idGV= "+idVG ;
-        try {
-           
-           Statement st =cnx.createStatement();
-           ResultSet rs=st.executeQuery(requete);
-           if (rs.next()){
-          String chaine = String.valueOf(rs.getString(1));
-           l=Integer.parseInt(chaine);
-            System.out.println(l);}
-        } catch (SQLException ex) {
-            Logger.getLogger(servicePublication.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-      return l ;
+	int l = 0;
+	String requete = "SELECT COUNT(*) FROM tbl_publication WHERE idGV= " + idVG;
+	try {
+
+	    Statement st = cnx.createStatement();
+	    ResultSet rs = st.executeQuery(requete);
+	    if (rs.next()) {
+		String chaine = String.valueOf(rs.getString(1));
+		l = Integer.parseInt(chaine);
+		System.out.println(l);
+	    }
+	} catch (SQLException ex) {
+	    Logger.getLogger(ServicePublication.class.getName()).log(Level.SEVERE, null, ex);
+	}
+
+	return l;
     }
 }
-

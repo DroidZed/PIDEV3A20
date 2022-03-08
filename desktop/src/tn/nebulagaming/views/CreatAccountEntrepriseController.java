@@ -37,7 +37,7 @@ import tn.nebulagaming.services.ServiceNotification;
 import tn.nebulagaming.services.ServiceUser;
 import static tn.nebulagaming.utils.Constantes.CV_PATH;
 import static tn.nebulagaming.utils.Constantes.IMG_PATH;
-import tn.nebulagaming.utils.MailUtiles;
+import tn.nebulagaming.utils.JavaMail;
 import tn.nebulagaming.utils.UserUtiles;
 
 /**
@@ -71,191 +71,192 @@ public class CreatAccountEntrepriseController implements Initializable {
     private Label photoName;
     @FXML
     private Button photo;
- File fileCvEnt = null;
+    File fileCvEnt = null;
     String filePhotoEnt = null;
     File filePhotoEntFile = null;
-   
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-   public void information_Box(String title, String message) {
-        Alert dg = new Alert(Alert.AlertType.INFORMATION);
-        dg.setTitle(title);
-        dg.setContentText(message);
-        dg.show();
+	// TODO
+    }
+
+    public void information_Box(String title, String message) {
+	Alert dg = new Alert(Alert.AlertType.INFORMATION);
+	dg.setTitle(title);
+	dg.setContentText(message);
+	dg.show();
     }
 
     public void alert_Box(String title, String message) {
-        Alert dg = new Alert(Alert.AlertType.WARNING);
-        dg.setTitle(title);
-        dg.setContentText(message);
-        dg.show();
+	Alert dg = new Alert(Alert.AlertType.WARNING);
+	dg.setTitle(title);
+	dg.setContentText(message);
+	dg.show();
     }
 
     private void BackToLogin() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./Login.fxml"));
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./Login.fxml"));
 
-        Parent root = loader.load();
+	Parent root = loader.load();
 
-        Stage window = (Stage) ajouterEnt.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	Stage window = (Stage) ajouterEnt.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
     }
+
     @FXML
     private void ajouterEnt(ActionEvent event) throws IOException {
-        
-        ServiceEntreprise sEnt = new ServiceEntreprise();
-        ServiceUser sUser = new ServiceUser();
-        UserUtiles uUtiles = new UserUtiles();
-        MailUtiles sMail = new MailUtiles();
-        String nom = nomEnt.getText();
-        String mail = mailEnt.getText();
-        String password = passwordEnt.getText();
-        String cpassword = cpasswordEnt.getText();
-        String tel = telEnt.getText();
-        File fileCv = fileCvEnt;
-        String filePhoto = filePhotoEnt;
-     
 
-        //controle de saisie
-        if (nom.isEmpty()) {
-            alert_Box("Verifier votre nom", "Votre nom ne doit pas être vide");
-        } else if (!uUtiles.testEmail(mail)) {
-            alert_Box("Verifier votre mail", "veillez saisir une adresse mail valide");
-        } else if (sUser.verifierEmailBd(mail)) {
-            alert_Box("Verifier votre mail", "veillez saisir une adresse non existant");
-        } else if (!uUtiles.testPassword(password)) {
-            alert_Box("Verifier mot de passe", "Votre mot de passe doit doit contenir au moins une une majuscule et un chiffre ");
-        } else if (!password.equals(cpassword)) {
-            alert_Box("Verifier mot de passe", "Veillez verifier votre mot de passe ");
-        } else if (!uUtiles.testTel(tel)) {
-            alert_Box("Verifier votre numero telephone", "Veillez mettre un numero de telephone valide");
-        } else if (fileCv == null) {
-            alert_Box("Verifier le cv", "inserer cv");
-        } else if (filePhoto == null) {
-            alert_Box("Verifier la photo", "inserer une photo");
+	ServiceEntreprise sEnt = new ServiceEntreprise();
+	ServiceUser sUser = new ServiceUser();
+	UserUtiles uUtiles = new UserUtiles();
+	JavaMail sMail = new JavaMail();
+	String nom = nomEnt.getText();
+	String mail = mailEnt.getText();
+	String password = passwordEnt.getText();
+	String cpassword = cpasswordEnt.getText();
+	String tel = telEnt.getText();
+	File fileCv = fileCvEnt;
+	String filePhoto = filePhotoEnt;
+
+	//controle de saisie
+	if (nom.isEmpty()) {
+	    alert_Box("Verifier votre nom", "Votre nom ne doit pas être vide");
+	} else if (!uUtiles.testEmail(mail)) {
+	    alert_Box("Verifier votre mail", "veillez saisir une adresse mail valide");
+	} else if (sUser.verifierEmailBd(mail)) {
+	    alert_Box("Verifier votre mail", "veillez saisir une adresse non existant");
+	} else if (!uUtiles.testPassword(password)) {
+	    alert_Box("Verifier mot de passe", "Votre mot de passe doit doit contenir au moins une une majuscule et un chiffre ");
+	} else if (!password.equals(cpassword)) {
+	    alert_Box("Verifier mot de passe", "Veillez verifier votre mot de passe ");
+	} else if (!uUtiles.testTel(tel)) {
+	    alert_Box("Verifier votre numero telephone", "Veillez mettre un numero de telephone valide");
+	} else if (fileCv == null) {
+	    alert_Box("Verifier le cv", "inserer cv");
+	} else if (filePhoto == null) {
+	    alert_Box("Verifier la photo", "inserer une photo");
 //nameUser,emailUser,pwdUser,phone,photoUser,roleUser ,cv,stateUser
-        } else {
-            String cv = copyCV();
-            String photo = copyPhoto();
-            Entreprise e = new Entreprise(nom, mail, uUtiles.crypterPassword(password), tel, photo,"Entreprise" ,cv, "0");
-            Entreprise ee=new Entreprise();
-            ee.setNom(nom);
-            ee.setEmail(mail);
-            ee.setCv(cv);
-            ee.setTel(tel);
-            ee.setPassword(password);
-            ee.setPhoto(photo);
-            sEnt.ajouter(ee);
-            sMail.envoyerMail(mail, "Compte créé avec succès", "Bonjour M." + nom + " et bienvenu sur notre platforme ");
-            information_Box("Compte créé avec succès", "Vous venez de recevoir un e-mail de confirmation");
-            BackToLogin();
-        }
+	} else {
+	    String cv = copyCV();
+	    String photo = copyPhoto();
+	    Entreprise e = new Entreprise(nom, mail, uUtiles.crypterPassword(password), tel, photo, "Entreprise", cv, "0");
+	    Entreprise ee = new Entreprise();
+	    ee.setNom(nom);
+	    ee.setEmail(mail);
+	    ee.setCv(cv);
+	    ee.setTel(tel);
+	    ee.setPassword(password);
+	    ee.setPhoto(photo);
+	    sEnt.ajouter(ee);
+	    sMail.sendTextMail("Compte créé avec succès", mail, "Bonjour M." + nom + " et bienvenu sur notre platforme ");
+	    information_Box("Compte créé avec succès", "Vous venez de recevoir un e-mail de confirmation");
+	    BackToLogin();
+	}
     }
-  private void backLogin(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./Login.fxml"));
-        rootPane.getChildren().setAll(pane);
+
+    private void backLogin(ActionEvent event) throws IOException {
+	AnchorPane pane = FXMLLoader.load(getClass().getResource("./Login.fxml"));
+	rootPane.getChildren().setAll(pane);
     }
-   
 
     @FXML
     private void back(ActionEvent event) throws IOException {
-         
-        BackToLogin();
-  
+
+	BackToLogin();
+
     }
 
     @FXML
     private void ajoutPhoto(ActionEvent event) {
-        
-            JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images files", "jpeg");
-        chooser.setFileFilter(filter);
-        chooser.showOpenDialog(null);
-        filePhotoEnt = chooser.getSelectedFile().getName();
-        filePhotoEntFile=chooser.getSelectedFile();
-        photoName.setText(filePhotoEnt);
+
+	JFileChooser chooser = new JFileChooser();
+	FileNameExtensionFilter filter = new FileNameExtensionFilter("Images files", "jpeg");
+	chooser.setFileFilter(filter);
+	chooser.showOpenDialog(null);
+	filePhotoEnt = chooser.getSelectedFile().getName();
+	filePhotoEntFile = chooser.getSelectedFile();
+	photoName.setText(filePhotoEnt);
     }
 
     @FXML
     private void take_picture(ActionEvent event) throws IOException {
-        ServiceNotification sn = new ServiceNotification();
+	ServiceNotification sn = new ServiceNotification();
 
-        String code_random = code_random();
+	String code_random = code_random();
 
-        Webcam webcam = Webcam.getDefault();
-        webcam.open();
-        String filename = "";
-        filename = code_random + "_" + telEnt.getText() + ".jpg";
-        ImageIO.write(webcam.getImage(), "JPG", new File("Images/" + filename));
-        filePhotoEnt = filename;
-        webcam.close();       
+	Webcam webcam = Webcam.getDefault();
+	webcam.open();
+	String filename = "";
+	filename = code_random + "_" + telEnt.getText() + ".jpeg";
+	ImageIO.write(webcam.getImage(), "JPG", new File("Images/" + filename));
+	filePhotoEnt = filename;
+	webcam.close();
 
-        sn.Notification("Felicitation", "Photo Prise");
-    
+	sn.Notification("Felicitation", "Photo Prise");
+
     }
-     private String code_random() {
 
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
+    private String code_random() {
 
-        // create StringBuffer size of AlphaNumericString 
-        StringBuilder sb = new StringBuilder(4);
+	String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		+ "0123456789"
+		+ "abcdefghijklmnopqrstuvxyz";
 
-        for (int i = 0; i < 4; i++) {
+	// create StringBuffer size of AlphaNumericString 
+	StringBuilder sb = new StringBuilder(4);
 
-            // generate a random number between 
-            // 0 to AlphaNumericString variable length 
-            int index
-                    = (int) (AlphaNumericString.length()
-                    * Math.random());
+	for (int i = 0; i < 4; i++) {
 
-            // add Character one by one in end of sb 
-            sb.append(AlphaNumericString
-                    .charAt(index));
-        }
+	    // generate a random number between 
+	    // 0 to AlphaNumericString variable length 
+	    int index
+		    = (int) (AlphaNumericString.length()
+		    * Math.random());
 
-        return sb.toString();
+	    // add Character one by one in end of sb 
+	    sb.append(AlphaNumericString
+		    .charAt(index));
+	}
+
+	return sb.toString();
     }
+
     @FXML
     public void ajoutCv(ActionEvent event) throws IOException {
 
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("pdf files", "pdf");
-        chooser.setFileFilter(filter);
-        chooser.showOpenDialog(null);
-        fileCvEnt = chooser.getSelectedFile();
-        cvName.setText(fileCvEnt.getName());
+	JFileChooser chooser = new JFileChooser();
+	FileNameExtensionFilter filter = new FileNameExtensionFilter("pdf files", "pdf");
+	chooser.setFileFilter(filter);
+	chooser.showOpenDialog(null);
+	fileCvEnt = chooser.getSelectedFile();
+	cvName.setText(fileCvEnt.getName());
 
     }
 
     public String copyCV() throws IOException {
-        UserUtiles sU = new UserUtiles();
-        Date d = new Date();
-        String strTimestamp = String.valueOf(d.getTime());
-        String randomString = sU.randomString() + "_" + strTimestamp + ".pdf";
-        Path copied = Paths.get(CV_PATH + randomString);
-        Path originalPath = Paths.get(fileCvEnt.getAbsolutePath());
-        Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
-        return randomString;
+	UserUtiles sU = new UserUtiles();
+	Date d = new Date();
+	String strTimestamp = String.valueOf(d.getTime());
+	String randomString = sU.randomString() + "_" + strTimestamp + ".pdf";
+	Path copied = Paths.get(CV_PATH + randomString);
+	Path originalPath = Paths.get(fileCvEnt.getAbsolutePath());
+	Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+	return randomString;
     }
-    
-   
 
     public String copyPhoto() throws IOException {
-        UserUtiles sU = new UserUtiles();
-        Date d = new Date();
-        String strTimestamp = String.valueOf(d.getTime());
-        String randomString = sU.randomString() + "_" + strTimestamp + ".jpeg";
-        Path copied = Paths.get(IMG_PATH + randomString);
-        Path originalPath = Paths.get(filePhotoEntFile.getAbsolutePath());
-        Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
-        return randomString;
+	UserUtiles sU = new UserUtiles();
+	Date d = new Date();
+	String strTimestamp = String.valueOf(d.getTime());
+	String randomString = sU.randomString() + "_" + strTimestamp + ".jpeg";
+	Path copied = Paths.get(IMG_PATH + randomString);
+	Path originalPath = Paths.get(filePhotoEntFile.getAbsolutePath());
+	Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+	return randomString;
     }
 
 }

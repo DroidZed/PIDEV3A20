@@ -33,7 +33,7 @@
             </Button>
          </children>
       </VBox>
-      <Button layoutX="990.0" layoutY="546.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="130.0" text="Go Back">
+      <Button fx:id="btnBackAd" layoutX="990.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToAdmin" prefHeight="37.0" prefWidth="130.0" text="Go Back">
          <font>
             <Font size="16.0" />
          </font>

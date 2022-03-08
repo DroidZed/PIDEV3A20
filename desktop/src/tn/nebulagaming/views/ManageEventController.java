@@ -141,7 +141,7 @@ public class ManageEventController implements Initializable {
         //get User Name jointure 
         postedByEventCol.setCellValueFactory(data->{
            Event event = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           Connection cnx = GlobalConfig.getInstance().getCONNECTION();
            String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+event.getIdOwnerUser();
            Statement st = null ;
            String result = "" ;

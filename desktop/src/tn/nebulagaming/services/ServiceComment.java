@@ -18,67 +18,72 @@ import tn.nebulagaming.utils.GlobalConfig;
  *
  * @author SuperNova
  */
-public class ServiceComment implements IServiceNewsfeed<Comment>{
+public class ServiceComment implements IServiceNewsfeed<Comment> {
 
-    Connection cnx = GlobalConfig.getInstance().getCnx() ;
-        
+    Connection cnx;
+
+    public ServiceComment() {
+
+	cnx = GlobalConfig.getInstance().getCONNECTION();
+    }
+
     @Override
     public void add(Comment t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	// TODO
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	// TODO
     }
 
     @Override
     public void update(Comment t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	// TODO
     }
 
     @Override
     public List<Comment> display() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	return null; // TODO
     }
-    
-     public List<Comment> displayCommentByEvent(int idEvent) {
-         List<Comment> listComment = new ArrayList<>(); 
 
-        try {
-           String query = "SELECT idComment , postedDTM , idUser , idPost , comment FROM `tbl_comment` WHERE idPost ="+idEvent; 
-           Statement st = cnx.createStatement();
-           ResultSet rs = st.executeQuery(query) ;
-           while (rs.next()) {
-               listComment.add(new Comment (
-                                   rs.getInt(1),
-                                   rs.getDate(2) ,
-                                   rs.getInt(3),
-                                   rs.getInt(4),
-                                   rs.getString(5))) ;
-           }
-       }catch (SQLException e) {
-           System.err.println(e.getMessage());
-       }
-       return listComment ; 
-    }
-     
-     public int countCommentsbyPost (int idPost) {
-         
-         int nbComment = 0 ;
+    public List<Comment> displayCommentByEvent(int idEvent) {
+	List<Comment> listComment = new ArrayList<>();
 
-        try {
-           String query = "SELECT count(idComment) FROM tbl_comment WHERE idPost = "+idPost; 
-           Statement st = cnx.createStatement();
-           ResultSet rs = st.executeQuery(query) ;
-           if (rs.next()) {
-                nbComment = rs.getInt(1) ;
-           }
-           
-        }catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-       return nbComment ; 
+	try {
+	    String query = "SELECT idComment , postedDTM , idUser , idPost , comment FROM `tbl_comment` WHERE idPost =" + idEvent;
+	    Statement st = cnx.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    while (rs.next()) {
+		listComment.add(new Comment(
+			rs.getInt(1),
+			rs.getDate(2),
+			rs.getInt(3),
+			rs.getInt(4),
+			rs.getString(5)));
+	    }
+	} catch (SQLException e) {
+	    System.err.println(e.getMessage());
+	}
+	return listComment;
     }
-    
+
+    public int countCommentsbyPost(int idPost) {
+
+	int nbComment = 0;
+
+	try {
+	    String query = "SELECT count(idComment) FROM tbl_comment WHERE idPost = " + idPost;
+	    Statement st = cnx.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    if (rs.next()) {
+		nbComment = rs.getInt(1);
+	    }
+
+	} catch (SQLException e) {
+	    System.err.println(e.getMessage());
+	}
+	return nbComment;
+    }
+
 }

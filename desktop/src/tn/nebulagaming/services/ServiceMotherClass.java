@@ -9,13 +9,12 @@ import tn.nebulagaming.utils.GlobalConfig;
  */
 public abstract class ServiceMotherClass {
 
-protected static final int SESSION_USER = GlobalConfig
-					.getInstance().getSession();
-					
+    protected static final int SESSION_USER = GlobalConfig
+	    .getInstance().getSession();
 
-protected static final Connection conn = GlobalConfig
-					.getInstance().getCONNECTION();
-					
-protected String TABLE_NAME;
+    protected static final Connection conn = GlobalConfig
+	    .getInstance().getCONNECTION();
+
+    protected String TABLE_NAME;
 
 }

@@ -128,7 +128,7 @@ private void displayPosts () {
         //get User Name jointure 
         postedByPostCol.setCellValueFactory(data->{
            Post post = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+               Connection cnx = GlobalConfig.getInstance().getCONNECTION();
            String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+post.getIdOwnerUser();
            Statement st = null ;
            String result = "" ;

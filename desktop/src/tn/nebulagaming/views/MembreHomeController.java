@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,8 +80,8 @@ public class MembreHomeController implements Initializable {
     private CheckBox triTypeRec;
     @FXML
     private CheckBox triEtatRec;
-public Membre user2;
-String id;
+    public Membre user2;
+    String id;
     @FXML
     private TextField descr;
     @FXML
@@ -102,212 +104,233 @@ String id;
     private Button regarder;
     @FXML
     private TableColumn<Streaming, Integer> idStream;
+    @FXML
+    private Button newsFeedMem;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-          List<String> listCritereRec;
-        listCritereRec = Arrays.asList("nomUser", "statusComplaint", "typeComplaint","message","answerComplaint");
-        ObservableList<String> listCritereR;
-        listCritereR = FXCollections.observableArrayList(listCritereRec);
-        affichageTabRec();
-        
-        
-        List<String> listCritereStream;
-        listCritereStream = Arrays.asList("nomUser", "description", "link","nbVu","idSteam");
-        ObservableList<String> listCritereS;
-        listCritereS = FXCollections.observableArrayList(listCritereRec);
-        affichageTabStreaming();
-    }    
- public void iniializeFxml(Membre e) {
-        System.out.println(e.getNom());
-        System.out.println(e.getTel());
+	// TODO
 
-        Image image = new Image(IMG_PATH_LOAD + e.getPhoto());
-        System.out.println(IMG_PATH_LOAD);
-        ImageView iv1 = new ImageView();
-        photoMembre.setImage(image);
-        
+	List<String> listCritereRec;
+	listCritereRec = Arrays.asList("nomUser", "statusComplaint", "typeComplaint", "message", "answerComplaint");
+	ObservableList<String> listCritereR;
+	listCritereR = FXCollections.observableArrayList(listCritereRec);
+	affichageTabRec();
+
+	List<String> listCritereStream;
+	listCritereStream = Arrays.asList("nomUser", "description", "link", "nbVu", "idSteam");
+	ObservableList<String> listCritereS;
+	listCritereS = FXCollections.observableArrayList(listCritereRec);
+	affichageTabStreaming();
+    }
+
+    public void iniializeFxml(Membre e) {
+	System.out.println(e.getNom());
+	System.out.println(e.getTel());
+
+	ServiceMembre sem = new ServiceMembre();
+
+	int conf = GlobalConfig.getInstance().getSession();
+
+	this.user2 = sem.loadDataModifyId(conf);
+
+	Image image = new Image(IMG_PATH_LOAD + e.getPhoto());
+	System.out.println(IMG_PATH_LOAD);
+	ImageView iv1 = new ImageView();
+	photoMembre.setImage(image);
 
     }
+
     @FXML
-   public void affichageTabRec() {
-     if(rechercherRec.getText()==null || rechercherRec.getText().trim().isEmpty()) {
-         if(triNomRec.isSelected()==false && triTypeRec.isSelected()==false && triEtatRec.isSelected()==false)
-         {ServiceReclamation sa = new ServiceReclamation();
-        ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.afficher());
-        nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
-        etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
-        typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
-                message.setCellValueFactory(new PropertyValueFactory<>("message"));
+    public void affichageTabRec() {
+	if (rechercherRec.getText() == null || rechercherRec.getText().trim().isEmpty()) {
+	    if (triNomRec.isSelected() == false && triTypeRec.isSelected() == false && triEtatRec.isSelected() == false) {
+		ServiceReclamation sa = new ServiceReclamation();
+		ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.afficher());
+		nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+		etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
+		typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
+		message.setCellValueFactory(new PropertyValueFactory<>("message"));
 //System.out.println(Connexion.getSession());
-        rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
+		rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
 
-        
-        tabRec.setItems(list);
-     }
-         else if( triTypeRec.isSelected()==true && triEtatRec.isSelected()==false)
-         {
-             ServiceReclamation sa = new ServiceReclamation();
-        ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.trierType());
-        nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
-        etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
-        typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
-                message.setCellValueFactory(new PropertyValueFactory<>("message"));
+		tabRec.setItems(list);
+	    } else if (triTypeRec.isSelected() == true && triEtatRec.isSelected() == false) {
+		ServiceReclamation sa = new ServiceReclamation();
+		ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.trierType());
+		nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+		etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
+		typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
+		message.setCellValueFactory(new PropertyValueFactory<>("message"));
 //System.out.println(Connexion.getSession());
-        rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
+		rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
 
-        
-        tabRec.setItems(list);
-         }
-         else if(triTypeRec.isSelected()==false && triEtatRec.isSelected()==true)
-                 {
-                      ServiceReclamation sa = new ServiceReclamation();
-        ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.trierEtat());
-        nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
-        etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
-        typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
-                message.setCellValueFactory(new PropertyValueFactory<>("message"));
+		tabRec.setItems(list);
+	    } else if (triTypeRec.isSelected() == false && triEtatRec.isSelected() == true) {
+		ServiceReclamation sa = new ServiceReclamation();
+		ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.trierEtat());
+		nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+		etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
+		typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
+		message.setCellValueFactory(new PropertyValueFactory<>("message"));
 //System.out.println(Connexion.getSession());
-        rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
+		rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
 
-        
-        tabRec.setItems(list);
-                 }
-         else if(triTypeRec.isSelected()==true && triEtatRec.isSelected()==true)
-                 {
-                      ServiceReclamation sa = new ServiceReclamation();
-        ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.trierMulti());
-        nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
-        etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
-        typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
-                message.setCellValueFactory(new PropertyValueFactory<>("message"));
+		tabRec.setItems(list);
+	    } else if (triTypeRec.isSelected() == true && triEtatRec.isSelected() == true) {
+		ServiceReclamation sa = new ServiceReclamation();
+		ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.trierMulti());
+		nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+		etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
+		typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
+		message.setCellValueFactory(new PropertyValueFactory<>("message"));
 //System.out.println(Connexion.getSession());
-        rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
+		rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
 
-        
-        tabRec.setItems(list);
-                 }
-     }
-     else{
-          ServiceReclamation sa = new ServiceReclamation();
-        ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.rechercher(rechercherRec.getText()));
-        nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
-        etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
-        typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
-                message.setCellValueFactory(new PropertyValueFactory<>("message"));
+		tabRec.setItems(list);
+	    }
+	} else {
+	    ServiceReclamation sa = new ServiceReclamation();
+	    ObservableList<Reclamation> list = FXCollections.observableArrayList(sa.rechercher(rechercherRec.getText()));
+	    nomUser.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
+	    etatRec.setCellValueFactory(new PropertyValueFactory<>("statusComplaint"));
+	    typeRec.setCellValueFactory(new PropertyValueFactory<>("typeComplaint"));
+	    message.setCellValueFactory(new PropertyValueFactory<>("message"));
 //System.out.println(Connexion.getSession());
-        rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
+	    rep.setCellValueFactory(new PropertyValueFactory<>("answerComplaint"));
 
-        
-        tabRec.setItems(list);
-     }
-    
-        System.out.println( "  test");
+	    tabRec.setItems(list);
+	}
+
+	System.out.println("  test");
     }
-  void showData(Membre e) {
-          nomMembre.setText(e.getNom());
-        mailMembre.setText(e.getEmail());
-        telMembre.setText(e.getTel());
-        usernameLab.setText("bienvenue " + e.getNom());
-        mailMembre.setDisable(true);
-        nomMembre.setDisable(true);
-        telMembre.setDisable(true);
-        descr.setText(e.getDescription());
-        descr.setDisable(true);
-        
-        Image image = new Image((IMG_PATH_LOAD + e.getPhoto()));
-        
-        photoMembre.setImage(image);
-        System.out.println("test");
+
+    void showData(Membre e) {
+	nomMembre.setText(e.getNom());
+	mailMembre.setText(e.getEmail());
+	telMembre.setText(e.getTel());
+	usernameLab.setText("bienvenue " + e.getNom());
+	mailMembre.setDisable(true);
+	nomMembre.setDisable(true);
+	telMembre.setDisable(true);
+	descr.setText(e.getDescription());
+	descr.setDisable(true);
+
+	Image image = new Image((IMG_PATH_LOAD + e.getPhoto()));
+
+	photoMembre.setImage(image);
+	System.out.println("test");
     }
+
     @FXML
     private void modifPw(ActionEvent event) throws IOException {
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("./MembreModif.fxml"));
-        Parent root = loader.load();
-        MembreModifController HomeScene = loader.getController();
-        HomeScene.user2 = this.user2;
-        HomeScene.id=id;
-        Membre a= this.user2;
-        HomeScene.iniializeFxml(a);
-        HomeScene.showData(a);
-        Stage window = (Stage) modifInfo.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./MembreModif.fxml"));
+	Parent root = loader.load();
+	MembreModifController HomeScene = loader.getController();
+	HomeScene.user2 = this.user2;
+	HomeScene.id = id;
+	Membre a = this.user2;
+	HomeScene.iniializeFxml(a);
+	HomeScene.showData(a);
+	Stage window = (Stage) modifInfo.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
     }
 
     @FXML
     private void logOut(ActionEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("./Login.fxml"));
-        Parent root = loader.load();
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./Login.fxml"));
+	Parent root = loader.load();
 
-        Stage window = (Stage) logOut.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	Stage window = (Stage) logOut.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
     }
 
     @FXML
     private void passeRec(ActionEvent event) throws IOException {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("./passerReclamation.fxml"));
-        Parent root = loader.load();
-        PasserReclamationController HomeScene = loader.getController();
-        HomeScene.user2 = this.user2;
-        HomeScene.id=id;
-        Membre a= this.user2;
-        HomeScene.iniializeFxml(a);
-        HomeScene.showData(a);
-        Stage window = (Stage) modifInfo.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./passerReclamation.fxml"));
+	Parent root = loader.load();
+	PasserReclamationController HomeScene = loader.getController();
+	HomeScene.user2 = this.user2;
+	HomeScene.id = id;
+	Membre a = this.user2;
+	HomeScene.iniializeFxml(a);
+	HomeScene.showData(a);
+	Stage window = (Stage) modifInfo.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
     }
 
     @FXML
     private void affichageTabStreaming() {
-       ServiceMembre sm=new ServiceMembre();
-        ObservableList<Streaming> list = FXCollections.observableArrayList(sm.afficherStreamers());
-        userStream.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-        descStream.setCellValueFactory(new PropertyValueFactory<>("description"));
-        vuStream.setCellValueFactory(new PropertyValueFactory<>("nbVu"));
-               
+	ServiceMembre sm = new ServiceMembre();
+	ObservableList<Streaming> list = FXCollections.observableArrayList(sm.afficherStreamers());
+	userStream.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
+	descStream.setCellValueFactory(new PropertyValueFactory<>("description"));
+	vuStream.setCellValueFactory(new PropertyValueFactory<>("nbVu"));
 
-        
-        tabStream.setItems(list);
-        
+	tabStream.setItems(list);
+
     }
 
     @FXML
     private void streamer(ActionEvent event) throws IOException {
-        Runtime runtime = Runtime.getRuntime();
-        runtime.exec("C:\\Users\\houba\\Desktop\\Nebula-Gaming\\desktop\\ScreenTask-master\\ScreenTask.v1.1.exe");
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("./Streamer.fxml"));
-        Parent root = loader.load();
-        StreamerController HomeScene = loader.getController();
-        HomeScene.user2 = this.user2;
-        HomeScene.id=id;
-        Membre a= this.user2;
-        HomeScene.iniializeFxml(a);
-        HomeScene.showData(a);
-        Stage window = (Stage) modifInfo.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
-        
+	Runtime runtime = Runtime.getRuntime();
+	runtime.exec("E:\\9raya\\Nebula-Gaming\\desktop\\ScreenTask-master\\ScreenTask.v1.1.exe");
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./Streamer.fxml"));
+	Parent root = loader.load();
+	StreamerController HomeScene = loader.getController();
+	HomeScene.user2 = this.user2;
+	HomeScene.id = id;
+	Membre a = this.user2;
+	HomeScene.iniializeFxml(a);
+	HomeScene.showData(a);
+	Stage window = (Stage) modifInfo.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
+
     }
 
     @FXML
     private void regarder(ActionEvent event) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./StreamHome.fxml"));
-        Parent root = loader.load();
-        String link=tabStream.getSelectionModel().getSelectedItem().getLink();
-        String nom=tabStream.getSelectionModel().getSelectedItem().getNameUser();
-        ServiceMembre sm=new ServiceMembre();
-        Streaming s=sm.loadS(link,nom);
-        sm.augmenterVu(s);
-        StreamHomeController HomeScene = loader.getController();
-        HomeScene.user2 = this.user2;
-        HomeScene.id=id;
-        Membre a= this.user2;
-        HomeScene.iniializeFxml(a,s);
-        //HomeScene.showData(a);
-        Stage window = (Stage) modifInfo.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./StreamHome.fxml"));
+	Parent root = loader.load();
+	String link = tabStream.getSelectionModel().getSelectedItem().getLink();
+	String nom = tabStream.getSelectionModel().getSelectedItem().getNameUser();
+	ServiceMembre sm = new ServiceMembre();
+	Streaming s = sm.loadS(link, nom);
+	sm.augmenterVu(s);
+	StreamHomeController HomeScene = loader.getController();
+	HomeScene.user2 = this.user2;
+	HomeScene.id = id;
+	Membre a = this.user2;
+	HomeScene.iniializeFxml(a, s);
+	//HomeScene.showData(a);
+	Stage window = (Stage) modifInfo.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
     }
-    
+
+    @FXML
+    private void goToNFMember(ActionEvent event) {
+
+	try {
+	    Membre e = new Membre();
+	    ServiceMembre se = new ServiceMembre();
+	    e = se.loadDataModify(id);
+
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("./NewsFeed.fxml"));
+
+	    Parent root = loader.load();
+
+	    NewsFeedController HomeScene = loader.getController();
+
+	    HomeScene.user2 = e;
+	    HomeScene.initializeFxml(e);
+	    Stage window = (Stage) newsFeedMem.getScene().getWindow();
+	    window.setScene(new Scene(root, 800, 800));
+	} catch (IOException ex) {
+	    Logger.getLogger(MembreHomeController.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
+
 }

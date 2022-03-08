@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package tn.nebulagaming.models;
 
 import java.sql.Blob;
 import java.sql.Date;
@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
  *
  * @author hp
  */
-public class candidacy {
+public class Candidacy {
 
  private int id;
  private int idOffer;
@@ -24,7 +24,7 @@ public class candidacy {
  private String title;
 
 
-    public candidacy(int id,java.sql.Date candidacyDTM, int idOffer, int idUser,  String etat, String imageCV) {
+    public Candidacy(int id,java.sql.Date candidacyDTM, int idOffer, int idUser,  String etat, String imageCV) {
         this.id = id;
         this.idOffer = idOffer;
         this.idUser = idUser;
@@ -42,7 +42,7 @@ public class candidacy {
         this.title = title;
     }
 
-    public candidacy(int idOffer, int idUser, String imageCV,String etat) {
+    public Candidacy(int idOffer, int idUser, String imageCV,String etat) {
         this.idOffer = idOffer;
         this.idUser = idUser;
         this.etat = etat;

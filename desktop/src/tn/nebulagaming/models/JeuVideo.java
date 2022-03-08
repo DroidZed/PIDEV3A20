@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package tn.nebulagaming.models;
 
-import java.sql.Blob;
 import javafx.scene.image.ImageView;
 
 /**
@@ -17,113 +16,116 @@ public class JeuVideo {
     private String nameVg;
     private String imageVg;
     private int idUser = 0;
-    private int IdPub=0;
-    private float rating;
+    private int IdPub = 0;
+    private double rating;
     private ImageView img;
+    private int likes;
 
-    public JeuVideo(String nameVg, String imageVg) {
-        this.nameVg = nameVg;
-        this.imageVg = imageVg;
+    public JeuVideo(int id, String nameVg, String imageVg, Double rating, int likes) {
+	this.id = id;
+	this.nameVg = nameVg;
+	this.imageVg = imageVg;
+	this.rating = rating;
+	this.likes = likes;
     }
 
-    public JeuVideo(int id, String nameVg, String imageVg, float rating) {
-        this.id = id;
-        this.nameVg = nameVg;
-        this.imageVg = imageVg;
-        this.rating = rating;
+    public JeuVideo(String nameVg, String imageVg) {
+	this.nameVg = nameVg;
+	this.imageVg = imageVg;
+    }
+
+    public JeuVideo(int id, String nameVg, String imageVg, double rating) {
+	this.id = id;
+	this.nameVg = nameVg;
+	this.imageVg = imageVg;
+	this.rating = rating;
     }
 
     public JeuVideo() {
     }
-    
-    
-    
-    
-    
 
     public JeuVideo(String nameVg, float rating) {
-        this.nameVg = nameVg;
-        this.rating = rating;
+	this.nameVg = nameVg;
+	this.rating = rating;
     }
 
     public JeuVideo(String nameVg) {
-        this.nameVg = nameVg;
+	this.nameVg = nameVg;
     }
-    
-    
 
     public ImageView getImg() {
-        return img;
+	return img;
     }
 
     public void setImg(ImageView img) {
-        this.img = img;
+	this.img = img;
     }
 
     public int getId() {
-        return id;
+	return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+	this.id = id;
     }
 
     public JeuVideo(int id, String nameVg, String imageVg) {
-        this.id = id;
-        this.nameVg = nameVg;
-        this.imageVg = imageVg;
+	this.id = id;
+	this.nameVg = nameVg;
+	this.imageVg = imageVg;
     }
 
     public String getNameVg() {
-        return nameVg;
+	return nameVg;
     }
 
-    public float getRating() {
-        return rating;
+    public double getRating() {
+	return rating;
     }
 
-    public void setRating(float rating) {
-        this.rating = rating;
+    public void setRating(double rating) {
+	this.rating = rating;
     }
 
     public void setNameVg(String nameVg) {
-        this.nameVg = nameVg;
+	this.nameVg = nameVg;
     }
 
     public String getImageVg() {
-        return imageVg;
+	return imageVg;
     }
 
     public void setImageVg(String imageVg) {
-        this.imageVg = imageVg;
+	this.imageVg = imageVg;
     }
 
     public int getIdUser() {
-        return idUser;
+	return idUser;
     }
 
     public void setIdUser(int idUser) {
-        this.idUser = idUser;
+	this.idUser = idUser;
     }
 
     public int getIdPub() {
-        return IdPub;
+	return IdPub;
     }
 
     public void setIdPub(int IdPub) {
-        this.IdPub = IdPub;
+	this.IdPub = IdPub;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     @Override
     public String toString() {
-        return "JeuVideo{" + "nameVg=" + nameVg + ", imageVg=" + imageVg + '}';
+	return "JeuVideo{" + "nameVg=" + nameVg + ", imageVg=" + imageVg + '}';
     }
-    
-    
-    
-    
-
-   
-
 
 }

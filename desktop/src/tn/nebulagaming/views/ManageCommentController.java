@@ -95,7 +95,7 @@ public class ManageCommentController implements Initializable {
        //get User Name jointure (to be verified)
         userNameCol.setCellValueFactory(data->{
            Comment comment = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
+           Connection cnx = GlobalConfig.getInstance().getCONNECTION();
            String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+comment.getIdUser();
            Statement st = null ;
            String result = "" ;

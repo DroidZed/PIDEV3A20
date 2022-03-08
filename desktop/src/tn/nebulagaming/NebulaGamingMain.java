@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tn.nebulagaming.utils.GlobalConfig;
 
 /**
  *
@@ -21,8 +22,10 @@ public class NebulaGamingMain extends Application {
     public void start(Stage primaryStage) {
 
     	try {
+
+	    GlobalConfig.getInstance();
 	    
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("./views/MainScreen.fxml")); //load view
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("./views/Login.fxml")); //load view
 
 	    Parent root = loader.load();
 	    Scene scene = new Scene(root);

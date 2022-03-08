@@ -29,6 +29,10 @@
             </ScrollPane>
          </children>
       </HBox>
-      <Button fx:id="btnGoBack" layoutX="1240.0" layoutY="81.0" mnemonicParsing="false" text="Go Back" />
+      <Button fx:id="btnGoBack" layoutX="1240.0" layoutY="81.0" mnemonicParsing="false" onAction="#retourP" text="Go Back" />
+      <Button fx:id="btnmrkt" layoutX="1137.0" layoutY="81.0" mnemonicParsing="false" onAction="#goToMarketplace" text="Marketplace" />
+      <Button fx:id="btnForum" layoutX="1037.0" layoutY="81.0" mnemonicParsing="false" onAction="#goForum" prefHeight="25.0" prefWidth="87.0" text="Forum" />
+      <Button fx:id="wishListBtn" layoutX="939.0" layoutY="81.0" mnemonicParsing="false" onAction="#goWishList" prefHeight="25.0" prefWidth="87.0" text="Wishlist" />
+      <Button fx:id="btnJobs" layoutX="861.0" layoutY="81.0" mnemonicParsing="false" onAction="#goJobs" prefHeight="25.0" prefWidth="70.0" text="Jobs" />
    </children>
 </AnchorPane>

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package tn.nebulagaming.models;
 
 import java.sql.Date;
 
@@ -10,26 +10,26 @@ import java.sql.Date;
  *
  * @author dell
  */
-public class commentaire {
+public class Commentaire {
 
     private int idCom;
     private Date dateCom;
     private String descriptionCom;
     private int IdPub;
 
-    public commentaire(String descriptionCom, int IdPub) {
+    public Commentaire(String descriptionCom, int IdPub) {
         this.descriptionCom = descriptionCom;
         this.IdPub = IdPub;
     }
 
-    public commentaire(int idCom, Date dateCom, String descriptionCom) {
+    public Commentaire(int idCom, Date dateCom, String descriptionCom) {
         this.idCom = idCom;
         this.dateCom = dateCom;
         this.descriptionCom = descriptionCom;
     }
     
 
-    public commentaire(Date dateCom, String descriptionCom) {
+    public Commentaire(Date dateCom, String descriptionCom) {
         this.dateCom = dateCom;
         this.descriptionCom = descriptionCom;
         this.idCom = 0;

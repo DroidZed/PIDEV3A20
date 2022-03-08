@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="AnchorPane" prefHeight="888.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VideoGameController">
+<AnchorPane id="AnchorPane" prefHeight="888.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.VideoGameController">
    <children>
       <Label layoutX="634.0" layoutY="96.0" text="Nom :" />
       <Label layoutX="634.0" layoutY="136.0" text="Image : " />
@@ -23,6 +23,7 @@
           <TableColumn fx:id="idt" prefWidth="75.0" text="ID" visible="false" />
           <TableColumn fx:id="nomt" prefWidth="113.0" text="Nom" />
             <TableColumn fx:id="imaget" prefWidth="226.0" text="Image" />
+            <TableColumn fx:id="Likes" prefWidth="172.0" text="Nombre de j'aime" />
             <TableColumn fx:id="NoteVG" prefWidth="172.0" />
         </columns>
       </TableView>
@@ -31,7 +32,7 @@
       <TextField fx:id="affiche" layoutX="694.0" layoutY="132.0" />
       <Button fx:id="uploadbutton" layoutX="812.0" layoutY="132.0" mnemonicParsing="false" onAction="#Uploadfile" text="Upload" />
       <TextField fx:id="recherche" layoutX="710.0" layoutY="286.0" />
-      <Button fx:id="btnLIKE" layoutX="873.0" layoutY="348.0" mnemonicParsing="false" onAction="#DonnerJaime" prefHeight="31.0" prefWidth="386.0" text="J'aime ce Jeu" />
+      <Button fx:id="btnLIKE" layoutX="872.0" layoutY="348.0" mnemonicParsing="false" onAction="#DonnerJaime" prefHeight="31.0" prefWidth="176.0" text="J'aime ce Jeu" />
       <Button fx:id="btnMODIF" layoutX="808.0" layoutY="225.0" mnemonicParsing="false" onAction="#ModifierJeu" text="Modifier" />
       <Button fx:id="PDFbtn" layoutX="1061.0" layoutY="98.0" mnemonicParsing="false" onAction="#ExportPDF" prefHeight="31.0" prefWidth="51.0" text="PDF" />
       <Button fx:id="PRINTbtn" layoutX="1061.0" layoutY="131.0" mnemonicParsing="false" onAction="#PrintGames" text="Print" />

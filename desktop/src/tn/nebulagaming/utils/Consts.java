@@ -9,6 +9,6 @@ package tn.nebulagaming.utils;
  * @author SuperNova
  */
 public class Consts {
-    public static final String IMG_PATH_LOAD = "file:/Z:/ESPRIT/1st year/PIDEV/Nebula-Gaming/desktop/src/tn/nebulagaming/imageUploads/newsfeed_post/";
-    public static final String IMG_PATH = "Z:\\ESPRIT\\1st year\\PIDEV\\Nebula-Gaming\\desktop\\src\\tn\\nebulagaming\\imageUploads\\newsfeed_post\\";
+    public static final String IMG_PATH_LOAD = "file:/E:/9raya/Nebula-Gaming/desktop/Images/";
+    public static final String IMG_PATH = "E:\\9raya\\Nebula-Gaming\\desktop\\Images\\";
 }

@@ -60,110 +60,104 @@ public class ManageParticipationController implements Initializable {
     private Label lbEventName;
     @FXML
     private Label createdAtEvent;
-    
+
     //Event 
-    int idEvent =ManageEventController.eventRecupParticipation.getIdPost();
-    ServiceParticipation spar = new ServiceParticipation () ; 
-    ServiceEvent se = new ServiceEvent () ; 
+    int idEvent = ManageEventController.eventRecupParticipation.getIdPost();
+    ServiceParticipation spar = new ServiceParticipation();
+    ServiceEvent se = new ServiceEvent();
     @FXML
     private Button btnGoBack;
     @FXML
     private Label nbParticipation;
-    
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        displayParticipations (idEvent) ;
-        nbParticipation.setText(String.valueOf(spar.countParticipationByEvent(idEvent)));
-         btnGoBack.setOnAction(event -> {
-            try {
-                Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        
-    }    
-    
-    public void displayParticipations (int idEvent) {
-        
-        lbEventName.setText(se.getEventById(idEvent).getTitlePost());
-        createdAtEvent.setText(String.valueOf(se.getEventById(idEvent).getPostedDTM()));
-        
-       List<Participation> list=  spar.displayParticipationByEvent(idEvent) ;
-       
-       idParticipationCol.setCellValueFactory(new PropertyValueFactory<>("idParticipation"));
-       idParticipationCol.setVisible(false);
-       
-       bookedDateCol.setCellValueFactory(new PropertyValueFactory<>("bookedDTM"));
-       payTypeCol.setCellValueFactory(new PropertyValueFactory<>("idPayType"));
-       rankCol.setCellValueFactory(new PropertyValueFactory<>("rank"));
-       resultCol.setCellValueFactory(new PropertyValueFactory<>("result"));
-       
-       //get Pay Type as String 
-        payTypeCol.setCellValueFactory(data->{
-           Participation participation = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
-           String strPayType = "SELECT payType  FROM tbl_paytype where idPayType ="+participation.getPayType();
-           Statement st = null ;
-           String result = "" ;
-            try {
-                st = cnx.createStatement();
-            } catch (SQLException ex) {
-                Logger.getLogger(ManageParticipationController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           ResultSet rs ;
-            try {
-                rs = st.executeQuery(strPayType);
-                if (rs.next()) {
-                    result = rs.getString("payType");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ManageParticipationController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-           return new ReadOnlyStringWrapper(result);
-        }
-        ); 
-        
-        
-       //get User Name jointure 
-        userIdCol.setCellValueFactory(data->{
-           Participation participation = data.getValue();
-           Connection cnx = GlobalConfig.getInstance().getCnx() ;
-           String strUserName = "SELECT nameUser FROM tbl_user where idUser ="+participation.getIdUser();
-           Statement st = null ;
-           String result = "" ;
-            try {
-                st = cnx.createStatement();
-            } catch (SQLException ex) {
-                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           ResultSet rs ;
-            try {
-                rs = st.executeQuery(strUserName);
-                if (rs.next()) {
-                    result = rs.getString("nameUser");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-           return new ReadOnlyStringWrapper(result);
-        }
-        ); 
-        
-       ObservableList<Participation> listParticipants = FXCollections.observableArrayList(list) ;
-       tvParticipation.setItems (listParticipants) ;
+	displayParticipations(idEvent);
+	nbParticipation.setText(String.valueOf(spar.countParticipationByEvent(idEvent)));
+	btnGoBack.setOnAction(event -> {
+	    try {
+		Parent page1 = FXMLLoader.load(getClass().getResource("ManageContent.fxml"));
+		Scene scene = new Scene(page1);
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	    } catch (IOException ex) {
+		Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	});
+
     }
 
-    
-    
-    
+    public void displayParticipations(int idEvent) {
+
+	lbEventName.setText(se.getEventById(idEvent).getTitlePost());
+	createdAtEvent.setText(String.valueOf(se.getEventById(idEvent).getPostedDTM()));
+
+	List<Participation> list = spar.displayParticipationByEvent(idEvent);
+
+	idParticipationCol.setCellValueFactory(new PropertyValueFactory<>("idParticipation"));
+	idParticipationCol.setVisible(false);
+
+	bookedDateCol.setCellValueFactory(new PropertyValueFactory<>("bookedDTM"));
+	payTypeCol.setCellValueFactory(new PropertyValueFactory<>("idPayType"));
+	rankCol.setCellValueFactory(new PropertyValueFactory<>("rank"));
+	resultCol.setCellValueFactory(new PropertyValueFactory<>("result"));
+
+	//get Pay Type as String 
+	payTypeCol.setCellValueFactory(data -> {
+	    Participation participation = data.getValue();
+	    Connection cnx = GlobalConfig.getInstance().getCONNECTION();
+	    String strPayType = "SELECT payType  FROM tbl_paytype where idPayType =" + participation.getPayType();
+	    Statement st = null;
+	    String result = "";
+	    try {
+		st = cnx.createStatement();
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManageParticipationController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    ResultSet rs;
+	    try {
+		rs = st.executeQuery(strPayType);
+		if (rs.next()) {
+		    result = rs.getString("payType");
+		}
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManageParticipationController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    return new ReadOnlyStringWrapper(result);
+	}
+	);
+
+	//get User Name jointure 
+	userIdCol.setCellValueFactory(data -> {
+	    Participation participation = data.getValue();
+	    Connection cnx = GlobalConfig.getInstance().getCONNECTION();
+	    String strUserName = "SELECT nameUser FROM tbl_user where idUser =" + participation.getIdUser();
+	    Statement st = null;
+	    String result = "";
+	    try {
+		st = cnx.createStatement();
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    ResultSet rs;
+	    try {
+		rs = st.executeQuery(strUserName);
+		if (rs.next()) {
+		    result = rs.getString("nameUser");
+		}
+	    } catch (SQLException ex) {
+		Logger.getLogger(ManagePostController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    return new ReadOnlyStringWrapper(result);
+	}
+	);
+
+	ObservableList<Participation> listParticipants = FXCollections.observableArrayList(list);
+	tvParticipation.setItems(listParticipants);
+    }
+
 }

@@ -61,122 +61,123 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }   
+	// TODO
+    }
+
     public void information_Box(String title, String message) {
-        Alert dg = new Alert(Alert.AlertType.INFORMATION);
-        dg.setTitle(title);
-        dg.setContentText(message);
-        dg.show();
+	Alert dg = new Alert(Alert.AlertType.INFORMATION);
+	dg.setTitle(title);
+	dg.setContentText(message);
+	dg.show();
     }
 
     public void alert_Box(String title, String message) {
-        Alert dg = new Alert(Alert.AlertType.WARNING);
-        dg.setTitle(title);
-        dg.setContentText(message);
-        dg.show();
+	Alert dg = new Alert(Alert.AlertType.WARNING);
+	dg.setTitle(title);
+	dg.setContentText(message);
+	dg.show();
     }
-    
+
     public void goToHomeAdmin(String id) throws Exception {
-        Admin a = new Admin();
-        ServiceAdmin sa = new ServiceAdmin();        
-        a = sa.loadDataModify(id);
+	Admin a = new Admin();
+	ServiceAdmin sa = new ServiceAdmin();
+	a = sa.loadDataModify(id);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./AdminHome.fxml"));
-        Parent root = loader.load();
-        AdminHomeController HomeScene = loader.getController();
-        HomeScene.user = a;
-        HomeScene.id=id;
-        HomeScene.iniializeFxml(a);
-        HomeScene.showData(a);
-        Stage window = (Stage) connectLog.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
-
-    }
-public void goToHomeEntreprise(String id) throws Exception {
-        Entreprise e = new Entreprise();
-        ServiceEntreprise se = new ServiceEntreprise();
-        e = se.loadDataModify(id);
-        System.out.println(e.getEmail());
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./EntrepriseHome.fxml"));
-
-        Parent root = loader.load();
-
-        EntrepriseHomeController HomeScene = loader.getController();
-
-        HomeScene.user1 = e;
-        HomeScene.iniializeFxml(e);
-
-        HomeScene.showData(e);
-        Stage window = (Stage) connectLog.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./AdminHome.fxml"));
+	Parent root = loader.load();
+	AdminHomeController HomeScene = loader.getController();
+	HomeScene.user = a;
+	HomeScene.id = id;
+	HomeScene.iniializeFxml(a);
+	HomeScene.showData(a);
+	Stage window = (Stage) connectLog.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
 
     }
-public void goToHomeMembre(String id) throws Exception {
-        Membre e = new Membre();
-        ServiceMembre se = new ServiceMembre();
-        e = se.loadDataModify(id);
-        System.out.println(e.getEmail());
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./MembreHome.fxml"));
+    public void goToHomeEntreprise(String id) throws Exception {
+	Entreprise e = new Entreprise();
+	ServiceEntreprise se = new ServiceEntreprise();
+	e = se.loadDataModify(id);
+	System.out.println(e.getEmail());
 
-        Parent root = loader.load();
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./EntrepriseHome.fxml"));
 
-        MembreHomeController HomeScene = loader.getController();
+	Parent root = loader.load();
 
-        HomeScene.user2 = e;
-        HomeScene.iniializeFxml(e);
+	EntrepriseHomeController HomeScene = loader.getController();
 
-        HomeScene.showData(e);
-        Stage window = (Stage) connectLog.getScene().getWindow();
-        window.setScene(new Scene(root, 800, 800));
+	HomeScene.user1 = e;
+	HomeScene.iniializeFxml(e);
+
+	HomeScene.showData(e);
+	Stage window = (Stage) connectLog.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
+
+    }
+
+    public void goToHomeMembre(String id) throws Exception {
+	Membre e = new Membre();
+	ServiceMembre se = new ServiceMembre();
+	e = se.loadDataModify(id);
+	System.out.println(e.getEmail());
+
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./MembreHome.fxml"));
+
+	Parent root = loader.load();
+
+	MembreHomeController HomeScene = loader.getController();
+
+	HomeScene.user2 = e;
+	HomeScene.iniializeFxml(e);
+
+	HomeScene.showData(e);
+	Stage window = (Stage) connectLog.getScene().getWindow();
+	window.setScene(new Scene(root, 800, 800));
 
     }
 
     @FXML
     private void loadInscriMembre(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./CreatAccountMembre.fxml"));
-        rootPane.getChildren().setAll(pane);
+	AnchorPane pane = FXMLLoader.load(getClass().getResource("./CreatAccountMembre.fxml"));
+	rootPane.getChildren().setAll(pane);
     }
 
     @FXML
     private void loadInscriEnt(ActionEvent event) throws IOException {
-          AnchorPane pane = FXMLLoader.load(getClass().getResource("./CreatAccountEntreprise.fxml"));
-        rootPane.getChildren().setAll(pane);
+	AnchorPane pane = FXMLLoader.load(getClass().getResource("./CreatAccountEntreprise.fxml"));
+	rootPane.getChildren().setAll(pane);
     }
 
     @FXML
     private void connectLog(ActionEvent event) throws Exception {
-        UserUtiles uUtiles = new UserUtiles();
-        ServiceUser sU = new ServiceUser();
-        String username = mailLog.getText();
-        String password = uUtiles.crypterPassword(pwdLog.getText());
+	UserUtiles uUtiles = new UserUtiles();
+	ServiceUser sU = new ServiceUser();
+	String username = mailLog.getText();
+	String password = uUtiles.crypterPassword(pwdLog.getText());
 
-        String role = sU.verifierData(username, password);
-        int etat = sU.verifEtatCompte(username);
-        if (role.equals("")){
-            uUtiles.alert_Box("Verification", "Veillez verifier vos cordonée");
-        } else if (etat != 0) {
-            uUtiles.alert_Box("etat compte", "Votre compte est désactivé, Veillez contacter l'administrateur");
-        } else if (role.equals("Admin")  ) { 
-            goToHomeAdmin(username);
+	String role = sU.verifierData(username, password);
+	int etat = sU.verifEtatCompte(username);
+	if (role.equals("")) {
+	    uUtiles.alert_Box("Verification", "Veillez verifier vos cordonée");
+	} else if (etat != 0) {
+	    uUtiles.alert_Box("etat compte", "Votre compte est désactivé, Veillez contacter l'administrateur");
+	} else if (role.equals("Admin")) {
+	    goToHomeAdmin(username);
 
-        } else if (role.equals("Membre")) {
-           goToHomeMembre(username);
+	} else if (role.equals("Membre")) {
+	    goToHomeMembre(username);
 
-        } else if (role.equals("Entreprise")) {
-            goToHomeEntreprise(username);
+	} else if (role.equals("Entreprise")) {
+	    goToHomeEntreprise(username);
 
-        
-
-    }
+	}
     }
 
     @FXML
     private void pwLog(ActionEvent event) throws IOException {
-         AnchorPane pane = FXMLLoader.load(getClass().getResource("./ResetPassword.fxml"));
-        rootPane.getChildren().setAll(pane);
+	AnchorPane pane = FXMLLoader.load(getClass().getResource("./ResetPassword.fxml"));
+	rootPane.getChildren().setAll(pane);
     }
-    
+
 }
