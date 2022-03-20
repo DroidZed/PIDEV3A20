@@ -1,0 +1,153 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblUserorder
+ *
+ * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"}), @ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"})})
+ * @ORM\Entity(repositoryClass="App\Repository\UserOrderRepository")
+ */
+class TblUserorder
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="numberOrder", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $numberorder;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdDTM", type="date", nullable=false)
+     */
+    private $createddtm;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="payDTM", type="date", nullable=true)
+     */
+    private $paydtm;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="orderAddress", type="string", length=255, nullable=false)
+     */
+    private $orderaddress;
+
+    /**
+     * @var \TblPaytype
+     *
+     * @ORM\ManyToOne(targetEntity="TblPaytype")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
+     * })
+     */
+    private $idpaytype;
+
+    /**
+     * @var \TblUser
+     *
+     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
+
+    /**
+     * @var \TblStatusorder
+     *
+     * @ORM\ManyToOne(targetEntity="TblStatusorder")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStatusOrder", referencedColumnName="idStatusOrder")
+     * })
+     */
+    private $idstatusorder;
+
+    public function getNumberorder(): ?int
+    {
+        return $this->numberorder;
+    }
+
+    public function getCreateddtm(): ?\DateTimeInterface
+    {
+        return $this->createddtm;
+    }
+
+    public function setCreateddtm(\DateTimeInterface $createddtm): self
+    {
+        $this->createddtm = $createddtm;
+
+        return $this;
+    }
+
+    public function getPaydtm(): ?\DateTimeInterface
+    {
+        return $this->paydtm;
+    }
+
+    public function setPaydtm(?\DateTimeInterface $paydtm): self
+    {
+        $this->paydtm = $paydtm;
+
+        return $this;
+    }
+
+    public function getOrderaddress(): ?string
+    {
+        return $this->orderaddress;
+    }
+
+    public function setOrderaddress(string $orderaddress): self
+    {
+        $this->orderaddress = $orderaddress;
+
+        return $this;
+    }
+
+    public function getIdpaytype(): ?TblPaytype
+    {
+        return $this->idpaytype;
+    }
+
+    public function setIdpaytype(?TblPaytype $idpaytype): self
+    {
+        $this->idpaytype = $idpaytype;
+
+        return $this;
+    }
+
+    public function getIduser(): ?TblUser
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?TblUser $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdstatusorder(): ?TblStatusorder
+    {
+        return $this->idstatusorder;
+    }
+
+    public function setIdstatusorder(?TblStatusorder $idstatusorder): self
+    {
+        $this->idstatusorder = $idstatusorder;
+
+        return $this;
+    }
+
+
+}
