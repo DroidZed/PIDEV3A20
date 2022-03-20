@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
 	HomeScene.iniializeFxml(a);
 	HomeScene.showData(a);
 	Stage window = (Stage) connectLog.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
 
     }
 
@@ -112,7 +112,7 @@ public class LoginController implements Initializable {
 
 	HomeScene.showData(e);
 	Stage window = (Stage) connectLog.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
 
     }
 
@@ -133,7 +133,7 @@ public class LoginController implements Initializable {
 
 	HomeScene.showData(e);
 	Stage window = (Stage) connectLog.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
 
     }
 

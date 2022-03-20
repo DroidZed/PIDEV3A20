@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.StreamerController">
@@ -12,8 +14,13 @@
         <URL value="@streamer.css" />
     </stylesheets>
    <children>
-      <Label layoutX="54.0" layoutY="62.0" text="lien :" />
-      <Label layoutX="50.0" layoutY="153.0" text="description:" />
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@final.PNG" />
+         </image>
+      </ImageView>
+      <Label layoutX="54.0" layoutY="62.0" text="lien :" textFill="WHITE" />
+      <Label layoutX="50.0" layoutY="153.0" text="description:" textFill="WHITE" />
       <TextField fx:id="linkS" layoutX="207.0" layoutY="57.0" prefHeight="31.0" prefWidth="285.0" />
       <TextField fx:id="descS" layoutX="207.0" layoutY="159.0" prefHeight="102.0" prefWidth="285.0" />
       <Button fx:id="ajouterS" layoutX="268.0" layoutY="312.0" mnemonicParsing="false" onAction="#ajouterS" text="commencer" />

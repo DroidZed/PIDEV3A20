@@ -5,11 +5,18 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.PostulerCandidatureController">
    <children>
-      <Label layoutX="27.0" layoutY="50.0" text="Selectionner un offre :" />
+      <ImageView fitHeight="415.0" fitWidth="1068.0" pickOnBounds="true">
+         <image>
+            <Image url="@final.PNG" />
+         </image>
+      </ImageView>
+      <Label layoutX="27.0" layoutY="50.0" text="Selectionner un offre :" textFill="WHITE" />
       <TableView fx:id="tableoffre" layoutX="27.0" layoutY="81.0" onMouseClicked="#LoadData" prefHeight="200.0" prefWidth="880.0">
          <columns>
             <TableColumn fx:id="idt" prefWidth="48.0" text="Id" visible="false" />
@@ -24,7 +31,7 @@
             <TableColumn fx:id="domaint" prefWidth="99.0" text="Domaine" />
          </columns>
       </TableView>
-      <Label layoutX="37.0" layoutY="301.0" text="Saisir votre CV :" />
+      <Label layoutX="37.0" layoutY="301.0" text="Saisir votre CV :" textFill="WHITE" />
       <TextField fx:id="affiche" layoutX="133.0" layoutY="297.0" />
       <Button fx:id="uploadbutton" layoutX="280.0" layoutY="297.0" mnemonicParsing="false" onAction="#Uploadfile" text="Upload" />
       <Button fx:id="btnpostuler" layoutX="144.0" layoutY="343.0" mnemonicParsing="false" onAction="#postuler" text="Postuler" />

@@ -6,15 +6,22 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
 <AnchorPane id="AnchorPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.AfficherPubController">
    <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true">
+         <image>
+            <Image url="@pub.png" />
+         </image>
+      </ImageView>
       <TextField fx:id="descriptiontf" alignment="TOP_LEFT" layoutX="600.0" layoutY="153.0" prefHeight="104.0" prefWidth="237.0" />
       <ComboBox fx:id="ComboJV" layoutX="799.0" layoutY="78.0" prefWidth="150.0" />
-      <Label layoutX="719.0" layoutY="83.0" text="Jeu Video :" />
-      <Label layoutX="435.0" layoutY="153.0" text="Ecrivez votre publication:" />
+      <Label layoutX="719.0" layoutY="83.0" text="Jeu Video :" textFill="WHITE" />
+      <Label layoutX="435.0" layoutY="153.0" text="Ecrivez votre publication:" textFill="WHITE" />
       <Button fx:id="btnajouterP" layoutX="685.0" layoutY="269.0" mnemonicParsing="false" onAction="#Ajouter" text="Publier" />
       <Button fx:id="btnLIKE" layoutX="1256.0" layoutY="542.0" mnemonicParsing="false" onAction="#JaimePub" prefHeight="31.0" prefWidth="78.0" text="J'aime" />
       <TableView fx:id="tablePublication" layoutX="383.0" layoutY="438.0" onKeyPressed="#PressedGetDesc" onMouseClicked="#AffCommentaires" prefHeight="271.0" prefWidth="1133.0">
@@ -33,11 +40,11 @@
         </columns>
       </TableView>
       <TextField fx:id="descriptiontfC" alignment="TOP_LEFT" layoutX="1073.0" layoutY="153.0" prefHeight="104.0" prefWidth="237.0" />
-      <Label layoutX="894.0" layoutY="153.0" text="Ecrivez votre commentaire:" />
+      <Label layoutX="894.0" layoutY="153.0" text="Ecrivez votre commentaire:" textFill="WHITE" />
       <Button fx:id="btncommenter" layoutX="1142.0" layoutY="269.0" mnemonicParsing="false" onAction="#AjouterCom" text="Commenter" />
       <Line endX="4.0" endY="141.0" layoutX="870.0" layoutY="134.0" opacity="0.53" startX="4.0" />
       <Button fx:id="ModifPub" layoutX="761.0" layoutY="269.0" mnemonicParsing="false" onAction="#ModifierPub" text="Modifier" />
-      <Label layoutX="619.0" layoutY="402.0" text="Rechercher:" />
+      <Label layoutX="619.0" layoutY="402.0" text="Rechercher:" textFill="WHITE" />
       <TextField fx:id="recherchePub" layoutX="697.0" layoutY="397.0" />
       <Button fx:id="supprimerPub" layoutX="1540.0" layoutY="525.0" mnemonicParsing="false" onAction="#supprimerPub" text="Supprimer" />
    </children>

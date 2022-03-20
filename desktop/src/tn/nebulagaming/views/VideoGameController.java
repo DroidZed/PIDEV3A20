@@ -41,6 +41,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.print.PageLayout;
@@ -49,6 +50,8 @@ import javafx.print.Paper;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -62,6 +65,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import net.glxn.qrgen.QRCode;
 import tn.nebulagaming.models.JeuVideo;
@@ -124,6 +128,8 @@ public class VideoGameController implements Initializable {
     private Rating stars;
     @FXML
     private TableColumn<JeuVideo, Integer> Likes;
+    @FXML
+    private Button btnback;
 
     /**
      * Initializes the controller class.
@@ -217,12 +223,12 @@ public class VideoGameController implements Initializable {
 	    File f = new File(affiche.getText());
 	    System.out.println(f.getName());
 	    System.out.println(nomtxt.getText());
-	    JeuVideo jv = new JeuVideo(nomtxt.getText(), "C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName());
+	    JeuVideo jv = new JeuVideo(nomtxt.getText(), "E:\\9raya\\Nebula-Gaming\\desktop\\Images" + f.getName());
 	    jv.setRating(stars.getRating());
 
 	    sjv.ajouter(jv);
 
-	    Files.copy(Paths.get(affiche.getText()), Paths.get("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName()), REPLACE_EXISTING);
+	    Files.copy(Paths.get(affiche.getText()), Paths.get("E:\\9raya\\Nebula-Gaming\\desktop\\Images" + f.getName()), REPLACE_EXISTING);
 	    Aff();
 	    RechercheAV();
 	}
@@ -274,10 +280,10 @@ public class VideoGameController implements Initializable {
 	} else {
 	    try {
 		File f = new File(affiche.getText());
-		JeuVideo jv = new JeuVideo(Integer.valueOf(idlabel.getText()), nomtxt.getText(), "C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName());
+		JeuVideo jv = new JeuVideo(Integer.valueOf(idlabel.getText()), nomtxt.getText(), "E:\\9raya\\Nebula-Gaming\\desktop\\Images" + f.getName());
 		jv.setRating(stars.getRating());
 		sjv.modifier(jv);
-		Files.copy(Paths.get(affiche.getText()), Paths.get("C:\\Users\\dell\\Desktop\\PI\\Nouveau dossier\\Forum" + f.getName()), REPLACE_EXISTING);
+		Files.copy(Paths.get(affiche.getText()), Paths.get("E:\\9raya\\Nebula-Gaming\\desktop\\Images" + f.getName()), REPLACE_EXISTING);
 		Aff();
 		RechercheAV();
 	    } catch (IOException ex) {
@@ -312,7 +318,7 @@ public class VideoGameController implements Initializable {
 
 	ObservableList<JeuVideo> list = sjv.getGamesList();
 	try {
-	    OutputStream file = new FileOutputStream(new File("D:\\pdf\\exportfront.pdf"));
+	    OutputStream file = new FileOutputStream(new File("E:\\9raya\\Nebula-Gaming\\desktop\\Images\\exportfront.pdf"));
 	    com.itextpdf.text.Document document = new com.itextpdf.text.Document();
 	    PdfWriter.getInstance(document, file);
 	    document.open();
@@ -442,5 +448,15 @@ public class VideoGameController implements Initializable {
 	}
 	barChart.getData().addAll(series);
 
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+	
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("./NewsFeed.fxml"));
+	Parent root = loader.load();
+	Stage window = (Stage) btnback.getScene().getWindow();
+	window.setScene(new Scene(root, 1920, 1080));
+    
     }
 }

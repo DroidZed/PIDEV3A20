@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -19,6 +20,11 @@
         <URL value="@entreprisehome.css" />
     </stylesheets>
    <children>
+      <ImageView fitHeight="816.0" fitWidth="814.0" pickOnBounds="true">
+         <image>
+            <Image url="@home.png" />
+         </image>
+      </ImageView>
       <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
          <children>
             <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" styleClass="mainFxmlClass">
@@ -32,19 +38,19 @@
                                     <TextField fx:id="nomEnt" layoutX="44.0" layoutY="189.0" promptText="Nom" />
                                     <TextField fx:id="mailEnt" layoutX="44.0" layoutY="252.0" promptText="Email" />
                                     <TextField fx:id="telEnt" layoutX="44.0" layoutY="320.0" promptText="Telephone" />
-                                    <Label layoutX="44.0" layoutY="161.0" text="Nom" />
-                                    <Label layoutX="44.0" layoutY="291.0" text="Telephone" />
-                                    <Label layoutX="44.0" layoutY="231.0" text="Email" />
+                                    <Label layoutX="44.0" layoutY="161.0" text="Nom" textFill="WHITE" />
+                                    <Label layoutX="44.0" layoutY="291.0" text="Telephone" textFill="WHITE" />
+                                    <Label layoutX="44.0" layoutY="231.0" text="Email" textFill="WHITE" />
                                     <Button fx:id="modifInfo" layoutX="288.0" layoutY="547.0" mnemonicParsing="false" onAction="#modifPw" text="Modifier informations" />
-                                    <Label fx:id="usernameLab" layoutX="135.0" layoutY="14.0" prefHeight="36.0" prefWidth="400.0">
+                                    <Label fx:id="usernameLab" layoutX="135.0" layoutY="14.0" prefHeight="36.0" prefWidth="400.0" textFill="WHITE">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </Label>
                                     <Hyperlink fx:id="logOut" layoutX="667.0" layoutY="22.0" onAction="#logOut" text="Deconnecter" />
                                     <ImageView fx:id="photoEnt" fitHeight="213.0" fitWidth="212.0" layoutX="402.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label fx:id="photoName" layoutX="508.0" layoutY="526.0" />
-                                    <Hyperlink fx:id="cvEnt" layoutX="87.0" layoutY="457.0" onAction="#afficherCv" />
+                                    <Label fx:id="photoName" layoutX="508.0" layoutY="526.0" textFill="WHITE" />
+                                    <Hyperlink fx:id="cvEnt" layoutX="87.0" layoutY="457.0" onAction="#afficherCv" textFill="WHITE" />
                                     <Button fx:id="newsFeedEnt" layoutX="281.0" layoutY="619.0" mnemonicParsing="false" onAction="#goToNFEnt" prefHeight="25.0" prefWidth="156.0" text="News Feed" />
                                  </children>
                               </AnchorPane>
@@ -65,11 +71,11 @@
                                       </columns>
                                     </TableView>
                                     <TextField fx:id="rechercherRec" layoutX="124.0" layoutY="387.0" onKeyReleased="#affichageTabRec" prefHeight="31.0" prefWidth="235.0" promptText="user ou type ou etat" />
-                                    <Label layoutX="29.0" layoutY="392.0" text="Rechercher" />
-                                    <CheckBox fx:id="triNomRec" layoutX="518.0" layoutY="392.0" mnemonicParsing="false" text="user" />
-                                    <CheckBox fx:id="triTypeRec" layoutX="592.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="type" />
-                                    <CheckBox fx:id="triEtatRec" layoutX="678.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="etat" />
-                                    <Label layoutX="439.0" layoutY="392.0" text="Trier" />
+                                    <Label layoutX="29.0" layoutY="392.0" text="Rechercher" textFill="WHITE" />
+                                    <CheckBox fx:id="triNomRec" layoutX="518.0" layoutY="392.0" mnemonicParsing="false" text="user" textFill="WHITE" />
+                                    <CheckBox fx:id="triTypeRec" layoutX="592.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="type" textFill="WHITE" />
+                                    <CheckBox fx:id="triEtatRec" layoutX="678.0" layoutY="392.0" mnemonicParsing="false" onAction="#affichageTabRec" text="etat" textFill="WHITE" />
+                                    <Label layoutX="439.0" layoutY="392.0" text="Trier" textFill="WHITE" />
                                     <Button layoutX="44.0" layoutY="542.0" mnemonicParsing="false" onAction="#passerRec" prefHeight="31.0" prefWidth="182.0" text="Passer réclamation" />
                                    
                                  </children>

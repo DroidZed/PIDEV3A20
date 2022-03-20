@@ -104,7 +104,7 @@ public class CreatAccountEntrepriseController implements Initializable {
 	Parent root = loader.load();
 
 	Stage window = (Stage) ajouterEnt.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
     }
 
     @FXML

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -15,6 +16,11 @@
         <URL value="@membremodif.css" />
     </stylesheets>
    <children>
+      <ImageView fitHeight="800.0" fitWidth="800.0" pickOnBounds="true">
+         <image>
+            <Image url="@home.png" />
+         </image>
+      </ImageView>
       <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
          <children>
             <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" styleClass="mainFxmlClass">
@@ -24,14 +30,14 @@
                   <TextField fx:id="nomMembre" layoutX="72.0" layoutY="130.0" promptText="Nom" />
                   <TextField fx:id="mailMembre" layoutX="72.0" layoutY="193.0" promptText="Email" />
                   <TextField fx:id="telMembre" layoutX="72.0" layoutY="261.0" promptText="Telephone" />
-                  <Label layoutX="83.0" layoutY="105.0" text="Nom" />
-                  <Label layoutX="83.0" layoutY="235.0" text="Telephone" />
-                  <Label layoutX="83.0" layoutY="168.0" text="Email" />
-                  <Label layoutX="74.0" layoutY="565.0" text="Ancien mot de passe" />
-                  <Label layoutX="73.0" layoutY="626.0" text="Nouveau mot de passe" />
-                  <Label layoutX="74.0" layoutY="686.0" text="Confirmez mot de passe" />
+                  <Label layoutX="83.0" layoutY="105.0" text="Nom" textFill="WHITE" />
+                  <Label layoutX="83.0" layoutY="235.0" text="Telephone" textFill="WHITE" />
+                  <Label layoutX="83.0" layoutY="168.0" text="Email" textFill="WHITE" />
+                  <Label layoutX="74.0" layoutY="565.0" text="Ancien mot de passe" textFill="WHITE" />
+                  <Label layoutX="73.0" layoutY="626.0" text="Nouveau mot de passe" textFill="WHITE" />
+                  <Label layoutX="74.0" layoutY="686.0" text="Confirmez mot de passe" textFill="WHITE" />
                   <Button fx:id="modifPw" layoutX="83.0" layoutY="755.0" mnemonicParsing="false" onAction="#modifPw" text="Modifier mot de passe" />
-                  <Label fx:id="usernameEnt" layoutX="57.0" layoutY="29.0" prefHeight="36.0" prefWidth="400.0">
+                  <Label fx:id="usernameEnt" layoutX="57.0" layoutY="29.0" prefHeight="36.0" prefWidth="400.0" textFill="WHITE">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -43,9 +49,9 @@
                   <Button fx:id="nvPhoto" layoutX="524.0" layoutY="312.0" mnemonicParsing="false" onAction="#nvPhoto" text="inserer une photo" />
                   <Button fx:id="modifPhoto" layoutX="525.0" layoutY="369.0" mnemonicParsing="false" onAction="#modifPhoto" text="Modifier la photo" />
                   <ImageView fx:id="photoMembre" fitHeight="246.0" fitWidth="400.0" layoutX="383.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="photoName" layoutX="617.0" layoutY="660.0" />
+                  <Label fx:id="photoName" layoutX="617.0" layoutY="660.0" textFill="WHITE" />
                   <TextField fx:id="descr" layoutX="39.0" layoutY="333.0" prefHeight="134.0" prefWidth="277.0" />
-                  <Label layoutX="82.0" layoutY="302.0" text="description" />
+                  <Label layoutX="82.0" layoutY="302.0" text="description" textFill="WHITE" />
                </children>
             </AnchorPane>
          </children>

@@ -202,7 +202,7 @@ public class EntrepriseHomeController implements Initializable {
 	HomeScene.iniializeFxml(a);
 	HomeScene.showData(a);
 	Stage window = (Stage) modifInfo.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
 
     }
 
@@ -213,7 +213,7 @@ public class EntrepriseHomeController implements Initializable {
 	Parent root = loader.load();
 
 	Stage window = (Stage) logOut.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
     }
 
     @FXML
@@ -267,7 +267,7 @@ public class EntrepriseHomeController implements Initializable {
 	HomeScene.iniializeFxml(a);
 	HomeScene.showData(a);
 	Stage window = (Stage) modifInfo.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
     }
 
     @FXML
@@ -283,7 +283,7 @@ try {
 	    Parent root = loader.load();
 
 	    Stage window = (Stage) newsFeedEnt.getScene().getWindow();
-	    window.setScene(new Scene(root, 800, 800));
+	    window.setScene(new Scene(root, 1920, 1080));
 
 	    NewsFeedController HomeScene = loader.getController();
 

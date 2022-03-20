@@ -777,7 +777,7 @@ public class AdminHomeController implements Initializable {
 
 	    System.out.println("anim");
 	    Image image = new Image((IMG_PATH_LOAD + "ZTcz_.jpeg"));
-	    Image image2 = new Image((IMG_PATH_LOAD + "lunettes.jpeg"));
+	    Image image2 = new Image((IMG_PATH_LOAD + "lunettes.png"));
 	    Image image3 = new Image((IMG_PATH_LOAD + "crown.jpeg"));
 	    crown.setImage(image3);
 	    animation.setImage(image2);

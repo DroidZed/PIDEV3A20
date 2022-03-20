@@ -5,12 +5,19 @@
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPaneUsrO" prefHeight="808.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.OrderListUserController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="41.0" prefHeight="74.0" prefWidth="466.0" text="MY ORDERS">
+      <ImageView fitHeight="808.0" fitWidth="1006.0" pickOnBounds="true">
+         <image>
+            <Image url="@final.PNG" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="41.0" prefHeight="74.0" prefWidth="466.0" text="MY ORDERS" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="32.0" />
          </font>

@@ -97,7 +97,7 @@ public class CreatAccountMembreController implements Initializable {
 	Parent root = loader.load();
 
 	Stage window = (Stage) ajouterMembre.getScene().getWindow();
-	window.setScene(new Scene(root, 800, 800));
+	window.setScene(new Scene(root, 1920, 1080));
     }
 
     @FXML

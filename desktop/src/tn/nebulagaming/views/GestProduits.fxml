@@ -14,6 +14,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="696.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.GestProduitsController">
    <children>
+      <ImageView fitHeight="696.0" fitWidth="1079.0" pickOnBounds="true">
+         <image>
+            <Image url="@Capture.PNG" />
+         </image>
+      </ImageView>
       <AppBar layoutX="-1.0" minHeight="62.0" prefHeight="70.0" prefWidth="1080.0" progressBarVisible="true" spacing="15.0" style="-fx-background-color: #6b087f; -fx-min-height: 70;" titleText="" />
       <ImageView fitHeight="70.0" fitWidth="97.0">
          <image>

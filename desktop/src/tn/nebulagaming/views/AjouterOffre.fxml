@@ -7,29 +7,36 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="618.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.nebulagaming.views.AjouterOffreController">
    <children>
-      <Label layoutX="51.0" layoutY="71.0" text="Type :" />
+      <ImageView fitHeight="646.0" fitWidth="999.0" pickOnBounds="true">
+         <image>
+            <Image url="@offre.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="51.0" layoutY="71.0" text="Type :" textFill="WHITE" />
       <ComboBox fx:id="typeOfferCombo" layoutX="127.0" layoutY="67.0" prefWidth="150.0" />
-      <Label layoutX="319.0" layoutY="44.0" text="Descrtiption :" />
+      <Label layoutX="319.0" layoutY="44.0" text="Descrtiption :" textFill="WHITE" />
       <TextField fx:id="descinput" layoutX="394.0" layoutY="40.0" />
-      <Label layoutX="52.0" layoutY="44.0" text="Titre :" />
+      <Label layoutX="52.0" layoutY="44.0" text="Titre :" textFill="WHITE" />
       <TextField fx:id="titreinput" layoutX="127.0" layoutY="40.0" />
-      <Label layoutX="159.0" layoutY="14.0" text="Ajouter Offre" />
-      <Label layoutX="54.0" layoutY="102.0" text="Date Debut :" />
-      <Label layoutX="319.0" layoutY="102.0" text="Date Fin :" />
-      <Label layoutX="600.0" layoutY="102.0" text="Salaire :" />
+      <Label layoutX="159.0" layoutY="14.0" text="Ajouter Offre" textFill="WHITE" />
+      <Label layoutX="54.0" layoutY="102.0" text="Date Debut :" textFill="WHITE" />
+      <Label layoutX="319.0" layoutY="102.0" text="Date Fin :" textFill="WHITE" />
+      <Label layoutX="600.0" layoutY="102.0" text="Salaire :" textFill="WHITE" />
       <DatePicker fx:id="datedebinput" layoutX="127.0" layoutY="98.0" />
       <DatePicker fx:id="datefininput" layoutX="392.0" layoutY="98.0" />
       <TextField fx:id="salaireinput" layoutX="672.0" layoutY="98.0" />
-      <Label layoutX="318.0" layoutY="71.0" text="Region :" />
-      <Label layoutX="600.0" layoutY="42.0" text="Adresse :" />
+      <Label layoutX="318.0" layoutY="71.0" text="Region :" textFill="WHITE" />
+      <Label layoutX="600.0" layoutY="42.0" text="Adresse :" textFill="WHITE" />
       <TextField fx:id="adresseinput" layoutX="671.0" layoutY="40.0" />
       <Button layoutX="394.0" layoutY="142.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
       <ComboBox fx:id="ComboRegion" layoutX="394.0" layoutY="67.0" prefWidth="150.0" />
-      <Label layoutX="599.0" layoutY="71.0" text="Domaine :" />
+      <Label layoutX="599.0" layoutY="71.0" text="Domaine :" textFill="WHITE" />
       <ComboBox fx:id="ComboDomain" layoutX="671.0" layoutY="67.0" prefWidth="150.0" />
       <Label fx:id="idmodif" layoutX="572.0" layoutY="370.0" text="Label" />
       <TableView fx:id="tableoffre" layoutX="44.0" layoutY="213.0" onMouseClicked="#LoadModif" prefHeight="192.0" prefWidth="880.0">
@@ -48,7 +55,7 @@
       </TableView>
       <Button layoutX="831.0" layoutY="180.0" mnemonicParsing="false" onAction="#Supprimer" text="Supprimer" />
       <Button layoutX="491.0" layoutY="142.0" mnemonicParsing="false" onAction="#Modifier" text="Modifier" />
-      <Label layoutX="312.0" layoutY="184.0" text="Recherche :" />
+      <Label layoutX="312.0" layoutY="184.0" text="Recherche :" textFill="WHITE" />
       <TextField fx:id="recherche" layoutX="396.0" layoutY="180.0" />
       <TableView fx:id="tableaucandidature" layoutX="44.0" layoutY="432.0" prefHeight="172.0" prefWidth="762.0">
         <columns>
