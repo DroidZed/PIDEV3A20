@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblUser
  *
- * @ORM\Table(name="tbl_user", indexes={@ORM\Index(name="fk_user_stateUser", columns={"stateUser"}), @ORM\Index(name="fk_badge_user", columns={"idBadge"})})
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="tbl_user", indexes={@ORM\Index(name="fk_badge_user", columns={"idBadge"}), @ORM\Index(name="fk_user_stateUser", columns={"stateUser"})})
+ * @ORM\Entity
  */
 class TblUser
 {
@@ -99,16 +99,6 @@ class TblUser
     private $descuser;
 
     /**
-     * @var \TblBadge
-     *
-     * @ORM\ManyToOne(targetEntity="TblBadge")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idBadge", referencedColumnName="idBadge")
-     * })
-     */
-    private $idbadge;
-
-    /**
      * @var \TblStateuser
      *
      * @ORM\ManyToOne(targetEntity="TblStateuser")
@@ -117,6 +107,16 @@ class TblUser
      * })
      */
     private $stateuser;
+
+    /**
+     * @var \TblBadge
+     *
+     * @ORM\ManyToOne(targetEntity="TblBadge")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idBadge", referencedColumnName="idBadge")
+     * })
+     */
+    private $idbadge;
 
     public function getIduser(): ?int
     {
@@ -255,18 +255,6 @@ class TblUser
         return $this;
     }
 
-    public function getIdbadge(): ?TblBadge
-    {
-        return $this->idbadge;
-    }
-
-    public function setIdbadge(?TblBadge $idbadge): self
-    {
-        $this->idbadge = $idbadge;
-
-        return $this;
-    }
-
     public function getStateuser(): ?TblStateuser
     {
         return $this->stateuser;
@@ -275,6 +263,18 @@ class TblUser
     public function setStateuser(?TblStateuser $stateuser): self
     {
         $this->stateuser = $stateuser;
+
+        return $this;
+    }
+
+    public function getIdbadge(): ?TblBadge
+    {
+        return $this->idbadge;
+    }
+
+    public function setIdbadge(?TblBadge $idbadge): self
+    {
+        $this->idbadge = $idbadge;
 
         return $this;
     }

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblComment
  *
- * @ORM\Table(name="tbl_comment", indexes={@ORM\Index(name="fk_user_comment", columns={"idUser"}), @ORM\Index(name="fk_post_comment", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\Table(name="tbl_comment", indexes={@ORM\Index(name="fk_post_comment", columns={"idPost"}), @ORM\Index(name="fk_user_comment", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblComment
 {
@@ -36,16 +36,6 @@ class TblComment
     private $comment;
 
     /**
-     * @var \TblPost
-     *
-     * @ORM\ManyToOne(targetEntity="TblPost")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
-     * })
-     */
-    private $idpost;
-
-    /**
      * @var \TblUser
      *
      * @ORM\ManyToOne(targetEntity="TblUser")
@@ -54,6 +44,16 @@ class TblComment
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblPost
+     *
+     * @ORM\ManyToOne(targetEntity="TblPost")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
+     * })
+     */
+    private $idpost;
 
     public function getIdcomment(): ?int
     {
@@ -84,18 +84,6 @@ class TblComment
         return $this;
     }
 
-    public function getIdpost(): ?TblPost
-    {
-        return $this->idpost;
-    }
-
-    public function setIdpost(?TblPost $idpost): self
-    {
-        $this->idpost = $idpost;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -104,6 +92,18 @@ class TblComment
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdpost(): ?TblPost
+    {
+        return $this->idpost;
+    }
+
+    public function setIdpost(?TblPost $idpost): self
+    {
+        $this->idpost = $idpost;
 
         return $this;
     }

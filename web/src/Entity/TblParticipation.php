@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblParticipation
  *
- * @ORM\Table(name="tbl_participation", indexes={@ORM\Index(name="fk_user_participation", columns={"idUser"}), @ORM\Index(name="fk_paytype_participation", columns={"idPayType"}), @ORM\Index(name="fk_post_participation", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\ParticipationRepository")
+ * @ORM\Table(name="tbl_participation", indexes={@ORM\Index(name="fk_paytype_participation", columns={"idPayType"}), @ORM\Index(name="fk_post_participation", columns={"idPost"}), @ORM\Index(name="fk_user_participation", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblParticipation
 {
@@ -43,6 +43,16 @@ class TblParticipation
     private $idparticipation;
 
     /**
+     * @var \TblPost
+     *
+     * @ORM\ManyToOne(targetEntity="TblPost")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
+     * })
+     */
+    private $idpost;
+
+    /**
      * @var \TblPaytype
      *
      * @ORM\ManyToOne(targetEntity="TblPaytype")
@@ -61,16 +71,6 @@ class TblParticipation
      * })
      */
     private $iduser;
-
-    /**
-     * @var \TblPost
-     *
-     * @ORM\ManyToOne(targetEntity="TblPost")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
-     * })
-     */
-    private $idpost;
 
     public function getBookeddtm(): ?\DateTimeInterface
     {
@@ -113,6 +113,18 @@ class TblParticipation
         return $this->idparticipation;
     }
 
+    public function getIdpost(): ?TblPost
+    {
+        return $this->idpost;
+    }
+
+    public function setIdpost(?TblPost $idpost): self
+    {
+        $this->idpost = $idpost;
+
+        return $this;
+    }
+
     public function getIdpaytype(): ?TblPaytype
     {
         return $this->idpaytype;
@@ -133,18 +145,6 @@ class TblParticipation
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
-
-        return $this;
-    }
-
-    public function getIdpost(): ?TblPost
-    {
-        return $this->idpost;
-    }
-
-    public function setIdpost(?TblPost $idpost): self
-    {
-        $this->idpost = $idpost;
 
         return $this;
     }

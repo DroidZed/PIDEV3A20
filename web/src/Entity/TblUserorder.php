@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblUserorder
  *
- * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"}), @ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"})})
- * @ORM\Entity(repositoryClass="App\Repository\UserOrderRepository")
+ * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_user", columns={"idUser"}), @ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"}), @ORM\Index(name="fk_userOrder_payType", columns={"idPayType"})})
+ * @ORM\Entity
  */
 class TblUserorder
 {
@@ -43,6 +43,16 @@ class TblUserorder
     private $orderaddress;
 
     /**
+     * @var \TblStatusorder
+     *
+     * @ORM\ManyToOne(targetEntity="TblStatusorder")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStatusOrder", referencedColumnName="idStatusOrder")
+     * })
+     */
+    private $idstatusorder;
+
+    /**
      * @var \TblPaytype
      *
      * @ORM\ManyToOne(targetEntity="TblPaytype")
@@ -61,16 +71,6 @@ class TblUserorder
      * })
      */
     private $iduser;
-
-    /**
-     * @var \TblStatusorder
-     *
-     * @ORM\ManyToOne(targetEntity="TblStatusorder")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idStatusOrder", referencedColumnName="idStatusOrder")
-     * })
-     */
-    private $idstatusorder;
 
     public function getNumberorder(): ?int
     {
@@ -113,6 +113,18 @@ class TblUserorder
         return $this;
     }
 
+    public function getIdstatusorder(): ?TblStatusorder
+    {
+        return $this->idstatusorder;
+    }
+
+    public function setIdstatusorder(?TblStatusorder $idstatusorder): self
+    {
+        $this->idstatusorder = $idstatusorder;
+
+        return $this;
+    }
+
     public function getIdpaytype(): ?TblPaytype
     {
         return $this->idpaytype;
@@ -133,18 +145,6 @@ class TblUserorder
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
-
-        return $this;
-    }
-
-    public function getIdstatusorder(): ?TblStatusorder
-    {
-        return $this->idstatusorder;
-    }
-
-    public function setIdstatusorder(?TblStatusorder $idstatusorder): self
-    {
-        $this->idstatusorder = $idstatusorder;
 
         return $this;
     }

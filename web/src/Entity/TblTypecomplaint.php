@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblTypecomplaint
  *
  * @ORM\Table(name="tbl_typecomplaint")
- * @ORM\Entity(repositoryClass="App\Repository\TypeComplaintRepository")
+ * @ORM\Entity
  */
 class TblTypecomplaint
 {

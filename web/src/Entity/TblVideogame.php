@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblVideogame
  *
  * @ORM\Table(name="tbl_videogame", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\VideoGameRepository")
+ * @ORM\Entity
  */
 class TblVideogame
 {
@@ -48,13 +48,6 @@ class TblVideogame
      * @ORM\Column(name="rating", type="integer", nullable=false)
      */
     private $rating = '0';
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="likes", type="integer", nullable=true)
-     */
-    private $likes = '0';
 
     /**
      * @var \TblUser
@@ -115,18 +108,6 @@ class TblVideogame
     public function setRating(int $rating): self
     {
         $this->rating = $rating;
-
-        return $this;
-    }
-
-    public function getLikes(): ?int
-    {
-        return $this->likes;
-    }
-
-    public function setLikes(?int $likes): self
-    {
-        $this->likes = $likes;
 
         return $this;
     }

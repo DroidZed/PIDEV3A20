@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblOption
  *
  * @ORM\Table(name="tbl_option", indexes={@ORM\Index(name="fk_post_option", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\OptionRepository")
+ * @ORM\Entity
  */
 class TblOption
 {

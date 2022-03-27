@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblProduct
  *
- * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_category", columns={"idCategory"}), @ORM\Index(name="fk_product_user", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_user", columns={"idUser"}), @ORM\Index(name="fk_product_category", columns={"idCategory"})})
+ * @ORM\Entity
  */
 class TblProduct
 {
@@ -57,16 +57,6 @@ class TblProduct
     private $createddtm = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \TblCategory
-     *
-     * @ORM\ManyToOne(targetEntity="TblCategory")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
-     * })
-     */
-    private $idcategory;
-
-    /**
      * @var \TblUser
      *
      * @ORM\ManyToOne(targetEntity="TblUser")
@@ -75,6 +65,16 @@ class TblProduct
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblCategory
+     *
+     * @ORM\ManyToOne(targetEntity="TblCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
+     * })
+     */
+    private $idcategory;
 
     public function getIdproduct(): ?int
     {
@@ -141,18 +141,6 @@ class TblProduct
         return $this;
     }
 
-    public function getIdcategory(): ?TblCategory
-    {
-        return $this->idcategory;
-    }
-
-    public function setIdcategory(?TblCategory $idcategory): self
-    {
-        $this->idcategory = $idcategory;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -161,6 +149,18 @@ class TblProduct
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdcategory(): ?TblCategory
+    {
+        return $this->idcategory;
+    }
+
+    public function setIdcategory(?TblCategory $idcategory): self
+    {
+        $this->idcategory = $idcategory;
 
         return $this;
     }

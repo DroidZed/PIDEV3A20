@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblTypeoffer
  *
  * @ORM\Table(name="tbl_typeoffer")
- * @ORM\Entity(repositoryClass="App\Repository\TypeOfferRepository")
+ * @ORM\Entity
  */
 class TblTypeoffer
 {

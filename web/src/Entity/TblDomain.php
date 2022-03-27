@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblDomain
  *
  * @ORM\Table(name="tbl_domain")
- * @ORM\Entity(repositoryClass="App\Repository\DomainRepository")
+ * @ORM\Entity
  */
 class TblDomain
 {

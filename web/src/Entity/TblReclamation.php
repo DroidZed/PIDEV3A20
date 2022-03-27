@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblReclamation
  *
- * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ReclamationRepository")
+ * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"}), @ORM\Index(name="fk_type_rec", columns={"typeComplaint"})})
+ * @ORM\Entity
  */
 class TblReclamation
 {
@@ -43,6 +43,16 @@ class TblReclamation
     private $answercomplaint;
 
     /**
+     * @var \TblRate
+     *
+     * @ORM\ManyToOne(targetEntity="TblRate")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="rate", referencedColumnName="idRate")
+     * })
+     */
+    private $rate;
+
+    /**
      * @var \TblUser
      *
      * @ORM\ManyToOne(targetEntity="TblUser")
@@ -61,16 +71,6 @@ class TblReclamation
      * })
      */
     private $typecomplaint;
-
-    /**
-     * @var \TblRate
-     *
-     * @ORM\ManyToOne(targetEntity="TblRate")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="rate", referencedColumnName="idRate")
-     * })
-     */
-    private $rate;
 
     public function getIdcomplaint(): ?int
     {
@@ -113,6 +113,18 @@ class TblReclamation
         return $this;
     }
 
+    public function getRate(): ?TblRate
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?TblRate $rate): self
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -133,18 +145,6 @@ class TblReclamation
     public function setTypecomplaint(?TblTypecomplaint $typecomplaint): self
     {
         $this->typecomplaint = $typecomplaint;
-
-        return $this;
-    }
-
-    public function getRate(): ?TblRate
-    {
-        return $this->rate;
-    }
-
-    public function setRate(?TblRate $rate): self
-    {
-        $this->rate = $rate;
 
         return $this;
     }

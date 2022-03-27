@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblRate
  *
  * @ORM\Table(name="tbl_rate")
- * @ORM\Entity(repositoryClass="App\Repository\RateRepository")
+ * @ORM\Entity
  */
 class TblRate
 {

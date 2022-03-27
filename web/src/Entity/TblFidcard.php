@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblFidcard
  *
- * @ORM\Table(name="tbl_fidcard", indexes={@ORM\Index(name="fk_fidcard_user", columns={"idUser"}), @ORM\Index(name="fk_fidcard_cardtype", columns={"idCardType"})})
- * @ORM\Entity(repositoryClass="App\Repository\FidCardRepository")
+ * @ORM\Table(name="tbl_fidcard", indexes={@ORM\Index(name="fk_fidcard_cardtype", columns={"idCardType"}), @ORM\Index(name="fk_fidcard_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblFidcard
 {
@@ -36,16 +36,6 @@ class TblFidcard
     private $createddtm;
 
     /**
-     * @var \TblCardtype
-     *
-     * @ORM\ManyToOne(targetEntity="TblCardtype")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCardType", referencedColumnName="idCardType")
-     * })
-     */
-    private $idcardtype;
-
-    /**
      * @var \TblUser
      *
      * @ORM\ManyToOne(targetEntity="TblUser")
@@ -54,6 +44,16 @@ class TblFidcard
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblCardtype
+     *
+     * @ORM\ManyToOne(targetEntity="TblCardtype")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCardType", referencedColumnName="idCardType")
+     * })
+     */
+    private $idcardtype;
 
     public function getIdfidcard(): ?int
     {
@@ -84,18 +84,6 @@ class TblFidcard
         return $this;
     }
 
-    public function getIdcardtype(): ?TblCardtype
-    {
-        return $this->idcardtype;
-    }
-
-    public function setIdcardtype(?TblCardtype $idcardtype): self
-    {
-        $this->idcardtype = $idcardtype;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -104,6 +92,18 @@ class TblFidcard
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdcardtype(): ?TblCardtype
+    {
+        return $this->idcardtype;
+    }
+
+    public function setIdcardtype(?TblCardtype $idcardtype): self
+    {
+        $this->idcardtype = $idcardtype;
 
         return $this;
     }
