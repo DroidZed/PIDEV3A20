@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<title>TblOrderline</title>
+
+{% block body %}
+    <h1>TblOrderline</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idorderline</th>
+                <td>{{ tbl_orderline.idorderline }}</td>
+            </tr>
+            <tr>
+                <th>Quantordline</th>
+                <td>{{ tbl_orderline.quantordline }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tbl_orderline_index') }}">back to list</a>
+
+    <a href="{{ path('app_tbl_orderline_edit', {'idorderline': tbl_orderline.idorderline}) }}">edit</a>
+
+    {{ include('tbl_orderline/_delete_form.html.twig') }}
+{% endblock %}

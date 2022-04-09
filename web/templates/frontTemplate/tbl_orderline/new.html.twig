@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New TblOrderline</title>
+
+{% block body %}
+    <h1>Create new TblOrderline</h1>
+
+    {{ include('tbl_orderline/_form.html.twig') }}
+
+    <a href="{{ path('app_tbl_orderline_index') }}">back to list</a>
+{% endblock %}

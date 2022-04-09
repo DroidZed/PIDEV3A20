@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<title>TblUserorder index</title>
+
+{% block body %}
+    <h1>TblUserorder index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numberorder</th>
+                <th>Createddtm</th>
+                <th>Paydtm</th>
+                <th>Orderaddress</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tbl_userorder in tbl_userorders %}
+            <tr>
+                <td>{{ tbl_userorder.numberorder }}</td>
+                <td>{{ tbl_userorder.createddtm ? tbl_userorder.createddtm|date('Y-m-d') : '' }}</td>
+                <td>{{ tbl_userorder.paydtm ? tbl_userorder.paydtm|date('Y-m-d') : '' }}</td>
+                <td>{{ tbl_userorder.orderaddress }}</td>
+                <td>
+                    <a href="{{ path('app_tbl_userorder_show', {'numberorder': tbl_userorder.numberorder}) }}">show</a>
+                    <a href="{{ path('app_tbl_userorder_edit', {'numberorder': tbl_userorder.numberorder}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tbl_userorder_new') }}">Create new</a>
+{% endblock %}

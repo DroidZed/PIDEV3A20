@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+<title>TblFidcard</title>
+
+{% block body %}
+    <h1>Total points: {{ card.nbpointsfid }}</h1>
+    <h1>Type: {{ card.idcardtype }}</h1>
+
+    {% if err is defined %}
+        <h2>{{ err }}</h2>
+    {% endif %}
+{% endblock %}

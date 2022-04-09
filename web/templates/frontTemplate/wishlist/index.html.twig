@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<title>TblWishlist index</title>
+
+{% block body %}
+    <h1>TblWishlist index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idwishlist</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tbl_wishlist in tbl_wishlists %}
+            <tr>
+                <td>{{ tbl_wishlist.idwishlist }}</td>
+                <td>
+                    <a href="{{ path('app_tbl_wishlist_show', {'idwishlist': tbl_wishlist.idwishlist}) }}">show</a>
+                    <a href="{{ path('app_tbl_wishlist_edit', {'idwishlist': tbl_wishlist.idwishlist}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tbl_wishlist_new') }}">Create new</a>
+{% endblock %}
