@@ -1,0 +1,45 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <h1>TblReclamation index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th><p>Message</p></th>
+            <th><p>Statuscomplaint</p></th>
+            <th><p>Answercomplaint</p></th>
+            {% if tbl_reclamations is not empty %}
+            <th><p>Actions</p></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for tbl_reclamation in tbl_reclamations %}
+            <tr>
+
+                <td>
+                    <p> {{ tbl_reclamation.message }} </p></td>
+                <td><p>{{ tbl_reclamation.statuscomplaint }} </p></td>
+                <td><p>{{ tbl_reclamation.answercomplaint }} </p></td>
+                <td>
+                   <p> <a href="{{ path('app_reclamation_show', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">show</a> </p>
+                    <p> <a href="{{ path('app_reclamation_edit', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">edit</a> </p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">
+                    <p> no records found </p>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('passerRec') }}">Create new</a>
+{% endblock %}

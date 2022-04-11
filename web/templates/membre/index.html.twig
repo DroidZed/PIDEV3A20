@@ -1,0 +1,46 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block content %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Mdp</th>
+                <th>Tel</th>
+                <th>Photo</th>
+                <th>Offre</th>
+                <th>Etatcompte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for membre in Membre %}
+            <tr>
+                <td>{{ membre.id }}</td>
+                <td>{{ membre.nom }}</td>
+                <td>{{ membre.email }}</td>
+                <td>{{ membre.password }}</td>
+                <td>{{ membre.tel }}</td>
+                <td>{{ membre.photo }}</td>
+                <td>{{ membre.offre }}</td>
+                <td>{{ membre.etatcompte  }}</td>
+                <td>
+        
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('membre_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block content %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <strong>Administrateur</strong> {{ app.user.nom }}
+    {% endif %}
+    Email : {{ app.user.email }}
+    <div class="container">
+        <div class="row">
+            <div class="col md-6">
+
+                <div class="card recent-sales overflow-auto d-flex">
+                    <div class="filter"><a class="icon" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                    class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="">
+                            <li class="dropdown-header text-start"><h6>Filter</h6></li>
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                    </div>
+                        <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                            <div class="dataTable-top">
+                                <div class="dataTable-dropdown"><label><select class="dataTable-selector">
+                                            <option value="5">5</option>
+                                            <option value="10" selected="">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                        </select> entries per page</label></div>
+                                <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..."
+                                                                     type="text">
+                                </div>
+                            </div>
+                            <div class="dataTable-container">
+                                <table class="table table-borderless datatable dataTable-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" data-sortable="" style="width: 23.0735%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Type</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 32.0341%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Message</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 12.3208%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Status</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Reply</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for tbl_reclamation in tbl_reclamations %}
+                                    <tr>
+                                        <td>{{ tbl_reclamation.typecomplaint }}</td>
+                                        <td>{{ tbl_reclamation.message }}</td>
+                                        {% if tbl_reclamation.statuscomplaint == 'TRAITEE' %}
+                                        <td  class="badge bg-success">{{ tbl_reclamation.statuscomplaint }}</td>
+                                        {% else %}
+                                            <td  class="badge bg-danger">{{ tbl_reclamation.statuscomplaint }}</td>
+                                        {% endif %}
+                                        <td>{{ tbl_reclamation.answercomplaint }}</td>
+
+                                        <td>
+                                            <a href="{{ path('app_reclamation_show', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">show</a>
+                                            <a href="{{ path('traiter', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">traiter</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="dataTable-bottom">
+                                <div class="dataTable-info">Showing 1 to 5 of 5 entries</div>
+                                <nav class="dataTable-pagination">
+                                    <ul class="dataTable-pagination-list"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

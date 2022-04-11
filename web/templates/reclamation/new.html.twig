@@ -1,0 +1,10 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+
+    {{ include('reclamation/_form.html.twig') }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+{% endblock %}

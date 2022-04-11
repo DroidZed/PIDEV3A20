@@ -46,9 +46,9 @@ class TblAnswerpost
     private $idpost;
 
     /**
-     * @var \TblUser
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
@@ -96,12 +96,12 @@ class TblAnswerpost
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 

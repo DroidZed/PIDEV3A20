@@ -43,9 +43,9 @@ class TblReclamation
     private $answercomplaint;
 
     /**
-     * @var \TblUser
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
@@ -53,7 +53,7 @@ class TblReclamation
     private $iduser;
 
     /**
-     * @var \TblTypecomplaint
+     * @var TblTypecomplaint
      *
      * @ORM\ManyToOne(targetEntity="TblTypecomplaint")
      * @ORM\JoinColumns({
@@ -63,7 +63,7 @@ class TblReclamation
     private $typecomplaint;
 
     /**
-     * @var \TblRate
+     * @var TblRate
      *
      * @ORM\ManyToOne(targetEntity="TblRate")
      * @ORM\JoinColumns({
@@ -113,12 +113,12 @@ class TblReclamation
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 
@@ -130,14 +130,14 @@ class TblReclamation
         return $this->typecomplaint;
     }
 
-    public function setTypecomplaint(?TblTypecomplaint $typecomplaint): self
+    public function setTypecomplaint(TblTypecomplaint $typecomplaint): self
     {
         $this->typecomplaint = $typecomplaint;
 
         return $this;
     }
 
-    public function getRate(): ?TblRate
+    public function getRate(): TblRate
     {
         return $this->rate;
     }
