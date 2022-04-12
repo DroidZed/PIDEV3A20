@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\TblUserorder;
-use App\Form\TblUserorderType;
+use App\Form\PlaceOrderType;
 use App\Repository\UserOrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,27 +16,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class TblUserorderController extends AbstractController
 {
     /**
-     * @Route("/", name="app_tbl_userorder_index", methods={"GET"})
+     * @Route("/", name="myOrders", methods={"GET"})
      */
-    public function index(UserOrderRepository $userOrderRepository): Response
+    public function userOrders(UserOrderRepository $userOrderRepository): Response
     {
-        return $this->render('tbl_userorder/index.html.twig', [
-            'tbl_userorders' => $userOrderRepository->findAll(),
+        return $this->render('tbl_userorder/list.html.twig', [
+            'ordersList' => $userOrderRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="app_tbl_userorder_new", methods={"GET", "POST"})
+     * @Route("/new", name="checkOut", methods={"GET", "POST"})
      */
     public function new(Request $request, UserOrderRepository $userOrderRepository): Response
     {
         $tblUserorder = new TblUserorder();
-        $form = $this->createForm(TblUserorderType::class, $tblUserorder);
+        $form = $this->createForm(PlaceOrderType::class, $tblUserorder);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userOrderRepository->add($tblUserorder);
-            return $this->redirectToRoute('app_tbl_userorder_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('myOrders', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tbl_userorder/new.html.twig', [
@@ -46,12 +46,12 @@ class TblUserorderController extends AbstractController
     }
 
     /**
-     * @Route("/{numberorder}", name="app_tbl_userorder_show", methods={"GET"})
+     * @Route("/admin", name="adminOrders", methods={"GET"})
      */
-    public function show(TblUserorder $tblUserorder): Response
+    public function adminSide(UserOrderRepository $userOrderRepository): Response
     {
-        return $this->render('tbl_userorder/show.html.twig', [
-            'tbl_userorder' => $tblUserorder,
+        return $this->render('backTemplate/listOrders.html.twig', [
+            'ordersList' => $userOrderRepository->findAll()
         ]);
     }
 
@@ -72,17 +72,5 @@ class TblUserorderController extends AbstractController
             'tbl_userorder' => $tblUserorder,
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/{numberorder}", name="app_tbl_userorder_delete", methods={"POST"})
-     */
-    public function delete(Request $request, TblUserorder $tblUserorder, UserOrderRepository $userOrderRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$tblUserorder->getNumberorder(), $request->request->get('_token'))) {
-            $userOrderRepository->remove($tblUserorder);
-        }
-
-        return $this->redirectToRoute('app_tbl_userorder_index', [], Response::HTTP_SEE_OTHER);
     }
 }

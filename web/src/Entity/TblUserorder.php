@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -77,24 +78,24 @@ class TblUserorder
         return $this->numberorder;
     }
 
-    public function getCreateddtm(): ?\DateTimeInterface
+    public function getCreateddtm(): ?DateTimeInterface
     {
         return $this->createddtm;
     }
 
-    public function setCreateddtm(\DateTimeInterface $createddtm): self
+    public function setCreateddtm(DateTimeInterface $createddtm): self
     {
         $this->createddtm = $createddtm;
 
         return $this;
     }
 
-    public function getPaydtm(): ?\DateTimeInterface
+    public function getPaydtm(): ?DateTimeInterface
     {
         return $this->paydtm;
     }
 
-    public function setPaydtm(?\DateTimeInterface $paydtm): self
+    public function setPaydtm(?DateTimeInterface $paydtm): self
     {
         $this->paydtm = $paydtm;
 

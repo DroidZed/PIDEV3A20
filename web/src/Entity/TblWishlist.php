@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblWishlist
  *
- * @ORM\Table(name="wishlist", indexes={@ORM\Index(name="fk_wishlist_product", columns={"idProduct"}), @ORM\Index(name="fk_wishlist_user", columns={"idUser"})})
+ * @ORM\Table(name="tbl_wishlist", indexes={@ORM\Index(name="fk_wishlist_product", columns={"idProduct"}), @ORM\Index(name="fk_wishlist_user", columns={"idUser"})})
  * @ORM\Entity(repositoryClass="App\Repository\WishListRepository")
  */
 class TblWishlist

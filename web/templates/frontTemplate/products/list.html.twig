@@ -1,0 +1,293 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}
+    Shop
+{% endblock %}
+
+{% block header %}
+<header id="header-section">
+    <div class="overlay">
+        <div class="container">
+            <div class="row d-flex header-area">
+                <div class="logo-section flex-grow-1 d-flex align-items-center">
+                    <a class="site-logo site-title" href="index-2.html"><img src="images/logo.png"
+                                                                             alt="site-logo"></a>
+                </div>
+                <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="navbar navbar-expand-lg p-0">
+                    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav main-menu ml-auto">
+                            <li><a href="">Home</a></li>
+                            <li class="menu_has_children"><a href="#">Tournaments</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Tournaments</a></li>
+                                    <li><a href="#">Tournaments Single</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu_has_children"><a href="#" class="active">Pages</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Shop</a></li>
+                                    <li><a href="{{ path('listProds') }}">Shop Details</a></li>
+                                    <li><a href="{{ path('dummyProfile', {'idUser': 1}) }}">Profile</a></li>
+                                    <li><a href="#">Cart</a></li>
+                                    <li><a href="#">Check Out</a></li>
+                                    <li><a href="#">Features</a></li>
+                                    <li><a href="#">Error</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="right-area header-action d-flex align-items-center">
+                    <div class="search-icon">
+                        <a href="#"><img src="{{ asset("frontTemplate/images/search_btn.png") }}" alt="icon"></a>
+                    </div>
+                    <div class="lang d-flex align-items-center">
+                        <select>
+                            <option value="1">EN</option>
+                            <option value="2">BN</option>
+                            <option value="3">ES</option>
+                            <option value="4">NL</option>
+                        </select>
+                    </div>
+                    <a href="login.html" class="login-btn">Login</a>
+                    <a href="registration.html" class="cmn-btn">Join Now!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block banner %}
+<section id="banner-section" class="inner-banner profile features shop">
+    <div class="ani-img">
+        <img class="img-1" src="images/banner-circle-1.png" alt="icon">
+        <img class="img-2" src="images/banner-circle-2.png" alt="icon">
+        <img class="img-3" src="images/banner-circle-2.png" alt="icon">
+    </div>
+    <div class="banner-content d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="main-content">
+                        <h1>Shop</h1>
+                        <div class="breadcrumb-area">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb d-flex justify-content-center">
+                                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section id="featured-products" class="pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 d-flex align-items-center">
+                <div class="section-header text-center">
+                    <h2 class="title">Featured Products</h2>
+                    <p>Our goal is to deliver high quality gaming apparel and help grow the gaming community!</p>
+                </div>
+            </div>
+        </div>
+        <div class="row cus-m">
+            <div class="col-lg-4 col-md-6">
+                <div class="single-item">
+                    <div class="img-area text-center">
+                        <img src="images/featured-products-1.png" alt="image">
+                    </div>
+                    <div class="bottom-item text-center">
+                        <a href="shop-details.html"><h6>Revolution Unlimited Pro Controller</h6></a>
+                        <p class="text-sm">PC / Atmos / Headset</p>
+                        <div class="review">
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star-half-alt"></i></a>
+                            <span class="text-sm">4.3 (79)</span>
+                        </div>
+                        <div class="bottom-area d-flex align-items-center justify-content-between">
+                            <h5>€149.90</h5>
+                            <a href="#" class="cmn-btn">Add to Basket</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-item">
+                    <span class="new">New</span>
+                    <div class="img-area text-center">
+                        <img src="images/featured-products-2.png" alt="image">
+                    </div>
+                    <div class="bottom-item text-center">
+                        <a href="shop-details.html"><h6>ST-200 Streaming Microphone</h6></a>
+                        <p class="text-sm">PC / Atmos / Headset</p>
+                        <div class="review">
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star-half-alt"></i></a>
+                            <span class="text-sm">4.3 (79)</span>
+                        </div>
+                        <div class="bottom-area d-flex align-items-center justify-content-between">
+                            <h5>€79.90</h5>
+                            <a href="#" class="cmn-btn">Add to Basket</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-item">
+                    <div class="img-area text-center">
+                        <img src="images/featured-products-3.png" alt="image">
+                    </div>
+                    <div class="bottom-item text-center">
+                        <a href="shop-details.html"><h6>PCCH-350 Playstation Gaming Chair</h6></a>
+                        <p class="text-sm">PC / Atmos / Headset</p>
+                        <div class="review">
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star"></i></a>
+                            <a href="#"><i class="fas fa-star-half-alt"></i></a>
+                            <span class="text-sm">4.3 (79)</span>
+                        </div>
+                        <div class="bottom-area d-flex align-items-center justify-content-between">
+                            <h5>€159.90</h5>
+                            <a href="#" class="cmn-btn">Add to Basket</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="deal-of-day" class="pb-120">
+    <div class="overlay pt-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 d-flex align-items-center">
+                    <div class="section-header text-center">
+                        <h2 class="title">Deal of the day</h2>
+                        <p>Visit Game Universe to download new games, pre-order forthcoming titles, or check the latest deals and offers.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content">
+                <span class="offer">Special offer</span>
+                <div class="row">
+                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                        <div class="deal-item">
+                            <div class="img-area text-center">
+                                <img src="images/deal-content.png" alt="image">
+                            </div>
+                            <div class="draw-counter d-flex">
+                                <div class="head">
+                                    <div class="date-area d-flex justify-content-center"
+                                         data-countdown="2022/06/20">
+                                    </div>
+                                    <div class="time-parameter">
+                                        <span>DAY</span>
+                                        <span>HRS</span>
+                                        <span>MIN</span>
+                                        <span>SEC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="right-item">
+                            <h4>Revolution Pro Controller</h4>
+                            <p>Comfort, precision and customisation: all of NACON's expertise
+                                has gone into the REVOLUTION Pro Controller 2 for PS4™.
+                                Includes full software, headset jack and a 3m USB-C cable.</p>
+                            <div class="review">
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star-half-alt"></i></a>
+                                <span class="text-sm">4.3 (79)</span>
+                            </div>
+                            <div class="prize">
+                                <p>€129.90</p>
+                                <span class="text-sm">As low as</span>
+                            </div>
+                            <div class="bottom-area d-flex align-items-center">
+                                <h5>€79.90</h5>
+                                <a href="#" class="cmn-btn">Add to Basket</a>
+                                <a href="#" class="cmn-btn cus-style">View product</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="policy-section" class="pb-120">
+    <div class="container">
+        <div class="main-content">
+            <div class="row cus-m">
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="images/policy-icon-1.png" alt="image">
+                        </div>
+                        <h5>Free Shipping</h5>
+                        <p class="text-sm">on all orders over $149.00</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="images/policy-icon-2.png" alt="image">
+                        </div>
+                        <h5>30 Days returns</h5>
+                        <p class="text-sm">Moneyback guarantee</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="images/policy-icon-3.png" alt="image">
+                        </div>
+                        <h5>Secure checkout</h5>
+                        <p class="text-sm">100% Protectted </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="images/policy-icon-4.png" alt="image">
+                        </div>
+                        <h5>Save Money</h5>
+                        <p class="text-sm">Save 10% money</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="zxx">
-
-
-<!-- Mirrored from pixner.net/begam/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 03 Apr 2022 00:00:41 GMT -->
+<html lang="en-us">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -23,6 +20,18 @@
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/nice-select.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/animate.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/style.css") }}>
+
+        <style>
+
+            .rem-btn {
+                background: linear-gradient(172deg, #e70303 4.36%, #3a0336 117.5%);
+            }
+
+            .rem-btn::before {
+                background: linear-gradient(24deg, #e70303 4.36%, #720369 117.5%);
+            }
+        </style>
+
     {% endblock %}
 </head>
 
@@ -30,116 +39,99 @@
 {% block body %}
     <!-- header-section start -->
 
-
     <!-- start preloader -->
     <div class="preloader" id="preloader"></div>
     <!-- end preloader -->
 
     <a href="#" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
-
-
-    <header id="header-section">
+    <div>
         {% block header %}
-            <div class="overlay">
-                <div class="container">
-                    <div class="row d-flex header-area">
-                        <div class="logo-section flex-grow-1 d-flex align-items-center">
-                            <a class="site-logo site-title" href="#"><img src={{asset ("frontTemplate/images/logo.png")}}
-                                                                          alt="site-logo"></a>
-                        </div>
-                        <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                        <nav class="navbar navbar-expand-lg p-0">
-                            <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav main-menu ml-auto">
-                                    <li><a href="#" class="active">Home</a></li>
-                                    <li class="menu_has_children"><a href="#0">Tournaments</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Tournaments</a></li>
-                                            <li><a href="#">Tournaments Single</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu_has_children"><a href="#0">Pages</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">About Us</a></li>
-                                            <li><a href="#">Shop</a></li>
-                                            <li><a href="#">Shop Details</a></li>
-                                            <li><a href="#">Profile</a></li>
-                                            <li><a href="#">Cart</a></li>
-                                            <li><a href="#">Check Out</a></li>
-                                            <li><a href="#">Features</a></li>
-                                            <li><a href="#">Error</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
+            <header id="header-section">
+                <div class="overlay">
+                    <div class="container">
+                        <div class="row d-flex header-area">
+                            <div class="logo-section flex-grow-1 d-flex align-items-center">
+                                <a class="site-logo site-title" href="#"><img
+                                            src="{{ asset ("frontTemplate/images/logo.png") }}"
+                                            alt="site-logo"></a>
                             </div>
-                        </nav>
-                        <div class="right-area header-action d-flex align-items-center">
-                            <div class="search-icon">
-                                <a href="#"><img src={{asset ("frontTemplate/images/search_btn.png")}} alt="icon"></a>
+                            <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <nav class="navbar navbar-expand-lg p-0">
+                                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav main-menu ml-auto">
+                                        <li><a href="#" class="active">Home</a></li>
+                                        <li class="menu_has_children"><a href="#">Tournaments</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="#">Tournaments</a></li>
+                                                <li><a href="#">Tournaments Single</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu_has_children"><a href="#">Pages</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="#">About Us</a></li>
+                                                <li><a href="{{ path('listProds') }}">Shop</a></li>
+                                                <li><a href="#">Shop Details</a></li>
+                                                <li><a href="{{ path('dummyProfile', {'idUser': 1}) }}">Profile</a></li>
+                                                <li><a href="{{ path('goToCart') }}">Cart</a></li>
+                                                <li><a href="{{ path('checkOut') }}">Check Out</a></li>
+                                                <li><a href="#">Features</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="right-area header-action d-flex align-items-center">
+                                <div class="search-icon">
+                                    <a href="#"><img src="{{ asset ("frontTemplate/images/search_btn.png") }}"
+                                                     alt="icon"/></a>
+                                </div>
+                                <div class="lang d-flex align-items-center">
+                                    <select>
+                                        <option value="1">EN</option>
+                                        <option value="2">BN</option>
+                                        <option value="3">ES</option>
+                                        <option value="4">NL</option>
+                                    </select>
+                                </div>
+                                <a href="#" class="login-btn">Login</a>
+                                <a href="#" class="cmn-btn">Join Now!</a>
                             </div>
-                            <div class="lang d-flex align-items-center">
-                                <select>
-                                    <option value="1">EN</option>
-                                    <option value="2">BN</option>
-                                    <option value="3">ES</option>
-                                    <option value="4">NL</option>
-                                </select>
-                            </div>
-                            <a href="#" class="login-btn">Login</a>
-                            <a href="#" class="cmn-btn">Join Now!</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </header>
         {% endblock %}
-    </header>
-
+    </div>
     <!-- header-section end -->
 
     <!-- banner-section start -->
-    <section id="banner-section">
-        <div class="banner-content d-flex align-items-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="main-content">
-                            <div class="top-area justify-content-center text-center">
-                                <h4>Supernova presents</h4>
-                                <h1>Nebula Gaming</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                <div class="btn-play d-flex justify-content-center align-items-center">
-                                    <a href="#" class="cmn-btn">Get Started</a>
-                                    <a href="" class="mfp-iframe popupvideo">
-                                        <img src={{ asset ("frontTemplate/images/play-icon.png") }} alt="play">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-lg-12">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-6">
-                                            <div class="bottom-area text-center">
-                                                <img src={{ asset ("frontTemplate/images/versus.png") }} alt="banner-vs">
-                                            </div>
-                                        </div>
-                                    </div>
+    <div>
+        {% block banner %}
+            <section id="banner-section" class="inner-banner profile features shop">
+                <div class="ani-img">
+                    <img class="img-1" src="{{ asset ("frontTemplate/images/banner-circle-1.png") }}" alt="icon">
+                    <img class="img-2" src="{{ asset ("frontTemplate/images/banner-circle-2.png") }}" alt="icon">
+                    <img class="img-3" src="{{ asset ("frontTemplate/images/banner-circle-2.png") }}" alt="icon">
+                </div>
+                <div class="banner-content d-flex align-items-center">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <div class="main-content">
+                                    <h1>{% block bannerTitle %} Page Title {% endblock %}</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="ani-illu">
-                    <img class="left-1 wow fadeInUp" src={{ asset ("frontTemplate/images/left-banner.png") }} alt="image">
-                    <img class="right-2 wow fadeInUp" src={{ asset ("frontTemplate/images/right-banner.png") }} alt="image">
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        {% endblock %}
+    </div>
     <!-- banner-section end -->
 
     <!-- Available Game In start -->
@@ -180,54 +172,57 @@
 
     <!-- footer-section start -->
 
-    {% block content %}
+{% block content %}
 
-    {% endblock %}
-
-    <footer id="footer-section">
+{% endblock %}
+    <div>
         {% block footer %}
-            <div class="footer-mid pt-120">
-                <div class="container">
-                    <div class="row d-flex">
-                        <div class="col-lg-8 col-md-8 d-flex justify-content-md-between justify-content-center align-items-center cus-grid">
-                            <div class="logo-section">
-                                <a class="site-logo site-title" href="#"><img src={{ asset ("frontTemplate/images/logo.png") }} alt="site-logo"></a>
-                            </div>
-                            <ul class="menu-side d-flex align-items-center">
-                                <li><a href="#" class="active">Home</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center justify-content-md-end">
-                            <div class="right-area">
-                                <ul class="d-flex">
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <footer id="footer-section">
+                <div class="footer-mid pt-120">
+                    <div class="container">
+                        <div class="row d-flex">
+                            <div class="col-lg-8 col-md-8 d-flex justify-content-md-between justify-content-center align-items-center cus-grid">
+                                <div class="logo-section">
+                                    <a class="site-logo site-title" href="#"><img
+                                                src="{{ asset ("frontTemplate/images/logo.png") }}"
+                                                alt="site-logo"/></a>
+                                </div>
+                                <ul class="menu-side d-flex align-items-center">
+                                    <li><a href="#" class="active">Home</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Contact</a></li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="main-content">
-                        <div class="row d-flex align-items-center justify-content-center">
-                            <div class="col-lg-12 col-md-6">
-                                <div class="left-area text-center">
-                                    <p>Copyright © 2021. All Rights Reserved By
-                                        <a href="#">BEGAM</a>
-                                    </p>
+                            <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center justify-content-md-end">
+                                <div class="right-area">
+                                    <ul class="d-flex">
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endblock %}
-    </footer>
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="main-content">
+                            <div class="row d-flex align-items-center justify-content-center">
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="left-area text-center">
+                                        <p>Copyright © 2021. All Rights Reserved By
+                                            <a href="#">BEGAM</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+{% endblock %}
+    </div>
 
     <!-- footer-section end -->
 {% block js %}
@@ -246,6 +241,4 @@
 {% endblock %}
 </body>
 
-
-<!-- Mirrored from pixner.net/begam/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 03 Apr 2022 00:00:57 GMT -->
 </html>

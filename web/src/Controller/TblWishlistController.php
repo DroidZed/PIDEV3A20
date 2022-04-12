@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\TblWishlist;
-use App\Form\TblWishlistType;
+use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
 use App\Repository\WishListRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,73 +18,59 @@ use Symfony\Component\Routing\Annotation\Route;
 class TblWishlistController extends AbstractController
 {
     /**
-     * @Route("/", name="app_tbl_wishlist_index", methods={"GET"})
+     * @Route("/{userId}", name="app_tbl_wishlist_show", methods={"GET"})
      */
-    public function index(WishListRepository $wishListRepository): Response
+    public function show(int $userId, WishListRepository $wishListRepository, UserRepository $userRepo): Response
     {
-        return $this->render('wishlist/index.html.twig', [
-            'tbl_wishlists' => $wishListRepository->findAll(),
+        return $this->render('frontTemplate/wishlist/list.html.twig', [
+            'wishlist' => $wishListRepository->findBy(["iduser" => $userRepo->find($userId)]),
         ]);
     }
 
     /**
-     * @Route("/new", name="app_tbl_wishlist_new", methods={"GET", "POST"})
+     * @Route("/{idwishlist}/addProduct", name="app_tbl_wishlist_delete", methods={"GET", "POST"})
      */
-    public function new(Request $request, WishListRepository $wishListRepository): Response
+    public function addToWishList(int $idwishlist, Request $request, WishListRepository $wishListRepository): Response
     {
-        $tblWishlist = new TblWishlist();
-        $form = $this->createForm(TblWishlistType::class, $tblWishlist);
-        $form->handleRequest($request);
+        $idUser = $request->get("idUser");
+        $idProduct = $request->get("idProduct");
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $wishListRepository->add($tblWishlist);
-            return $this->redirectToRoute('app_tbl_wishlist_index', [], Response::HTTP_SEE_OTHER);
-        }
+        $item = new TblWishlist();
 
-        return $this->render('wishlist/new.html.twig', [
-            'wishlist' => $tblWishlist,
-            'form' => $form->createView(),
-        ]);
+        $item->setIdproduct($idProduct);
+        $item->setIdUser($idUser);
+
+        $em = $this->getDoctrine()->getManager(TblWishlist::class);
+
+        $em->persist($item);
+        $em->flush();
+
+        return $this->redirectToRoute('app_tbl_wishlist_show', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
-     * @Route("/{idwishlist}", name="app_tbl_wishlist_show", methods={"GET"})
+     * @Route("/{idwishlist}/remProduct", name="app_tbl_wishlist_delete", methods={"GET", "POST"})
      */
-    public function show(TblWishlist $tblWishlist): Response
+    public function removeProductFromWishList(Request            $request,
+                                              WishListRepository $wishListRepository,
+                                              UserRepository     $userRepository,
+                                              ProductRepository  $productRepository): Response
     {
-        return $this->render('wishlist/show.html.twig', [
-            'wishlist' => $tblWishlist,
+
+        $idUser = $request->get("idUser");
+        $idProduct = $request->get("idProduct");
+
+        $item = $wishListRepository->findOneBy([
+            "idproduct" => $productRepository->find($idProduct),
+            "iduser" => $userRepository->find($idUser)
         ]);
-    }
 
-    /**
-     * @Route("/{idwishlist}/edit", name="app_tbl_wishlist_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, TblWishlist $tblWishlist, WishListRepository $wishListRepository): Response
-    {
-        $form = $this->createForm(TblWishlistType::class, $tblWishlist);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $wishListRepository->add($tblWishlist);
-            return $this->redirectToRoute('app_tbl_wishlist_index', [], Response::HTTP_SEE_OTHER);
-        }
+        $em->remove($item);
 
-        return $this->render('wishlist/edit.html.twig', [
-            'wishlist' => $tblWishlist,
-            'form' => $form->createView(),
-        ]);
-    }
+        $em->flush();
 
-    /**
-     * @Route("/{idwishlist}", name="app_tbl_wishlist_delete", methods={"POST"})
-     */
-    public function delete(Request $request, TblWishlist $tblWishlist, WishListRepository $wishListRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$tblWishlist->getIdwishlist(), $request->request->get('_token'))) {
-            $wishListRepository->remove($tblWishlist);
-        }
-
-        return $this->redirectToRoute('app_tbl_wishlist_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_tbl_wishlist_show', ["userId" => $idUser], Response::HTTP_SEE_OTHER);
     }
 }

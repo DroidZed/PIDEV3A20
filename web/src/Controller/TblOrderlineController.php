@@ -20,7 +20,7 @@ class TblOrderlineController extends AbstractController
      */
     public function index(OrderLineRepository $orderLineRepository): Response
     {
-        return $this->render('tbl_orderline/index.html.twig', [
+        return $this->render('tbl_orderline/list.html.twig', [
             'tbl_orderlines' => $orderLineRepository->findAll(),
         ]);
     }
