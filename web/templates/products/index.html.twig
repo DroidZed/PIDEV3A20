@@ -1,0 +1,37 @@
+{% block title %} Products {% endblock %}
+{% block content  %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+<table border="1">
+    <thead>
+    <th>Nom produit</th>
+    <th>Prix Produit</th>
+    <th>Quantité Produit</th>
+    <th>Image</th>
+    <th>Category</th>
+    <th>Suppression</th>
+    <th>Modification</th>
+
+    </thead>
+    <tbody>
+    {%  for product in b %}
+    <tr>
+        <td> {{ product.nameproduct }}</td>
+        <td>{{ product.priceproduct }}</td>
+        <td>{{ product.qtyproduct }}</td>
+        <td>{{ product.imageproduct }}</td>
+        <td>{{ product.idcategory }}</td>
+        <td> <a href="{{ path('deleteProduct',{'id':product.idproduct}) }}">Supprimer</a> </td>
+        <td><a href="{{ path('editProduct',{'id':product.idproduct}) }}">Modifier</a> </td>
+        <td></td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

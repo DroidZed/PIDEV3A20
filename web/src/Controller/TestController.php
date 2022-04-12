@@ -8,13 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
-    /**
-     * @Route("/testFront", name="frontMethod")
-     */
-    public function front(): Response
-    {
-        return $this->render('frontTemplate/test/front.html.twig');
-    }
 
     /**
      * @Route("/testBack", name="backMethod")

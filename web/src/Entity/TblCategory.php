@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,34 +16,44 @@ class TblCategory
     /**
      * @var int
      *
-     * @ORM\Column(name="idCategory", type="integer", nullable=false)
+     * @ORM\Column(name="idCategory", type="integer", nullable=false )
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idcategory;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message=" Nom Category doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer un nom de Category au mini de 5 caracteres"
      *
-     * @ORM\Column(name="nameCategory", type="string", length=150, nullable=false)
+     *     )
+     * @ORM\Column(type="string", length=255 , name="nameCategory")
      */
-    private $namecategory;
+    private $nameCategory;
 
-    public function getIdcategory(): ?int
+    public function getIdCategory(): ?int
     {
         return $this->idcategory;
     }
 
-    public function getNamecategory(): ?string
+    public function getNameCategory(): ?string
     {
-        return $this->namecategory;
+        return $this->nameCategory;
     }
 
-    public function setNamecategory(string $namecategory): self
+    public function setNameCategory(string $nameCategory): self
     {
-        $this->namecategory = $namecategory;
+        $this->nameCategory = $nameCategory;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nameCategory;
+
     }
 
 

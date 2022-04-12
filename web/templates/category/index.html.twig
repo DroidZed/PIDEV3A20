@@ -1,0 +1,41 @@
+
+{% extends 'baseBack.html.twig' %}
+
+{% block content %}
+
+
+<div class="example-wrapper">
+    <div class="card-body">
+
+       <a href="{{ path('addCategory') }}"> <i class="ri-add-circle-fill style" style="font-size:50px"></i></a>
+        <h5 class="card-title">List Categories</h5>
+
+        <!-- Default Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">title</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in b  %}
+                <td>{{ category.nameCategory }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{{ path('deleteCategory',{'id':category.idCategory}) }}">Delete</a>
+                </td>
+                <td>
+                    <a  class="btn btn-success" href="{{ path('editCategory',{'id':category.idCategory}) }}">Edit</a>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!-- End Default Table Example -->
+    </div>
+
+
+</div>
+{% endblock %}
