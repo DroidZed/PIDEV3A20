@@ -1,0 +1,20 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Ajouter Candidature{% endblock %}
+
+{% block body %}
+<section id="counter-section">
+    <div class="overlay pt-120 pb-120">
+        <div class="container">
+            <div class="row mp-none">
+    <h1> Postuler Candidature </h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn-success">Créer </button>
+    {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

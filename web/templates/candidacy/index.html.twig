@@ -1,0 +1,60 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Mes Candidature{% endblock %}
+
+{% block body %}
+
+    <section id="counter-section">
+        <div class="overlay pt-120 pb-120">
+            <div class="container">
+                <div class="row mp-none">
+
+                    <table class="table">
+                        <thead>
+                        <tr class="table-primary">
+                            <th scope="col">Date Candidature</th>
+                            <th scope="col">Titre Offre</th>
+                            <th scope="col">Etat</th>
+                            <th scope="col">Image CV</th>
+
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for candidacy in candidacys %}
+                            <tr class="table-light" >
+                                <td>{{ candidacy.candidacydtm|date('d-m-Y')}}</td>
+                                <td>{{ candidacy.idoffer.titleoffer }}</td>
+                                <td>{{ candidacy.etat }}</td>
+                                <td>
+                                    <img width="100" height="100" src="{{ asset('uploads/images/') }}{{ candidacy.imagecv }}" >
+                                </td>
+                                {% if(candidacy.etat=="En Cours") %}
+                                    <td>
+                                        <a class="btn btn-warning">Test en cours d'examination</a>
+                                    </td>
+                                {% elseif(candidacy.etat=="Faire le test") %}
+                                    <td>
+                                        <a href="/candidacy/add/{{ candidacy.idoffer.idoffer }}" class="btn btn-warning">Faire le Test</a>
+                                    </td>
+                                {% elseif(candidacy.etat=="Refuser") %}
+                                    <td>
+                                        <a class="btn btn-danger">Test Refuser</a>
+                                    </td>
+                                {% elseif(candidacy.etat=="Admis") %}
+                                    <td>
+                                        <a class="btn btn-success">Vous êtes admis</a>
+                                    </td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

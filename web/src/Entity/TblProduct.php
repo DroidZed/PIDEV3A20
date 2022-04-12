@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblProduct
  *
- * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_category", columns={"idCategory"}), @ORM\Index(name="fk_product_user", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_user", columns={"idUser"}), @ORM\Index(name="fk_product_category", columns={"idCategory"})})
+ * @ORM\Entity
  */
 class TblProduct
 {
@@ -52,19 +52,9 @@ class TblProduct
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $createddtm = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var \TblCategory
-     *
-     * @ORM\ManyToOne(targetEntity="TblCategory")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
-     * })
-     */
-    private $idcategory;
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var \TblUser
@@ -75,6 +65,16 @@ class TblProduct
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblCategory
+     *
+     * @ORM\ManyToOne(targetEntity="TblCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
+     * })
+     */
+    private $idcategory;
 
     public function getIdproduct(): ?int
     {
@@ -141,18 +141,6 @@ class TblProduct
         return $this;
     }
 
-    public function getIdcategory(): ?TblCategory
-    {
-        return $this->idcategory;
-    }
-
-    public function setIdcategory(?TblCategory $idcategory): self
-    {
-        $this->idcategory = $idcategory;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -161,6 +149,18 @@ class TblProduct
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdcategory(): ?TblCategory
+    {
+        return $this->idcategory;
+    }
+
+    public function setIdcategory(?TblCategory $idcategory): self
+    {
+        $this->idcategory = $idcategory;
 
         return $this;
     }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblCommentaire
  *
  * @ORM\Table(name="tbl_commentaire", indexes={@ORM\Index(name="fk_comm_pub", columns={"IdPub"})})
- * @ORM\Entity(repositoryClass="App\Repository\CommentaireRepository")
+ * @ORM\Entity
  */
 class TblCommentaire
 {
@@ -24,9 +24,9 @@ class TblCommentaire
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateCom", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="dateCom", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $datecom = 'CURRENT_TIMESTAMP';
+    private $datecom = 'current_timestamp()';
 
     /**
      * @var string

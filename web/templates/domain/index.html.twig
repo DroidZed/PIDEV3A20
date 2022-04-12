@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="row"style="display: flex;align-items: center;justify-content: center">
+
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Liste des domaines</h5>
+
+                    <!-- Default Table -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for Domain in b %}
+                            <tr>
+                                <td>{{ Domain.name }}</td>
+
+                                <td>{{ Domain.description }}</td>
+
+                                <td>
+                                    <a class="btn btn-outline-success" href="{{ path('modifDomain',{'id':Domain.id}) }}">Modifier</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-danger" href="{{ path('supp_Domain',{'id':Domain.id}) }}">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <!-- End Table Variants -->
+
+                    <br>
+
+                    <form action="addDomain">
+                        <input type="submit" value="Ajouter" class="btn btn-primary"/>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

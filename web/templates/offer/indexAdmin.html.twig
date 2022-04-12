@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="row"style="display: flex;align-items: center;justify-content: center" >
+
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Liste des offres</h5>
+
+                    <!-- Default Table -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>titleOffer</th>
+                            <th>TypeOffer</th>
+                            <th>DescOffer</th>
+                            <th>startDTM</th>
+                            <th>endDTM</th>
+                            <th>salaryOffer</th>
+                            <th>regionOffer</th>
+                            <th>addressOffer</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for OFFER in b %}
+                            <tr>
+                                <td>{{ OFFER.titleOffer }}</td>
+
+                                <td>{{ OFFER.TypeOffer }}</td>
+
+                                <td>{{ OFFER.descOffer }}</td>
+                                <td>{{ OFFER.startDTM | date('d/m/Y')}}</td>
+                                <td>{{ OFFER.endDTM | date('d/m/Y')}}</td>
+                                <td>{{ OFFER.salaryOffer }}</td>
+                                <td>{{ OFFER.regionOffer }}</td>
+                                <td>{{ OFFER.addressOffer }}</td>
+                                <td>
+                                    <a class="btn btn-outline-warning" href="/candidacy/Admin/{{ OFFER.idOffer }}">candidatures</a>
+                                    <a class="btn btn-outline-danger" href="{{ path('supp_Offer',{'id':OFFER.idOffer}) }}">Supprimer</a>
+                                    <a class="btn btn-outline-success" href="{{ path('modifOffer',{'id':OFFER.idOffer}) }}">Modifier</a>
+                                </td>
+
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                    <br>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

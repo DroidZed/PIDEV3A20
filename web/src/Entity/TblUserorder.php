@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblUserorder
  *
- * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"}), @ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"})})
- * @ORM\Entity(repositoryClass="App\Repository\UserOrderRepository")
+ * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"}), @ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblUserorder
 {
@@ -31,9 +31,9 @@ class TblUserorder
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="payDTM", type="date", nullable=true)
+     * @ORM\Column(name="payDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $paydtm;
+    private $paydtm = 'NULL';
 
     /**
      * @var string
@@ -41,16 +41,6 @@ class TblUserorder
      * @ORM\Column(name="orderAddress", type="string", length=255, nullable=false)
      */
     private $orderaddress;
-
-    /**
-     * @var \TblPaytype
-     *
-     * @ORM\ManyToOne(targetEntity="TblPaytype")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
-     * })
-     */
-    private $idpaytype;
 
     /**
      * @var \TblUser
@@ -71,6 +61,16 @@ class TblUserorder
      * })
      */
     private $idstatusorder;
+
+    /**
+     * @var \TblPaytype
+     *
+     * @ORM\ManyToOne(targetEntity="TblPaytype")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
+     * })
+     */
+    private $idpaytype;
 
     public function getNumberorder(): ?int
     {
@@ -113,18 +113,6 @@ class TblUserorder
         return $this;
     }
 
-    public function getIdpaytype(): ?TblPaytype
-    {
-        return $this->idpaytype;
-    }
-
-    public function setIdpaytype(?TblPaytype $idpaytype): self
-    {
-        $this->idpaytype = $idpaytype;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -145,6 +133,18 @@ class TblUserorder
     public function setIdstatusorder(?TblStatusorder $idstatusorder): self
     {
         $this->idstatusorder = $idstatusorder;
+
+        return $this;
+    }
+
+    public function getIdpaytype(): ?TblPaytype
+    {
+        return $this->idpaytype;
+    }
+
+    public function setIdpaytype(?TblPaytype $idpaytype): self
+    {
+        $this->idpaytype = $idpaytype;
 
         return $this;
     }

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblCandidacy
  *
- * @ORM\Table(name="tbl_candidacy", indexes={@ORM\Index(name="fk_candidacy_user", columns={"idUser"}), @ORM\Index(name="fk_candidacy_offer", columns={"idOffer"})})
- * @ORM\Entity(repositoryClass="App\Repository\CandidacyRepository")
+ * @ORM\Table(name="tbl_candidacy", indexes={@ORM\Index(name="fk_candidacy_offer", columns={"idOffer"}), @ORM\Index(name="fk_candidacy_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblCandidacy
 {
@@ -24,33 +24,23 @@ class TblCandidacy
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="candidacyDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="candidacyDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $candidacydtm = 'CURRENT_TIMESTAMP';
+    private $candidacydtm = 'current_timestamp()';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="etat", type="string", length=20, nullable=true)
+     * @ORM\Column(name="etat", type="string", length=20, nullable=true, options={"default"="NULL"})
      */
-    private $etat;
+    private $etat = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="imageCV", type="string", length=255, nullable=true)
+     * @ORM\Column(name="imageCV", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $imagecv;
-
-    /**
-     * @var \TblOffer
-     *
-     * @ORM\ManyToOne(targetEntity="TblOffer")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idOffer", referencedColumnName="idOffer")
-     * })
-     */
-    private $idoffer;
+    private $imagecv = 'NULL';
 
     /**
      * @var \TblUser
@@ -61,6 +51,16 @@ class TblCandidacy
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblOffer
+     *
+     * @ORM\ManyToOne(targetEntity="TblOffer")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idOffer", referencedColumnName="idOffer")
+     * })
+     */
+    private $idoffer;
 
     public function getId(): ?int
     {
@@ -103,18 +103,6 @@ class TblCandidacy
         return $this;
     }
 
-    public function getIdoffer(): ?TblOffer
-    {
-        return $this->idoffer;
-    }
-
-    public function setIdoffer(?TblOffer $idoffer): self
-    {
-        $this->idoffer = $idoffer;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -123,6 +111,18 @@ class TblCandidacy
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdoffer(): ?TblOffer
+    {
+        return $this->idoffer;
+    }
+
+    public function setIdoffer(?TblOffer $idoffer): self
+    {
+        $this->idoffer = $idoffer;
 
         return $this;
     }

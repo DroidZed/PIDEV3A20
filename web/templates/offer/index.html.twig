@@ -1,0 +1,65 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Tout les offres{% endblock %}
+
+{% block body %}
+    <section id="counter-section">
+        <div class="overlay pt-120 pb-120">
+            <div class="container">
+                <div class="row mp-none">
+
+    <table class="table">
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">Titre</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date Debut</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Salaire</th>
+            <th scope="col">Region</th>
+            <th scope="col">Adresse</th>
+
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for Offer in Offers %}
+
+            <tr class="table-light" >
+                <td>{{ Offer.titleoffer }}</td>
+                <td>{{ Offer.typeoffer }}</td>
+                <td>{{ Offer.descoffer }}</td>
+                <td>{{ Offer.startdtm|date('d-m-Y')}}</td>
+                <td>{{ Offer.enddtm|date('d-m-Y')}}</td>
+                <td>{{ Offer.salaryoffer }}</td>
+                <td>{{ Offer.regionoffer }}</td>
+                <td>{{ Offer.addressoffer }}</td>
+                {% set test = false %}
+
+                {% for candidacy in candidacys %}
+                    {% if(candidacy.idoffer.idoffer==Offer.idoffer) %}
+                    {% set test = true %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if(test==false) %}
+                    <td>
+                        <a href="/candidacy/add/{{ Offer.idoffer }}" class="btn btn-warning">Postuler</a>
+                    </td>
+                {% else %}
+                    <td>
+                         <a class="btn btn-success">Test effectué</a>
+                    </td>
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblPublication
  *
  * @ORM\Table(name="tbl_publication", indexes={@ORM\Index(name="fk_pub_Vg", columns={"idGV"})})
- * @ORM\Entity(repositoryClass="App\Repository\PublicationRepository")
+ * @ORM\Entity
  */
 class TblPublication
 {
@@ -24,23 +24,23 @@ class TblPublication
     /**
      * @var int|null
      *
-     * @ORM\Column(name="idUser", type="integer", nullable=true)
+     * @ORM\Column(name="idUser", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $iduser;
+    private $iduser = NULL;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatePub", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="DatePub", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $datepub = 'CURRENT_TIMESTAMP';
+    private $datepub = 'current_timestamp()';
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="TypePub", type="integer", nullable=true)
+     * @ORM\Column(name="TypePub", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $typepub;
+    private $typepub = NULL;
 
     /**
      * @var string

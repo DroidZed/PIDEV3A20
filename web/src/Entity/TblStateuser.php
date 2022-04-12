@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblStateuser
  *
  * @ORM\Table(name="tbl_stateuser")
- * @ORM\Entity(repositoryClass="App\Repository\StateUserRepository")
+ * @ORM\Entity
  */
 class TblStateuser
 {

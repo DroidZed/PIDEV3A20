@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblReclamation
  *
- * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ReclamationRepository")
+ * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_idUser_rec", columns={"idUser"}), @ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"})})
+ * @ORM\Entity
  */
 class TblReclamation
 {
@@ -31,26 +31,16 @@ class TblReclamation
     /**
      * @var string
      *
-     * @ORM\Column(name="statusComplaint", type="string", length=30, nullable=false, options={"default"="NON TRAITEE"})
+     * @ORM\Column(name="statusComplaint", type="string", length=30, nullable=false, options={"default"="'NON TRAITEE'"})
      */
-    private $statuscomplaint = 'NON TRAITEE';
+    private $statuscomplaint = '\'NON TRAITEE\'';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="answerComplaint", type="string", length=500, nullable=true)
+     * @ORM\Column(name="answerComplaint", type="string", length=500, nullable=true, options={"default"="NULL"})
      */
-    private $answercomplaint;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
+    private $answercomplaint = 'NULL';
 
     /**
      * @var \TblTypecomplaint
@@ -71,6 +61,16 @@ class TblReclamation
      * })
      */
     private $rate;
+
+    /**
+     * @var \TblUser
+     *
+     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
 
     public function getIdcomplaint(): ?int
     {
@@ -113,18 +113,6 @@ class TblReclamation
         return $this;
     }
 
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
-    }
-
     public function getTypecomplaint(): ?TblTypecomplaint
     {
         return $this->typecomplaint;
@@ -145,6 +133,18 @@ class TblReclamation
     public function setRate(?TblRate $rate): self
     {
         $this->rate = $rate;
+
+        return $this;
+    }
+
+    public function getIduser(): ?TblUser
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?TblUser $iduser): self
+    {
+        $this->iduser = $iduser;
 
         return $this;
     }

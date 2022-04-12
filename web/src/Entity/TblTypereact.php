@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblTypereact
  *
  * @ORM\Table(name="tbl_typereact")
- * @ORM\Entity(repositoryClass="App\Repository\TypeReactRepository")
+ * @ORM\Entity
  */
 class TblTypereact
 {

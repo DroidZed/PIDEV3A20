@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblAnswerpost
  *
- * @ORM\Table(name="tbl_answerpost", indexes={@ORM\Index(name="fk_user_answerPost", columns={"idUser"}), @ORM\Index(name="fk_post_answerPost", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\AnswerPostRepository")
+ * @ORM\Table(name="tbl_answerpost", indexes={@ORM\Index(name="fk_post_answerPost", columns={"idPost"}), @ORM\Index(name="fk_user_answerPost", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblAnswerpost
 {
@@ -24,9 +24,9 @@ class TblAnswerpost
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="answeredDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="answeredDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $answereddtm = 'CURRENT_TIMESTAMP';
+    private $answereddtm = 'current_timestamp()';
 
     /**
      * @var string
@@ -34,16 +34,6 @@ class TblAnswerpost
      * @ORM\Column(name="answer", type="string", length=255, nullable=false)
      */
     private $answer;
-
-    /**
-     * @var \TblPost
-     *
-     * @ORM\ManyToOne(targetEntity="TblPost")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
-     * })
-     */
-    private $idpost;
 
     /**
      * @var \TblUser
@@ -54,6 +44,16 @@ class TblAnswerpost
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblPost
+     *
+     * @ORM\ManyToOne(targetEntity="TblPost")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
+     * })
+     */
+    private $idpost;
 
     public function getIdanswer(): ?int
     {
@@ -84,18 +84,6 @@ class TblAnswerpost
         return $this;
     }
 
-    public function getIdpost(): ?TblPost
-    {
-        return $this->idpost;
-    }
-
-    public function setIdpost(?TblPost $idpost): self
-    {
-        $this->idpost = $idpost;
-
-        return $this;
-    }
-
     public function getIduser(): ?TblUser
     {
         return $this->iduser;
@@ -104,6 +92,18 @@ class TblAnswerpost
     public function setIduser(?TblUser $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdpost(): ?TblPost
+    {
+        return $this->idpost;
+    }
+
+    public function setIdpost(?TblPost $idpost): self
+    {
+        $this->idpost = $idpost;
 
         return $this;
     }
