@@ -14,14 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductsController extends AbstractController
 {
-
-    private SessionInterface $session;
-
-    public function __construct(SessionInterface $session)
-    {
-        $this->session = $session;
-    }
-
     /**
      * @Route("/list", name="listProds", methods={"GET"})
      */
@@ -40,23 +32,5 @@ class ProductsController extends AbstractController
         return $this->render('frontTemplate/products/show.html.twig', [
             'prod' => $productRepository->find($idP),
         ]);
-    }
-
-    /**
-     * @Route("/addToCart", name="addToCart")
-     */
-    public function addToCart(Request $req, ProductRepository $productsRepository): Response
-    {
-        $prod = $productsRepository->find($req->get('idProd'));
-
-        // gets an attribute by name, an empty array is given if the item doesn't exist
-        $items = $this->session->get('cartItems', []);
-
-        $items += [sizeOf($items) => $prod];
-
-        // stores an attribute in the session for later reuse
-        $this->session->set('cartItems', $items);
-
-        return $this->redirectToRoute('listProds');
     }
 }
