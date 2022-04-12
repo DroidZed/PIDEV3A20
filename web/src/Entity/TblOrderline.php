@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblOrderline
  *
- * @ORM\Table(name="tbl_orderline", indexes={@ORM\Index(name="fk_ordline_userorder", columns={"numberOrder"}), @ORM\Index(name="fk_ordline_product", columns={"idProduct"})})
- * @ORM\Entity(repositoryClass="App\Repository\OrderLineRepository")
+ * @ORM\Table(name="tbl_orderline", indexes={@ORM\Index(name="fk_ordline_product", columns={"idProduct"}), @ORM\Index(name="fk_ordline_userorder", columns={"numberOrder"})})
+ * @ORM\Entity
  */
 class TblOrderline
 {

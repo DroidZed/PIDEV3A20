@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TblVideogame
  *
  * @ORM\Table(name="tbl_videogame", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\VideoGameRepository")
+ * @ORM\Entity
  */
 class TblVideogame
 {
@@ -24,20 +25,26 @@ class TblVideogame
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="statusVg", type="boolean", nullable=true)
+     * @ORM\Column(name="statusVg", type="boolean", nullable=true, options={"default"="NULL"})
      */
-    private $statusvg;
+    private $statusvg = 'NULL';
 
     /**
      * @var string|null
+     * @Assert\NotBlank(message="Veuillez saisir le nom!")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" le nom doit etre >= 4"
      *
-     * @ORM\Column(name="nameVg", type="string", length=255, nullable=true)
+     *     )
+     *
+     * @ORM\Column(name="nameVg", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $namevg;
+    private $namevg = 'NULL';
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Veuillez saisir une image!")
      * @ORM\Column(name="imageVg", type="string", length=255, nullable=false)
      */
     private $imagevg;

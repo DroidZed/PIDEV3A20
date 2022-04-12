@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblUserorder
  *
- * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"}), @ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"})})
- * @ORM\Entity(repositoryClass="App\Repository\UserOrderRepository")
+ * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"}), @ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblUserorder
 {
@@ -31,9 +31,9 @@ class TblUserorder
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="payDTM", type="date", nullable=true)
+     * @ORM\Column(name="payDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $paydtm;
+    private $paydtm = 'NULL';
 
     /**
      * @var string

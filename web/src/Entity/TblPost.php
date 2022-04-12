@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblPost
  *
  * @ORM\Table(name="tbl_post", indexes={@ORM\Index(name="fk_post_user", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Entity
  */
 class TblPost
 {
@@ -24,9 +24,9 @@ class TblPost
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="postedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="postedDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $posteddtm = 'CURRENT_TIMESTAMP';
+    private $posteddtm = 'current_timestamp()';
 
     /**
      * @var string
@@ -52,9 +52,9 @@ class TblPost
     /**
      * @var string|null
      *
-     * @ORM\Column(name="photoPost", type="string", length=200, nullable=true)
+     * @ORM\Column(name="photoPost", type="string", length=200, nullable=true, options={"default"="NULL"})
      */
-    private $photopost;
+    private $photopost = 'NULL';
 
     /**
      * @var string
@@ -66,51 +66,51 @@ class TblPost
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="startDTM", type="date", nullable=true)
+     * @ORM\Column(name="startDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $startdtm;
+    private $startdtm = 'NULL';
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="endDTM", type="date", nullable=true)
+     * @ORM\Column(name="endDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $enddtm;
+    private $enddtm = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="addressEvent", type="string", length=150, nullable=true)
+     * @ORM\Column(name="addressEvent", type="string", length=150, nullable=true, options={"default"="NULL"})
      */
-    private $addressevent;
+    private $addressevent = 'NULL';
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="nbTicketAvailable", type="integer", nullable=true)
+     * @ORM\Column(name="nbTicketAvailable", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $nbticketavailable;
+    private $nbticketavailable = NULL;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="correctAnswer", type="string", length=255, nullable=true)
+     * @ORM\Column(name="correctAnswer", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $correctanswer;
+    private $correctanswer = 'NULL';
 
     /**
      * @var float|null
      *
-     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
      */
-    private $latitude;
+    private $latitude = NULL;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
      */
-    private $longitude;
+    private $longitude = NULL;
 
     /**
      * @var \TblUser

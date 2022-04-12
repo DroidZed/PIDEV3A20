@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblProduct
  *
- * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_category", columns={"idCategory"}), @ORM\Index(name="fk_product_user", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_user", columns={"idUser"}), @ORM\Index(name="fk_product_category", columns={"idCategory"})})
+ * @ORM\Entity
  */
 class TblProduct
 {
@@ -52,9 +52,9 @@ class TblProduct
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $createddtm = 'CURRENT_TIMESTAMP';
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var \TblCategory

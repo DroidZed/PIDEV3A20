@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblBadge
  *
  * @ORM\Table(name="tbl_badge")
- * @ORM\Entity(repositoryClass="App\Repository\BadgeRepository")
+ * @ORM\Entity
  */
 class TblBadge
 {

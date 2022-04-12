@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblFidcard
  *
- * @ORM\Table(name="tbl_fidcard", indexes={@ORM\Index(name="fk_fidcard_user", columns={"idUser"}), @ORM\Index(name="fk_fidcard_cardtype", columns={"idCardType"})})
- * @ORM\Entity(repositoryClass="App\Repository\FidCardRepository")
+ * @ORM\Table(name="tbl_fidcard", indexes={@ORM\Index(name="fk_fidcard_cardtype", columns={"idCardType"}), @ORM\Index(name="fk_fidcard_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblFidcard
 {
@@ -31,9 +31,9 @@ class TblFidcard
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=true)
+     * @ORM\Column(name="createdDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $createddtm;
+    private $createddtm = 'NULL';
 
     /**
      * @var \TblCardtype

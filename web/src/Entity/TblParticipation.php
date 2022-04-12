@@ -7,31 +7,31 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblParticipation
  *
- * @ORM\Table(name="tbl_participation", indexes={@ORM\Index(name="fk_user_participation", columns={"idUser"}), @ORM\Index(name="fk_paytype_participation", columns={"idPayType"}), @ORM\Index(name="fk_post_participation", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\ParticipationRepository")
+ * @ORM\Table(name="tbl_participation", indexes={@ORM\Index(name="fk_post_participation", columns={"idPost"}), @ORM\Index(name="fk_user_participation", columns={"idUser"}), @ORM\Index(name="fk_paytype_participation", columns={"idPayType"})})
+ * @ORM\Entity
  */
 class TblParticipation
 {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="bookedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="bookedDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $bookeddtm = 'CURRENT_TIMESTAMP';
+    private $bookeddtm = 'current_timestamp()';
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="rank", type="integer", nullable=true)
+     * @ORM\Column(name="rank", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $rank;
+    private $rank = NULL;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="result", type="integer", nullable=true)
+     * @ORM\Column(name="result", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $result;
+    private $result = NULL;
 
     /**
      * @var int

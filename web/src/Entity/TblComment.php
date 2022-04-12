@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblComment
  *
- * @ORM\Table(name="tbl_comment", indexes={@ORM\Index(name="fk_user_comment", columns={"idUser"}), @ORM\Index(name="fk_post_comment", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\Table(name="tbl_comment", indexes={@ORM\Index(name="fk_post_comment", columns={"idPost"}), @ORM\Index(name="fk_user_comment", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblComment
 {

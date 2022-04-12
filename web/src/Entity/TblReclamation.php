@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblReclamation
  *
- * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ReclamationRepository")
+ * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_idUser_rec", columns={"idUser"}), @ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"})})
+ * @ORM\Entity
  */
 class TblReclamation
 {
@@ -31,16 +31,16 @@ class TblReclamation
     /**
      * @var string
      *
-     * @ORM\Column(name="statusComplaint", type="string", length=30, nullable=false, options={"default"="NON TRAITEE"})
+     * @ORM\Column(name="statusComplaint", type="string", length=30, nullable=false, options={"default"="'NON TRAITEE'"})
      */
-    private $statuscomplaint = 'NON TRAITEE';
+    private $statuscomplaint = '\'NON TRAITEE\'';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="answerComplaint", type="string", length=500, nullable=true)
+     * @ORM\Column(name="answerComplaint", type="string", length=500, nullable=true, options={"default"="NULL"})
      */
-    private $answercomplaint;
+    private $answercomplaint = 'NULL';
 
     /**
      * @var \TblUser

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblReaction
  *
- * @ORM\Table(name="tbl_reaction", indexes={@ORM\Index(name="fk_reaction_comment", columns={"idComment"}), @ORM\Index(name="fk_reaction_user", columns={"idUser"}), @ORM\Index(name="fk_reaction_tyReact", columns={"idTypeReact"}), @ORM\Index(name="fk_reaction_post", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\ReactionRepository")
+ * @ORM\Table(name="tbl_reaction", indexes={@ORM\Index(name="fk_reaction_tyReact", columns={"idTypeReact"}), @ORM\Index(name="fk_reaction_post", columns={"idPost"}), @ORM\Index(name="fk_reaction_comment", columns={"idComment"}), @ORM\Index(name="fk_reaction_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblReaction
 {
@@ -24,9 +24,9 @@ class TblReaction
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="reactedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="reactedDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $reacteddtm = 'CURRENT_TIMESTAMP';
+    private $reacteddtm = 'current_timestamp()';
 
     /**
      * @var \TblUser

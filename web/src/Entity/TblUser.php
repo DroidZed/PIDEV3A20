@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblUser
  *
- * @ORM\Table(name="tbl_user", indexes={@ORM\Index(name="fk_user_stateUser", columns={"stateUser"}), @ORM\Index(name="fk_badge_user", columns={"idBadge"})})
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="tbl_user", indexes={@ORM\Index(name="fk_badge_user", columns={"idBadge"}), @ORM\Index(name="fk_user_stateUser", columns={"idStateUser"})})
+ * @ORM\Entity
  */
 class TblUser
 {
@@ -38,16 +38,16 @@ class TblUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $createddtm = 'CURRENT_TIMESTAMP';
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="desactivationDTM", type="date", nullable=true)
+     * @ORM\Column(name="desactivationDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $desactivationdtm;
+    private $desactivationdtm = 'NULL';
 
     /**
      * @var string
@@ -66,9 +66,9 @@ class TblUser
     /**
      * @var string|null
      *
-     * @ORM\Column(name="photoUser", type="string", length=255, nullable=true)
+     * @ORM\Column(name="photoUser", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $photouser;
+    private $photouser = 'NULL';
 
     /**
      * @var string
@@ -87,16 +87,16 @@ class TblUser
     /**
      * @var string|null
      *
-     * @ORM\Column(name="cv", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cv", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $cv;
+    private $cv = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="descUser", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descUser", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $descuser;
+    private $descuser = 'NULL';
 
     /**
      * @var \TblBadge
@@ -113,10 +113,10 @@ class TblUser
      *
      * @ORM\ManyToOne(targetEntity="TblStateuser")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="stateUser", referencedColumnName="idStateUser")
+     *   @ORM\JoinColumn(name="idStateUser", referencedColumnName="idStateUser")
      * })
      */
-    private $stateuser;
+    private $idstateuser;
 
     public function getIduser(): ?int
     {
@@ -267,14 +267,14 @@ class TblUser
         return $this;
     }
 
-    public function getStateuser(): ?TblStateuser
+    public function getIdstateuser(): ?TblStateuser
     {
-        return $this->stateuser;
+        return $this->idstateuser;
     }
 
-    public function setStateuser(?TblStateuser $stateuser): self
+    public function setIdstateuser(?TblStateuser $idstateuser): self
     {
-        $this->stateuser = $stateuser;
+        $this->idstateuser = $idstateuser;
 
         return $this;
     }

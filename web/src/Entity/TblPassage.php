@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblPassage
  *
- * @ORM\Table(name="tbl_passage", indexes={@ORM\Index(name="fk_passage_test", columns={"idTest"}), @ORM\Index(name="fk_passage_candidacy", columns={"idCandidacy"})})
- * @ORM\Entity(repositoryClass="App\Repository\PassageRepository")
+ * @ORM\Table(name="tbl_passage", indexes={@ORM\Index(name="fk_passage_candidacy", columns={"idCandidacy"}), @ORM\Index(name="fk_passage_test", columns={"idTest"})})
+ * @ORM\Entity
  */
 class TblPassage
 {
