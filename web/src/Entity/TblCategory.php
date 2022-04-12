@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="tbl_category")
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @UniqueEntity(fields={"nameCategory"}, message="Categorie deja existante")
  */
 class TblCategory
 {
@@ -30,6 +32,8 @@ class TblCategory
      *
      *     )
      * @ORM\Column(type="string", length=255 , name="nameCategory")
+     *
+
      */
     private $nameCategory;
 
