@@ -1,3 +1,4 @@
+{%  extends 'baseFront.html.twig' %}
 {% block title %} Products {% endblock %}
 {% block content  %}
 <style>
@@ -5,33 +6,49 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-<table border="1">
-    <thead>
-    <th>Nom produit</th>
-    <th>Prix Produit</th>
-    <th>Quantité Produit</th>
-    <th>Image</th>
-    <th>Category</th>
-    <th>Suppression</th>
-    <th>Modification</th>
 
-    </thead>
-    <tbody>
-    {%  for product in b %}
-    <tr>
-        <td> {{ product.nameproduct }}</td>
-        <td>{{ product.priceproduct }}</td>
-        <td>{{ product.qtyproduct }}</td>
-        <td>{{ product.imageproduct }}</td>
-        <td>{{ product.idcategory }}</td>
-        <td> <a href="{{ path('deleteProduct',{'id':product.idproduct}) }}">Supprimer</a> </td>
-        <td><a href="{{ path('editProduct',{'id':product.idproduct}) }}">Modifier</a> </td>
-        <td></td>
 
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-</div>
+    <section id="featured-products" class="pt-120 pb-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 d-flex align-items-center">
+                    <div class="section-header text-center">
+                        <h2 class="title">Your Products</h2>
+                        <p>By here you can manage your product inventory , feel free to do whatever you like</p>
+                        <br>
+                        <br>
+                        <div>
+                            <a href="{{ path('addProduct') }}" class="cmn-btn">Ajouter Produit</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row cus-m">
+                {%  for product in b %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-item">
+                        <span class="new">Quantité {{ product.qtyproduct }}</span>
+                        <div class="img-area text-center">
+                            <img src="{{ asset ("frontTemplate/images/featured-products-1.png") }}" alt="image">
+                        </div>
+                        <div class="bottom-item text-center">
+                            <a href="shop-details.html"><h6>{{ product.nameproduct }}</h6></a>
+                            <p class="text-sm">{{ product.idcategory.nameCategory }}</p>
+                            <div class="review">
+
+                                <span class="text-sm"><h5>Prix : {{ product.priceproduct }} TND</h5></span>
+                            </div>
+                            <div class="bottom-area d-flex align-items-center justify-content-between">
+                                <a href="{{ path('deleteProduct',{'id':product.idproduct}) }}" class="cmn-btn">Delete</a>
+                                <a href="{{ path('editProduct',{'id':product.idproduct}) }}" class="cmn-btn">Edit</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

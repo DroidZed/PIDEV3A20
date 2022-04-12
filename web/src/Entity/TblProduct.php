@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,29 +22,35 @@ class TblProduct
     private $idproduct;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Empty Case !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be longer than 3",
+     *     maxMessage ="Name should be shoter than 20")
      *
-     * @ORM\Column(name="nameProduct", type="string", length=100, nullable=false)
      */
     private $nameproduct;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank(message="Empty Case !!")
+     * @Assert\Range(min=1,max=9999)
      * @ORM\Column(name="priceProduct", type="float", precision=10, scale=0, nullable=false)
      */
     private $priceproduct;
 
     /**
      * @var int
-     *
+     * @Assert\Positive
      * @ORM\Column(name="QtyProduct", type="integer", nullable=false)
      */
     private $qtyproduct;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Empty Case !!")
      * @ORM\Column(name="imageProduct", type="string", length=150, nullable=false)
      */
     private $imageproduct;

@@ -47,7 +47,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/deleteProduct/{id}", name="deleteProduct")
      */
-    public function deleteCategory(TblProduct  $product): Response
+    public function deleteProduct(TblProduct  $product): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($product);

@@ -28,22 +28,30 @@
                         <div class="login-reg-main text-center">
                             <h4>Ajouter Un Produit</h4>
                             <div class="form-area">
-                                {{ form_start(f)}}
+                                {{ form_start(f,{attr:{novalidate:'novalidate'}})}}
                                     <div class="form-group">
                                         <label>Nom Produit</label>
                                         {{ form_widget(f.nameproduct,{'attr':{'class':'form-control'}}) }}
+                                        {{ form_errors(f.nameproduct,{'attr':{'class':'text-danger'}}) }}
+
                                     </div>
                                     <div class="form-group">
                                         <label>Prix</label>
                                         {{ form_widget(f.priceproduct,{'attr':{'class':'form-control'}}) }}
+                                        {{ form_errors(f.priceproduct,{'attr':{'class':'text-danger'}}) }}
+
                                     </div>
                                     <div class="form-group">
                                         <label>Quantité</label>
                                         {{ form_widget(f.qtyproduct,{'attr':{'class':'form-control'}}) }}
+                                        {{ form_errors(f.qtyproduct,{'attr':{'class':'text-danger'}}) }}
+
                                     </div>
                                 <div class="form-group">
                                     <label>Image</label>
                                     {{ form_widget(f.imageproduct,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_errors(f.imageproduct,{'attr':{'class':'text-danger'}}) }}
+
                                 </div>
                                 <div class="form-group">
                                     <label>Category</label>
