@@ -18,7 +18,7 @@ class MembreModifyType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class)
-            ->add('leveluser',TextType::class, array ('attr' => array ('readonly' => true)))
+
 
 
             ->add('tel',TextType::class)

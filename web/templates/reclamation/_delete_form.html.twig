@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('app_reclamation_delete', {'idcomplaint': tbl_reclamation.idcomplaint}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tbl_reclamation.idcomplaint) }}">
-    <button class="btn">Delete</button>
+    <button class="btn" style="color: white">Delete</button>
 </form>

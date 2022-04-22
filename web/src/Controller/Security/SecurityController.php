@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
             'last_username'=> $last_id
 
         ]);
-        //return AfterLoginRedirection::onAuthenticationSuccess($request,$token);
+
 
 
     }
@@ -44,5 +44,27 @@ class SecurityController extends AbstractController
      * @Route("/logout", name="logout")
      */
     public function logout() {
+    }
+
+    /**
+     * @Route("/404", name="notFound")
+     */
+    public function notfound(Request $request,AuthenticationUtils $utils): Response
+    {
+        $this->user=new User();
+        $error=$utils->getLastAuthenticationError();
+        $last_id=$utils->getLastUsername();
+
+
+
+
+        return $this->render('error/error404.html.twig', [
+            'error' => $error,
+            'last_username'=> $last_id
+
+        ]);
+        //return AfterLoginRedirection::onAuthenticationSuccess($request,$token);
+
+
     }
 }

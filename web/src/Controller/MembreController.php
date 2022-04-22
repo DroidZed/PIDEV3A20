@@ -64,7 +64,7 @@ class MembreController extends AbstractController
                 "Bienvenue sur notre site",
                 "nebulagaming120@gmail.com",
                 $form->get('email')->getData(),
-                "emailTemplate.html.twig",['token'=>$token]);
+                "mail/Template/emailTemplate.html.twig",['token'=>$token]);
 
 
 
@@ -123,7 +123,7 @@ class MembreController extends AbstractController
 
         // Retrieve the HTML generated in our twig file
         $date=date("Y/m/d");
-        $html = $this->renderView("back/pdfMembre.html.twig",[
+        $html = $this->renderView("backTemplate/pdfMembre.html.twig",[
             'users' => $User,
             'date'=>$date
         ]);

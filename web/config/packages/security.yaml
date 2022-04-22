@@ -1,5 +1,5 @@
 security:
-
+    access_denied_url: notFound
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         App\Entity\User:
@@ -15,6 +15,7 @@ security:
         test:
             entity:
                 class: App\Entity\User
+
 
     firewalls:
         dev:
@@ -60,9 +61,12 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
 
-        # { path: ^/admin, roles: ROLE_ADMIN }
-        # { path: ^/admin, roles: ROLE_SUPERADMIN }
-        # { path: ^/superadmin, roles: ROLE_SUPERADMIN }
-        # { path: ^/Membre, roles: ROLE_MEMBRE }
-        # { path: ^/Entreprise, roles: ROLE_ENTREPRISE }
+       - { path: '^/admin', roles: ROLE_ADMIN }
+       - { path: '^/Membre', roles: ROLE_MEMBRE }
+       - { path: '^/Entreprise', roles: ROLE_ENTREPRISE }
+       - { path: '^/reclamation', roles: [ROLE_MEMBRE, ROLE_ENTREPRISE] }
+
+
+
+
 

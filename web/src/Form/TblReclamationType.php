@@ -13,8 +13,6 @@ class TblReclamationType extends AbstractType
     {
         $builder
             ->add('message')
-            ->add('statuscomplaint')
-            ->add('answercomplaint')
 
             ->add('typecomplaint')
 

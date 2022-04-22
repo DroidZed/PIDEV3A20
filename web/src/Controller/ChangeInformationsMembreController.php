@@ -51,10 +51,12 @@ class ChangeInformationsMembreController extends AbstractController
             $entityManager->flush();
             $this->addFlash('info','Vos informations sont a jour');
         }
+
         return $this->render('membre/profile.html.twig',
             ['form_modify' => $form->createView(),
                 'User'=>$this->user,
             ]);
+
 
     }
     /**

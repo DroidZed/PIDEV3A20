@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TblReclamation
@@ -18,6 +19,7 @@ class TblReclamation
      * @ORM\Column(name="idComplaint", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
      */
     private $idcomplaint;
 
@@ -25,6 +27,7 @@ class TblReclamation
      * @var string
      *
      * @ORM\Column(name="message", type="string", length=500, nullable=false)
+     * @Assert\NotBlank
      */
     private $message;
 
@@ -59,6 +62,7 @@ class TblReclamation
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="typeComplaint", referencedColumnName="idType")
      * })
+     * @Assert\NotBlank
      */
     private $typecomplaint;
 

@@ -34,10 +34,11 @@ class User implements UserInterface,\Serializable
      * @var string
      *
      * @ORM\Column(name="nameUser", type="string", length=100, nullable=false)
+     * @Assert\NotBlank
      * @Assert\Length (
      *
-     *     max=10,
-     *     min=5,
+     *     max=20,
+     *     min=6,
      *     minMessage="nom obligatoirement supperieur à {{ limit }} caracteres " ,
      *     maxMessage="nom obligatoirement ne pase pas {{ limit }} caracteres")
      */
@@ -48,6 +49,17 @@ class User implements UserInterface,\Serializable
      *
      * @ORM\Column(name="emailUser", type="string", length=50, nullable=false)
      * @Assert\Email()
+     *  @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/",
+     *     message="not_valid_email"
+     * )
+     * @Assert\NotBlank
+     * @Assert\Length (
+     *
+     *     max=15,
+     *     min=5,
+     *     minMessage="nom obligatoirement supperieur à {{ limit }} caracteres " ,
+     *     maxMessage="nom obligatoirement ne pase pas {{ limit }} caracteres")
      */
     private $email;
 
@@ -55,6 +67,7 @@ class User implements UserInterface,\Serializable
      * @var \DateTime
      *
      * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     *
      */
     private $createddtm = 'CURRENT_TIMESTAMP';
 
@@ -69,12 +82,25 @@ class User implements UserInterface,\Serializable
      * @var string
      *
      * @ORM\Column(name="pwdUser", type="string", length=60, nullable=false)
+     *  @Assert\NotBlank
+     * @Assert\Length (
+     *
+     *     max=15,
+     *     min=5,
+     *     minMessage="mdp obligatoirement supperieur à {{ limit }} caracteres " ,
+     *     maxMessage="mdp obligatoirement ne pase pas {{ limit }} caracteres")
      */
     private $password;
 
     /**
      * @var string
+     * @Assert\NotBlank
+     * @Assert\Length (
      *
+     *     max=8,
+     *     min=8,
+     *     minMessage="mdp obligatoirement supperieur à {{ limit }} caracteres " ,
+     *     maxMessage="mdp obligatoirement ne pase pas {{ limit }} caracteres")
      * @ORM\Column(name="phone", type="string", length=8, nullable=false)
      */
     private $tel;
@@ -83,11 +109,17 @@ class User implements UserInterface,\Serializable
      * @var string|null
      *
      * @ORM\Column(name="photoUser", type="string", length=255, nullable=true)
+     * @Assert\Length (
+     *
+     *     max=8,
+     *     min=8,
+     *     minMessage="nom obligatoirement supperieur à {{ limit }} caracteres " ,
+     *     maxMessage="nom obligatoirement ne pase pas {{ limit }} caracteres")
      */
     private $photo;
 
     /**
-     * @var string
+     * @var array
      *
      * @ORM\Column(name="roleUser", type="json")
      */
@@ -122,7 +154,7 @@ class User implements UserInterface,\Serializable
     private $activation_token;
 
     /**
-     * @var \TblBadge
+     * @var TblBadge
      *
      * @ORM\ManyToOne(targetEntity="TblBadge")
      * @ORM\JoinColumns({
@@ -168,7 +200,7 @@ class User implements UserInterface,\Serializable
     /**
      * @param string $nom
      */
-    public function setNom(string $nom): void
+    public function setNom(?string $nom): void
     {
         $this->nom = $nom;
     }
@@ -270,12 +302,12 @@ class User implements UserInterface,\Serializable
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
+
         return array_unique($roles);
     }
 
@@ -350,9 +382,9 @@ class User implements UserInterface,\Serializable
     }
 
     /**
-     * @return TblBadge
+     * @return ?TblBadge
      */
-    public function getIdbadge(): TblBadge
+    public function getIdbadge(): ?TblBadge
     {
         return $this->idbadge;
     }
@@ -360,7 +392,7 @@ class User implements UserInterface,\Serializable
     /**
      * @param TblBadge $idbadge
      */
-    public function setIdbadge(TblBadge $idbadge): void
+    public function setIdbadge(?TblBadge $idbadge): void
     {
         $this->idbadge = $idbadge;
     }

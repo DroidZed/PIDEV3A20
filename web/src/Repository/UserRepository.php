@@ -37,6 +37,15 @@ class UserRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findByMail($type)
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.email LIKE :type')
+            ->setParameter('type','%'.$type.'%')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     public function findByToken($type)
     {
         return $this->createQueryBuilder('p')

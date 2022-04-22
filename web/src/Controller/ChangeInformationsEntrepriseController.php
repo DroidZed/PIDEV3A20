@@ -55,8 +55,8 @@ class ChangeInformationsEntrepriseController extends AbstractController
 
             if($fileCV)
             {
-                $fileNameCV = md5(uniqid()).'.'.'pdf';
-                $file->move($this->getParameter('cv_directory'), $fileCV);
+                $fileNameCV = md5(uniqid()).'.'.$fileCV->guessExtension();
+                $fileCV->move($this->getParameter('cv_directory'), $fileNameCV);
                 $this->user->setCv($fileNameCV);
                 $form->getData()->setCv($fileNameCV);
             }
@@ -68,7 +68,7 @@ class ChangeInformationsEntrepriseController extends AbstractController
             $this->addFlash('info','Vos informations sont a jour');
         }
 
-        return $this->render('frontTemplate/profile.html.twig',
+        return $this->render('entreprise/profil.html.twig',
             ['form_modify' => $form->createView(),
                 'User'=>$this->user,
             ]);

@@ -26,7 +26,7 @@ class MembreType extends AbstractType
                 'second_options' => ['label' => 'Confirmer mot de passe'],
             ])
             ->add('tel')
-            ->add('leveluser')
+
             ->add('photo', FileType::class, [
                 'mapped' => false,
                 'required' => false,

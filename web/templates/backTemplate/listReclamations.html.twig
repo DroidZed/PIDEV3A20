@@ -36,6 +36,9 @@
                                 <table class="table table-borderless datatable dataTable-table">
                                     <thead>
                                     <tr>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">User</a>
+                                        </th>
                                         <th scope="col" data-sortable="" style="width: 23.0735%;"><a href="#"
                                                                                                      class="dataTable-sorter">Type</a>
                                         </th>
@@ -53,6 +56,7 @@
                                     <tbody>
                                     {% for tbl_reclamation in tbl_reclamations %}
                                     <tr>
+                                        <td>{{ tbl_reclamation.iduser.nom }}</td>
                                         <td>{{ tbl_reclamation.typecomplaint }}</td>
                                         <td>{{ tbl_reclamation.message }}</td>
                                         {% if tbl_reclamation.statuscomplaint == 'TRAITEE' %}
@@ -63,11 +67,12 @@
                                         <td>{{ tbl_reclamation.answercomplaint }}</td>
 
                                         <td>
-                                            <a href="{{ path('app_reclamation_show', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">show</a>
+
                                             <a href="{{ path('traiter', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">traiter</a>
                                         </td>
                                     </tr>
                                     {% endfor %}
+                                    {{ knp_pagination_render(tbl_reclamations) }}
                                     </tbody>
                                 </table>
                             </div>

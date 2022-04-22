@@ -25,14 +25,14 @@
 
 <table width="100%">
     <tr>
-        <td valign="top"><img src="{{asset('assets/img/AuraLogo.png')}}" alt="" width="150"/></td>
+        <td valign="top"><img src="{{asset('nebula_firstshot.png')}}" alt="" width="150"/></td>
         <td align="right">
-            <h3>FreeEtudiants</h3>
+            <h3>Nebula Gaming</h3>
             <pre>
-                Societe FreeEtudiants
+                Societe NebulaGamin
                 Adresse Esprit Ghazela
                 Fax: 70 323 543
-                Email freeetudiant120@gmail.com
+                Email nebulagaming120@gmail.com
                 Date : {{ date }}
             </pre>
         </td>
@@ -58,6 +58,7 @@ Email : {{ app.user.email }}
         <th>Nom</th>
         <th>Email</th>
         <th>Tel</th>
+        <th>etat</th>
     </tr>
     </thead>
     <tbody style="text-align:center;">
@@ -71,6 +72,7 @@ Email : {{ app.user.email }}
             <td>{{ user.nom }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.tel }}</td>
+            <td>{{ user.stateuser }}</td>
         </tr>
     {% endfor %}
 

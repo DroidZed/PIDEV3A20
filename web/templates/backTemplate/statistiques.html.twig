@@ -20,10 +20,10 @@
     let UserGraph    = new Chart(users, {
         type: "pie",
         data: {
-            labels: ["Nombre d'Entreprise","Nombre d'Etudiants"],
+            labels: ["Nombre d'Entreprise","Nombre de Membre"],
             datasets: [{
                 label: "Répartition des Coachs",
-                data: [{{ EntreprisesNbr }},{{ EtudiantsNbr }}],
+                data: [{{ EntreprisesNbr }},{{ MembreNbr }}],
                 backgroundColor: ["#eeebdd","#ce1212"]
             }]
         }

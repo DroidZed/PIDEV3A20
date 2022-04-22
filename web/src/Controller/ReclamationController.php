@@ -3,22 +3,24 @@
 namespace App\Controller;
 
 use App\Entity\TblReclamation;
+use App\Entity\TblStateuser;
 use App\Entity\TblTypecomplaint;
 use App\Entity\User;
 use App\Form\ConsulterRecType;
+use App\Form\ModererType;
 use App\Form\TblReclamationType;
 use App\Repository\ReclamationRepository;
 use App\Repository\TypeComplaintRepository;
+use App\Repository\UserRepository;
 use App\Services\GetUser;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * @Route("/reclamation")
- */
+
 class ReclamationController extends AbstractController
 {
     /**
@@ -38,12 +40,13 @@ class ReclamationController extends AbstractController
 
     }
     /**
-     * @Route("/reclamation", name="app_reclamation_index", methods={"GET"})
+     * @Route("/reclamation/show", name="app_reclamation_index", methods={"GET"})
      */
     public function index(ReclamationRepository $reclamationRepository): Response
     {
         $user=new User();
         $user = $this->getUser->Get_User();
+
         return $this->render('reclamation/index.html.twig', [
             'tbl_reclamations' => $reclamationRepository->findBy(['iduser'=>$user->getId()]),
 
@@ -52,12 +55,13 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="passerRec", methods={"GET", "POST"})
+     * @Route("/reclamation/new", name="passerRec", methods={"GET", "POST"})
      */
     public function new(Request $request, ReclamationRepository $reclamationRepository): Response
     {
         $user=new User();
         $user = $this->getUser->Get_User();
+
         $tblReclamation = new TblReclamation();
         $form = $this->createForm(TblReclamationType::class, $tblReclamation);
         $form->handleRequest($request);
@@ -75,26 +79,18 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/{idcomplaint}", name="app_reclamation_show", methods={"GET"})
+     * @Route("/reclamation/{idcomplaint}", name="app_reclamation_show", methods={"GET"})
      */
     public function show(TblReclamation $tblReclamation): Response
     {
-        return $this->render('backTemplate/admin/reclamationShowOne.html.twig', [
+        return $this->render('reclamation/show.html.twig', [
             'tbl_reclamation' => $tblReclamation,
         ]);
     }
-    /**
-     * @Route("reclamation/consulter", name="consulter", methods={"GET"})
-     */
-    public function consulter(ReclamationRepository $reclamationRepository): Response
-    {
-        return $this->render('backTemplate/listReclamations.html.twig', [
-            'tbl_reclamations' => $reclamationRepository->findAll(),
-        ]);
-    }
+
 
     /**
-     * @Route("/{idcomplaint}/edit", name="app_reclamation_edit", methods={"GET", "POST"})
+     * @Route("/reclamation/{idcomplaint}/edit", name="app_reclamation_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, TblReclamation $tblReclamation, ReclamationRepository $reclamationRepository): Response
     {
@@ -111,40 +107,10 @@ class ReclamationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    /**
-     * @Route("/{idcomplaint}/traiter", name="traiter", methods={"GET", "POST"})
-     */
-    public function traiter(Request $request, TblReclamation $tblReclamation, ReclamationRepository $reclamationRepository, TypeComplaintRepository $type): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(ConsulterRecType::class, $tblReclamation);
-        $typ = new TblTypecomplaint();
-        $typpe= $form->get('typecomplaint')->getData();
-        $typ=$type->findOneBy(['idtype'=>$typpe]);
-        $tblReclamation->setTypecomplaint($typ);
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $typpe= $form->get('typecomplaint')->getData();
-            $typ=$type->findBy(['nametype'=>$typpe]);
-
-            $tblReclamation->setStatuscomplaint('TRAITEE');
-
-            $reclamationRepository->add($tblReclamation);
-            return $this->redirectToRoute('consulter', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('backTemplate/admin/consulter.html.twig', [
-            'tbl_reclamation' => $tblReclamation,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
-     * @Route("/{idcomplaint}", name="app_reclamation_delete", methods={"POST"})
+     * @Route("/reclamation/{idcomplaint}", name="app_reclamation_delete", methods={"POST"})
      */
     public function delete(Request $request, TblReclamation $tblReclamation, ReclamationRepository $reclamationRepository): Response
     {
@@ -154,4 +120,5 @@ class ReclamationController extends AbstractController
 
         return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
     }
-}
+
+    }

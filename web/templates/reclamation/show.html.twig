@@ -3,32 +3,51 @@
 {% block title %}My Complaint{% endblock %}
 
 {% block content %}
-    <h1>TblReclamation</h1>
+    <section id="shop-cart-section" class="pt-120 pb-120">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idcomplaint</th>
-                <td>{{ tbl_reclamation.idcomplaint }}</td>
-            </tr>
-            <tr>
-                <th>Message</th>
-                <td>{{ tbl_reclamation.message }}</td>
-            </tr>
-            <tr>
-                <th>Statuscomplaint</th>
-                <td>{{ tbl_reclamation.statuscomplaint }}</td>
-            </tr>
-            <tr>
-                <th>Answercomplaint</th>
-                <td>{{ tbl_reclamation.answercomplaint }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Answer</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{{ tbl_reclamation.typecomplaint }}</td>
+                                    <td>{{ tbl_reclamation.message }}</td>
 
-    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+                                    <td>{{ tbl_reclamation.statuscomplaint }}</td>
+                                    <td>
+                                        {{ tbl_reclamation.answercomplaint }}
+                                    </td>
 
-    <a href="{{ path('app_reclamation_edit', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">edit</a>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-    {{ include('reclamation/_delete_form.html.twig') }}
+
+
+
+                        {{ include('reclamation/_delete_form.html.twig') }}
+                        <a href="{{ path('app_reclamation_index') }}">back to list</a> </div>
+                    </div>
+                    <div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 {% endblock %}

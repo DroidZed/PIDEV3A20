@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\TblStateuser;
+use App\Form\EntrepriseModifyType;
+use App\Form\EntreprisePasswordType;
 use App\Repository\StateUserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -138,7 +140,7 @@ class EntrepriseController extends AbstractController
 
         // Retrieve the HTML generated in our twig file
         $date=date("Y/m/d");
-        $html = $this->renderView("back/pdfEntreprise.html.twig",[
+        $html = $this->renderView("backTemplate/pdfEntreprise.html.twig",[
             'users' => $User,
             'date'=>$date
         ]);
@@ -161,5 +163,56 @@ class EntrepriseController extends AbstractController
     }
 
 
+    /**
+     * @Route("/email",name="email")
+     */
+    public function email()
+    {
+        $user = new User();
+        $code = md5(uniqid());
+        $form = $this->createForm(EntrepriseType::class, $user);
+
+        return $this->render('security/forgotPassword1.html.twig', [
+
+            'form' => $form->createView(),
+        ]);
+
+    }
+    /**
+     * @Route("/code",name="code")
+     */
+    public function code(Request $request,MailerService $mailerService,UserRepository $repository)
+    {
+
+
+        $email=$request->query->get('_username');
+        $user=$this->getDoctrine()->getRepository(User::class)->findBy(['email'=>$email]);
+
+        $user1=$this->getDoctrine()->getRepository(User::class)->find(array_values($user)[0]);
+
+
+
+        $code = md5(uniqid());
+
+        if($user!=null) {
+            $mailerService->send(
+                "Recupération compte",
+                "nebulagaming120@gmail.com",
+                $email,
+                "mailTemplates/code.html.twig", ['code' => $code]);
+
+
+
+        }
+
+$user1->setPassword(($this->encoder->encodePassword($user1, $code)));
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        return $this->render('security/forgotPassword1.html.twig', [
+
+            'entreprise' => $user,
+        ]);
+
+    }
 
 }
