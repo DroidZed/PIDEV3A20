@@ -28,24 +28,43 @@ class TblWishlistController extends AbstractController
     }
 
     /**
-     * @Route("/{idwishlist}/addProduct", name="app_tbl_wishlist_delete", methods={"GET", "POST"})
+     * @Route("/{idwishlist}/addProduct", name="addToWishlist", methods={"GET", "POST"})
      */
-    public function addToWishList(int $idwishlist, Request $request, WishListRepository $wishListRepository): Response
+    public function addToWishList(int $idwishlist, Request $request,
+                                  WishListRepository $wishListRepository,
+                                  ProductRepository $productRepository,
+                                  UserRepository  $userRepository): Response
     {
+
         $idUser = $request->get("idUser");
         $idProduct = $request->get("idProduct");
+        $prod = $productRepository->find($idProduct);
+        $user = $userRepository->find($idUser);
+
+        if ($wishListRepository->findOneBy([
+            "iduser" => $user,
+            "idproduct" => $prod
+        ]))
+        {
+            return $this->redirectToRoute('app_tbl_wishlist_show', [
+                "userId" => $idUser
+            ], Response::HTTP_SEE_OTHER);
+        }
+
 
         $item = new TblWishlist();
 
-        $item->setIdproduct($idProduct);
-        $item->setIdUser($idUser);
+        $item->setIdproduct($prod);
+        $item->setIdUser($user);
 
-        $em = $this->getDoctrine()->getManager(TblWishlist::class);
+        $em = $this->getDoctrine()->getManager();
 
         $em->persist($item);
         $em->flush();
 
-        return $this->redirectToRoute('app_tbl_wishlist_show', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_tbl_wishlist_show', [
+            "userId" => $idUser
+        ], Response::HTTP_SEE_OTHER);
     }
 
     /**

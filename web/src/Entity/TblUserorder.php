@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TblUserorder
@@ -40,6 +41,13 @@ class TblUserorder
      * @var string
      *
      * @ORM\Column(name="orderAddress", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *     min = 10,
+     *     minMessage = "Address too short !"
+     * )
+     * @Assert\Blank(
+     *     message="field cannot be blank !"
+     * )
      */
     private $orderaddress;
 
@@ -50,6 +58,9 @@ class TblUserorder
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
      * })
+     * @Assert\Blank(
+     *     message="field cannot be blank !"
+     * )
      */
     private $idpaytype;
 

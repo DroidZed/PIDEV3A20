@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\CartItem;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -11,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
-
     private SessionInterface $session;
 
     public function __construct(SessionInterface $session)
@@ -20,30 +21,65 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart", name="goToCart")
+     * @Route("/membre/cart", name="goToCart")
      */
-    public function index(): Response
+    public function index(ProductRepository $productsRepository): Response
     {
-        return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
-        ]);
+        $cartItems = $this->session->get('cartItems', []);
+
+        return $this->render('frontTemplate/cart/index.html.twig',
+            [
+                'cart' => $cartItems,
+            ]);
     }
 
     /**
-     * @Route("/addToCart", name="addToCart")
+     * @Route(""/membre/cart/add", name="addToCart")
      */
-    public function addToCart(Request $req, ProductRepository $productsRepository): Response
+    public function new(Request $req, ProductRepository $productsRepository): Response
     {
-        $prod = $productsRepository->find($req->get('idProd'));
+        $idProd = $req->get('idProd');
+        $quantity = $req->get('quantity');
 
-        // gets an attribute by name, an empty array is given if the item doesn't exist
-        $items = $this->session->get('cartItems', []);
+        $items = $this->getFromCart();
 
-        $items += [sizeOf($items) => $prod];
+        forEach ($items as $k => $v )
+        {
 
-        // stores an attribute in the session for later reuse
+        }
+
+        $cartItem = new CartItem(1); // TODO: integrate user session !
+
+        $product = $productsRepository->find($idProd);
+
+        $cartItem->setProduct($product)->setQuantity($quantity);
+
+        $items += [$product->getNameproduct() => $cartItem];
+
         $this->session->set('cartItems', $items);
 
         return $this->redirectToRoute('listProds');
+    }
+
+    /**
+     * @return mixed | CartItem[]
+     */
+    public function getFromCart()
+    {
+        return $this->session->get('cartItems', []);
+    }
+
+    /**
+     * @Route(""/membre/cart/remove", name="removeFromCart")
+     */
+    public function del(Request $req): RedirectResponse
+    {
+        $items = $this->getFromCart();
+
+        unset($items[$req->get("nameProd")]);
+
+        $this->session->set('cartItems', $items);
+
+        return $this->redirectToRoute('goToCart');
     }
 }

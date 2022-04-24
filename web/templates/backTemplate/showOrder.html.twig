@@ -1,0 +1,128 @@
+{% extends 'baseBack.html.twig' %}
+
+    {% block title %} Nebula Gaming Admin | Order N °{{ order.numberorder }} {% endblock %}
+
+
+{% block content %}
+    <div class="pagetitle"><h1>Order details</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Dashboard</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('adminOrders') }}">Orders</a>
+                </li>
+                <li class="breadcrumb-item active">Detailed view</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        <img src="{{ asset("backTemplate/img/profile-img.jpg") }}" alt="Profile" class="rounded-circle">
+                        <h2>{{ order.iduser.nameuser }}</h2>
+                        <h3>Issuer</h3>
+                        <div class="social-links mt-2"><a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a href="#"
+                                                                                               class="instagram"><i
+                                        class="bi bi-instagram"></i></a> <a href="#" class="linkedin"><i
+                                        class="bi bi-linkedin"></i></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">Overview
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview"><h5
+                                        class="card-title">About</h5>
+                                <p class="small fst-italic">
+                                    {{ order.iduser.descuser }}
+                                </p>
+                                <h5 class="card-title">Order Details</h5>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Address</div>
+                                    <div class="col-lg-9 col-md-8">{{ order.orderaddress }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Status</div>
+
+                                    {% if order.idstatusorder.statusorder == 'PENDING' %}
+                                    <div class="col-lg-9 col-md-8">
+                                                    <span class="badge bg-warning text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                    </div>
+                                    {% elseif order.idstatusorder.statusorder == 'CANCELLED' %}
+                                    <div class="col-lg-9 col-md-8">
+                                                    <span class="badge bg-danger text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                    </div>
+                                    {% elseif order.idstatusorder.statusorder == 'DELIVERY' %}
+                                    <div class="col-lg-9 col-md-8">
+                                                    <span class="badge bg-info text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                    </div>
+                                    {% else %}
+                                    <div class="col-lg-9 col-md-8">
+                                                    <span class="badge bg-success text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Payment Type</div>
+                                    <div class="col-lg-9 col-md-8">{{ order.idpaytype.paytype }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Paid At</div>
+                                    <div class="col-lg-9 col-md-8">{{ order.paydtm is empty ? "Unpaid" : order.paydtm | date('d/m/y') }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Created At</div>
+                                    <div class="col-lg-9 col-md-8">{{ order.createddtm | date('d/m/y') }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                                    <div class="col-lg-9 col-md-8">{{ order.iduser.phone }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Email</div>
+                                    <div class="col-lg-9 col-md-8">{{ order.iduser.emailuser }}</div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                {{ form_start(form) }}
+                                    {{ form_label(form.idstatusorder, 'Update status:', {'label_attr': {'class': 'col-form-label', 'for': 'status'}}) }}
+                                    {{ form_widget(form.idstatusorder, {attr: {'id': 'status', 'class': 'form-control'}}) }}
+                                    {{ form_widget(form.Submit, {attr: {class: 'btn btn-primary'}}) }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

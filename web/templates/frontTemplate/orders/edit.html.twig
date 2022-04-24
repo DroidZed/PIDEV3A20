@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit TblUserorder</h1>
 
-    {{ include('tbl_userorder/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('orders/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_tbl_userorder_index') }}">back to list</a>
 
-    {{ include('tbl_userorder/_delete_form.html.twig') }}
+    {{ include('orders/_delete_form.html.twig') }}
 {% endblock %}
