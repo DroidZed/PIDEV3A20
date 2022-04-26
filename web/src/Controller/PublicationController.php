@@ -6,6 +6,7 @@ use App\Entity\TblPublication;
 use App\Entity\TblVideogame;
 use App\Form\JeuVideoType;
 use App\Form\PublicationType;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use DateTimeInterface;
 use Datetime;
+use App\Repository\TblPublicationRepository;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 
 class PublicationController extends AbstractController
@@ -91,6 +94,26 @@ class PublicationController extends AbstractController
         return $this->render('publication/createPub.html.twig', ['f'=>$form->createView()]);
 
     }
+
+    /**
+     * @Route("/publication/{id}/croi", name="croi")
+     * @return Response
+     */
+
+    public function orderLikesDesc($id): Response
+    {
+        $order = 1;
+        $pub = $this->getDoctrine()->getRepository(TblPublication::class)->triLikesASC($id);
+
+        return $this->render('publication/index.html.twig', [
+            'b'=>$pub,
+            'order'=> $order
+        ]);
+    }
+
+
+
+
 
 
 
