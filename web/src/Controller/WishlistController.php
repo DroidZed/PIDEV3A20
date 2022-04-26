@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/tbl/wishlist")
  */
-class TblWishlistController extends AbstractController
+class WishlistController extends AbstractController
 {
     /**
      * @Route("/{userId}", name="app_tbl_wishlist_show", methods={"GET"})

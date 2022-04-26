@@ -45,9 +45,6 @@ class TblUserorder
      *     min = 10,
      *     minMessage = "Address too short !"
      * )
-     * @Assert\Blank(
-     *     message="field cannot be blank !"
-     * )
      */
     private $orderaddress;
 
@@ -58,9 +55,6 @@ class TblUserorder
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
      * })
-     * @Assert\Blank(
-     *     message="field cannot be blank !"
-     * )
      */
     private $idpaytype;
 

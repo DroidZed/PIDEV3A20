@@ -76,6 +76,8 @@ class TblProduct
      */
     private $iduser;
 
+
+
     public function getIdproduct(): ?int
     {
         return $this->idproduct;

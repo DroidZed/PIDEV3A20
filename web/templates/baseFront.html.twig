@@ -20,7 +20,7 @@
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/nice-select.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/animate.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/style.css") }}>
-
+        <link href="{{ asset('frontTemplate/css/swal2.dark.min.css') }}" rel="stylesheet">
         <style>
 
             .rem-btn {
@@ -74,8 +74,7 @@
                                             <ul class="sub-menu">
                                                 <li><a href="#">About Us</a></li>
                                                 <li><a href="{{ path('listProds') }}">Shop</a></li>
-                                                <li><a href="#">Shop Details</a></li>
-                                                <li><a href="{{ path('dummyProfile', {'idUser': 1}) }}">Profile</a></li>
+                                                <li><a href="#">Profile</a></li>
                                                 <li><a href="{{ path('goToCart') }}">Cart</a></li>
                                                 <li><a href="{{ path('checkOut') }}">Check Out</a></li>
                                                 <li><a href="#">Features</a></li>
@@ -236,6 +235,7 @@
     <script src={{ asset ("frontTemplate/js/jquery.magnific-popup.min.js") }}></script>
     <script src={{ asset ("frontTemplate/js/wow.js") }}></script>
     <script src={{ asset ("frontTemplate/js/main.js") }}></script>
+    <script src="{{ asset('frontTemplate/js/sweetalert2.all.min.js') }}"></script>
 {% endblock %}
 
 {% endblock %}

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/tbl/fidcard")
  */
-class TblFidcardController extends AbstractController
+class FidCardController extends AbstractController
 {
 
     /**

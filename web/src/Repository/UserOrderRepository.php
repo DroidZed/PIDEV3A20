@@ -58,11 +58,6 @@ class UserOrderRepository extends ServiceEntityRepository
     }
 
     /**
-     * Our new getAllPosts() method
-     *
-     * 1. Create & pass query to paginate method
-     * 2. Paginate will return a `\Doctrine\ORM\Tools\Pagination\Paginator` object
-     * 3. Return that object to the controller
      *
      * @param integer $currentPage The current page (passed from controller)
      *
