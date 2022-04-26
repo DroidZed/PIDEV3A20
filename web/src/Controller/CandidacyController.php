@@ -56,6 +56,7 @@ class CandidacyController extends AbstractController
 
         if($form->isSubmitted() &&  $form->isValid() )
         {
+
             $file = $form->get('imagecv')->getData();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
             try {
@@ -73,6 +74,7 @@ class CandidacyController extends AbstractController
             $candidacy->setIduser($this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1));
             $candidacy->setIdoffer($offer);
             $em = $this->getDoctrine()->getManager();
+
             $em->persist($candidacy); //add
             $em->flush();
 
@@ -86,11 +88,17 @@ class CandidacyController extends AbstractController
     /**
      * @Route("/editAutoriser/", name="editAutoriser")
      */
-    function AutoriserAction(Request $request){
+    function AutoriserAction(Request $request,\Swift_Mailer $mailer){
         $candidacy=$this->getDoctrine()->getRepository(TblCandidacy::class)->find($request->get('id'));
         $candidacy->setEtat("Faire le test");
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+
+        $message = (new \Swift_Message("test"))
+            ->setFrom('farah.elkamel@esprit.tn','farah')
+            ->setTo("farah.elkamel@esprit.tn")
+            ->setBody("Vous etes autorisé a faire le Test.");
+        $mailer->send($message);
 
         return $this->redirectToRoute('display_Candidacy_Admin', ['id'=>$request->get('idoffre')]);
     }

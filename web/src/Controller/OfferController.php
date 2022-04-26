@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\TblCandidacy;
 use App\Entity\TblOffer;
 use App\Entity\TblUser;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\OfferType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 
 /**
@@ -22,10 +24,32 @@ class OfferController extends AbstractController
 
     /**
      * @Route("/", name="display_Offer")
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return Response
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+
         $user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
+        $donnees = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
+        $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
+                'iduser' => $user,
+            ]
+        );
+
+        $donnees = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1),
+            5
+        );
+        $test =false;
+        return $this->render('offer/index.html.twig', [
+            'Offers'=>$donnees,
+            'candidacys'=>$candidacys,
+            'test' => $test
+        ]);
+        /*$user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
         $Offers = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
         $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
             'iduser' => $user,
@@ -35,9 +59,9 @@ class OfferController extends AbstractController
         return $this->render('offer/index.html.twig', [
             'Offers'=>$Offers,
             'candidacys'=>$candidacys,
-            'test' => $test
+            'test' => $test,
 
-        ]);
+        ]);*/
     }
 
     /**
@@ -70,7 +94,7 @@ class OfferController extends AbstractController
             $em->persist($OFFER); //add
             $em->flush();
 
-            return $this->redirectToRoute('display_Offer');
+            return $this->redirectToRoute('display_Offer_Admin');
         }
 
         return $this->render('offer/createOffer.html.twig', ['f'=>$form->createView()]);
@@ -86,7 +110,7 @@ class OfferController extends AbstractController
         $em->remove($OFFER);
         $em->flush();
 
-        return $this->redirectToRoute('display_Offer');
+        return $this->redirectToRoute('display_Offer_Admin');
 
     }
 
@@ -106,7 +130,7 @@ class OfferController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('display_Offer');
+            return $this->redirectToRoute('display_Offer_Admin');
         }
 
         return $this->render('offer/updateOffer.html.twig', ['f'=>$form->createView()]);
@@ -114,6 +138,37 @@ class OfferController extends AbstractController
     }
 
 
+    /**
+     * @Route("/r/search_recc", name="search_recc", methods={"GET"})
+     */
+    public function search_rec(Request $request, NormalizerInterface $Normalizer): Response
+    {
+
+        $requestString = $request->get('searchValue');
+        $requestString3 = $request->get('orderid');
+
+        $em = $this->getDoctrine()->getManager();
+        if ($requestString3 == 'DESC') {
+            $query = $em->createQuery(
+                'SELECT r FROM App\Entity\TblOffer r   where r.typeoffer like :suj OR r.regionoffer like :suj  order by r.salaryoffer DESC '
+            );
+            $query->setParameter('suj', $requestString . '%');
+        } else {
+            $query = $em->createQuery(
+                'SELECT r FROM App\Entity\TblOffer r   where r.typeoffer like :suj OR r.regionoffer like :suj  order by r.salaryoffer ASC '
+            );
+            $query->setParameter('suj', $requestString . '%');
+        }
+        $offre =$query->getResult();
+
+        $jsoncontentc = $Normalizer->normalize($offre, 'json', ['groups' => 'posts:read']);
+        $jsonc = json_encode($jsoncontentc);
+        if ($jsonc == "[]") {
+            return new Response(null);
+        } else {
+            return new Response($jsonc);
+        }
+    }
 
 
 
