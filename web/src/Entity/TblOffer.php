@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblOffer
@@ -18,6 +20,8 @@ class TblOffer
      * @ORM\Column(name="idOffer", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $idoffer;
 
@@ -25,6 +29,8 @@ class TblOffer
      * @var string
      *
      * @ORM\Column(name="titleOffer", type="string", length=30, nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $titleoffer;
 
@@ -32,6 +38,8 @@ class TblOffer
      * @var string
      *
      * @ORM\Column(name="TypeOffer", type="string", length=20, nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $typeoffer;
 
@@ -39,6 +47,8 @@ class TblOffer
      * @var string
      *
      * @ORM\Column(name="descOffer", type="string", length=255, nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $descoffer;
 
@@ -46,6 +56,8 @@ class TblOffer
      * @var \DateTime
      *
      * @ORM\Column(name="startDTM", type="date", nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $startdtm;
 
@@ -53,6 +65,8 @@ class TblOffer
      * @var \DateTime
      *
      * @ORM\Column(name="endDTM", type="date", nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $enddtm;
 
@@ -60,6 +74,8 @@ class TblOffer
      * @var float
      *
      * @ORM\Column(name="salaryOffer", type="float", precision=10, scale=0, nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $salaryoffer;
 
@@ -67,6 +83,8 @@ class TblOffer
      * @var string
      *
      * @ORM\Column(name="regionOffer", type="string", length=50, nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $regionoffer;
 
@@ -74,6 +92,8 @@ class TblOffer
      * @var string
      *
      * @ORM\Column(name="addressOffer", type="string", length=50, nullable=false)
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $addressoffer;
 
@@ -84,6 +104,8 @@ class TblOffer
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
+     * @Groups("relationnel")
+     * @Groups("posts:read")
      */
     private $iduser;
 
@@ -94,6 +116,9 @@ class TblOffer
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idDomain", referencedColumnName="id")
      * })
+     * @Groups("relationnel")
+     * @Groups("posts:read")
+
      */
     private $iddomain;
 

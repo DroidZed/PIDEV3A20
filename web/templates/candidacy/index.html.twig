@@ -26,9 +26,7 @@
                                 <td>{{ candidacy.candidacydtm|date('d-m-Y')}}</td>
                                 <td>{{ candidacy.idoffer.titleoffer }}</td>
                                 <td>{{ candidacy.etat }}</td>
-                                <td>
-                                    <img width="100" height="100" src="{{ asset('uploads/images/') }}{{ candidacy.imagecv }}" >
-                                </td>
+                                <td>{{ candidacy.imagecv }}</td>
                                 {% if(candidacy.etat=="En Cours") %}
                                     <td>
                                         <a class="btn btn-warning">Test en cours d'examination</a>

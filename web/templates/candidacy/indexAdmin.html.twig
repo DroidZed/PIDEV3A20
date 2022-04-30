@@ -46,7 +46,6 @@
                 </td>
                 {% if(candidacy.etat=="En Cours") %}
                 <td>
-
                     <a href="{{path('editAutoriser',{'id':candidacy.id,'idoffre':candidacy.idoffer.idoffer})}}" class="btn btn-warning">Autoriser a faire le Test</a>
                     <a href="{{path('editRefuser',{'id':candidacy.id,'idoffre':candidacy.idoffer.idoffer})}}" class="btn btn-danger">Refuser</a>
                 </td>
