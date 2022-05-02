@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TblUser
 {
+
+
+
+
+
+
     /**
      * @var int
      *
@@ -277,6 +283,11 @@ class TblUser
         $this->idbadge = $idbadge;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nameuser ;
     }
 
 

@@ -102,6 +102,8 @@
     <!-- header-section end -->
 
     <!-- banner-section start -->
+
+    {% block banner %}
     <section id="banner-section">
         <div class="banner-content d-flex align-items-center">
             <div class="container">
@@ -140,6 +142,7 @@
             </div>
         </div>
     </section>
+    {% endblock %}
     <!-- banner-section end -->
 
     <!-- Available Game In start -->
@@ -183,6 +186,7 @@
     {% block content %}
 
     {% endblock %}
+
 
     <footer id="footer-section">
         {% block footer %}
@@ -241,6 +245,7 @@
     <script src={{ asset ("frontTemplate/js/jquery.magnific-popup.min.js") }}></script>
     <script src={{ asset ("frontTemplate/js/wow.js") }}></script>
     <script src={{ asset ("frontTemplate/js/main.js") }}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.0/axios.min.js" integrity="sha512-yt+yearry6Evoodvr9oWzfGBYcXRyXAbJNZRyD7bHUHs39vj82vnRv1zCqzdh+bShT+c9IQ4T+uX3CmLofd4ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}
 
 {% endblock %}

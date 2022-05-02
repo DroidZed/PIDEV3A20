@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnswerPostRepository;
 
 /**
  * TblAnswerpost
  *
  * @ORM\Table(name="tbl_answerpost", indexes={@ORM\Index(name="fk_user_answerPost", columns={"idUser"}), @ORM\Index(name="fk_post_answerPost", columns={"idPost"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=AnswerPostRepository::class)
  */
 class TblAnswerpost
 {
