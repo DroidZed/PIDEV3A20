@@ -34,7 +34,7 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/newEntreprise", name="entrepriseNew", methods={"GET","POST"})
+     * @Route("/Entreprise/new", name="entrepriseNew", methods={"GET","POST"})
      */
     public function new(Request $request,MailerService $mailerService,StateUserRepository $stateUserRepository): Response
     {
@@ -94,7 +94,7 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/activation/{token}",name="activation")
+     * @Route("/Entreprise/activation/{token}",name="activation")
      */
     public function activation($token,UserRepository $userRepository)
     {
@@ -123,7 +123,7 @@ class EntrepriseController extends AbstractController
 
 
     /**
-     * @Route("/pdfEntreprise",name="pdfEntreprise")
+     * @Route("/Entreprise/pdfEntreprise",name="pdfEntreprise")
      */
 
     public function pdf()
@@ -164,7 +164,7 @@ class EntrepriseController extends AbstractController
 
 
     /**
-     * @Route("/email",name="email")
+     * @Route("/Entreprise/email",name="email")
      */
     public function email()
     {
@@ -179,13 +179,13 @@ class EntrepriseController extends AbstractController
 
     }
     /**
-     * @Route("/code",name="code")
+     * @Route("/Entrerise/code",name="code")
      */
     public function code(Request $request,MailerService $mailerService,UserRepository $repository)
     {
 
 
-        $email=$request->query->get('_username');
+        $email=$request->query->get('email');
         $user=$this->getDoctrine()->getRepository(User::class)->findBy(['email'=>$email]);
 
         $user1=$this->getDoctrine()->getRepository(User::class)->find(array_values($user)[0]);
@@ -214,5 +214,62 @@ $user1->setPassword(($this->encoder->encodePassword($user1, $code)));
         ]);
 
     }
+    /**
+     * @Route("/Entreprise/codebd",name="codebd")
+     */
+    public function codebd(Request $request,MailerService $mailerService,UserRepository $repository)
+    {
 
+
+        $email=$request->query->get('email');
+
+        $user=$this->getDoctrine()->getRepository(User::class)->findBy(['email'=>$email]);
+
+        $user1=$this->getDoctrine()->getRepository(User::class)->find(array_values($user)[0]);
+
+        $form = $this->createForm(EntreprisePasswordType::class, $user1);
+
+        $code = md5(uniqid());
+
+        if($user!=null) {
+            $mailerService->send(
+                "Recupération compte",
+                "nebulagaming120@gmail.com",
+                $email,
+                "mailTemplates/code.html.twig", ['code' => $code]);
+
+
+
+        }
+
+        $user1->setResetPasswordRequest($code);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        return $this->render('security/forgotPassword2.html.twig', [
+
+            'User' => $user1,
+            'form_modify'=>$form->createView(),
+        ]);
+
+    }
+    /**
+     * @Route("/Entreprise/changepwd/{id}",name="changepwd")
+     */
+    public function changepwd($id,Request $request)
+    {
+        $user = new User();
+        $user=$this->getDoctrine()->getRepository(User::class)->find($id);
+        $mdp1=$request->query->get('mdp1');
+        $mdp2=$request->query->get('mdp2');
+        $code=$request->query->get('codeverif');
+        if(($mdp1==$mdp2) and $user->getResetPasswordRequest()==$code) {
+            $user->setPassword(($this->encoder->encodePassword($user, $mdp1)));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->render('frontTemplate/index.html.twig', [
+
+            ]);
+        }
+    }
 }

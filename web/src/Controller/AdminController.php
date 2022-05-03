@@ -8,8 +8,10 @@ use App\Entity\User;
 use App\Form\AdminType;
 use App\Form\MembreModifyType;
 use App\Form\ModererType;
+use App\Repository\ReclamationRepository;
 use App\Repository\StateUserRepository;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,12 +79,18 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/listEntreprise", name="entreprise_index", methods={"GET"})
      */
-    public function list_entreprise(): Response
-    { $states=$this->getDoctrine()->getRepository(TblStateuser::class)->findAll();
-        $Entreprises=$this->getDoctrine()->getRepository(User::class)->findBy([
+    public function list_entreprise(Request $request,PaginatorInterface $paginator): Response
+    {
+
+        $states=$this->getDoctrine()->getRepository(TblStateuser::class)->findAll();
+        $ent=$this->getDoctrine()->getRepository(User::class)->findBy([
             "roles" => ["0" => '["ROLE_ENTREPRISE"]']
         ]);
+        $Entreprises=$paginator->paginate(
+            $ent,
+            $request->query->getInt('page',1),4
 
+        );
 
         return $this->render('backTemplate/listEntreprise.html.twig', [
             'entreprises' => $Entreprises,
@@ -94,10 +102,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/listMembre", name="membre_index", methods={"GET"})
      */
-    public function list_membre(): Response
+    public function list_membre(Request $request,PaginatorInterface $paginator): Response
     { $states=$this->getDoctrine()->getRepository(TblStateuser::class)->findAll();
-        $Membre=$this->getDoctrine()->getRepository(User::class)->findBy([
+        $Mem=$this->getDoctrine()->getRepository(User::class)->findBy([
             "roles" => ["0" => '["ROLE_MEMBRE"]']]);
+        $Membre=$paginator->paginate(
+            $Mem,
+            $request->query->getInt('page',1),4
+
+        );
         return $this->render('backTemplate/listMembre.html.twig', [
             'membres' => $Membre,
             'state'=>$states,

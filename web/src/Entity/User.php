@@ -8,6 +8,7 @@ use JetBrains\PhpStorm\Internal\LanguageLevelTypeAware;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -23,7 +24,7 @@ class User implements UserInterface,\Serializable
 {
     /**
      * @var int
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="idUser", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -32,7 +33,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var string
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="nameUser", type="string", length=100, nullable=false)
      * @Assert\NotBlank
      * @Assert\Length (
@@ -46,7 +47,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var string
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="emailUser", type="string", length=50, nullable=false)
      * @Assert\Email()
      *  @Assert\Regex(
@@ -65,7 +66,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var \DateTime
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      *
      */
@@ -73,14 +74,14 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var \DateTime|null
-     *
+     *@Groups ("post:read")
      * @ORM\Column(name="desactivationDTM", type="date", nullable=true)
      */
     private $desactivationdtm;
 
     /**
      * @var string
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="pwdUser", type="string", length=60, nullable=false)
      *  @Assert\NotBlank
      * @Assert\Length (
@@ -93,6 +94,7 @@ class User implements UserInterface,\Serializable
     private $password;
 
     /**
+     * @Groups ("post:read")
      * @var string
      * @Assert\NotBlank
      * @Assert\Length (
@@ -107,7 +109,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var string|null
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="photoUser", type="string", length=255, nullable=true)
      * @Assert\Length (
      *
@@ -120,42 +122,48 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var array
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="roleUser", type="json")
      */
     private $roles;
 
     /**
      * @var int|null
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="levelUser", type="integer", nullable=true, options={"default"="1"})
      */
     private $leveluser = 1;
 
     /**
      * @var string|null
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="cv", type="string", length=255, nullable=true)
      */
     private $cv;
 
     /**
      * @var string|null
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="descUser", type="string", length=255, nullable=true)
      */
     private $descuser;
 
     /**
      * @var string|null
-     *
+     * @Groups ("post:read")
      * @ORM\Column(name="activation_token", type="string", length=20, nullable=true)
      */
     private $activation_token;
+    /**
+     * @var string|null
+     * @Groups ("post:read")
+     * @ORM\Column(name="reset_password_request", type="string", length=255, nullable=true)
+     */
+    private $reset_password_request;
 
     /**
      * @var TblBadge
-     *
+     * @Groups ("post:read")
      * @ORM\ManyToOne(targetEntity="TblBadge")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idBadge", referencedColumnName="idBadge")
@@ -165,7 +173,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var \TblStateuser
-     *
+     * @Groups ("post:read")
      * @ORM\ManyToOne(targetEntity="TblStateuser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="stateUser", referencedColumnName="idStateUser")
@@ -204,7 +212,20 @@ class User implements UserInterface,\Serializable
     {
         $this->nom = $nom;
     }
-
+    /**
+     * @param string $reset_password_request
+     */
+    public function setResetPasswordRequest(string $code): void
+    {
+        $this->reset_password_request = $code;
+    }
+    /**
+     * @return string
+     */
+    public function getResetPasswordRequest(): ?string
+    {
+        return $this->reset_password_request;
+    }
     /**
      * @return string
      */

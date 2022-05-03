@@ -14,6 +14,7 @@
     <title>{% block title %} Nebula Gaming {% endblock %}</title>
 
 
+
     {% block stylesheet %}
         <link rel="icon" href={{ asset ("frontTemplate/images/fav.png") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/bootstrap.min.css") }}>
@@ -34,6 +35,7 @@
 
 <body>
 {% block body %}
+
     <!-- header-section start -->
 
 
@@ -139,6 +141,7 @@
                         <div class="main-content">
                             <div class="top-area justify-content-center text-center">
                                 <h4>Supernova presents</h4>
+
                                 <h1>Nebula Gaming</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua</p>
@@ -218,6 +221,7 @@
 
     {% endblock %}
 
+
     <footer id="footer-section">
         {% block footer %}
             <div class="footer-mid pt-120">
@@ -254,6 +258,7 @@
                                 <div class="left-area text-center">
                                     <p>Copyright © 2021. All Rights Reserved By
                                         <a href="#">BEGAM</a>
+
                                     </p>
                                 </div>
                             </div>
@@ -265,6 +270,9 @@
     </footer>
 
     <!-- footer-section end -->
+
+
+
 {% block js %}
     <script src={{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}></script>
     <script src={{ asset ("frontTemplate/js/bootstrap.min.js") }}></script>
@@ -277,6 +285,8 @@
     <script src={{ asset ("frontTemplate/js/wow.js") }}></script>
     <script src={{ asset ("frontTemplate/js/main.js") }}></script>
 {% endblock %}
+
+
 
 {% endblock %}
 </body>

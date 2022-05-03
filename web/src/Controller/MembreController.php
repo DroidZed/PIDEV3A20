@@ -23,7 +23,7 @@ class MembreController extends AbstractController
 
 
     /**
-     * @Route("/newMembre", name="newMembre", methods={"GET","POST"})
+     * @Route("/Membre/newMembre", name="newMembre", methods={"GET","POST"})
      */
     public function new(\Swift_Mailer $mailer,Request $request,StateUserRepository $stateUserRepository,MailerService $mailerService,UserPasswordEncoderInterface $encoder): Response
     {
@@ -81,7 +81,7 @@ class MembreController extends AbstractController
 
 
     /**
-     * @Route("/activation/{token}",name="activationM")
+     * @Route("/Membre/activation/{token}",name="activationM")
      */
     public function activation($token,UserRepository $userRepository)
     {
@@ -106,7 +106,7 @@ class MembreController extends AbstractController
     }
 
     /**
-     * @Route("/pdfMembre",name="pdfMembre")
+     * @Route("/Membre/pdfMembre",name="pdfMembre")
      */
 
     public function pdf()

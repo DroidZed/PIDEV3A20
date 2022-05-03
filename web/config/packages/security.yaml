@@ -61,10 +61,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
 
-       - { path: '^/admin', roles: ROLE_ADMIN }
-       - { path: '^/Membre', roles: ROLE_MEMBRE }
-       - { path: '^/Entreprise', roles: ROLE_ENTREPRISE }
-       - { path: '^/reclamation', roles: [ROLE_MEMBRE, ROLE_ENTREPRISE] }
 
 
 
