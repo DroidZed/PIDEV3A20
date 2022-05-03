@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<br><br>
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-success" style="width:250px; height: 50px; align-items: center;justify-content: center">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background:transparent; padding: 2px 6px; }
+    </style>
+
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            var data;
+            var chart;
+
+            // Load the Visualization API and the piechart package.
+            google.charts.load('current', {'packages':['corechart']});
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function drawChart() {
+
+                // Create our data table.
+                data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows([
+                    ['',0],
+                    {% for jvvvv in videog %}
+                    {% set myVal = 0 %}
+                    {% for p in pub %}
+                    {% if(p.idgv.id == jvvvv.id) %}
+                    {% set myVal = myVal + 1 %}
+                    {% endif %}
+                    {% endfor %}
+                    ['{{ jvvvv.nameVg }}', {{ myVal }}],
+                    {% endfor %}
+
+                ]);
+
+                // Set chart options
+                var options = {'title':'Nombre de publications par jeu',
+                    'width':700,
+                    'height':300};
+
+                // Instantiate and draw our chart, passing in some options.
+                chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                google.visualization.events.addListener(chart, 'select', selectHandler);
+                chart.draw(data, options);
+            }
+
+            function selectHandler() {
+                var selectedItem = chart.getSelection()[0];
+                var value = data.getValue(selectedItem.row, 0);
+                alert('The user selected ' + value);
+            }
+
+        </script>
+<div class="row"style="display: flex;align-items: center;justify-content: center" >
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #103981">Statistiques</h5>
+                    <div>
+                    <div id="divs">
+                        <input class="form-control" type="text" id="search" placeholder="🔍">
+                    </div>
+
+
+                    <div id="chart_div" style="width:400px; height:300px"></div>
+
+                    <!-- Active Table -->
+                    <table id="t"  class="table table-borderless" >
+                        <tbody id="all">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                            <a xlink:href="{{ path('display_Vg') }}" >
+                                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                            </a>
+                        </svg>
+                        </tbody>
+                        <tbody id="search">
+                        </tbody>
+
+                    </table>
+                    <!-- End Tables without borders -->
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+    <br><br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script>
+        $( document ).ready(function() {
+
+            /*begin rechercher avancee multicritéres selon sujet et staus*/
+            $("#divs").keyup(function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+                var value = $("#search").val();
+                //    alert(value);
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+                $.ajax({
+                    /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                    url : "{{ path('search_recc') }}",
+                    /* La méthode utilisée pour transférer les données est GET */
+                    type : 'GET',
+                    /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                    data: {
+                        'searchValue' : value,
+                    },
+                    /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                    success : function(retour){
+                        if(retour){
+                            $('#t tbody#search').empty();
+                            $.each(JSON.parse(retour), function(i, obj) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(
+                                    '<tr>' +
+                                    '<td> '+obj.namevg +'  </td>' +
+                                    '<td><img alt="" style= "width: 300px;height:300px" src="{{ asset('uploads/images/') }}'+obj.imagevg+'" > </td>' +
+                                    '<td>' +
+                                    '<a class="btn btn-outline-info" href="/publication/'+obj.id+'" style="font-size: 17px">Afficher</a>'+
+                                    '<br><br>' +
+                                    '<a class="btn btn-outline-info" href="/addPub/'+obj.id+'"style="font-size: 17px">Publier</a>' +
+                                    '</td>  ' +
+                                    '<td>'+
+                                    '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="grey" class="bi bi-archive" viewBox="0 0 16 16">'+
+                                    ' <a xlink:href="{{ path('modifJeu',{'id':'+obj.id+'}) }}" ><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>'+
+                                    '</a>'+
+                                    '</svg>'+
+                                    '<br><br>' +
+                                    '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="red" class="bi bi-archive" viewBox="0 0 16 16">'+
+                                    '<a xlink:href="{{ path('supp_Vg',{'id':'+obj.id+'}) }}" ><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>'+
+                                    '</a>'+
+                                    '</svg>'+
+                                    '<td>'+
+                                    ' </tr>');
+                            });
+                        }
+                        else
+                        {
+
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+
+                        }
+                    },
+                });
+                return false;
+            });
+            /*end rechercher avancee multicritéres selon sujet et staus*/
+        });
+    </script>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 
 {% block body %}
+
     <br><br>
 
     <div class="row"style="display: flex;align-items: center;justify-content: center">
@@ -23,7 +24,8 @@
                         <tr>
                             <th>Date</th>
                             <th>Description</th>
-                            <th>Commentaire(s)</th>
+                            <th>Reactions</th>
+                            <th>Commentaires</th>
 
 
                         </tr>
@@ -33,7 +35,24 @@
                         {% for pub in b %}
                             <tr>
                                 <td>{{ pub.datepub | date('d M Y g:ia') }}</td>
-                                <td>{{ pub.descriptionpub }}</td>
+                                <td>
+                                    {{ pub.descriptionpub }}
+
+                                </td>
+                                <td>
+                                    <a href="#" class ="btn btn-link">
+                                        <i class="far fa-thumbs-up"></i>
+                                        <span class="js-likes" style="color: blue">{{ pub.nbrjaime }}</span>
+                                    </a>
+
+                                      {#   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                                        <a xlink:href="/publication/{{ pub.idgv }}/croi" >
+                                            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                                        </a>
+                                    </svg> #}
+
+                                </td>
+
                                 <td>
                                     <a class="btn btn-outline-info" href="{{ path('display_Com', {'id':pub.id}) }}" style="font-size: 15px">Afficher</a>
                                     <br><br>
@@ -52,7 +71,8 @@
 
 
                             </tr>
-                        {% endfor %}
+
+                                {% endfor %}
 
                         </tbody>
                     </table>

@@ -1,0 +1,11 @@
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     '%env(WKHTMLTOPDF_PATH)%'
+        options:    []
+    image:
+        enabled:    true
+        binary:     "\"D:\\Downloads\\wkhtmltopdf\\binwkhtmltoimage.exe\""
+        options:
+            width: 1920
+            height: 1080

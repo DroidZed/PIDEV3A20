@@ -1,0 +1,56 @@
+{% block body %}
+    <h1 align="center">Liste des Jeux</h1>
+    <style type="text/css">
+        * {
+            font-family: Candara, Arial, sans-serif;
+        }
+        table{
+            font-size: 17px;
+            background-color: lightgrey;
+        }
+        tfoot tr td{
+            font-weight: bold;
+            font-size: x-small;
+        }
+        .gray {
+            background-color: lightgreen;
+        }
+    </style>
+    <style>
+        table, td, th {
+            border: 1px solid;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+    </style>
+
+
+
+    <table border="2" >
+
+        <thead>
+        <tr>
+            <th class="d-none d-xl-table-cell">Nom</th>
+            <th class="d-none d-xl-table-cell">Image</th>
+            <th class="d-none d-xl-table-cell">Rating</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in e %}
+
+            <tr>
+                <td class="d-none d-xl-table-cell">{{ i.namevg }}</td>
+                <td class="d-none d-xl-table-cell"><img src="{{ 'uploads/images' ~ i.imagevg }}" alt="" style="width: 80px" style="height:80px"> </td>
+                <td class="d-none d-xl-table-cell">{{ i.rating }}</td>
+
+
+            </tr >
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
