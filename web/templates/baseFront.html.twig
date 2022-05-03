@@ -6,16 +6,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
 
 
     <title>{% block title %} Nebula Gaming {% endblock %}</title>
 
-
     {% block stylesheet %}
-        <link rel="shortcut icon" href={{ asset ("frontTemplate/images/fav.png") }}type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset ("frontTemplate/images/fav.png") }}" type="image/x-icon">
+
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/bootstrap.min.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/fontawesome.min.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/slick.css") }}>
@@ -23,6 +25,11 @@
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/nice-select.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/animate.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/style.css") }}>
+        <style>
+            .purple-entr-profile {
+                background-color: #32286D;
+            }
+        </style>
     {% endblock %}
 </head>
 
@@ -44,8 +51,9 @@
                 <div class="container">
                     <div class="row d-flex header-area">
                         <div class="logo-section flex-grow-1 d-flex align-items-center">
-                            <a class="site-logo site-title" href="#"><img src={{asset ("frontTemplate/images/logo.png")}}
-                                                                          alt="site-logo"></a>
+                            <a class="site-logo site-title" href="#"><img
+                                        src={{ asset ("frontTemplate/images/logo.png") }}
+                                        alt="site-logo"></a>
                         </div>
                         <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -67,20 +75,30 @@
                                             <li><a href="#">About Us</a></li>
                                             <li><a href="#">Shop</a></li>
                                             <li><a href="#">Shop Details</a></li>
-                                            <li><a href="#">Profile</a></li>
+                                            <li>
+                                                {% if is_granted('ROLE_ENTREPRISE') and app.user.stateuser=="Active" %}
+                                            <li><a href={{ path('ProfilEntreprise') }}>My Space</a></li>
+                                            {% elseif is_granted('ROLE_MEMBRE') %}
+                                                <li><a href={{ path('profilMembre') }}>My Profile</a></li>
+                                            {% elseif is_granted('ROLE_ENTREPRISEN')  %}
+                                                <li>Verifier Votre Compte</li>
+                                            {% else %}
+
+                                            {% endif %}
+                                            </li>
                                             <li><a href="#">Cart</a></li>
                                             <li><a href="#">Check Out</a></li>
                                             <li><a href="#">Features</a></li>
                                             <li><a href="#">Error</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="{{ path('app_reclamation_index') }}">Contact</a></li>
                                 </ul>
                             </div>
                         </nav>
                         <div class="right-area header-action d-flex align-items-center">
                             <div class="search-icon">
-                                <a href="#"><img src={{asset ("frontTemplate/images/search_btn.png")}} alt="icon"></a>
+                                <a href="#"><img src={{ asset ("frontTemplate/images/search_btn.png") }} alt="icon"></a>
                             </div>
                             <div class="lang d-flex align-items-center">
                                 <select>
@@ -90,8 +108,15 @@
                                     <option value="4">NL</option>
                                 </select>
                             </div>
-                            <a href="#" class="login-btn">Login</a>
-                            <a href="#" class="cmn-btn">Join Now!</a>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" %}
+                                <p>{{ app.user.nom }}</p>
+                                <div class="header-btn d-none f-right d-lg-block">
+                                    <a href="{{ path('logout') }}" class="cmn-btn">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ path('loginBack') }}" class="login-btn">Login</a>
+                                <a href="{{ path('loginBack') }}" class="cmn-btn">Join Now!</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -100,7 +125,8 @@
     </header>
 
     <!-- header-section end -->
-
+    <div>
+    {% block banner %}
     <!-- banner-section start -->
     <section id="banner-section">
         <div class="banner-content d-flex align-items-center">
@@ -140,6 +166,10 @@
             </div>
         </div>
     </section>
+
+{% endblock %}
+    </div>
+
     <!-- banner-section end -->
 
     <!-- Available Game In start -->
@@ -230,6 +260,7 @@
     </footer>
 
     <!-- footer-section end -->
+
 {% block js %}
     <script src={{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}></script>
     <script src={{ asset ("frontTemplate/js/bootstrap.min.js") }}></script>
@@ -242,6 +273,7 @@
     <script src={{ asset ("frontTemplate/js/wow.js") }}></script>
     <script src={{ asset ("frontTemplate/js/main.js") }}></script>
 {% endblock %}
+
 
 {% endblock %}
 </body>

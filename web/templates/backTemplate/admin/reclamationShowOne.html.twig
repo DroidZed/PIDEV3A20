@@ -1,0 +1,29 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}My Complaint{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Idcomplaint</th>
+            <td>{{ tbl_reclamation.idcomplaint }}</td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td>{{ tbl_reclamation.message }}</td>
+        </tr>
+        <tr>
+            <th>Statuscomplaint</th>
+            <td>{{ tbl_reclamation.statuscomplaint }}</td>
+        </tr>
+        <tr>
+            <th>Answercomplaint</th>
+            <td>{{ tbl_reclamation.answercomplaint }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('consulter') }}">back to list</a>
+{% endblock %}
