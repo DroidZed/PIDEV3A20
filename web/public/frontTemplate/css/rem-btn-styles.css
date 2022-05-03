@@ -1,0 +1,7 @@
+.rem-btn {
+    background: linear-gradient(172deg, #e70303 4.36%, #3a0336 117.5%);
+}
+
+.rem-btn::before {
+    background: linear-gradient(24deg, #e70303 4.36%, #720369 117.5%);
+}

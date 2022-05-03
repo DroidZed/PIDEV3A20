@@ -9,33 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/tbl/fidcard")
- */
-class FidCardController extends AbstractController
+
+class FidelityCardController extends AbstractController
 {
-
     /**
-     * @Route("/{idfidcard}", name="card", methods={"GET"})
-     */
-    public function index($idfidcard, FidCardRepository $fidCardRepository): Response
-    {
-
-        return $this->render("frontTemplate/tbl_fidcard/index.html.twig", [
-            "card" => $fidCardRepository->find($idfidcard)
-        ]);
-    }
-
-    /**
-     * @Route("/test", name="card", methods={"GET"})
-     */
-    public function test(): Response
-    {
-        return $this->render("frontTemplate/test/front.html.twig");
-    }
-
-    /**
-     * @Route("/{idfidcard}/removePoints", name="rmPts", methods={"GET", "PUT"})
+     * @Route("/membre/fidcard/{idfidcard}/removePoints", name="rmPts", methods={"GET", "PUT"})
      */
     public function removePoints(int $idfidcard, Request $req, FidCardRepository $fidCardRepository, CardTypeRepository $cardTypeRepository): Response
     {
@@ -90,7 +68,7 @@ class FidCardController extends AbstractController
     }
 
     /**
-     * @Route("/{idfidcard}/addPoints", name="addPts", methods={"GET", "PUT"})
+     * @Route("/membre/fidcard/{idfidcard}/addPoints", name="addPts", methods={"GET", "PUT"})
      */
     public function addPoints(int $idfidcard, Request $req, FidCardRepository $fidCardRepository, CardTypeRepository $cardTypeRepository)
     {

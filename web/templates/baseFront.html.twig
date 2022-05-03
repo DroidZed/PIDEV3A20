@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <title>{% block title %} Nebula Gaming {% endblock %}</title>
 
 
     {% block stylesheet %}
-        <link rel="shortcut icon" href={{ asset ("frontTemplate/images/fav.png") }}type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset ("frontTemplate/images/fav.png") }}" type="image/x-icon">
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/bootstrap.min.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/fontawesome.min.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/slick.css") }}>
@@ -20,17 +18,8 @@
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/nice-select.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/animate.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/style.css") }}>
-        <link href="{{ asset('frontTemplate/css/swal2.dark.min.css') }}" rel="stylesheet">
-        <style>
-
-            .rem-btn {
-                background: linear-gradient(172deg, #e70303 4.36%, #3a0336 117.5%);
-            }
-
-            .rem-btn::before {
-                background: linear-gradient(24deg, #e70303 4.36%, #720369 117.5%);
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('frontTemplate/css/swal2.dark.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontTemplate/css/rem-btn-styles.css') }}">
 
     {% endblock %}
 </head>
@@ -171,9 +160,9 @@
 
     <!-- footer-section start -->
 
-{% block content %}
+    {% block content %}
 
-{% endblock %}
+    {% endblock %}
     <div>
         {% block footer %}
             <footer id="footer-section">
@@ -220,22 +209,22 @@
                     </div>
                 </div>
             </footer>
-{% endblock %}
+        {% endblock %}
     </div>
 
     <!-- footer-section end -->
 {% block js %}
-    <script src={{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/bootstrap.min.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/slick.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/jquery.nice-select.min.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/fontawesome.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/jquery.counterup.min.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/jquery.waypoints.min.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/jquery.magnific-popup.min.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/wow.js") }}></script>
-    <script src={{ asset ("frontTemplate/js/main.js") }}></script>
-    <script src="{{ asset('frontTemplate/js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/bootstrap.min.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/slick.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/jquery.nice-select.min.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/fontawesome.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/jquery.counterup.min.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/jquery.waypoints.min.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/jquery.magnific-popup.min.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/wow.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/main.js") }}"></script>
+    <script src="{{ asset ("frontTemplate/js/sweetalert2.all.min.js") }}"></script>
 {% endblock %}
 
 {% endblock %}

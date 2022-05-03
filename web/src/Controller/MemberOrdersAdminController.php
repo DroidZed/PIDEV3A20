@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class UserOrdersAdminController extends AbstractController
+class MemberOrdersAdminController extends AbstractController
 {
 
     /**
