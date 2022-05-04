@@ -8,9 +8,9 @@
 
     <title>{% block title %} Nebula Gaming {% endblock %}</title>
 
-
     {% block stylesheet %}
         <link rel="shortcut icon" href="{{ asset ("frontTemplate/images/fav.png") }}" type="image/x-icon">
+
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/bootstrap.min.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/fontawesome.min.css") }}>
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/slick.css") }}>
@@ -20,7 +20,11 @@
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/style.css") }}>
         <link rel="stylesheet" href="{{ asset('frontTemplate/css/swal2.dark.min.css') }}">
         <link rel="stylesheet" href="{{ asset('frontTemplate/css/rem-btn-styles.css') }}">
-
+        <style>
+            .purple-entr-profile {
+                background-color: #32286D;
+            }
+        </style>
     {% endblock %}
 </head>
 
@@ -35,60 +39,74 @@
     <a href="#" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
     <div>
         {% block header %}
-            <header id="header-section">
-                <div class="overlay">
-                    <div class="container">
-                        <div class="row d-flex header-area">
-                            <div class="logo-section flex-grow-1 d-flex align-items-center">
-                                <a class="site-logo site-title" href="#"><img
-                                            src="{{ asset ("frontTemplate/images/logo.png") }}"
-                                            alt="site-logo"></a>
-                            </div>
-                            <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <i class="fas fa-bars"></i>
-                            </button>
-                            <nav class="navbar navbar-expand-lg p-0">
-                                <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav main-menu ml-auto">
-                                        <li><a href="#" class="active">Home</a></li>
-                                        <li class="menu_has_children"><a href="#">Tournaments</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="#">Tournaments</a></li>
-                                                <li><a href="#">Tournaments Single</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu_has_children"><a href="#">Pages</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="#">About Us</a></li>
-                                                <li><a href="{{ path('listProds') }}">Shop</a></li>
-                                                <li><a href="#">Profile</a></li>
+            <div class="overlay">
+                <div class="container">
+                    <div class="row d-flex header-area">
+                        <div class="logo-section flex-grow-1 d-flex align-items-center">
+                            <a class="site-logo site-title" href="#"><img src={{ asset ("frontTemplate/images/logo.png") }} alt="site-logo"></a>
+                        </div>
+                        <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <nav class="navbar navbar-expand-lg p-0">
+                            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav main-menu ml-auto">
+                                    <li><a href="#" class="active">Home</a></li>
+                                    <li class="menu_has_children"><a href="#0">Tournaments</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">Tournaments</a></li>
+                                            <li><a href="#">Tournaments Single</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu_has_children"><a href="#0">Pages</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">About Us</a></li>
+                                            <li><a href="#">Shop</a></li>
+                                            <li><a href="#">Shop Details</a></li>
+                                            <li>
+                                                {% if is_granted('ROLE_ENTREPRISE') and app.user.stateuser=="Active" %}
+                                            <li><a href={{ path('ProfilEntreprise') }}>My Space</a></li>
+                                            {% elseif is_granted('ROLE_MEMBRE') %}
+                                                <li><a href={{ path('profilMembre') }}>My Profile</a></li>
+                                            {% elseif is_granted('ROLE_ENTREPRISEN')  %}
+                                                <li>Verifier Votre Compte</li>
+                                            {% else %}
+
+                                            {% endif %}
+                                            </li>
                                                 <li><a href="{{ path('goToCart') }}">Cart</a></li>
                                                 <li><a href="{{ path('checkOut') }}">Check Out</a></li>
-                                                <li><a href="#">Features</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Contact</a></li>
-                                    </ul>
-                                </div>
-                            </nav>
-                            <div class="right-area header-action d-flex align-items-center">
-                                <div class="search-icon">
-                                    <a href="#"><img src="{{ asset ("frontTemplate/images/search_btn.png") }}"
-                                                     alt="icon"/></a>
-                                </div>
-                                <div class="lang d-flex align-items-center">
-                                    <select>
-                                        <option value="1">EN</option>
-                                        <option value="2">BN</option>
-                                        <option value="3">ES</option>
-                                        <option value="4">NL</option>
-                                    </select>
-                                </div>
-                                <a href="#" class="login-btn">Login</a>
-                                <a href="#" class="cmn-btn">Join Now!</a>
+                                            <li><a href="#">Features</a></li>
+                                            <li><a href="#">Error</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{ path('app_reclamation_index') }}">Contact</a></li>
+                                </ul>
                             </div>
+                        </nav>
+                        <div class="right-area header-action d-flex align-items-center">
+                            <div class="search-icon">
+                                <a href="#"><img src={{ asset ("frontTemplate/images/search_btn.png") }} alt="icon"></a>
+                            </div>
+                            <div class="lang d-flex align-items-center">
+                                <select>
+                                    <option value="1">EN</option>
+                                    <option value="2">BN</option>
+                                    <option value="3">ES</option>
+                                    <option value="4">NL</option>
+                                </select>
+                            </div>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" %}
+                                <p>{{ app.user.nom }}</p>
+                                <div class="header-btn d-none f-right d-lg-block">
+                                    <a href="{{ path('logout') }}" class="cmn-btn">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ path('loginBack') }}" class="login-btn">Login</a>
+                                <a href="{{ path('loginBack') }}" class="cmn-btn">Join Now!</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -96,7 +114,8 @@
         {% endblock %}
     </div>
     <!-- header-section end -->
-
+    <div>
+    {% block banner %}
     <!-- banner-section start -->
     <div>
         {% block banner %}
@@ -120,6 +139,16 @@
             </section>
         {% endblock %}
     </div>
+                <div class="ani-illu">
+                    <img class="left-1 wow fadeInUp" src={{ asset ("frontTemplate/images/left-banner.png") }} alt="image">
+                    <img class="right-2 wow fadeInUp" src={{ asset ("frontTemplate/images/right-banner.png") }} alt="image">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+    </div>
+
     <!-- banner-section end -->
 
     <!-- Available Game In start -->
@@ -213,6 +242,7 @@
     </div>
 
     <!-- footer-section end -->
+
 {% block js %}
     <script src="{{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}"></script>
     <script src="{{ asset ("frontTemplate/js/bootstrap.min.js") }}"></script>
@@ -226,6 +256,7 @@
     <script src="{{ asset ("frontTemplate/js/main.js") }}"></script>
     <script src="{{ asset ("frontTemplate/js/sweetalert2.all.min.js") }}"></script>
 {% endblock %}
+
 
 {% endblock %}
 </body>

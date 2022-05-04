@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aloha!</title>
+
+    <style type="text/css">
+        * {
+            font-family: Candara, Arial, sans-serif;
+        }
+        table{
+            font-size: 17px;
+        }
+        tfoot tr td{
+            font-weight: bold;
+            font-size: x-small;
+        }
+        .gray {
+            background-color: lightgray
+        }
+    </style>
+
+</head>
+<body>
+
+<table width="100%">
+    <tr>
+        <td valign="top"><img src="{{asset('nebula_firstshot.png')}}" alt="" width="150"/></td>
+        <td align="right">
+            <h3>Nebula Gaming</h3>
+            <pre>
+                Societe NebulaGamin
+                Adresse Esprit Ghazela
+                Fax: 70 323 543
+                Email nebulagaming120@gmail.com
+                Date : {{ date }}
+            </pre>
+        </td>
+    </tr>
+
+</table>
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <strong>Administrateur</strong> {{ app.user.nom }}
+    {% endif %}
+Email : {{ app.user.email }}
+
+
+
+
+
+
+
+<table width="100%">
+    <thead style="background-color: lightgray;">
+    <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Tel</th>
+        <th>etat</th>
+    </tr>
+    </thead>
+    <tbody style="text-align:center;">
+    {% set i=0 %}
+    {% for user in users %}
+        {% set i = i + 1 %}
+
+        <tr>
+            <td>{{ i }}</td>
+
+            <td>{{ user.nom }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.tel }}</td>
+            <td>{{ user.stateuser }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <h1>Your Complaints</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th><p style="color: #e67e23">Message</p></th>
+            <th><p style="color: #e67e23">Type</p></th>
+            <th><p style="color: #e67e23">Statuscomplaint</p></th>
+            <th><p style="color: #e67e23">Answercomplaint</p></th>
+            {% if tbl_reclamations is not empty %}
+            <th><p style="color: #e67e23">Actions</p></th>
+                {% else %}
+                <th><p style="color: #e67e23">No Records</p></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for tbl_reclamation in tbl_reclamations %}
+            <tr>
+
+                <td>
+                    <p> {{ tbl_reclamation.message }} </p></td>
+                <td><p>{{ tbl_reclamation.typecomplaint }} </p></td>
+                <td><p>{{ tbl_reclamation.statuscomplaint }} </p></td>
+                <td><p>{{ tbl_reclamation.answercomplaint }} </p></td>
+                <td>
+                   <p> <a href="{{ path('app_reclamation_show', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">show</a> </p>
+                    {% if tbl_reclamation.answercomplaint=='' %}
+                    <p> <a href="{{ path('app_reclamation_edit', {'idcomplaint': tbl_reclamation.idcomplaint}) }}">edit</a> </p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">
+                    <p> no records found </p>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <a href="{{ path('passerRec') }}" class="cmn-btn" >Create new</a>
+
+
+{% endblock %}
