@@ -12,7 +12,7 @@ use App\Repository\StatusOrderRepository;
 use App\Repository\UserOrderRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
-use App\Services\MailerService;
+use App\Services\MailingService;
 use App\Services\QrCodeService;
 use DateTime;
 use Dompdf\Dompdf;
@@ -47,15 +47,15 @@ class MemberOrdersController extends AbstractController
     /**
      * @Route("/checkout", name="checkOut", methods={"GET", "POST"})
      */
-    public function new(Request             $request,
-                        UserRepository $userRepo,
-                        MailerService $mailerService,
-                        QrCodeService  $qrCodeService,
-                        UserOrderRepository $userOrderRepository,
-                        OrderLineRepository $orderLineRepository,
-                        ProductRepository $productRepository,
+    public function new(Request               $request,
+                        UserRepository        $userRepo,
+                        MailingService        $mailerService,
+                        QrCodeService         $qrCodeService,
+                        UserOrderRepository   $userOrderRepository,
+                        OrderLineRepository   $orderLineRepository,
+                        ProductRepository     $productRepository,
                         StatusOrderRepository $statusOrderRepository,
-                        CartController      $cartController): Response
+                        CartController        $cartController): Response
     {
         $user = $userRepo->find(1);
         $userOrder = new TblUserorder();
@@ -106,17 +106,17 @@ class MemberOrdersController extends AbstractController
     /**
      * @param TblUser $user
      * @param TblUserorder $order
-     * @param MailerService $mailerService
+     * @param MailingService $mailerService
      * @param QrCodeService $qrCodeService
      * @param TblOrderline[] $orderLines
      * @return void
      */
     public function sendEmail(
-        TblUser       $user,
-        TblUserorder  $order,
-        MailerService $mailerService,
-        QrCodeService $qrCodeService,
-        array         $orderLines): void
+        TblUser        $user,
+        TblUserorder   $order,
+        MailingService $mailerService,
+        QrCodeService  $qrCodeService,
+        array          $orderLines): void
     {
         try {
 

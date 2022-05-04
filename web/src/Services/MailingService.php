@@ -9,7 +9,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 
-class MailerService
+class MailingService
 {
     private MailerInterface $mailer;
 
