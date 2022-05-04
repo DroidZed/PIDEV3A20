@@ -10,6 +10,7 @@ use App\Form\PlaceOrderType;
 use App\Repository\OrderLineRepository;
 use App\Repository\StatusOrderRepository;
 use App\Repository\UserOrderRepository;
+use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use App\Services\MailerService;
 use App\Services\QrCodeService;
@@ -52,6 +53,7 @@ class MemberOrdersController extends AbstractController
                         QrCodeService  $qrCodeService,
                         UserOrderRepository $userOrderRepository,
                         OrderLineRepository $orderLineRepository,
+                        ProductRepository $productRepository,
                         StatusOrderRepository $statusOrderRepository,
                         CartController      $cartController): Response
     {
@@ -80,20 +82,12 @@ class MemberOrdersController extends AbstractController
 
             foreach ($cartItems as $v) {
                     $temp = new TblOrderline();
-                    $temp->setIdproduct($v->getProduct());
+                    $temp->setIdproduct($productRepository->find($v->getProduct()->getIdproduct()));
                     $temp->setNumberorder($userOrderRepository->find($savedOrder));
                     $temp->setQuantordline($v->getQuantity());
-
-
-                    $this->getDoctrine()->getManager()->persist($temp);
-
-
+                    $orderLineRepository->add($temp);
                     $orderLines += [$v->getProduct()->getNameproduct() => $temp];
-
-
             }
-
-            $this->getDoctrine()->getManager()->flush();
 
             $this->sendEmail($user, $userOrder,$mailerService,$qrCodeService, $orderLines);
 

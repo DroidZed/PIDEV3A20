@@ -131,6 +131,10 @@ class WishlistController extends AbstractController
 
         $user = $userRepository->find($ids["idUser"]);
 
+        if ($user == null) {
+            return $this->json(new JsonResponseDAO("User not found !"), Response::HTTP_BAD_REQUEST);
+        }
+
         if ($wishListRepository->findOneBy([
             "iduser" => $user,
             "idproduct" => $prod
