@@ -64,7 +64,7 @@ class MembreController extends AbstractController
                 "Bienvenue sur notre site",
                 "nebulagaming120@gmail.com",
                 $form->get('email')->getData(),
-                "mail/Template/emailTemplate.html.twig",['token'=>$token]);
+                "mailTemplates/emailTemplate.html.twig",['token'=>$token]);
 
 
 

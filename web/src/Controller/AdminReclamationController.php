@@ -26,7 +26,7 @@ class AdminReclamationController extends AbstractController
         $donnes=$reclamationRepository->findAll();
         $rec=$paginator->paginate(
             $donnes,
-            $request->query->getInt('page',1),4
+            $request->query->getInt('page',1),2
 
         );
         return $this->render('backTemplate/listReclamations.html.twig', [

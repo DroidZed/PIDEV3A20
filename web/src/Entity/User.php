@@ -57,7 +57,7 @@ class User implements UserInterface,\Serializable
      * @Assert\NotBlank
      * @Assert\Length (
      *
-     *     max=15,
+     *     max=100,
      *     min=5,
      *     minMessage="nom obligatoirement supperieur à {{ limit }} caracteres " ,
      *     maxMessage="nom obligatoirement ne pase pas {{ limit }} caracteres")

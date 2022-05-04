@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class TestController extends AbstractController
 {
     /**
-     * @Route("/testFront", name="frontMethod")
+     * @Route("/", name="home")
      */
-    public function front(): Response
+    public function index(): Response
     {
-        return $this->render('frontTemplate/test/front.html.twig');
+        return $this->render('frontTemplate/index.html.twig');
     }
 
     /**
