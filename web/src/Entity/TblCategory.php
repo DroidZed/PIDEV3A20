@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblCategory
@@ -25,6 +26,7 @@ class TblCategory
      * @var string
      *
      * @ORM\Column(name="nameCategory", type="string", length=150, nullable=false)
+     * @Groups("wishlist:items")
      */
     private $namecategory;
 

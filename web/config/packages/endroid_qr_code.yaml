@@ -1,0 +1,14 @@
+endroid_qr_code:
+    default:
+        writer: Endroid\QrCode\Writer\PngWriter
+        size: 300
+        margin: 10
+        encoding: 'UTF-8'
+        errorCorrectionLevel: 'low'
+        roundBlockSizeMode: 'margin'
+        validateResult: false
+    custom:
+        size: 500
+        errorCorrectionLevel: 'quartile' # 'low', 'medium', 'quartile', or 'high'
+        logoPath: '%kernel.project_dir%/public/frontTemplate/images//nebula_firstshot.png'
+        logoResizeToWidth: 190

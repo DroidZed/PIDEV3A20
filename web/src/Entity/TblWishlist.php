@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblWishlist
@@ -18,6 +19,7 @@ class TblWishlist
      * @ORM\Column(name="idWishlist", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("wishlist:items")
      */
     private $idwishlist;
 
@@ -28,6 +30,7 @@ class TblWishlist
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
      * })
+     * @Groups("wishlist:items")
      */
     private $idproduct;
 

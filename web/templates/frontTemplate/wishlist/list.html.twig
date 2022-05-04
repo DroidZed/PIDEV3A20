@@ -1,0 +1,52 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block banner %}
+<section id="banner-section" class="inner-banner profile features shop">
+    <div class="ani-img">
+        <img class="img-1" src="{{ asset ("frontTemplate/images/banner-circle-1.png") }}" alt="icon">
+        <img class="img-2" src="{{ asset ("frontTemplate/images/banner-circle-2.png") }}" alt="icon">
+        <img class="img-3" src="{{ asset ("frontTemplate/images/banner-circle-2.png") }}" alt="icon">
+    </div>
+    <div class="banner-content d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="main-content">
+                        <h1>WishList</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section id="featured-products" class="pt-120 pb-120">
+    <div class="container">
+        <div class="row cus-m">
+            {% for item in wishlist %}
+            <div class="col-lg-4 col-md-6 pb-3">
+                <div class="single-item">
+                    <div class="img-area text-center">
+                        <img src="{{ asset('frontTemplate/images/'~item.idproduct.imageproduct~'') }}" alt="image">
+                    </div>
+                    <div class="bottom-item text-center">
+                        <a href="#"><h6>{{ item.idproduct.nameproduct }}</h6></a>
+                        <p class="text-sm">{{ item.idproduct.idcategory.namecategory }}</p>
+                        <div class="bottom-area d-flex align-items-center justify-content-between">
+                            <h5>${{ item.idproduct.idproduct }}</h5>
+                            <a href="{{ path('detailProd', {'idP': item.idproduct.idproduct}) }}" class="cmn-btn">Consult</a>
+                            <a href="{{
+                            path('app_tbl_wishlist_delete',
+                                {'idwishlist': item.idwishlist, 'idUser': item.iduser.iduser, 'idProduct': item.idproduct.idproduct})
+                            }}" class="cmn-btn rem-btn">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
