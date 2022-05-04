@@ -8,5 +8,4 @@ twig:
     paths:
         'public/frontTemplate/images': images
         'public/frontTemplate/css': css
-    form_themes : ['bootstrap_4_layout.html.twig']
     

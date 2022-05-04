@@ -7,7 +7,7 @@
 /public/bundles/
 /var/
 /vendor/
-*.lock
+composer.lock
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
