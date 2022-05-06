@@ -19,36 +19,35 @@ class TblProduct
      * @ORM\Column(name="idProduct", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      */
     private $idproduct;
 
     /**
      * @var string
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="nameProduct", type="string", length=100, nullable=false)
      */
     private $nameproduct;
 
     /**
      * @var float
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="priceProduct", type="float", precision=10, scale=0, nullable=false)
      */
     private $priceproduct;
 
     /**
      * @var int
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="QtyProduct", type="integer", nullable=false)
      */
     private $qtyproduct;
 
     /**
      * @var string
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="imageProduct", type="string", length=150, nullable=false)
-     * @Groups("wishlist:items")
      */
     private $imageproduct;
 
@@ -65,7 +64,7 @@ class TblProduct
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
      * })
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      */
     private $idcategory;
 

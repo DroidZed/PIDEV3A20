@@ -139,7 +139,7 @@ class WishlistController extends AbstractController
             "iduser" => $user,
             "idproduct" => $prod
         ])) {
-            return $this->json(new JsonResponseDAO("Product already in wishlist !"), Response::HTTP_BAD_REQUEST);
+            return $this->json(new JsonResponseDAO("Product already in wishlist !"));
         }
 
         $item = new TblWishlist();
@@ -193,6 +193,10 @@ class WishlistController extends AbstractController
                         WishListRepository $wishListRepository): JsonResponse
     {
         $item = $wishListRepository->find($request->get("idWishlist"));
+
+        if ($item == null) {
+            return $this->json(new JsonResponseDAO("Product not found !"));
+        }
 
         $em = $this->getDoctrine()->getManager();
 

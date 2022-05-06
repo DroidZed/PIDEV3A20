@@ -19,6 +19,7 @@ class TblCategory
      * @ORM\Column(name="idCategory", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"products"})
      */
     private $idcategory;
 
@@ -26,7 +27,7 @@ class TblCategory
      * @var string
      *
      * @ORM\Column(name="nameCategory", type="string", length=150, nullable=false)
-     * @Groups("wishlist:items")
+     * @Groups({"wishlist:items", "products"})
      */
     private $namecategory;
 
