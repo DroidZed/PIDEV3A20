@@ -9,7 +9,7 @@ use App\Form\ProductType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
-use App\services\MailerService;
+use App\Services\SendEmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +42,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/addProduct", name="addProduct")
      */
-    public function addProduct(Request $request , UserRepository $userRepository , MailerService $mailer): Response
+    public function addProduct(Request $request , UserRepository $userRepository , SendEmailService $mailer): Response
     {
         $product = new TblProduct();
         $form =$this->createForm(ProductType::class,$product);

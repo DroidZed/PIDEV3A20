@@ -1,4 +1,10 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "2.0.7"
+    },
+    "dasprid/enum": {
+        "version": "1.0.3"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -79,6 +85,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dompdf/dompdf": {
+        "version": "v1.2.1"
+    },
     "easycorp/easyadmin-bundle": {
         "version": "3.5",
         "recipe": {
@@ -87,17 +96,22 @@
             "version": "3.0",
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
-    "dompdf/dompdf": {
-        "version": "v1.2.1"
     },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "endroid/installer": {
+        "version": "1.4.0"
+    },
+    "endroid/qr-code": {
+        "version": "4.4.8"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "4.0.7"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
-    "jms/metadata": {
-        "version": "2.6.1"
     "gregwar/captcha": {
         "version": "v1.1.9"
     },
@@ -112,6 +126,9 @@
     },
     "guzzlehttp/psr7": {
         "version": "2.2.1"
+    },
+    "jms/metadata": {
+        "version": "2.6.1"
     },
     "knplabs/knp-components": {
         "version": "v3.4.0"
@@ -582,6 +599,7 @@
     },
     "symfony/string": {
         "version": "v5.4.3"
+    },
     "symfony/swiftmailer-bundle": {
         "version": "3.5",
         "recipe": {
@@ -694,6 +712,12 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
+    },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.4"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.3.5"
     },
     "twig/extra-bundle": {
         "version": "v3.3.8"

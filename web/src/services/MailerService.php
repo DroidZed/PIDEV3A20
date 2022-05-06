@@ -1,37 +1,64 @@
 <?php
 
-namespace App\services;
-use phpDocumentor\Reflection\Types\Void_;
+namespace App\Services;
+
+use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Twig\Environment;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class MailerService
 {
-
+    /**
+     * @var MailerInterface
+     */
     private $mailer;
 
-    public function __construct(MailerInterface $mailer)
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * MailerService constructor.
+     *
+     * @param MailerInterface       $mailer
+     * @param Environment   $twig
+     */
+    public function __construct(MailerInterface $mailer, Environment $twig)
     {
         $this->mailer = $mailer;
+        $this->twig = $twig;
     }
 
-    public function sendEmail($to = 'rayen.bakali@gmail.com',
-                              $subject ='Product Online',
-                              $content ='<p>See Twig integration for better HTML integration!</p>'): void
+    /**
+     * @param string $subject
+     * @param string $from
+     * @param string $to
+     * @param string $template
+     * @param array $parameters
+     * @throws TransportExceptionInterface
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function send(string $subject, string $from, string $to, string $template, array $parameters): void
     {
-        $email = (new Email())
-            ->from('nebulaagaming67@gmail.com')
-            ->to($to)
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject($subject)
-            //->text('Your Product is online')
-            ->html($content);
+        try {
+            $email = (new Email())
+                ->from($from)
+                ->to($to)
+                ->subject($subject)
+                ->html(
+                    $this->twig->render($template, $parameters)
+                );
 
-        $this->mailer->send($email);
+            $this->mailer->send($email);
+        } catch (TransportException $e) {
+            print $e->getMessage()."\n";
+            throw $e;
+        }
 
-        // ...
     }
 }
