@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ProductRessourceController extends AbstractController
+class ProductResourceController extends AbstractController
 {
     /**
      * @Route("/get/product/{idproduct}" , name="singleProduct" , methods={"GET"})
