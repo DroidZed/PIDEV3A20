@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Entity;
-
+use phpDocumentor\Reflection\Types\This;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -10,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_category", columns={"idCategory"}), @ORM\Index(name="fk_product_user", columns={"idUser"})})
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class TblProduct
 {
@@ -24,6 +27,13 @@ class TblProduct
     private $idproduct;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Empty Case !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be longer than 3",
+     *     maxMessage ="Name should be shoter than 20")
      * @var string
      * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="nameProduct", type="string", length=100, nullable=false)
@@ -32,6 +42,8 @@ class TblProduct
 
     /**
      * @var float
+     * @Assert\NotBlank(message="Empty Case !!")
+     * @Assert\Range(min=1,max=9999)
      * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="priceProduct", type="float", precision=10, scale=0, nullable=false)
      */
@@ -39,6 +51,7 @@ class TblProduct
 
     /**
      * @var int
+     * @Assert\Positive
      * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="QtyProduct", type="integer", nullable=false)
      */
@@ -46,8 +59,8 @@ class TblProduct
 
     /**
      * @var string
+     * @ORM\Column(name="imageProduct", type="string", length=150, nullable=true)
      * @Groups({"wishlist:items", "products"})
-     * @ORM\Column(name="imageProduct", type="string", length=150, nullable=false)
      */
     private $imageproduct;
 
@@ -78,7 +91,17 @@ class TblProduct
      */
     private $iduser;
 
+    /**
+     * @ORM\Column(name="image" , type="string", length=255)
+     * @var string
+     */
+    private $image;
 
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
     public function getIdproduct(): ?int
     {
@@ -167,6 +190,38 @@ class TblProduct
         $this->iduser = $iduser;
 
         return $this;
+    }
+
+    /**
+     * @param string|null $image
+     * @return $this
+     */
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+       // if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+          //  $this->updatedAt = new \DateTime('now');
+      //  }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
 

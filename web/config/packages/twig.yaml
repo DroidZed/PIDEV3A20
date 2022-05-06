@@ -8,4 +8,3 @@ twig:
     paths:
         'public/frontTemplate/images': images
         'public/frontTemplate/css': css
-    
