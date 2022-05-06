@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductType extends AbstractType
 {
@@ -14,9 +15,9 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('nameproduct')
-            ->add('priceproduct')
+            ->add('priceproduct')   
             ->add('qtyproduct')
-            ->add('imageproduct')
+            ->add('imageFile',VichImageType::class , ['label'=> 'Image'])
             ->add('idcategory')
             ->add('ajouter',SubmitType::class);
 

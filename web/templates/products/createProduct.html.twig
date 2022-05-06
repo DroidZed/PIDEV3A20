@@ -45,14 +45,15 @@
                                         <label>Quantité</label>
                                         {{ form_widget(f.qtyproduct,{'attr':{'class':'form-control'}}) }}
                                         {{ form_errors(f.qtyproduct,{'attr':{'class':'text-danger'}}) }}
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Images</label>
+                                        {{form_widget(f.imageFile,{'attr':{'class':'form-control'}}) }}
 
                                     </div>
-                                <div class="form-group">
-                                    <label>Image</label>
-                                    {{ form_widget(f.imageproduct,{'attr':{'class':'form-control'}}) }}
-                                    {{ form_errors(f.imageproduct,{'attr':{'class':'text-danger'}}) }}
 
-                                </div>
                                 <div class="form-group">
                                     <label>Category</label>
                                     {{ form_widget(f.idcategory,{'attr':{'class':'form-control'}}) }}

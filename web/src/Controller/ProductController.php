@@ -6,7 +6,10 @@ use App\Entity\TblCategory;
 use App\Entity\TblProduct;
 use App\Form\CategoryType;
 use App\Form\ProductType;
+use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
+use App\services\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,10 +27,22 @@ class ProductController extends AbstractController
             'b'=>$products
         ]);
     }
+
+    /**
+     * @Route("/productDetail/{idproduct}" , name="productDetail" , methods={"GET"})
+     */
+    public function productDetail(int $idproduct, ProductRepository $productRepository): Response
+    {
+        $product = $productRepository->find($idproduct);
+        return $this->render('products/productDetail.html.twig', [
+            'product'=>$product,
+        ]);
+    }
+
     /**
      * @Route("/addProduct", name="addProduct")
      */
-    public function addProduct(Request $request , UserRepository $userRepository): Response
+    public function addProduct(Request $request , UserRepository $userRepository , MailerService $mailer): Response
     {
         $product = new TblProduct();
         $form =$this->createForm(ProductType::class,$product);
@@ -37,10 +52,16 @@ class ProductController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $product->setCreateddtm(new \DateTime());
             $product->setIduser($userRepository->find(1));
+            $message="votre produit";
+            $message2="est mis en ligne";
+            $mailMessage = $message.' '.$product->getNameproduct().' '.$message2;
+
+            $mailer->sendEmail('rayen.bakali@gmail.com', 'Product Online',$mailMessage);
             $em ->persist($product);//Hedhi nzidou
             $em ->flush();
             return $this->redirectToRoute( 'displayProduct');
         }
+        $message="failed";
         return $this->render('products/createProduct.html.twig',[ 'f'=>$form->createView()]);
     }
 
@@ -77,8 +98,14 @@ class ProductController extends AbstractController
     /**
      * @Route("/allProducts", name="allProducts")
      */
-    public function index(): Response
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        return $this->render("products/ListProduct.html.twig");
+
+        return $this->render('products/ListProduct.html.twig', [
+            'products' => $productRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
+        ]);
     }
+
+
 }
