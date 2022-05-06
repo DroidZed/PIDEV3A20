@@ -1,0 +1,200 @@
+{% extends 'baseBack.html.twig' %}
+
+    {% block title %} Nebula Gaming Admin | Orders {% endblock %}
+
+
+{% block content %}
+
+    <style>
+        .hidden-item {
+            display: none;
+        }
+    </style>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body"><h5 class="card-title">User Orders</h5>
+                        <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                            <div class="w-100 dataTable-top d-flex flex-row justify-content-between">
+                                <div class="filter"><a class="icon" href="#" data-bs-toggle="dropdown"
+                                                       aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="">
+                                        <li class="dropdown-header text-start"><h6>Sort Dates</h6></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('sortThem', {criteria: 'createddtm', order: 'DESC'}) }}">Created At ▼</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('sortThem', {criteria: 'createddtm', order: 'ASC'}) }}">Created At ▲</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('sortThem', {criteria: 'paydtm', order: 'DESC'}) }}">Paid At ▼</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('sortThem', {criteria: 'paydtm', order: 'ASC'}) }}">Paid At ▲</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="dataTable-search">
+                                    <input class="dataTable-input form-control" placeholder="Search..."
+                                           onkeyup="callBack()"
+                                           id="searchInput">
+                                </div>
+                            </div>
+                            <div class="dataTable-container">
+                                <table class="table datatable dataTable-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 10.66239%;">
+                                            <a href="#">Created At</a>
+                                        </th>
+                                        <th scope="col" style="width: 27.9915%;">
+                                            <a href="#">Paid At</a>
+                                        </th>
+                                        <th scope="col" style="width: 15%;">
+                                            <a href="#">Payment Type</a>
+                                        </th>
+                                        <th scope="col" style="width: 15%;">
+                                            <a href="#">Order Status</a>
+                                        </th>
+                                        <th scope="col" style="width: 19.3376%;">
+                                            <a href="#">Issuer</a></th>
+                                        <th scope="col" style="width: 19.3376%;">
+                                            <a href="#">Action</a></th>
+                                    </tr>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="dataTable">
+                                    {% for order in ordersList %}
+
+
+                                            <tr class="tabData"
+                                                id="{{ 'order'~ order.numberorder }}">
+                                                <td>{{ order.createddtm | date('d/m/y') }}</td>
+                                                    <td>{{ order.paydtm is empty ? "Unpaid" : order.paydtm | date('d/m/y') }}</td>
+                                                <td>{{ order.idpaytype.paytype }}</td>
+                                                {% if order.idstatusorder.statusorder == 'PENDING' %}
+                                                    <td>
+                                                    <span class="badge bg-warning text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                                    </td>
+                                                {% elseif order.idstatusorder.statusorder == 'CANCELLED' %}
+                                                    <td>
+                                                    <span class="badge bg-danger text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                                    </td>
+                                                {% elseif order.idstatusorder.statusorder == 'DELIVERY' %}
+                                                    <td>
+                                                    <span class="badge bg-info text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                                    </td>
+                                                {% else %}
+                                                    <td>
+                                                    <span class="badge bg-success text-light">
+
+                                                    {{ order.idstatusorder.statusorder }}
+                                                    </span>
+                                                    </td>
+                                                {% endif %}
+                                                <td>{{ order.iduser.nameuser }}</td>
+                                                <td>
+                                                        <a style="text-decoration: none"
+                                                                href="{{ path('viewOrder', {orderNumber: order.numberorder}) }}">
+                                                    <button class="btn btn-info text-light">
+                                                            Details
+                                                    </button>
+                                                        </a>
+                                                </td>
+                                            </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="dataTable-bottom">
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        <li class="{{ currPage == 1 ? 'page-item disabled' : "page-item" }}">
+                                            <a class="page-link"
+                                               href="{{ path('adminOrders', {page: currPage-1 < 1 ? 1 : currPage-1}) }}"
+                                               tabindex="-1" aria-disabled="{{ currPage == 1 ? "true" : "false" }}">Previous</a>
+                                        </li>
+                                        {# Render each page number #}
+                                        {% for i in 1..maxPages %}
+                                            <li class="{{ currPage == i ? "page-item active" : "page-item" }}">
+                                                <a class="page-link" tabindex="-1"
+                                                   href="{{ path('adminOrders', {page: i}) }}">{{ i }}</a>
+                                            </li>
+                                        {% endfor %}
+                                        <li class="{{ currPage == maxPages ? 'page-item disabled' : "page-item" }}">
+                                            <a class="page-link"
+                                               href="{{ path('adminOrders', {page: currPage+1 <= maxPages ? currPage+1 : currPage}) }}"
+                                               aria-disabled="{{ currPage == 1 ? "true" : "false" }}">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src={{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}></script>
+    <script>
+
+        function callBack() {
+
+            const rows = document.getElementsByClassName('tabData');
+
+            let inputValue = document.getElementById('searchInput').value;
+
+            const matcher = inputValue.match(/(^[a-zA-Z ]+)(:) ([a-zA-Z/0-9\\._ ]+)/);
+
+            if (matcher !== null) {
+
+                $.ajax(
+                    {
+                        contentType: "application/json; charset=utf-8",
+                        url: "{{ path('searchOrders') }}",
+                        type: 'POST',
+                        data: JSON.stringify({
+                            "criteria": matcher[1],
+                            "term": matcher[3]
+                        }),
+                        dataType: "json",
+                        success: function (data) {
+
+                            for (let i = 0; i < rows.length; i++) {
+                                rows[i].classList.add("hidden-item");
+                            }
+
+                            for (let j = 0; j < data.length; j++) {
+                                document.querySelector(`#order${data[j].numberorder}`).classList.remove("hidden-item");
+                            }
+
+
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    }
+                );
+            } else {
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].classList.remove("hidden-item");
+                }
+            }
+        }
+
+    </script>
+{% endblock %}

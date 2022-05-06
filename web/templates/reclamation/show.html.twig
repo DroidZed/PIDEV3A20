@@ -1,0 +1,53 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}My Complaint{% endblock %}
+
+{% block content %}
+    <section id="shop-cart-section" class="pt-120 pb-120">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Answer</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{{ tbl_reclamation.typecomplaint }}</td>
+                                    <td>{{ tbl_reclamation.message }}</td>
+
+                                    <td>{{ tbl_reclamation.statuscomplaint }}</td>
+                                    <td>
+                                        {{ tbl_reclamation.answercomplaint }}
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+                        {{ include('reclamation/_delete_form.html.twig') }}
+                        <a href="{{ path('app_reclamation_index') }}">back to list</a> </div>
+                    </div>
+                    <div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

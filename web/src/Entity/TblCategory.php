@@ -5,6 +5,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblCategory
@@ -21,6 +22,7 @@ class TblCategory
      * @ORM\Column(name="idCategory", type="integer", nullable=false )
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"products"})
      */
     private $idcategory;
 
@@ -29,11 +31,9 @@ class TblCategory
      * @Assert\Length(
      *      min = 5,
      *      minMessage=" Entrer un nom de Category au mini de 5 caracteres"
-     *
      *     )
      * @ORM\Column(type="string", length=255 , name="nameCategory")
-     *
-
+     * @Groups({"wishlist:items", "products"})
      */
     private $nameCategory;
 
