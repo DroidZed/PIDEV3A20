@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class ProductResourceController extends AbstractController
 {
     /**
-     * @Route("/get/product/{idproduct}" , name="singleProduct" , methods={"GET"})
+     * @Route("/membre/get/product/{idproduct}" , name="singleProduct" , methods={"GET"})
      * @throws ExceptionInterface
      */
     public function productDetail(int $idproduct, ProductRepository $productRepository, NormalizerInterface $normalizer): JsonResponse
@@ -27,7 +27,7 @@ class ProductResourceController extends AbstractController
 
 
     /**
-     * @Route("/get/products", name="allProducts", methods={"GET"})
+     * @Route("/membre/get/products", name="allProducts", methods={"GET"})
      * @throws ExceptionInterface
      */
     public function index(ProductRepository $productRepository, NormalizerInterface $normalizer): JsonResponse
