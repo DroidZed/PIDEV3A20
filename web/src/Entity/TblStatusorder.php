@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblStatusorder
  *
  * @ORM\Table(name="tbl_statusorder")
- * @ORM\Entity(repositoryClass="App\Repository\StatusOrderRepository")
+ * @ORM\Entity
  */
 class TblStatusorder
 {

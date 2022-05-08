@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblCardtype
  *
  * @ORM\Table(name="tbl_cardtype")
- * @ORM\Entity(repositoryClass="App\Repository\CardTypeRepository")
+ * @ORM\Entity
  */
 class TblCardtype
 {

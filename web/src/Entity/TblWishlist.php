@@ -8,8 +8,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * TblWishlist
  *
- * @ORM\Table(name="tbl_wishlist", indexes={@ORM\Index(name="fk_wishlist_product", columns={"idProduct"}), @ORM\Index(name="fk_wishlist_user", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\WishListRepository")
+ * @ORM\Table(name="tbl_wishlist", indexes={@ORM\Index(name="fk_wishlist_user", columns={"idUser"}), @ORM\Index(name="fk_wishlist_product", columns={"idProduct"})})
+ * @ORM\Entity
  */
 class TblWishlist
 {
@@ -24,41 +24,31 @@ class TblWishlist
     private $idwishlist;
 
     /**
-     * @var \TblProduct
-     *
-     * @ORM\ManyToOne(targetEntity="TblProduct")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
-     * })
-     * @Groups("wishlist:items")
-     */
-    private $idproduct;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
+     * @Groups("wishlist:items")
      */
     private $iduser;
+
+    /**
+     * @var \TblProduct
+     *
+     * @ORM\ManyToOne(targetEntity="TblProduct")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
+     * })
+     *
+     * @Groups("wishlist:items")
+     */
+    private $idproduct;
 
     public function getIdwishlist(): ?int
     {
         return $this->idwishlist;
-    }
-
-    public function getIdproduct(): ?TblProduct
-    {
-        return $this->idproduct;
-    }
-
-    public function setIdproduct(?TblProduct $idproduct): self
-    {
-        $this->idproduct = $idproduct;
-
-        return $this;
     }
 
     public function getIduser(): ?User
@@ -69,6 +59,18 @@ class TblWishlist
     public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdproduct(): ?TblProduct
+    {
+        return $this->idproduct;
+    }
+
+    public function setIdproduct(?TblProduct $idproduct): self
+    {
+        $this->idproduct = $idproduct;
 
         return $this;
     }

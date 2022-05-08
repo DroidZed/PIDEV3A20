@@ -1,0 +1,49 @@
+<div class="tab-pane fade active show" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+    <div class="comments">
+        <div class="single">
+            <h5>Comments</h5>
+            <div class="row">
+                <div class="col-lg-8">
+                    {% for comment in comments %}
+                        <div class="comments-side">
+                            <div class="comment-single d-flex">
+                                {% if commenters is not null %}
+                                {% for commenter in commenters %}
+                                    {% if comment.iduser == commenter.iduser|number_format %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                                <div class="avatar">
+                                    <img src="images/admin-img-1.png" alt="image">
+                                </div>
+                                <div class="comnt-text">
+                                    <div class="comnt-info">
+                                        <div class="name-review d-flex align-items-center">
+                                            <h6>Someone</h6>
+                                        </div>
+                                        <p class="text-sm date">{{ comment.posteddtm ? comment.posteddtm|date('D M Y H:i') }}</p>
+                                        <p class="text-sm">{{ comment.comment  }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="comment-form">
+                        <div class="top-area">
+                            <h5>Add A Comment</h5>
+                        </div>
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            <label for="email">Comment</label>
+                            {{ form_row(form.comment)}}
+                        </div>
+                        <a class="cmn-btn" href="{{ path('app_comment_new', {'idpost' : app.request.attributes.get('idpost')}) }}">Post Comment</a>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

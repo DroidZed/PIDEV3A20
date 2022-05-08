@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblStreaming
  *
  * @ORM\Table(name="tbl_streaming", indexes={@ORM\Index(name="fk_streaming", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\StreamingRepository")
+ * @ORM\Entity
  */
 class TblStreaming
 {

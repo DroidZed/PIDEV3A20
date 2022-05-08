@@ -45,6 +45,40 @@ class AnswerPostRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAnswersPerPost ($idpost){
+        return $this->createQueryBuilder('s')
+            ->select('DISTINCT s.answer')
+            ->where('s.idpost =:val ')
+            ->setParameter('val', $idpost)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllAnswersPerPost ($idpost){
+        return $this->createQueryBuilder('s')
+            ->select('s.answer')
+            ->where('s.idpost =:val ')
+            ->setParameter('val', $idpost)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getCountAnswersPerOption ($idpost , $option){
+        return $this->createQueryBuilder('s')
+            -> select('COUNT (s.idanswer)')
+            -> where('s.idpost =:val ')
+            -> setParameter('val', $idpost)
+            -> andWhere('s.answer =:val2')
+            -> setParameter('val2' , $option)
+            -> getQuery()
+            -> getResult();
+    }
+
+
+
+
+
+
     // /**
     //  * @return TblAnswerpost[] Returns an array of TblAnswerpost objects
     //  */

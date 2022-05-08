@@ -8,8 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * TblReclamation
  *
- * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\ReclamationRepository")
+ * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"}), @ORM\Index(name="fk_type_rec", columns={"typeComplaint"})})
+ * @ORM\Entity
  */
 class TblReclamation
 {
@@ -44,10 +44,9 @@ class TblReclamation
      * @ORM\Column(name="answerComplaint", type="string", length=500, nullable=true)
      */
     private $answercomplaint;
-
-    /**
+  
+     /**
      * @var \User
-     *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
@@ -117,6 +116,18 @@ class TblReclamation
         return $this;
     }
 
+    public function getRate(): ?TblRate
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?TblRate $rate): self
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
     public function getIduser(): ?User
     {
         return $this->iduser;
@@ -134,21 +145,9 @@ class TblReclamation
         return $this->typecomplaint;
     }
 
-    public function setTypecomplaint(TblTypecomplaint $typecomplaint): self
+    public function setTypecomplaint(?TblTypecomplaint $typecomplaint): self
     {
         $this->typecomplaint = $typecomplaint;
-
-        return $this;
-    }
-
-    public function getRate(): TblRate
-    {
-        return $this->rate;
-    }
-
-    public function setRate(?TblRate $rate): self
-    {
-        $this->rate = $rate;
 
         return $this;
     }

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblOffer
  *
- * @ORM\Table(name="tbl_offer", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="fk_domain_offer", columns={"idDomain"})})
- * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
+ * @ORM\Table(name="tbl_offer", indexes={@ORM\Index(name="fk_domain_offer", columns={"idDomain"}), @ORM\Index(name="idUser", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblOffer
 {
@@ -78,16 +78,6 @@ class TblOffer
     private $addressoffer;
 
     /**
-     * @var \TblDomain
-     *
-     * @ORM\ManyToOne(targetEntity="TblDomain")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idDomain", referencedColumnName="id")
-     * })
-     */
-    private $iddomain;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -96,6 +86,16 @@ class TblOffer
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblDomain
+     *
+     * @ORM\ManyToOne(targetEntity="TblDomain")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idDomain", referencedColumnName="id")
+     * })
+     */
+    private $iddomain;
 
     public function getIdoffer(): ?int
     {
@@ -198,18 +198,6 @@ class TblOffer
         return $this;
     }
 
-    public function getIddomain(): ?TblDomain
-    {
-        return $this->iddomain;
-    }
-
-    public function setIddomain(?TblDomain $iddomain): self
-    {
-        $this->iddomain = $iddomain;
-
-        return $this;
-    }
-
     public function getIduser(): ?User
     {
         return $this->iduser;
@@ -218,6 +206,18 @@ class TblOffer
     public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIddomain(): ?TblDomain
+    {
+        return $this->iddomain;
+    }
+
+    public function setIddomain(?TblDomain $iddomain): self
+    {
+        $this->iddomain = $iddomain;
 
         return $this;
     }

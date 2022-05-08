@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TblVideogame
  *
  * @ORM\Table(name="tbl_videogame", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
- * @ORM\Entity(repositoryClass="App\Repository\VideoGameRepository")
+ * @ORM\Entity
  */
 class TblVideogame
 {

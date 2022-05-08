@@ -1,0 +1,42 @@
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add new Badge</h5>
+                    <!-- Form -->
+                        {{ form_start(form) }}
+                        <div class="row mb-3">
+                            <label  class="col-sm-2 col-form-label">Name Badge</label>
+                            <div class="col-sm-10">
+                                {{ form_row(form.namebadge)}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Description Badge</label>
+                            <div class="col-sm-10">
+                                {{ form_row(form.descbadge)}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Photo Badge</label>
+                            <div class="col-sm-10">
+                                {{ form_row(form.photobadge)}}
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                        </div>
+                        {{ form_end (form)}}
+                    <!-- End Form -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,63 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Events List  {% endblock %}
+
+{% block content %}
+    <div class="row-cols-1">
+
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                    <h5 class="card-title"> Events List <span>| Events </span></h5>
+
+                    <table class="table table-borderless datatable">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Tickets </th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                            <th scope="col">Participants</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for event in events %}
+                            <tr>
+                                <th scope="row"><a href="#">{{ event.titlepost }}</a></th>
+                                <td>{{ event.descpost }}</td>
+                                <td>{{ event.addressevent }}</td>
+                                <td>{{ event.nbticketavailable }}</td>
+                                {% if  event.statuspost == 1 %}
+                                <td><span class="badge bg-success">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['1'] }}</span></td>
+                                {% else %}
+                                    <td><span class="badge bg-danger">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['0'] }}</span></td>
+                                {% endif%}
+
+                                </td>
+                                <td>
+                                    <a href="{{ path ('app_event_show' , {'idpost': event.idpost}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                    <a href="{{ path ('app_event_edit' , {'idpost': event.idpost}) }}" class="text-primary"><i class="bi bi-pencil-fill"></i></a>
+                                </td>
+                                <td class="d-flex justify-content-center">
+                                    <a href="{{ path ('app_participation_show' , {'idpost': event.idpost}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{{ path('app_event_new') }}">Create new</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('app_badge_delete', {'idbadge': tbl_badge.idbadge}) }}"
+      onsubmit="return confirm('Are you sure you want to delete this item?');" style="display: inline-block;">
+
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tbl_badge.idbadge) }}">
+    <button class="btn btn-danger">Delete</button>
+</form>

@@ -71,25 +71,25 @@ class TblProduct
     private $createddtm = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \TblCategory
-     *
-     * @ORM\ManyToOne(targetEntity="TblCategory")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
-     * })
-     * @Groups({"wishlist:items", "products"})
-     */
-    private $idcategory;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
+     * @Groups({"wishlist:items", "products"})
      */
     private $iduser;
+
+    /**
+     * @var \TblCategory
+     *
+     * @ORM\ManyToOne(targetEntity="TblCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
+     * })
+     */
+    private $idcategory;
 
     /**
      * @ORM\Column(name="image" , type="string", length=255)
@@ -168,18 +168,6 @@ class TblProduct
         return $this;
     }
 
-    public function getIdcategory(): ?TblCategory
-    {
-        return $this->idcategory;
-    }
-
-    public function setIdcategory(?TblCategory $idcategory): self
-    {
-        $this->idcategory = $idcategory;
-
-        return $this;
-    }
-
     public function getIduser(): ?User
     {
         return $this->iduser;
@@ -188,6 +176,18 @@ class TblProduct
     public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdcategory(): ?TblCategory
+    {
+        return $this->idcategory;
+    }
+
+    public function setIdcategory(?TblCategory $idcategory): self
+    {
+        $this->idcategory = $idcategory;
 
         return $this;
     }

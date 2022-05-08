@@ -1,0 +1,11 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %} Add Quiz {% endblock %}
+
+{% block content %}
+
+    {{ include('backTemplate/quiz/_formNew.html.twig') }}
+
+
+    <a href="{{ path('app_quiz_index') }}">Back to list</a>
+{% endblock %}

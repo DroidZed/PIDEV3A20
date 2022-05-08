@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnswerPostRepository;
 
 /**
  * TblAnswerpost
  *
  * @ORM\Table(name="tbl_answerpost", indexes={@ORM\Index(name="fk_user_answerPost", columns={"idUser"}), @ORM\Index(name="fk_post_answerPost", columns={"idPost"})})
- * @ORM\Entity(repositoryClass="App\Repository\AnswerPostRepository")
+ * @ORM\Entity(repositoryClass=AnswerPostRepository::class)
  */
 class TblAnswerpost
 {
@@ -36,16 +37,6 @@ class TblAnswerpost
     private $answer;
 
     /**
-     * @var \TblPost
-     *
-     * @ORM\ManyToOne(targetEntity="TblPost")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
-     * })
-     */
-    private $idpost;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -54,6 +45,16 @@ class TblAnswerpost
      * })
      */
     private $iduser;
+
+     /**
+     * @var \TblPost
+     *
+     * @ORM\ManyToOne(targetEntity="TblPost")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
+     * })
+     */
+    private $idpost;
 
     public function getIdanswer(): ?int
     {
@@ -84,18 +85,6 @@ class TblAnswerpost
         return $this;
     }
 
-    public function getIdpost(): ?TblPost
-    {
-        return $this->idpost;
-    }
-
-    public function setIdpost(?TblPost $idpost): self
-    {
-        $this->idpost = $idpost;
-
-        return $this;
-    }
-
     public function getIduser(): ?User
     {
         return $this->iduser;
@@ -108,5 +97,15 @@ class TblAnswerpost
         return $this;
     }
 
+    public function getIdpost(): ?TblPost
+    {
+        return $this->idpost;
+    }
 
+    public function setIdpost(?TblPost $idpost): self
+    {
+        $this->idpost = $idpost;
+
+        return $this;
+    }
 }

@@ -1,0 +1,68 @@
+
+
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Quiz List  {% endblock %}
+
+{% block content %}
+    <div class="row-cols-1">
+
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                    <h5 class="card-title"> Quizes List <span>| Quizes </span></h5>
+
+                    <table class="table table-borderless datatable">
+                        <thead>
+                        <tr>
+                            <th scope="col" >Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Posted At</th>
+                            <th scope="col">Posted By</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                            <th scope="col">Options</th>
+                            <th scope="col">Answers</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for quiz in quizes %}
+                            <tr>
+                                <th scope="row"><a href="#">{{ quiz.titlepost }}</a></th>
+                                <td>{{ quiz.descpost }}</td>
+                                <td>{{ quiz.posteddtm ? quiz.posteddtm|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ quiz.iduser }}</td>
+                                {% if  quiz.statuspost == 1 %}
+                                    <td><span class="badge bg-success">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['1'] }}</span></td>
+                                {% else %}
+                                    <td><span class="badge bg-danger">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['0'] }}</span></td>
+                                {% endif%}
+                                <td>
+                                    <a href="{{ path('app_quiz_show', {'idpost': quiz.idpost}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a>&nbsp&nbsp
+                                    <a href="{{ path('app_quiz_edit', {'idpost': quiz.idpost}) }}" class="text-primary"><i class="bi bi-pencil-fill"></i></a>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center"> <a href="{{ path('app_option_showOptions', {'idpost': quiz.idpost}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a></div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center"> <a href="{{ path('app_answer_showAnswers', {'idpost': quiz.idpost}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a></div>
+                                </td>
+
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{{ path('app_quiz_new') }}">Create new</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

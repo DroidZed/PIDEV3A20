@@ -1,0 +1,52 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Badges List  {% endblock %}
+
+{% block content %}
+
+
+
+    <div class="row-cols-1">
+
+    <div class="col-12">
+        <div class="card recent-sales overflow-auto">
+
+
+            <div class="card-body">
+                <h5 class="card-title"> Badges List <span>| Badges </span></h5>
+
+                <table class="table table-borderless datatable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tbl_badge in tbl_badges %}
+                        <tr>
+                            <th scope="row"><a href="#">{{ tbl_badge.namebadge }}</a></th>
+                            <td>{{ tbl_badge.descbadge }}</td>
+                            <td>
+                                <a href="{{ path('app_badge_show', {'idbadge': tbl_badge.idbadge}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a>
+                                &nbsp;&nbsp;
+                                <a href="{{ path('app_badge_edit', {'idbadge': tbl_badge.idbadge}) }}" class="text-primary"><i class="bi bi-pencil-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('app_badge_new') }}">Create new</a>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

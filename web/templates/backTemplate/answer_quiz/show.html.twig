@@ -1,0 +1,157 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Quiz Details  {% endblock %}
+
+
+
+{% block content %}
+
+    <style>
+        .dashboard .activity .activity-item .activite-label::before {
+            right: -29%;
+        }
+        .dashboard .activity .activity-item .activity-badge {
+            padding-left: 2em;
+        }
+        .dashboard .activity .activity-item .activite-label {
+            width: 25%;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <div class="pagetitle"><h1>Answers Overview</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Quiz</a></li>
+                <li class="breadcrumb-item active">Answers</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section dashboard">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card info-card sales-card">
+                    <div class="card-body"> <h5 class="card-title">Total Answers</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i
+                                        class="bi bi-list-ol"></i></div>
+                            <div class="p-3"><h6>{{  countAnswers }} </h6></div>Answers
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card info-card sales-card">
+                    <div class="card-body"> <h5 class="card-title">Correct Answer</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i
+                                        class="bi bi-check-lg"></i></div>
+                            <div class="p-3"><h6>{{  correctAnswer }} </h6></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body"><h5 class="card-title">Number of Answers Per Option</h5>
+                    <canvas id="answers"
+                            style="max-height: 400px; display: block; box-sizing: border-box; height: 400px; width: 460px;"
+                            width="460" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+
+              <div class="card">
+                  <div class="card-body"><h5 class="card-title">Answers <span>| Details</span></h5>
+                      <div class="activity">
+                          {% if answersList != null %}
+                          {%  for answer in answersList  %}
+                          <div class="activity-item d-flex">
+                              {% set today = "now"|date('D M Y H:i') %}
+                              {% set dateAnswer = answer.answereddtm ? answer.answereddtm|date('D M Y H:i') %}
+
+                              {% set difference = date(dateAnswer).diff(date(today))%}
+                              {% set daysAgo = difference.days %}
+                              {% if dateAnswer == today %}
+                                  <div class="activite-label">Today</div>
+                              {% else %}
+                                  {% if daysAgo < 31 %}
+                                      <div class="activite-label">{{ daysAgo }} Days ago</div>
+
+                                  {% elseif daysAgo > 31 and daysAgo < 365  %}
+                                      {% set monthsAgo = daysAgo *  0.032855 %}
+                                      <div class="activite-label">{{ monthsAgo | round  }} Months ago</div>
+
+                                  {% elseif daysAgo >= 365 %}
+                                      {% set yearsAgo = daysAgo / 365 %}
+                                      <div class="activite-label">{{ yearsAgo | round }} Years ago</div>
+                                  {% endif %}
+                              {% endif %}
+
+                              <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
+                              <div class="activity-content fw-bold text-dark"> {{ answer.iduser }} </div>
+                              <div class="activity-content">{{ answer.answer }}
+                              </div>
+                          </div>
+
+                          {% endfor %}
+                              {% else %}
+                              <p>No answers yet ! </p>
+                          {% endif %}
+
+
+                      </div>
+                  </div>
+              </div>
+
+        </div>
+    </div>
+
+    </section>
+
+
+
+
+
+    <canvas id="answers" width="100" height="100"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let answers = document.querySelector("#answers") ;
+        let answerStats = new Chart (answers , {
+            type : "doughnut" ,
+            data : {
+                labels :
+                    {% if availableAnswers != null %}
+                         {{ availableAnswers | raw }} ,
+                    {% else %}
+                        ['No Answers']
+                    {% endif %}
+
+                datasets : [{
+                    label: "Répartition des answers",
+                    data: {% if countAnswersPerOption != null %}
+                        {{ countAnswersPerOption | raw}},
+                         {% else %}
+                            [1]
+                         {% endif %}
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                }]
+            }
+        })
+
+    </script>
+{% endblock %}

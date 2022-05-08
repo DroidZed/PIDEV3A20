@@ -1,0 +1,59 @@
+
+
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Posts List  {% endblock %}
+
+{% block content %}
+    <div class="row-cols-1">
+
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                    <h5 class="card-title"> Posts List <span>| Posts </span></h5>
+
+                    <table class="table table-borderless datatable">
+                        <thead>
+                        <tr>
+                            <th scope="col" >Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Posted At</th>
+                            <th scope="col">Posted By</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tbl_post in tbl_posts %}
+                            <tr>
+                                <th scope="row"><a href="#">{{ tbl_post.titlepost }}</a></th>
+                                <td>{{ tbl_post.descpost }}</td>
+                                <td>{{ tbl_post.posteddtm ? tbl_post.posteddtm|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ tbl_post.iduser }}</td>
+                                {% if  tbl_post.statuspost == 1 %}
+                                    <td><span class="badge bg-success">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['1'] }}</span></td>
+                                {% else %}
+                                    <td><span class="badge bg-danger">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['0'] }}</span></td>
+                                {% endif%}
+                                <td>
+                                    <a href="{{ path('app_post_show', {'idpost': tbl_post.idpost}) }}" class="text-primary"><i class="bi bi-eye-fill"></i></a>&nbsp&nbsp
+                                    <a href="{{ path('app_post_edit', {'idpost': tbl_post.idpost}) }}" class="text-primary"><i class="bi bi-pencil-fill"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{{ path('app_post_new') }}">Create new</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

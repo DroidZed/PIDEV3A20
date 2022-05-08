@@ -45,22 +45,21 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
+    /**
     //  * @return TblPost[] Returns an array of TblPost objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findBytypepost($typePost)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('t.typePost = :val')
+            ->setParameter('val', $typePost)
+            ->orderBy('t.postedDTM', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?TblPost

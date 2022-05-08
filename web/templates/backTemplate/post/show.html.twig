@@ -1,0 +1,47 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Post Details  {% endblock %}
+
+{% block content %}
+
+<div class="card top-selling overflow-auto">
+    <div class="card-body pb-0"><h5 class="card-title">{{ tbl_post.titlepost }} <span> | Details </span></h5>
+        <table class="table table-borderless">
+            <thead>
+            <tr>
+                <th scope="col">Photo</th>
+                <th scope="col">Desciption</th>
+                <th scope="col">Posted At</th>
+                <th scope="col">Posted By</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% if tbl_post.photopost is not null %}
+                <th scope="row"><img src="{{ asset('uploads/' ~ tbl_post.photopost) }}" style="height: 70px"/></th>
+                {% else %}
+                <th scope="row"><a href="#"><img src="{{ asset('uploads/no_image_found.png') }}" /></a></th>
+                {% endif %}
+
+                <td><a href="#" class="text-primary fw-bold">{{ tbl_post.descpost }}</a></td>
+                <td>{{ tbl_post.posteddtm ? tbl_post.posteddtm|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tbl_post.iduser }}</td>
+                {% if  tbl_post.statuspost == 1 %}
+                    <td><span class="badge bg-success">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['1'] }}</span></td>
+                {% else %}
+                    <td><span class="badge bg-danger">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['0'] }}</span></td>
+                {% endif%}
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+        <a href="{{ path('app_post_edit', {'idpost': tbl_post.idpost}) }}" class="btn btn-primary"> Edit </a>
+        {{ include('backTemplate/post/_delete_form.html.twig') }}
+    </div>
+        <a href="{{ path('app_post_index') }}">back to list</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblCandidacy
  *
- * @ORM\Table(name="tbl_candidacy", indexes={@ORM\Index(name="fk_candidacy_user", columns={"idUser"}), @ORM\Index(name="fk_candidacy_offer", columns={"idOffer"})})
- * @ORM\Entity(repositoryClass="App\Repository\CandidacyRepository")
+ * @ORM\Table(name="tbl_candidacy", indexes={@ORM\Index(name="fk_candidacy_offer", columns={"idOffer"}), @ORM\Index(name="fk_candidacy_user", columns={"idUser"})})
+ * @ORM\Entity
  */
 class TblCandidacy
 {
@@ -43,16 +43,6 @@ class TblCandidacy
     private $imagecv;
 
     /**
-     * @var \TblOffer
-     *
-     * @ORM\ManyToOne(targetEntity="TblOffer")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idOffer", referencedColumnName="idOffer")
-     * })
-     */
-    private $idoffer;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -61,6 +51,16 @@ class TblCandidacy
      * })
      */
     private $iduser;
+
+    /**
+     * @var \TblOffer
+     *
+     * @ORM\ManyToOne(targetEntity="TblOffer")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idOffer", referencedColumnName="idOffer")
+     * })
+     */
+    private $idoffer;
 
     public function getId(): ?int
     {
@@ -103,18 +103,6 @@ class TblCandidacy
         return $this;
     }
 
-    public function getIdoffer(): ?TblOffer
-    {
-        return $this->idoffer;
-    }
-
-    public function setIdoffer(?TblOffer $idoffer): self
-    {
-        $this->idoffer = $idoffer;
-
-        return $this;
-    }
-
     public function getIduser(): ?User
     {
         return $this->iduser;
@@ -123,6 +111,18 @@ class TblCandidacy
     public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdoffer(): ?TblOffer
+    {
+        return $this->idoffer;
+    }
+
+    public function setIdoffer(?TblOffer $idoffer): self
+    {
+        $this->idoffer = $idoffer;
 
         return $this;
     }

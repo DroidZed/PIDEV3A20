@@ -1,0 +1,46 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Event Participations  {% endblock %}
+
+
+{% block content %}
+    <div class="row-cols-1">
+
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                    <h5 class="card-title"> Participation List <span>| Events </span></h5>
+
+                    <table class="table table-borderless datatable">
+                        <thead>
+                        <tr>
+                            <th scope="col" >User</th>
+                            <th scope="col" >Result</th>
+                            <th scope="col" >Rank</th>
+                            <th scope="col">Booked At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for participation in participations %}
+                            <tr>
+                                <th scope="row"><a href="#">{{ participation.iduser }}</a></th>
+                                <td>{{ participation.result }}</td>
+                                <td>{{ participation.rank }}</td>
+                                <td>{{ participation.bookeddtm ? participation.bookeddtm|date('D M Y H:i') : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
