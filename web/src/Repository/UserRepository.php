@@ -2,59 +2,69 @@
 
 namespace App\Repository;
 
-use App\Entity\TblUser;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method TblUser|null find($id, $lockMode = null, $lockVersion = null)
- * @method TblUser|null findOneBy(array $criteria, array $orderBy = null)
- * @method TblUser[]    findAll()
- * @method TblUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]    findAll()
+ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TblUser::class);
+        parent::__construct($registry, User::class);
     }
+
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @param $type
+     * @return int|mixed|string
      */
-    public function add(TblUser $entity, bool $flush = true): void
-    {
-        $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function remove(TblUser $entity, bool $flush = true): void
+    public function findBynom($type)
     {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
+        return $this->createQueryBuilder('p')
+            ->Where('p.nom LIKE :type')
+            ->setParameter('type','%'.$type.'%')
+            ->getQuery()
+            ->getResult()
+            ;
     }
-
+    public function findByMail($type)
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.email LIKE :type')
+            ->setParameter('type','%'.$type.'%')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findByToken($type)
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.activation_token LIKE :type')
+            ->setParameter('type','%'.$type.'%')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
-    //  * @return TblUser[] Returns an array of TblUser objects
+    //  * @return User[] Returns an array of User objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
+            ->orderBy('u.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -62,15 +72,15 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?TblUser
+
+    public function findOneBySomeField($value): ?User
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.activation_token = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }

@@ -33,6 +33,11 @@ class PromoRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(): void
+    {
+        $this->_em->flush();
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

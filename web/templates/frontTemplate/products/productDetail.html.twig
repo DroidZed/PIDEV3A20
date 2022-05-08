@@ -1,0 +1,105 @@
+{%  extends 'baseFront.html.twig' %}
+{% block content %}
+    <body>
+
+    <!-- start preloader -->
+    <div class="preloader" id="preloader" style="opacity: 0; display: none;"></div>
+    <!-- end preloader -->
+
+    <a href="#" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
+
+
+
+    <!-- banner Section start -->
+    <section id="banner-section" class="inner-banner profile features shop-details">
+        <div class="overlay">
+            <div class="ani-img">
+                <img class="img-1"src="{{ asset("frontTemplate/images/banner-circle-1.png") }}" alt="icon">
+                <img class="img-2" src="{{ asset("frontTemplate/images/banner-circle-2.png") }}" alt="icon">
+                <img class="img-3" src="{{ asset("frontTemplate/images/banner-circle-2.png") }}" alt="icon">
+
+            </div>
+            <div class="banner-content d-flex align-items-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="main-content">
+                                <h1>Details Du Produit</h1>
+                                <div class="breadcrumb-area">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb d-flex justify-content-center">
+                                            <li class="breadcrumb-item"><a href="index-2.html">Accueil</a></li>
+                                            <li class="breadcrumb-item"><a href="{{path('displayProduct') }}">Liste Produits</a></li>
+                                            <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">{{ product.idcategory.nameCategory }}</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- banner Section end -->
+
+    <!-- Shop Content Start -->
+    <div id="shop-content">
+        <div class="container">
+            <div class="shop-details-content">
+                <div class="row justify-content-center cus-pad">
+                    <div class="col-lg-6">
+                     <div class="xzoom-container">
+                            <img class="xzoom5" id="xzoom-magnific" alt="image" src="{{ vich_uploader_asset(product, 'imageFile') }}"  style="width: 510px;">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="right-item">
+                            <h4>{{ product.nameproduct }}</h4>
+                            <p>If you want to buy the product , Click Add to Basket .
+                            Else , Click add To wishlist if you want to visit or buy for another time</p>
+                            <div class="review">
+                                <h3 class="text-sm">Quantité:{{ product.qtyproduct}} </h3>
+                            </div>
+
+                            <div class="bottom-area d-flex align-items-center">
+                                <h5>{{  product.priceproduct }} TND</h5>
+                                    <a href="#" class="cmn-btn">Add to Basket</a>
+                                <a href="#" class="cmn-btn cus-style">Add to WisList</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shop Content end -->
+
+
+
+
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/fontawesome.js"></script>
+    <script src="js/countdown.jquery.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/xzoom.js"></script>
+    <script src="js/xzoom-setup.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/main.js"></script>
+
+
+
+
+    <!-- Mirrored from pixner.net/begam/shop-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 03 Apr 2022 00:01:55 GMT -->
+    </body>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblWishlist
@@ -18,16 +19,18 @@ class TblWishlist
      * @ORM\Column(name="idWishlist", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("wishlist:items")
      */
     private $idwishlist;
 
     /**
-     * @var \TblUser
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
+     * @Groups("wishlist:items")
      */
     private $iduser;
 
@@ -38,6 +41,8 @@ class TblWishlist
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
      * })
+     *
+     * @Groups("wishlist:items")
      */
     private $idproduct;
 
@@ -46,12 +51,12 @@ class TblWishlist
         return $this->idwishlist;
     }
 
-    public function getIduser(): ?TblUser
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 

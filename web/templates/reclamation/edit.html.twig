@@ -1,0 +1,38 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Edit TblReclamation{% endblock %}
+
+{% block body %}
+    <h1>Edit TblReclamation</h1>
+    <section id="login-reg">
+        <div class="overlay pb-120">
+            <div class="container">
+                <div class="row pt-120 d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="login-reg-main text-center">
+                            <h4>Contact us</h4>
+                            <div class="form-area">
+                                <form method="post" action="{{ path('app_reclamation_edit', {'idcomplaint': tbl_reclamation.idcomplaint}) }}" method="POST" novalidate>
+
+
+                                    {{ include('reclamation/_form.html.twig') }}
+
+
+                                </form>
+
+                                <div class="or">
+                                    <p>OR</p>
+                                    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {{ include('reclamation/_delete_form.html.twig') }}
+{% endblock %}

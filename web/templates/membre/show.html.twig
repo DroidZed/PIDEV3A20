@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<title>User</title>
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ User.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ User.nom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ User.email }}</td>
+            </tr>
+            <tr>
+                <th>Createddtm</th>
+                <td>{{ User.createddtm ? User.createddtm|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Desactivationdtm</th>
+                <td>{{ User.desactivationdtm ? User.desactivationdtm|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ User.password }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ User.tel }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ User.photo }}</td>
+            </tr>
+
+            <tr>
+                <th>Leveluser</th>
+                <td>{{ User.leveluser }}</td>
+            </tr>
+            <tr>
+                <th>Cv</th>
+                <td>{{ User.cv }}</td>
+            </tr>
+            <tr>
+                <th>Descuser</th>
+                <td>{{ User.descuser }}</td>
+            </tr>
+            <tr>
+                <th>ActivationToken</th>
+                <td>{{ User.activationToken }}</td>
+            </tr>
+            <tr>
+                <th>ActivationToken</th>
+                <td>{{ User.activationToken }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    <a href="{{ path('profilMembre', {'id': User.id}) }}">edit</a>
+
+    {{ include('membre/_delete_form.html.twig') }}
+{% endblock %}

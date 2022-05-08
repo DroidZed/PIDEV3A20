@@ -50,9 +50,16 @@ class TblVideogame
     private $rating = '0';
 
     /**
-     * @var \TblUser
+     * @var int|null
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\Column(name="likes", type="integer", nullable=true)
+     */
+    private $likes = '0';
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
@@ -112,12 +119,24 @@ class TblVideogame
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(?int $likes): self
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 
