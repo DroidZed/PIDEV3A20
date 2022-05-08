@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups ;
 
 /**
  * TblParticipation
@@ -14,28 +15,28 @@ class TblParticipation
 {
     /**
      * @var \DateTime
-     *
+     * @Groups ("participation:read")
      * @ORM\Column(name="bookedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $bookeddtm = 'CURRENT_TIMESTAMP';
 
     /**
      * @var int|null
-     *
+     * @Groups ("participation:read")
      * @ORM\Column(name="rank", type="integer", nullable=true)
      */
     private $rank;
 
     /**
      * @var int|null
-     *
+     * @Groups ("participation:read")
      * @ORM\Column(name="result", type="integer", nullable=true)
      */
     private $result;
 
     /**
      * @var int
-     *
+     * @Groups ("participation:read")
      * @ORM\Column(name="idParticipation", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -44,7 +45,7 @@ class TblParticipation
 
     /**
      * @var \TblPost
-     *
+     * @Groups ("participation:read")
      * @ORM\ManyToOne(targetEntity="TblPost")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
@@ -54,7 +55,7 @@ class TblParticipation
 
     /**
      * @var \TblPaytype
-     *
+     * @Groups ("participation:read")
      * @ORM\ManyToOne(targetEntity="TblPaytype")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
@@ -64,7 +65,7 @@ class TblParticipation
 
     /**
      * @var \TblUser
-     *
+     * @Groups ("participation:read")
      * @ORM\ManyToOne(targetEntity="TblUser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")

@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<style>
+    .form-check-label {
+        color: #FFFFFF;
+    }
+
+    .cmn-btn {
+        color: var(--body-color);
+    }
+</style>
+
+<div class="billing-method method" style="overflow-y: auto;max-height: 170px;">
+    <div class="single-area">
+        <div class="form-check">
+            <div class="radio-area">
+                {{ form_row(form.answer)}}
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="d-flex flex-row-reverse">
+    <button type="submit" class="cmn-btn">Submit Answer</button>
+</div>
+
+{{ form_end(form) }}

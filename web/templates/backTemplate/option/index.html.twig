@@ -1,0 +1,38 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Options List  {% endblock %}
+
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idoption</th>
+                <th>Createddtm</th>
+                <th>Statusoptions</th>
+                <th>Contentoption</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tbl_option in tbl_options %}
+            <tr>
+                <td>{{ tbl_option.idoption }}</td>
+                <td>{{ tbl_option.createddtm ? tbl_option.createddtm|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tbl_option.statusoptions }}</td>
+                <td>{{ tbl_option.contentoption }}</td>
+                <td>
+                    <a href="{{ path('app_option_show', {'idoption': tbl_option.idoption}) }}">show</a>
+                    <a href="{{ path('app_option_edit', {'idoption': tbl_option.idoption}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

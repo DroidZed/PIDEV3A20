@@ -15,9 +15,6 @@ class TblUser
 
 
 
-
-
-
     /**
      * @var int
      *
