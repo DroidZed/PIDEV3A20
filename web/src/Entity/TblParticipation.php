@@ -18,21 +18,21 @@ class TblParticipation
      * @Groups ("participation:read")
      * @ORM\Column(name="bookedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $bookeddtm = 'CURRENT_TIMESTAMP';
+    private $bookeddtm = 'current_timestamp()';
 
     /**
      * @var int|null
      * @Groups ("participation:read")
      * @ORM\Column(name="rank", type="integer", nullable=true)
      */
-    private $rank;
+    private $rank = NULL;
 
     /**
      * @var int|null
      * @Groups ("participation:read")
      * @ORM\Column(name="result", type="integer", nullable=true)
      */
-    private $result;
+    private $result = NULL;
 
     /**
      * @var int

@@ -33,9 +33,9 @@ class TblUserorder
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="payDTM", type="date", nullable=true)
+     * @ORM\Column(name="payDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $paydtm;
+    private $paydtm = 'NULL';
 
     /**
      * @var string

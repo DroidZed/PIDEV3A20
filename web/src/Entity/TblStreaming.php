@@ -38,16 +38,16 @@ class TblStreaming
     /**
      * @var string|null
      *
-     * @ORM\Column(name="description", type="string", length=250, nullable=true)
+     * @ORM\Column(name="description", type="string", length=250, nullable=true, options={"default"="NULL"})
      */
-    private $description;
+    private $description = 'NULL';
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="nbVu", type="integer", nullable=true)
+     * @ORM\Column(name="nbVu", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $nbvu;
+    private $nbvu = NULL;
 
     /**
      * @var int

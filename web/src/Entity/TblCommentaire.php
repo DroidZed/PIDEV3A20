@@ -22,11 +22,11 @@ class TblCommentaire
     private $idcom;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
-     * @ORM\Column(name="dateCom", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="dateCom", type="datetime", nullable=true, options={"default"="NULL"})
      */
-    private $datecom = 'CURRENT_TIMESTAMP';
+    private $datecom = 'NULL';
 
     /**
      * @var string
@@ -55,7 +55,7 @@ class TblCommentaire
         return $this->datecom;
     }
 
-    public function setDatecom(\DateTimeInterface $datecom): self
+    public function setDatecom(?\DateTimeInterface $datecom): self
     {
         $this->datecom = $datecom;
 

@@ -24,23 +24,23 @@ class TblCandidacy
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="candidacyDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="candidacyDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $candidacydtm = 'CURRENT_TIMESTAMP';
+    private $candidacydtm = 'current_timestamp()';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="etat", type="string", length=20, nullable=true)
+     * @ORM\Column(name="etat", type="string", length=20, nullable=true, options={"default"="NULL"})
      */
-    private $etat;
+    private $etat = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="imageCV", type="string", length=255, nullable=true)
+     * @ORM\Column(name="imageCV", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $imagecv;
+    private $imagecv = 'NULL';
 
     /**
      * @var \User

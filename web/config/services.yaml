@@ -11,6 +11,7 @@ parameters:
     images_directory: '%kernel.project_dir%/public/Uploads/Images'
     cv_directory: '%kernel.project_dir%/public/Uploads/Cv'
 services:
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

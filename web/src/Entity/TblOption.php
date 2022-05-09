@@ -31,9 +31,9 @@ class TblOption
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="createdDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $createddtm ;
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var int

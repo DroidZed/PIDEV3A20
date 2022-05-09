@@ -68,7 +68,7 @@ class TblProduct
      * @var \DateTime
      * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $createddtm = 'CURRENT_TIMESTAMP';
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var \User

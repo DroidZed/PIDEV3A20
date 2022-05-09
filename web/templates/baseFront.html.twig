@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -21,6 +20,9 @@
         <link rel="stylesheet" href={{ asset ("frontTemplate/css/style.css") }}>
         <link rel="stylesheet" href="{{ asset('frontTemplate/css/swal2.dark.min.css') }}">
         <link rel="stylesheet" href="{{ asset('frontTemplate/css/rem-btn-styles.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
         <style>
             .purple-entr-profile {
                 background-color: #32286D;
@@ -82,7 +84,7 @@
                                             </li>
                                             <li><a href="{{ path('goToCart') }}">Cart</a></li>
                                             <li><a href="{{ path('checkOut') }}">Check Out</a></li>
-                                            <li><a href="#">Features</a></li>
+                                            <li><a href="{{ path("display_Vg") }}">Jeux Videos</a></li>
                                             <li><a href="#">Error</a></li>
                                         </ul>
                                     </li>
@@ -240,6 +242,10 @@
     <script src="{{ asset ("frontTemplate/js/wow.js") }}"></script>
     <script src="{{ asset ("frontTemplate/js/main.js") }}"></script>
     <script src="{{ asset ("frontTemplate/js/sweetalert2.all.min.js") }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <script src="//code.jquery.com/jquery.js"></script>
 {% endblock %}
 
 {%  endblock %}

@@ -31,9 +31,9 @@ class TblPromo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $createddtm = 'CURRENT_TIMESTAMP';
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var int

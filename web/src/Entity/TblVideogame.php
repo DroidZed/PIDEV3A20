@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblVideogame
@@ -18,27 +20,41 @@ class TblVideogame
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("TblVideogame")
+     * @Groups("posts:read")
      */
     private $id;
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="statusVg", type="boolean", nullable=true)
+     * @ORM\Column(name="statusVg", type="boolean", nullable=true, options={"default"="NULL"})
+     * @Groups("TblVideogame")
+     * @Groups("posts:read")
      */
-    private $statusvg;
+    private $statusvg = 'NULL';
 
     /**
      * @var string|null
+     * @Assert\NotBlank(message="Veuillez saisir le nom!")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" le nom doit etre >= 4"
      *
-     * @ORM\Column(name="nameVg", type="string", length=255, nullable=true)
+     *     )
+     *
+     * @ORM\Column(name="nameVg", type="string", length=255, nullable=true, options={"default"="NULL"})
+     * @Groups("TblVideogame")
+     * @Groups("posts:read")
      */
-    private $namevg;
+    private $namevg = 'NULL';
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Veuillez saisir une image!")
      * @ORM\Column(name="imageVg", type="string", length=255, nullable=false)
+     * @Groups("TblVideogame")
+     * @Groups("posts:read")
      */
     private $imagevg;
 
@@ -46,6 +62,8 @@ class TblVideogame
      * @var int
      *
      * @ORM\Column(name="rating", type="integer", nullable=false)
+     * @Groups("TblVideogame")
+     * @Groups("posts:read")
      */
     private $rating = '0';
 
@@ -53,6 +71,8 @@ class TblVideogame
      * @var int|null
      *
      * @ORM\Column(name="likes", type="integer", nullable=true)
+     * @Groups("TblVideogame")
+     * @Groups("posts:read")
      */
     private $likes = '0';
 

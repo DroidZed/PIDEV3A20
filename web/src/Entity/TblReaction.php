@@ -24,9 +24,9 @@ class TblReaction
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="reactedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="reactedDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $reacteddtm = 'CURRENT_TIMESTAMP';
+    private $reacteddtm = 'current_timestamp()';
 
     /**
      * @var \TblPost

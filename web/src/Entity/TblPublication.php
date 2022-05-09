@@ -24,23 +24,23 @@ class TblPublication
     /**
      * @var int|null
      *
-     * @ORM\Column(name="idUser", type="integer", nullable=true)
+     * @ORM\Column(name="idUser", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $iduser;
+    private $iduser = NULL;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
-     * @ORM\Column(name="DatePub", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="DatePub", type="datetime", nullable=true, options={"default"="NULL"})
      */
-    private $datepub = 'CURRENT_TIMESTAMP';
+    private $datepub = 'NULL';
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="TypePub", type="integer", nullable=true)
+     * @ORM\Column(name="TypePub", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $typepub;
+    private $typepub = NULL;
 
     /**
      * @var string
@@ -88,7 +88,7 @@ class TblPublication
         return $this->datepub;
     }
 
-    public function setDatepub(\DateTimeInterface $datepub): self
+    public function setDatepub(?\DateTimeInterface $datepub): self
     {
         $this->datepub = $datepub;
 

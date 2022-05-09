@@ -98,7 +98,7 @@ class TblPost
      * @Groups ("post:read")
      * @ORM\Column(name="photoPost", type="string", length=200, nullable=true)
      */
-    private $photopost;
+    private $photopost = 'NULL';
 
     /**
      * @var string
@@ -113,7 +113,7 @@ class TblPost
      * @ORM\Column(name="startDTM", type="date", nullable=true)
      * @Groups ("post:read")
      */
-    private $startdtm;
+    private $startdtm = 'NULL';
 
     /**
      * @var \DateTime|null
@@ -121,14 +121,14 @@ class TblPost
      * @ORM\Column(name="endDTM", type="date", nullable=true)
      * @Groups ("post:read")
      */
-    private $enddtm;
+    private $enddtm = 'NULL';
 
     /**
      * @var string|null
      * @ORM\Column(name="addressEvent", type="string", length=150, nullable=true)
      * @Groups ("post:read")
      */
-    private $addressevent;
+    private $addressevent = 'NULL';
 
     /**
      * @var int|null
@@ -136,14 +136,14 @@ class TblPost
      * @ORM\Column(name="nbTicketAvailable", type="integer", nullable=true)
      * @Groups ("post:read")
      */
-    private $nbticketavailable;
+    private $nbticketavailable = NULL;
 
     /**
      * @var string|null
      * @Groups ("post:read")
      * @ORM\Column(name="correctAnswer", type="string", length=255, nullable=true)
      */
-    private $correctanswer;
+    private $correctanswer = 'NULL';
 
     /**
      * @var float|null
@@ -151,7 +151,7 @@ class TblPost
      * @Groups ("post:read")
      * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
      */
-    private $latitude;
+    private $latitude = NULL;
 
     /**
      * @var float|null
@@ -159,7 +159,7 @@ class TblPost
      * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
      * @Groups ("post:read")
      */
-    private $longitude;
+    private $longitude = NULL;
 
     /**
      * @var \User

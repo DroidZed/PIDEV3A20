@@ -31,9 +31,9 @@ class TblFidcard
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=true)
+     * @ORM\Column(name="createdDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $createddtm;
+    private $createddtm = 'NULL';
 
     /**
      * @var \User

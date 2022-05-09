@@ -41,16 +41,16 @@ class TblUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $createddtm = 'CURRENT_TIMESTAMP';
+    private $createddtm = 'current_timestamp()';
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="desactivationDTM", type="date", nullable=true)
+     * @ORM\Column(name="desactivationDTM", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $desactivationdtm;
+    private $desactivationdtm = 'NULL';
 
     /**
      * @var string
@@ -69,9 +69,9 @@ class TblUser
     /**
      * @var string|null
      *
-     * @ORM\Column(name="photoUser", type="string", length=255, nullable=true)
+     * @ORM\Column(name="photoUser", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $photouser;
+    private $photouser = 'NULL';
 
     /**
      * @var string
@@ -90,16 +90,16 @@ class TblUser
     /**
      * @var string|null
      *
-     * @ORM\Column(name="cv", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cv", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $cv;
+    private $cv = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="descUser", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descUser", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $descuser;
+    private $descuser = 'NULL';
 
     /**
      * @var \TblStateuser

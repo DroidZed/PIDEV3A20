@@ -25,9 +25,9 @@ class TblAnswerpost
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="answeredDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="answeredDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
      */
-    private $answereddtm = 'CURRENT_TIMESTAMP';
+    private $answereddtm = 'current_timestamp()';
 
     /**
      * @var string
