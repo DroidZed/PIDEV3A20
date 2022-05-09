@@ -478,5 +478,9 @@ class User implements UserInterface,\Serializable
         // TODO: Implement eraseCredentials() method.
     }
 
+    public function __toString()
+    {
+        return $this->nom ;
+    }
 
 }

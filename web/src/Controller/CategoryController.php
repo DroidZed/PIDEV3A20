@@ -14,7 +14,7 @@ class CategoryController extends AbstractController
 {
 
     /**
-     * @Route("/", name="displayCategory", methods={"GET"})
+     * @Route("/admin/category", name="displayCategory", methods={"GET"})
      * @param Request|null $req
      * @param CategoryRepository $categoryRepository
      * @return Response
@@ -37,7 +37,7 @@ class CategoryController extends AbstractController
 
 
     /**
-     * @Route("/addCategory", name="addCategory")
+     * @Route("/admin/addCategory", name="addCategory")
      */
     public function addCategory(Request $request): Response
     {
@@ -56,7 +56,7 @@ class CategoryController extends AbstractController
 
     //Suppresion
     /**
-     * @Route("/deleteCategory/{id}", name="deleteCategory")
+     * @Route("/admin/deleteCategory/{id}", name="deleteCategory")
      */
     public function deleteCategory(TblCategory  $category): Response
     {
@@ -67,7 +67,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/editCategory/{id}", name="editCategory")
+     * @Route("/admin/editCategory/{id}", name="editCategory")
      */
     public function editCategory(Request $request, $id): Response
     {

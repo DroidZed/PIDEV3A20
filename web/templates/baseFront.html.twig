@@ -31,81 +31,23 @@
 
 <body>
 {% block body %}
-    <!-- header-section start -->
+<!-- header-section start -->
 
-    <!-- start preloader -->
-    <div class="preloader" id="preloader"></div>
-    <!-- end preloader -->
+<!-- start preloader -->
+<div class="preloader" id="preloader"></div>
+<!-- end preloader -->
 
-    <a href="#" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
+<a href="#" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
 
-{#
-    <div>
-        {% block header %}
-            <header id="header-section">
-                <div class="overlay">
-                    <div class="container">
-                        <div class="row d-flex header-area">
-                            <div class="logo-section flex-grow-1 d-flex align-items-center">
-                                <a class="site-logo site-title" href="#"><img
-                                            src="{{ asset ("frontTemplate/images/logo.png") }}"
-                                            alt="site-logo"></a>
-                            </div>
-                            <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <i class="fas fa-bars"></i>
-                            </button>
-                            <nav class="navbar navbar-expand-lg p-0">
-                                <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav main-menu ml-auto">
-                                        <li><a href="#" class="active">Home</a></li>
-                                        <li class="menu_has_children"><a href="#">Produits</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="{{ path('allProducts') }}">Consulter Produits</a></li>
-                                                <li><a href="{{ path('displayProduct') }}">Vos Produits</a></li>
-                                                <li><a href="{{ path('addProduct') }}">Ajouter Produits</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu_has_children"><a href="#">Pages</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="#">About Us</a></li>
-                                                <li><a href="#">Shop</a></li>
-                                                <li><a href="#">Shop Details</a></li>
-                                                <li><a href="#">Profile</a></li>
-                                                <li><a href="#">Cart</a></li>
-                                                <li><a href="#">Check Out</a></li>
-                                                <li><a href="#">Features</a></li>
-                                                <li><a href="#">Error</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Contact</a></li>
-                                    </ul>
-                                </div>
-                            </nav>
-                            <div class="right-area header-action d-flex align-items-center">
-                                <div class="search-icon">
-                                    <a href="#"><img src="{{ asset ("frontTemplate/images/search_btn.png") }}" alt="icon" /></a>
-                                </div>
-                                <div class="lang d-flex align-items-center">
-                                    <select>
-                                        <option value="1">EN</option>
-                                        <option value="2">BN</option>
-                                        <option value="3">ES</option>
-                                        <option value="4">NL</option>
-                                    </select>
-                                </div>
-                                <a href="#" class="login-btn">Rayen Bakali</a>
-                                <a href="#" class="cmn-btn">Logout</a>
-                            </div>
-#}
-    <div>
-        {% block header %}
+<div>
+    {% block header %}
+        <header id="header-section">
             <div class="overlay">
                 <div class="container">
                     <div class="row d-flex header-area">
                         <div class="logo-section flex-grow-1 d-flex align-items-center">
-                            <a class="site-logo site-title" href="#"><img src={{ asset ("frontTemplate/images/logo.png") }} alt="site-logo"></a>
+                            <a class="site-logo site-title" href="#"><img
+                                        src={{ asset ("frontTemplate/images/logo.png") }} alt="site-logo"></a>
                         </div>
                         <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -132,14 +74,14 @@
                                             <li><a href={{ path('ProfilEntreprise') }}>My Space</a></li>
                                             {% elseif is_granted('ROLE_MEMBRE') %}
                                                 <li><a href={{ path('profilMembre') }}>My Profile</a></li>
-                                            {% elseif is_granted('ROLE_ENTREPRISEN')  %}
+                                            {% elseif is_granted('ROLE_ENTREPRISEN') %}
                                                 <li>Verifier Votre Compte</li>
                                             {% else %}
 
                                             {% endif %}
                                             </li>
-                                                <li><a href="{{ path('goToCart') }}">Cart</a></li>
-                                                <li><a href="{{ path('checkOut') }}">Check Out</a></li>
+                                            <li><a href="{{ path('goToCart') }}">Cart</a></li>
+                                            <li><a href="{{ path('checkOut') }}">Check Out</a></li>
                                             <li><a href="#">Features</a></li>
                                             <li><a href="#">Error</a></li>
                                         </ul>
@@ -172,38 +114,43 @@
                         </div>
                     </div>
                 </div>
-            </header>
-        {% endblock %}
-    </div>
+            </div>
+        </header>
+    {% endblock %}
+</div>
 
 
-    <!-- header-section end -->
+<!-- header-section end -->
 
-    <!-- banner-section start -->
+<!-- banner-section start -->
+<div>
+
     {% block banner %}
-    <section id="banner-section">
-        <div class="banner-content d-flex align-items-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="main-content">
-                            <div class="top-area justify-content-center text-center">
-                                <h4>Supernova presents</h4>
-                                <h1>Nebula Gaming</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                <div class="btn-play d-flex justify-content-center align-items-center">
-                                    <a href="#" class="cmn-btn">Get Started</a>
-                                    <a href="" class="mfp-iframe popupvideo">
-                                        <img src={{ asset ("frontTemplate/images/play-icon.png") }} alt="play">
-                                    </a>
+        <section id="banner-section">
+            <div class="banner-content d-flex align-items-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="main-content">
+                                <div class="top-area justify-content-center text-center">
+                                    <h4>Supernova presents</h4>
+                                    <h1>Nebula Gaming</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua</p>
+                                    <div class="btn-play d-flex justify-content-center align-items-center">
+                                        <a href="#" class="cmn-btn">Get Started</a>
+                                        <a href="" class="mfp-iframe popupvideo">
+                                            <img src={{ asset ("frontTemplate/images/play-icon.png") }} alt="play">
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-lg-12">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-6">
-                                            <div class="bottom-area text-center">
-                                                <img src={{ asset ("frontTemplate/images/versus.png") }} alt="banner-vs">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-12">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-6">
+                                                <div class="bottom-area text-center">
+                                                    <img src={{ asset ("frontTemplate/images/versus.png") }} alt="banner-vs">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -211,50 +158,47 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        {% endblock %}
-    </div>
-                <div class="ani-illu">
-                    <img class="left-1 wow fadeInUp" src={{ asset ("frontTemplate/images/left-banner.png") }} alt="image">
-                    <img class="right-2 wow fadeInUp" src={{ asset ("frontTemplate/images/right-banner.png") }} alt="image">
+                    <div class="ani-illu">
+                        <img class="left-1 wow fadeInUp"
+                             src={{ asset ("frontTemplate/images/left-banner.png") }} alt="image">
+                        <img class="right-2 wow fadeInUp"
+                             src={{ asset ("frontTemplate/images/right-banner.png") }} alt="image">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     {% endblock %}
+</div>
 
-    {% block content %}
+{% block content %}
 
-    {% endblock %}
+{% endblock %}
 
 
-    <footer id="footer-section">
-    
-    <div>
-        {% block footer %}
-       <footer id="footer-section">
-                <div class="footer-mid pt-120">
-                    <div class="container">
-                        <div class="row d-flex">
-                            <div class="col-lg-8 col-md-8 d-flex justify-content-md-between justify-content-center align-items-center cus-grid">
-                                <div class="logo-section">
-                                    <a class="site-logo site-title" href="#"><img src="{{ asset ("frontTemplate/images/logo.png") }}" alt="site-logo"/></a>
-                                </div>
-                                <ul class="menu-side d-flex align-items-center">
-                                    <li><a href="#" class="active">Home</a></li>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
+<div>
+    {% block footer %}
+        <footer id="footer-section">
+            <div class="footer-mid pt-120">
+                <div class="container">
+                    <div class="row d-flex">
+                        <div class="col-lg-8 col-md-8 d-flex justify-content-md-between justify-content-center align-items-center cus-grid">
+                            <div class="logo-section">
+                                <a class="site-logo site-title" href="#"><img
+                                            src="{{ asset ("frontTemplate/images/logo.png") }}" alt="site-logo"/></a>
                             </div>
-                            <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center justify-content-md-end">
-                                <div class="right-area">
-                                    <ul class="d-flex">
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                    </ul>
-                                </div>
+                            <ul class="menu-side d-flex align-items-center">
+                                <li><a href="#" class="active">Home</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center justify-content-md-end">
+                            <div class="right-area">
+                                <ul class="d-flex">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -274,14 +218,17 @@
                         </div>
                     </div>
                 </div>
-            </footer>
-        {% endblock %}
-    </div>
+            </div>
+        </footer>
+    {% endblock %}
+</div>
 
-    <!-- footer-section end -->
+<!-- footer-section end -->
 
 {% block js %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.0/axios.min.js" integrity="sha512-yt+yearry6Evoodvr9oWzfGBYcXRyXAbJNZRyD7bHUHs39vj82vnRv1zCqzdh+bShT+c9IQ4T+uX3CmLofd4ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.0/axios.min.js"
+            integrity="sha512-yt+yearry6Evoodvr9oWzfGBYcXRyXAbJNZRyD7bHUHs39vj82vnRv1zCqzdh+bShT+c9IQ4T+uX3CmLofd4ig=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset ("frontTemplate/js/jquery-3.5.1.min.js") }}"></script>
     <script src="{{ asset ("frontTemplate/js/bootstrap.min.js") }}"></script>
     <script src="{{ asset ("frontTemplate/js/slick.js") }}"></script>
@@ -295,8 +242,8 @@
     <script src="{{ asset ("frontTemplate/js/sweetalert2.all.min.js") }}"></script>
 {% endblock %}
 
+{%  endblock %}
 
-{% endblock %}
 </body>
 
 </html>
