@@ -43,6 +43,16 @@ class TblCandidacy
     private $imagecv = 'NULL';
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \TblOffer
      *
      * @ORM\ManyToOne(targetEntity="TblOffer")
@@ -51,16 +61,6 @@ class TblCandidacy
      * })
      */
     private $idoffer;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
 
     public function getId(): ?int
     {
@@ -103,6 +103,18 @@ class TblCandidacy
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdoffer(): ?TblOffer
     {
         return $this->idoffer;
@@ -111,18 +123,6 @@ class TblCandidacy
     public function setIdoffer(?TblOffer $idoffer): self
     {
         $this->idoffer = $idoffer;
-
-        return $this;
-    }
-
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

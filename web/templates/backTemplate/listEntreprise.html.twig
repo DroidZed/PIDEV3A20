@@ -1,0 +1,142 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Liste des Membre{% endblock %}
+
+
+
+    {% block content %}
+        <h1>Liste des membres</h1>
+
+        <div class="pcoded-search-box" style="position: relative; left: 500px">
+            <input onkeyup="searchEnt()" type="text" id="searchEnt" class="form-control" placeholder="Search">
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+
+        <a class="nav-link" href="{{ path('pdfEntreprise') }}">Generer un pdf</a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <strong>Administrateur</strong> {{ app.user.nom }}
+        {% endif %}
+        Email : {{ app.user.email }}
+        <div class="container">
+            <div class="row">
+                <div class="col md-6">
+
+                    <div class="card recent-sales overflow-auto d-flex">
+                        <div class="filter"><a class="icon" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                        class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="">
+                                <li class="dropdown-header text-start"><h6>Filter</h6></li>
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+                        <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                            <div class="dataTable-top">
+                                <div class="dataTable-dropdown"><label><select class="dataTable-selector">
+                                            <option value="5">5</option>
+                                            <option value="10" selected="">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                        </select> entries per page</label></div>
+                                <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..."
+                                                                     type="text">
+                                </div>
+                            </div>
+                            <div class="dataTable-container">
+                                <table class="table table-borderless datatable dataTable-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">User</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 23.0735%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Phone</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 32.0341%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Email</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 12.3208%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Status</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Description</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Photo</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">PDF</a>
+                                        </th>
+                                        <th scope="col" data-sortable="" style="width: 18.8172%;"><a href="#"
+                                                                                                     class="dataTable-sorter">Actions</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for e in entreprises %}
+                                        <tr name="elements" id="{{ 'membre'~ e.id}}">
+                                            <td>{{ e.nom }}</td>
+                                            <td>{{ e.tel }}</td>
+                                            <td>{{ e.email }}</td>
+                                            {% if e.stateuser.name == 'Active' %}
+                                                <td  class="badge bg-success">{{ e.stateuser.name }}</td>
+                                            {% else %}
+                                                <td  class="badge bg-danger">{{ e.stateuser.name }}</td>
+                                            {% endif %}
+                                            <td>{{ e.descuser }}</td>
+                                            <td><a href="{{ asset('/Uploads/Images/' ~ e.photo) }}">{{ e.photo }}</a></td>
+                                            <td> <a href="{{ asset('/Uploads/Cv/' ~ e.cv) }}">  {{ e.cv }} </a></td>
+                                            <td>
+
+                                                <a href="{{ path('modererent', {'iduser': e.id}) }}">moderate</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    {{ knp_pagination_render(entreprises) }}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="dataTable-bottom">
+
+                                <div class="dataTable-info">Showing 1 to 5 of 5 entries</div>
+                                <nav class="dataTable-pagination">
+                                    <ul class="dataTable-pagination-list"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% block js %}
+            <script>
+                function searchEnt() {
+                    let searchString = document.getElementById('searchEnt').value; // recuperation de l'input de la recherche
+                    const elements = document.getElementsByName('elements') //recuperation de la reference du dom (liste des tr)
+                    if (searchString.length!==0){
+                        $.ajax({
+                            url: 'listEntreprise/search/'+searchString,
+                            success: function (data) {
+                                console.log("data :",data)
+                                for (let i = 0; i < elements.length; i++){
+                                    elements[i].style.display = "none";
+                                }
+                                for (let j = 0; j < data.length; j++) {
+                                    $('#membre'+data[j].id).show('slow');
+                                }
+                            },
+
+                        });
+                    }else{
+                        for (let i = 0; i < elements.length; i++){
+                            elements[i].style.display = "revert";
+                        }
+                    }
+                }
+            </script>
+        {% endblock %}
+    {% endblock %}
+

@@ -29,16 +29,6 @@ class TblPassage
     private $resultatpassage;
 
     /**
-     * @var \TblCandidacy
-     *
-     * @ORM\ManyToOne(targetEntity="TblCandidacy")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCandidacy", referencedColumnName="id")
-     * })
-     */
-    private $idcandidacy;
-
-    /**
      * @var \TblTest
      *
      * @ORM\ManyToOne(targetEntity="TblTest")
@@ -47,6 +37,16 @@ class TblPassage
      * })
      */
     private $idtest;
+
+    /**
+     * @var \TblCandidacy
+     *
+     * @ORM\ManyToOne(targetEntity="TblCandidacy")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCandidacy", referencedColumnName="id")
+     * })
+     */
+    private $idcandidacy;
 
     public function getIdpassage(): ?int
     {
@@ -65,18 +65,6 @@ class TblPassage
         return $this;
     }
 
-    public function getIdcandidacy(): ?TblCandidacy
-    {
-        return $this->idcandidacy;
-    }
-
-    public function setIdcandidacy(?TblCandidacy $idcandidacy): self
-    {
-        $this->idcandidacy = $idcandidacy;
-
-        return $this;
-    }
-
     public function getIdtest(): ?TblTest
     {
         return $this->idtest;
@@ -85,6 +73,18 @@ class TblPassage
     public function setIdtest(?TblTest $idtest): self
     {
         $this->idtest = $idtest;
+
+        return $this;
+    }
+
+    public function getIdcandidacy(): ?TblCandidacy
+    {
+        return $this->idcandidacy;
+    }
+
+    public function setIdcandidacy(?TblCandidacy $idcandidacy): self
+    {
+        $this->idcandidacy = $idcandidacy;
 
         return $this;
     }

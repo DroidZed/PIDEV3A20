@@ -1,0 +1,9 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Edit Option  {% endblock %}
+{% block content %}
+
+    {{ include('backTemplate/option/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('backTemplate/option/_delete_form.html.twig') }}
+    <a href="{{ path('app_quiz_index')}}">back to list</a>
+{% endblock %}

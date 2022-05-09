@@ -1,0 +1,12 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Edit Quiz  {% endblock %}
+{% block content %}
+
+    {{ include('backTemplate/quiz/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_quiz_index') }}">back to list</a>
+
+
+    {{ include('backTemplate/quiz/_delete_form.html.twig') }}
+{% endblock %}

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblReaction
  *
- * @ORM\Table(name="tbl_reaction", indexes={@ORM\Index(name="fk_reaction_tyReact", columns={"idTypeReact"}), @ORM\Index(name="fk_reaction_post", columns={"idPost"}), @ORM\Index(name="fk_reaction_comment", columns={"idComment"}), @ORM\Index(name="fk_reaction_user", columns={"idUser"})})
+ * @ORM\Table(name="tbl_reaction", indexes={@ORM\Index(name="fk_reaction_user", columns={"idUser"}), @ORM\Index(name="fk_reaction_tyReact", columns={"idTypeReact"}), @ORM\Index(name="fk_reaction_post", columns={"idPost"}), @ORM\Index(name="fk_reaction_comment", columns={"idComment"})})
  * @ORM\Entity
  */
 class TblReaction
@@ -29,9 +29,19 @@ class TblReaction
     private $reacteddtm = 'current_timestamp()';
 
     /**
-     * @var \TblUser
+     * @var \TblPost
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\ManyToOne(targetEntity="TblPost")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
+     * })
+     */
+    private $idpost;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
@@ -58,16 +68,6 @@ class TblReaction
      */
     private $idtypereact;
 
-    /**
-     * @var \TblPost
-     *
-     * @ORM\ManyToOne(targetEntity="TblPost")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
-     * })
-     */
-    private $idpost;
-
     public function getIdreact(): ?int
     {
         return $this->idreact;
@@ -85,12 +85,26 @@ class TblReaction
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getIdpost(): ?TblPost
+    {
+        return $this->idpost;
+    }
+
+    public function setIdpost(?TblPost $idpost): self
+    {
+        $this->idpost = $idpost;
+
+        return $this;
+    }
+  
+
+    public function getIduser(): ?User
+
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 
@@ -117,18 +131,6 @@ class TblReaction
     public function setIdtypereact(?TblTypereact $idtypereact): self
     {
         $this->idtypereact = $idtypereact;
-
-        return $this;
-    }
-
-    public function getIdpost(): ?TblPost
-    {
-        return $this->idpost;
-    }
-
-    public function setIdpost(?TblPost $idpost): self
-    {
-        $this->idpost = $idpost;
 
         return $this;
     }

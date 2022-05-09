@@ -7,11 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TblUser
  *
- * @ORM\Table(name="tbl_user", indexes={@ORM\Index(name="fk_badge_user", columns={"idBadge"}), @ORM\Index(name="fk_user_stateUser", columns={"idStateUser"})})
+ * @ORM\Table(name="tbl_user", indexes={@ORM\Index(name="fk_badge_user", columns={"idBadge"}), @ORM\Index(name="fk_user_stateUser", columns={"stateUser"})})
  * @ORM\Entity
  */
 class TblUser
 {
+
+
+
     /**
      * @var int
      *
@@ -99,6 +102,16 @@ class TblUser
     private $descuser = 'NULL';
 
     /**
+     * @var \TblStateuser
+     *
+     * @ORM\ManyToOne(targetEntity="TblStateuser")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="stateUser", referencedColumnName="idStateUser")
+     * })
+     */
+    private $stateuser;
+
+    /**
      * @var \TblBadge
      *
      * @ORM\ManyToOne(targetEntity="TblBadge")
@@ -107,16 +120,6 @@ class TblUser
      * })
      */
     private $idbadge;
-
-    /**
-     * @var \TblStateuser
-     *
-     * @ORM\ManyToOne(targetEntity="TblStateuser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idStateUser", referencedColumnName="idStateUser")
-     * })
-     */
-    private $idstateuser;
 
     public function getIduser(): ?int
     {
@@ -255,6 +258,18 @@ class TblUser
         return $this;
     }
 
+    public function getStateuser(): ?TblStateuser
+    {
+        return $this->stateuser;
+    }
+
+    public function setStateuser(?TblStateuser $stateuser): self
+    {
+        $this->stateuser = $stateuser;
+
+        return $this;
+    }
+
     public function getIdbadge(): ?TblBadge
     {
         return $this->idbadge;
@@ -267,16 +282,9 @@ class TblUser
         return $this;
     }
 
-    public function getIdstateuser(): ?TblStateuser
+    public function __toString()
     {
-        return $this->idstateuser;
-    }
-
-    public function setIdstateuser(?TblStateuser $idstateuser): self
-    {
-        $this->idstateuser = $idstateuser;
-
-        return $this;
+        return $this->nameuser ;
     }
 
 

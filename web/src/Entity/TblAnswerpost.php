@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnswerPostRepository;
 
 /**
  * TblAnswerpost
  *
- * @ORM\Table(name="tbl_answerpost", indexes={@ORM\Index(name="fk_post_answerPost", columns={"idPost"}), @ORM\Index(name="fk_user_answerPost", columns={"idUser"})})
- * @ORM\Entity
+ * @ORM\Table(name="tbl_answerpost", indexes={@ORM\Index(name="fk_user_answerPost", columns={"idUser"}), @ORM\Index(name="fk_post_answerPost", columns={"idPost"})})
+ * @ORM\Entity(repositoryClass=AnswerPostRepository::class)
  */
 class TblAnswerpost
 {
@@ -36,6 +37,16 @@ class TblAnswerpost
     private $answer;
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
+
+     /**
      * @var \TblPost
      *
      * @ORM\ManyToOne(targetEntity="TblPost")
@@ -44,16 +55,6 @@ class TblAnswerpost
      * })
      */
     private $idpost;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
 
     public function getIdanswer(): ?int
     {
@@ -84,6 +85,18 @@ class TblAnswerpost
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdpost(): ?TblPost
     {
         return $this->idpost;
@@ -95,18 +108,4 @@ class TblAnswerpost
 
         return $this;
     }
-
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
-    }
-
-
 }

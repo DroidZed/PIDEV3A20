@@ -29,16 +29,6 @@ class TblOrderline
     private $quantordline;
 
     /**
-     * @var \TblProduct
-     *
-     * @ORM\ManyToOne(targetEntity="TblProduct")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
-     * })
-     */
-    private $idproduct;
-
-    /**
      * @var \TblUserorder
      *
      * @ORM\ManyToOne(targetEntity="TblUserorder")
@@ -47,6 +37,16 @@ class TblOrderline
      * })
      */
     private $numberorder;
+
+    /**
+     * @var \TblProduct
+     *
+     * @ORM\ManyToOne(targetEntity="TblProduct")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
+     * })
+     */
+    private $idproduct;
 
     public function getIdorderline(): ?int
     {
@@ -65,18 +65,6 @@ class TblOrderline
         return $this;
     }
 
-    public function getIdproduct(): ?TblProduct
-    {
-        return $this->idproduct;
-    }
-
-    public function setIdproduct(?TblProduct $idproduct): self
-    {
-        $this->idproduct = $idproduct;
-
-        return $this;
-    }
-
     public function getNumberorder(): ?TblUserorder
     {
         return $this->numberorder;
@@ -85,6 +73,18 @@ class TblOrderline
     public function setNumberorder(?TblUserorder $numberorder): self
     {
         $this->numberorder = $numberorder;
+
+        return $this;
+    }
+
+    public function getIdproduct(): ?TblProduct
+    {
+        return $this->idproduct;
+    }
+
+    public function setIdproduct(?TblProduct $idproduct): self
+    {
+        $this->idproduct = $idproduct;
 
         return $this;
     }

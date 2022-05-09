@@ -36,6 +36,16 @@ class TblFidcard
     private $createddtm = 'NULL';
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \TblCardtype
      *
      * @ORM\ManyToOne(targetEntity="TblCardtype")
@@ -44,16 +54,6 @@ class TblFidcard
      * })
      */
     private $idcardtype;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
 
     public function getIdfidcard(): ?int
     {
@@ -84,6 +84,18 @@ class TblFidcard
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdcardtype(): ?TblCardtype
     {
         return $this->idcardtype;
@@ -92,18 +104,6 @@ class TblFidcard
     public function setIdcardtype(?TblCardtype $idcardtype): self
     {
         $this->idcardtype = $idcardtype;
-
-        return $this;
-    }
-
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

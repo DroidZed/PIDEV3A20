@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TblOption
 {
+
+    const STATUS_OPTION = [
+        1 => 'Visible',
+        0 => 'Not Visible'
+    ] ;
+
+
     /**
      * @var int
      *
@@ -103,6 +110,11 @@ class TblOption
         $this->idpost = $idpost;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getContentoption() ;
     }
 
 

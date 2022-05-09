@@ -36,6 +36,16 @@ class TblComment
     private $comment;
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \TblPost
      *
      * @ORM\ManyToOne(targetEntity="TblPost")
@@ -44,16 +54,6 @@ class TblComment
      * })
      */
     private $idpost;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
 
     public function getIdcomment(): ?int
     {
@@ -84,6 +84,18 @@ class TblComment
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdpost(): ?TblPost
     {
         return $this->idpost;
@@ -92,18 +104,6 @@ class TblComment
     public function setIdpost(?TblPost $idpost): self
     {
         $this->idpost = $idpost;
-
-        return $this;
-    }
-
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

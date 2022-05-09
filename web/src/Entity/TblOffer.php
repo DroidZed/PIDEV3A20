@@ -78,6 +78,16 @@ class TblOffer
     private $addressoffer;
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \TblDomain
      *
      * @ORM\ManyToOne(targetEntity="TblDomain")
@@ -86,16 +96,6 @@ class TblOffer
      * })
      */
     private $iddomain;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
 
     public function getIdoffer(): ?int
     {
@@ -198,6 +198,18 @@ class TblOffer
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIddomain(): ?TblDomain
     {
         return $this->iddomain;
@@ -206,18 +218,6 @@ class TblOffer
     public function setIddomain(?TblDomain $iddomain): self
     {
         $this->iddomain = $iddomain;
-
-        return $this;
-    }
-
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

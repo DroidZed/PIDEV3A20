@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblWishlist
@@ -18,8 +19,20 @@ class TblWishlist
      * @ORM\Column(name="idWishlist", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("wishlist:items")
      */
     private $idwishlist;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     * @Groups("wishlist:items")
+     */
+    private $iduser;
 
     /**
      * @var \TblProduct
@@ -28,22 +41,26 @@ class TblWishlist
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idProduct", referencedColumnName="idProduct")
      * })
+     *
+     * @Groups("wishlist:items")
      */
     private $idproduct;
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
-    private $iduser;
 
     public function getIdwishlist(): ?int
     {
         return $this->idwishlist;
+    }
+
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
     }
 
     public function getIdproduct(): ?TblProduct
@@ -54,18 +71,6 @@ class TblWishlist
     public function setIdproduct(?TblProduct $idproduct): self
     {
         $this->idproduct = $idproduct;
-
-        return $this;
-    }
-
-    public function getIduser(): ?TblUser
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?TblUser $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

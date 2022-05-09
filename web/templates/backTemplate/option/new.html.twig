@@ -1,0 +1,10 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %} Add Badge {% endblock %}
+
+{% block content %}
+
+    {{ include('backTemplate/option/_form.html.twig') }}
+
+    <a href="{{ path('app_option_showOptions', {'idpost':app.request.attributes.get('idpost') }) }}">back to list</a>
+{% endblock %}

@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TblUserorder
  *
- * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"}), @ORM\Index(name="fk_userOrder_payType", columns={"idPayType"}), @ORM\Index(name="fk_userOrder_user", columns={"idUser"})})
+ * @ORM\Table(name="tbl_userorder", indexes={@ORM\Index(name="fk_userOrder_user", columns={"idUser"}), @ORM\Index(name="fk_userOrder_statusOrder", columns={"idStatusOrder"}), @ORM\Index(name="fk_userOrder_payType", columns={"idPayType"})})
  * @ORM\Entity
  */
 class TblUserorder
@@ -39,8 +41,22 @@ class TblUserorder
      * @var string
      *
      * @ORM\Column(name="orderAddress", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *     min = 10,
+     *     minMessage = "Address too short !"
+     * )
      */
     private $orderaddress;
+
+    /**
+     * @var \TblStatusorder
+     *
+     * @ORM\ManyToOne(targetEntity="TblStatusorder")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStatusOrder", referencedColumnName="idStatusOrder")
+     * })
+     */
+    private $idstatusorder;
 
     /**
      * @var \TblPaytype
@@ -53,48 +69,38 @@ class TblUserorder
     private $idpaytype;
 
     /**
-     * @var \TblUser
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
      */
     private $iduser;
 
-    /**
-     * @var \TblStatusorder
-     *
-     * @ORM\ManyToOne(targetEntity="TblStatusorder")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idStatusOrder", referencedColumnName="idStatusOrder")
-     * })
-     */
-    private $idstatusorder;
-
     public function getNumberorder(): ?int
     {
         return $this->numberorder;
     }
 
-    public function getCreateddtm(): ?\DateTimeInterface
+    public function getCreateddtm(): ?DateTimeInterface
     {
         return $this->createddtm;
     }
 
-    public function setCreateddtm(\DateTimeInterface $createddtm): self
+    public function setCreateddtm(DateTimeInterface $createddtm): self
     {
         $this->createddtm = $createddtm;
 
         return $this;
     }
 
-    public function getPaydtm(): ?\DateTimeInterface
+    public function getPaydtm(): ?DateTimeInterface
     {
         return $this->paydtm;
     }
 
-    public function setPaydtm(?\DateTimeInterface $paydtm): self
+    public function setPaydtm(?DateTimeInterface $paydtm): self
     {
         $this->paydtm = $paydtm;
 
@@ -113,6 +119,18 @@ class TblUserorder
         return $this;
     }
 
+    public function getIdstatusorder(): ?TblStatusorder
+    {
+        return $this->idstatusorder;
+    }
+
+    public function setIdstatusorder(?TblStatusorder $idstatusorder): self
+    {
+        $this->idstatusorder = $idstatusorder;
+
+        return $this;
+    }
+  
     public function getIdpaytype(): ?TblPaytype
     {
         return $this->idpaytype;
@@ -125,26 +143,14 @@ class TblUserorder
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
-
-        return $this;
-    }
-
-    public function getIdstatusorder(): ?TblStatusorder
-    {
-        return $this->idstatusorder;
-    }
-
-    public function setIdstatusorder(?TblStatusorder $idstatusorder): self
-    {
-        $this->idstatusorder = $idstatusorder;
 
         return $this;
     }

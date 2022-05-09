@@ -1,0 +1,11 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %} Edit  Badge {% endblock %}
+
+{% block content %}
+    {{ include('backTemplate/badge/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_badge_index') }}">back to list</a>
+
+    {{ include('backTemplate/badge/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,14 +1,18 @@
 <?php
 
 namespace App\Entity;
-
+use phpDocumentor\Reflection\Types\This;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblProduct
  *
- * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_user", columns={"idUser"}), @ORM\Index(name="fk_product_category", columns={"idCategory"})})
- * @ORM\Entity
+ * @ORM\Table(name="tbl_product", indexes={@ORM\Index(name="fk_product_category", columns={"idCategory"}), @ORM\Index(name="fk_product_user", columns={"idUser"})})
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class TblProduct
 {
@@ -18,43 +22,64 @@ class TblProduct
      * @ORM\Column(name="idProduct", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"wishlist:items", "products"})
      */
     private $idproduct;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Empty Case !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be longer than 3",
+     *     maxMessage ="Name should be shoter than 20")
      * @var string
-     *
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="nameProduct", type="string", length=100, nullable=false)
      */
     private $nameproduct;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank(message="Empty Case !!")
+     * @Assert\Range(min=1,max=9999)
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="priceProduct", type="float", precision=10, scale=0, nullable=false)
      */
     private $priceproduct;
 
     /**
      * @var int
-     *
+     * @Assert\Positive
+     * @Groups({"wishlist:items", "products"})
      * @ORM\Column(name="QtyProduct", type="integer", nullable=false)
      */
     private $qtyproduct;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="imageProduct", type="string", length=150, nullable=false)
+     * @ORM\Column(name="imageProduct", type="string", length=150, nullable=true)
+     * @Groups({"wishlist:items", "products"})
      */
     private $imageproduct;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="current_timestamp()"})
+     * @ORM\Column(name="createdDTM", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createddtm = 'current_timestamp()';
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     * })
+     * @Groups({"wishlist:items", "products"})
+     */
+    private $iduser;
 
     /**
      * @var \TblCategory
@@ -67,14 +92,16 @@ class TblProduct
     private $idcategory;
 
     /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
+     * @ORM\Column(name="image" , type="string", length=255)
+     * @var string
      */
-    private $iduser;
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
     public function getIdproduct(): ?int
     {
@@ -141,6 +168,18 @@ class TblProduct
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdcategory(): ?TblCategory
     {
         return $this->idcategory;
@@ -153,16 +192,36 @@ class TblProduct
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    /**
+     * @param string|null $image
+     * @return $this
+     */
+    public function setImageFile( $image = null)
     {
-        return $this->iduser;
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+       // if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+          //  $this->updatedAt = new \DateTime('now');
+      //  }
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function getImageFile()
     {
-        $this->iduser = $iduser;
+        return $this->imageFile;
+    }
 
-        return $this;
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
 

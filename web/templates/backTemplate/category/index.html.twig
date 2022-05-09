@@ -1,0 +1,65 @@
+
+{% extends 'baseBack.html.twig' %}
+
+{% block content %}
+
+
+<div class="example-wrapper">
+    <div class="card-body">
+
+       <a href="{{ path('addCategory') }}"> <i class="ri-add-circle-fill style" style="font-size:50px"></i></a>
+        <h5 class="card-title">List Categories</h5>
+
+        <!-- Default Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">title</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in b  %}
+                <td>{{ category.nameCategory }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{{ path('deleteCategory',{'id':category.idCategory}) }}">Delete</a>
+                </td>
+                <td>
+                    <a  class="btn btn-success" href="{{ path('editCategory',{'id':category.idCategory}) }}">Edit</a>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!-- End Default Table Example -->
+        <div class="dataTable-bottom">
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="{{ currPage == 1 ? 'page-item disabled' : "page-item" }}">
+                    <a class="page-link"
+                       href="{{ path('displayCategory', {page: currPage-1 < 1 ? 1 : currPage-1}) }}"
+                       tabindex="-1" aria-disabled="{{ currPage == 1 ? "true" : "false" }}">Previous</a>
+                </li>
+                {# Render each page number #}
+                {% for i in 1..maxPages %}
+                    <li class="{{ currPage == i ? "page-item active" : "page-item" }}">
+                        <a class="page-link" tabindex="-1"
+                           href="{{ path('displayCategory', {page: i}) }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+                <li class="{{ currPage == maxPages ? 'page-item disabled' : "page-item" }}">
+                    <a class="page-link"
+                       href="{{ path('displayCategory', {page: currPage+1 <= maxPages ? currPage+1 : currPage}) }}"
+                       aria-disabled="{{ currPage == 1 ? "true" : "false" }}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+
+
+
+</div>
+{% endblock %}

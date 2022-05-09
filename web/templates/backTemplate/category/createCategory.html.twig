@@ -1,0 +1,30 @@
+
+
+{% extends 'baseBack.html.twig' %}
+{%  block content  %}
+
+    <div class="card-body">
+        <a href="{{ path('displayCategory') }}"> <i class="ri-arrow-left-circle-fill style" style="font-size:50px"></i></a>
+
+        <h5 class="card-title">Ajouter un Categorie</h5>
+
+        <!-- Horizontal Form -->
+        {{ form_start(f , {attr:{novalidate:'novalidate'}}) }}
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nom Category</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.nameCategory,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.nameCategory,{'attr':{'class':'text-danger'}}) }}
+
+
+                </div>
+            </div>
+        <br>
+            <div class="text-center">
+                {{ form_widget(f.ajouter,{'attr':{'class':'btn btn-primary'}}) }}
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        {{ form_end(f) }}<!-- End Horizontal Form -->
+
+    </div>
+{%  endblock %}

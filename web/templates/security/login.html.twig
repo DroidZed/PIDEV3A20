@@ -1,0 +1,57 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+    <!-- Login Reg In start -->
+    <section id="login-reg">
+        <div class="overlay pb-120">
+            <div class="container">
+                <div class="row pt-120 d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="login-reg-main text-center">
+                            <h4>Welcome To SuperNova</h4>
+                            <div class="form-area">
+                                <form action="{{ path('loginBack') }}" method="POST" novalidate>
+                                    {% if error %}
+                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    {% endif %}
+
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input value="{{ last_username }}" name="_username" id="inputEmail"
+                                               class="form-control" autocomplete="email" required autofocus
+                                               placeholder="Email" type="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input placeholder="Enter your password" type="password" name="_password"
+                                               id="inputPassword" class="form-control"
+                                               autocomplete="current-password" required>
+                                    </div>
+                                    <div class="form-group recover">
+                                        <p>Forgot your password? <a href="{{ path('email') }}">Recover
+                                                Password</a></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="cmn-btn">Login</button>
+                                    </div>
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                </form>
+                                <div class="or">
+                                    <p>OR</p>
+                                </div>
+                                <div class="account">
+                                    <p>Don't have an account? <a href="{{ path("newMembre") }}">Sign Up Here</a> !</p>
+                                    <p>Want to be a partner? <a href="{{ path("entrepriseNew") }}">Register your
+                                            business with us</a> !</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

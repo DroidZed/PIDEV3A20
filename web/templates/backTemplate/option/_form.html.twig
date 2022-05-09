@@ -1,0 +1,35 @@
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Options</h5>
+                    <!-- Form -->
+
+                        {{ form_start(form) }}
+                        <div class="row mb-3">
+                            <label  class="col-sm-2 col-form-label">Status Option</label>
+                            <div class="col-sm-10">
+                                {{ form_row(form.statusoptions)}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Option</label>
+                            <div class="col-sm-10">
+                                {{ form_row(form.contentoption)}}
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                        </div>
+                        {{ form_end (form)}}
+                    <!-- End Form -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

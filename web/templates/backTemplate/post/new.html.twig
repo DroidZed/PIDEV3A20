@@ -1,0 +1,10 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %} Add Post {% endblock %}
+
+{% block content %}
+
+    {{ include('backTemplate/post/_form.html.twig') }}
+
+    <a href="{{ path('app_post_index') }}">Back to list</a>
+{% endblock %}

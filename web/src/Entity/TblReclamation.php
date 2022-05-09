@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TblReclamation
  *
- * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_idUser_rec", columns={"idUser"}), @ORM\Index(name="fk_type_rec", columns={"typeComplaint"}), @ORM\Index(name="fk_type_rate", columns={"rate"})})
+ * @ORM\Table(name="tbl_reclamation", indexes={@ORM\Index(name="fk_type_rate", columns={"rate"}), @ORM\Index(name="fk_idUser_rec", columns={"idUser"}), @ORM\Index(name="fk_type_rec", columns={"typeComplaint"})})
  * @ORM\Entity
  */
 class TblReclamation
@@ -18,6 +19,7 @@ class TblReclamation
      * @ORM\Column(name="idComplaint", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
      */
     private $idcomplaint;
 
@@ -25,6 +27,7 @@ class TblReclamation
      * @var string
      *
      * @ORM\Column(name="message", type="string", length=500, nullable=false)
+     * @Assert\NotBlank
      */
     private $message;
 
@@ -40,12 +43,11 @@ class TblReclamation
      *
      * @ORM\Column(name="answerComplaint", type="string", length=500, nullable=true, options={"default"="NULL"})
      */
-    private $answercomplaint = 'NULL';
-
-    /**
-     * @var \TblUser
-     *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+    private $answercomplaint;
+  
+     /**
+     * @var \User
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
@@ -53,17 +55,18 @@ class TblReclamation
     private $iduser;
 
     /**
-     * @var \TblTypecomplaint
+     * @var TblTypecomplaint
      *
      * @ORM\ManyToOne(targetEntity="TblTypecomplaint")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="typeComplaint", referencedColumnName="idType")
      * })
+     * @Assert\NotBlank
      */
     private $typecomplaint;
 
     /**
-     * @var \TblRate
+     * @var TblRate
      *
      * @ORM\ManyToOne(targetEntity="TblRate")
      * @ORM\JoinColumns({
@@ -113,12 +116,24 @@ class TblReclamation
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getRate(): ?TblRate
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?TblRate $rate): self
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
 
@@ -133,18 +148,6 @@ class TblReclamation
     public function setTypecomplaint(?TblTypecomplaint $typecomplaint): self
     {
         $this->typecomplaint = $typecomplaint;
-
-        return $this;
-    }
-
-    public function getRate(): ?TblRate
-    {
-        return $this->rate;
-    }
-
-    public function setRate(?TblRate $rate): self
-    {
-        $this->rate = $rate;
 
         return $this;
     }

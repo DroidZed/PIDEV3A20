@@ -1,0 +1,71 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}  Quiz Details  {% endblock %}
+
+{% block content %}
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-12">
+
+                <div class="card">
+
+                    <div class="card-body pb-0">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h5 class="card-title">{{ quiz.titlepost }} <span> | Details </span></h5>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center d-flex justify-content-end">
+                                {% if  quiz.statuspost == 1 %}
+                                    <span class="badge bg-success">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['1'] }}</span>
+                                {% else %}
+                                    <td><span class="badge bg-danger">{{ constant ('App\\Entity\\TblPost::STATUS_POST')['0'] }}</span></td>
+                                {% endif%}
+                            </div>
+                        </div>
+
+
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            {% if quiz.photopost is not null %}
+                                <img src="{{ asset('uploads/' ~ quiz.photopost) }}" alt="Profile">
+                            {% else %}
+                                <img src="{{ asset('uploads/no_image_found.png') }}" alt="Profile"/>
+                            {% endif %}
+
+                            <h2>{{ quiz.titlepost }}</h2>
+                        </div>
+
+
+                        <div class="card-body pt-3">
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <h5 class="card-title">Description</h5>
+                                    <p class="">{{ quiz.descpost }}</p>
+                                    <h5 class="card-title">Details</h5>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Correct Answer</div>
+                                        <div class="col-lg-9 col-md-8">{{ quiz.correctanswer }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Created By</div>
+                                        <div class="col-lg-9 col-md-8">{{ quiz.iduser }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Created At</div>
+                                        <div class="col-lg-9 col-md-8">{{ quiz.posteddtm ? quiz.posteddtm|date('Y-m-d H:i:s') : ''  }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a href="{{ path('app_quiz_edit', {'idpost': quiz.idpost}) }}" class="btn btn-primary"> Edit </a>
+                            {{ include('backTemplate/quiz/_delete_form.html.twig') }}
+                        </div>
+                        <a href="{{ path('app_quiz_index') }}">back to list</a>
+                    </div>
+                </div>
+            </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'baseFront.html.twig' %}
+{% block bannerTitle %} Your Cart {% endblock %}
+{% block content %}
+    <section id="shop-cart-section" class="pt-120 pb-120">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if cart is not empty %}
+                                    {% for item in cart %}
+                                        <tr id="{{ "prod"~item.product.idproduct }}">
+                                            <th scope="row">
+                                                <img src="{{ asset("frontTemplate/images/cart-image.png") }}"
+                                                     alt="image">
+                                                <span>{{ item.product.nameproduct }}</span>
+                                            </th>
+                                            <td id="{{ "price" ~ item.product.idproduct }}" class="Prodprice">{{ item.product.priceproduct * item.quantity }}</td>
+                                            <td>
+                                                <div class="qtySelector text-center">
+                                                    <a style="display: inline;"
+                                                       href="{{ path("removeFromCart", {"idProd": item.product.idproduct, "dec": 1 }) }}">
+                                                        <i class="fas fa-minus decreaseQty">
+
+                                                        </i>
+                                                    </a>
+                                                    <input type="text" class="qtyValue" value="{{ item.quantity }}">
+                                                    <a
+                                                            style="display: inline;"
+                                                            href="{{ path("addToCart", {"idProd": item.product.idproduct }) }}">
+                                                        <i class="fas fa-plus increaseQty">
+
+                                                        </i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="cart-dismiss">
+                                                    <a href="{{ path("removeFromCart", {"idProd": item.product.idproduct, "dec": 0 }) }}">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>No items for now</td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="right-sidebar">
+                            <div class="top-area">
+                                <h5>Order Summary</h5>
+                                <p>Price can change depending on shipping
+                                    method and taxes of your state.</p>
+                            </div>
+                            <div class="bottom-side text-center">
+                                {% set subTotal = 0.0 %}
+                                {% for item in cart %}
+                                    {% set subTotal = subTotal + (item.quantity * item.product.priceproduct) %}
+                                {% endfor %}
+                                <ul>
+                                    <li>
+                                        <span>Subtotal</span>
+                                        <span id="subTotal">{{ subTotal }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-sm">Delivery (Standard)</span>
+                                        <span class="text-sm">15.00 TND</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-sm">Taxes & Fees</span>
+                                        <span class="text-sm">8.00 TND</span>
+                                    </li>
+                                </ul>
+                                {% if subTotal != 0 %}
+                                <form action="#">
+                                    <div class="apply d-flex">
+                                        <input type="text" id="codeInput" placeholder="Enter pomo Code">
+                                        <button type="button" onclick="applyCode()" class="cmn-btn">Apply</button>
+                                    </div>
+                                </form>
+                                <ul>
+                                    <li class="d-flex align-items-center">
+                                        <span>Total Order</span>
+                                        {% set total = 23.00 + subTotal %}
+                                        <h4 id="total">{{ total }}</h4>
+                                    </li>
+                                </ul>
+                                    <a href="{{ path('checkOut') }}" class="cmn-btn checkout">proceed to checkout</a>
+                                {% else %}
+                                    <p>Your cart is empty !</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function applyCode()
+        {
+            const codeVal = document.querySelector('#codeInput').value;
+
+            $.ajax(
+                {
+                    contentType: "application/json; charset=utf-8",
+                    url: "{{ path('updatePrice') }}",
+                    type: 'POST',
+                    data: JSON.stringify({
+                        "promoCode": codeVal
+                    }),
+                    dataType: "json",
+                    success: function (data) {
+
+                        console.log(data);
+
+                       document.querySelector('#total').innerHTML = data["subTotal"] + 23.00;
+                       document.querySelector('#subTotal').innerHTML = data["subTotal"];
+                       document.querySelector(`#price${data["idProd"]}`).innerHTML = data["newPrice"]
+                    },
+                    error: function () {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Invalid promo code !'
+                        })
+                    }
+                });
+
+        }
+    </script>
+{% endblock %}

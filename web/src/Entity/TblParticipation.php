@@ -3,39 +3,40 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups ;
 
 /**
  * TblParticipation
  *
- * @ORM\Table(name="tbl_participation", indexes={@ORM\Index(name="fk_post_participation", columns={"idPost"}), @ORM\Index(name="fk_user_participation", columns={"idUser"}), @ORM\Index(name="fk_paytype_participation", columns={"idPayType"})})
+ * @ORM\Table(name="tbl_participation", indexes={@ORM\Index(name="fk_paytype_participation", columns={"idPayType"}), @ORM\Index(name="fk_post_participation", columns={"idPost"}), @ORM\Index(name="fk_user_participation", columns={"idUser"})})
  * @ORM\Entity
  */
 class TblParticipation
 {
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="bookedDTM", type="datetime", nullable=false, options={"default"="current_timestamp()"})
+     * @Groups ("participation:read")
+     * @ORM\Column(name="bookedDTM", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $bookeddtm = 'current_timestamp()';
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(name="rank", type="integer", nullable=true, options={"default"="NULL"})
+     * @Groups ("participation:read")
+     * @ORM\Column(name="rank", type="integer", nullable=true)
      */
     private $rank = NULL;
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(name="result", type="integer", nullable=true, options={"default"="NULL"})
+     * @Groups ("participation:read")
+     * @ORM\Column(name="result", type="integer", nullable=true)
      */
     private $result = NULL;
 
     /**
      * @var int
-     *
+     * @Groups ("participation:read")
      * @ORM\Column(name="idParticipation", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -43,8 +44,18 @@ class TblParticipation
     private $idparticipation;
 
     /**
+     * @var \TblPost
+     * @Groups ("participation:read")
+     * @ORM\ManyToOne(targetEntity="TblPost")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
+     * })
+     */
+    private $idpost;
+
+    /**
      * @var \TblPaytype
-     *
+     * @Groups ("participation:read")
      * @ORM\ManyToOne(targetEntity="TblPaytype")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idPayType", referencedColumnName="idPayType")
@@ -53,24 +64,15 @@ class TblParticipation
     private $idpaytype;
 
     /**
-     * @var \TblUser
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="TblUser")
+     * @Groups("participation:read")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
      * })
      */
     private $iduser;
-
-    /**
-     * @var \TblPost
-     *
-     * @ORM\ManyToOne(targetEntity="TblPost")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPost", referencedColumnName="idPost")
-     * })
-     */
-    private $idpost;
 
     public function getBookeddtm(): ?\DateTimeInterface
     {
@@ -113,6 +115,18 @@ class TblParticipation
         return $this->idparticipation;
     }
 
+    public function getIdpost(): ?TblPost
+    {
+        return $this->idpost;
+    }
+
+    public function setIdpost(?TblPost $idpost): self
+    {
+        $this->idpost = $idpost;
+
+        return $this;
+    }
+
     public function getIdpaytype(): ?TblPaytype
     {
         return $this->idpaytype;
@@ -125,26 +139,14 @@ class TblParticipation
         return $this;
     }
 
-    public function getIduser(): ?TblUser
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
 
-    public function setIduser(?TblUser $iduser): self
+    public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
-
-        return $this;
-    }
-
-    public function getIdpost(): ?TblPost
-    {
-        return $this->idpost;
-    }
-
-    public function setIdpost(?TblPost $idpost): self
-    {
-        $this->idpost = $idpost;
 
         return $this;
     }

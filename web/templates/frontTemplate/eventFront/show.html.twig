@@ -1,0 +1,435 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}  Event Details  {% endblock %}
+
+
+{% block banner %}
+    <section id="banner-section" class="inner-banner tournaments">
+        <div class="ani-img">
+            <img class="img-1" src= {{ asset ('frontTemplate/images/banner-circle-1.png') }} alt="icon">
+            <img class="img-2" src={{ asset ('frontTemplate/images/banner-circle-2.png') }} alt="icon">
+            <img class="img-3" src={{ asset ('frontTemplate/images/banner-circle-2.png') }} alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Events</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Events</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="headign-info">
+                <div class="top-area">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
+                            <img src={{ asset ('frontTemplate/images/character_01.png') }} alt="image">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 d-flex align-items-center justify-content-sm justify-content-center">
+                            <div class="mid-area text-center">
+                                <img src={{ asset ('frontTemplate/images/text-img.png') }} alt="image">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 zindex">
+                            <img src={{ asset ('frontTemplate/images/character_02.png') }} alt="image">
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-area">
+                    <div class="bottom">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-lg-8 col-md-8 justify-content-sm-left d-grid">
+                                <h3>{{ event.titlepost }}</h3>
+                                <small  class="text-secondary">{{ event.posteddtm ? event.posteddtm|date('D M Y H:i') }}</small>
+                                <div class="title-bottom d-flex">
+                                    <div class="time-area bg">
+                                        <img src={{ asset ('frontTemplate/images/waitng-icon.png') }} alt="image">
+                                        <span>Starts in</span>
+                                        {% set today = "now"|date('D M Y H:i') %}
+                                        {% set datePost = event.startdtm ? event.startdtm|date('D M Y H:i') %}
+                                        {% set difference = date(today).diff(date(datePost))%}
+                                        {% set leftHours = difference.h %}
+                                        {% if datePost == today %}
+                                           <span class="time">1 day</span>
+                                        {% else %}
+                                            <span class="time">{{ leftHours }} Hours </span>
+                                        {% endif %}
+
+
+                                    </div>
+                                    <div class="time-area bg">
+                                        <img src={{ asset ('frontTemplate/images/location-icon.png') }} alt="image" style="width: 9%;">
+                                        <span>Location</span>
+                                        <span class="time">{{ event.addressevent }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4 text-center">
+                                <a href="{{ path ('app_participation_new', {'idpost' : event.idpost} )  }}" class="cmn-btn">Participate !</a>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="matches-tab" data-toggle="tab" href="#matches" role="tab" aria-controls="matches" aria-selected="false">Comments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="participants-tab" data-toggle="tab" href="#participants" role="tab" aria-controls="participants" aria-selected="false">participants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="prizes-tab" data-toggle="tab" href="#prizes" role="tab" aria-controls="prizes" aria-selected="false">prizes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+{% block content %}
+    <section id="tournaments-content">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                <div class="container pb-120">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h4 class="head-area">Format</h4>
+                            <div class="row wrapper">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="single-area">
+                                        <img src={{ asset ('frontTemplate/images/format-icon-1.png') }} alt="image">
+                                        <h6>Game</h6>
+                                        <p class="text-sm">CS:GO</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="single-area">
+                                        <img src={{ asset ('frontTemplate/images/format-icon-2.png') }} alt="image">
+                                        <h6>Check-in period</h6>
+                                        <p class="text-sm">45 minutes before start</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="single-area">
+                                        <img src={{ asset ('frontTemplate/images/format-icon-3.png') }} alt="image">
+                                        <h6>Team Size</h6>
+                                        <p class="text-sm">1VS1</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="single-area">
+                                        <img src={{ asset ('frontTemplate/images/format-icon-4.png') }} alt="image">
+                                        <h6>Entry Fee</h6>
+                                        <p class="text-sm">Free to enter</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="info-area">
+                                <h4>Information</h4>
+                                <div class="single-info">
+                                    <h5>Description</h5>
+                                    <ul>
+                                     <li>{{ event.descpost}}</li>
+                                    </ul>
+                                </div>
+
+                                <div class="single-info">
+                                    <h5>Rules</h5>
+                                    <ul>
+                                        <li>Please be respectful to your host and other participants. If any malicious behavior
+                                            is reported, you will be removed from the tournament.</li>
+                                        <li>Please be on time for your registration and for the actual tournament. You
+                                            (and your team) will be disqualified on no-show.</li>
+                                        <li>You and all of your teammates must be registered to qualify for the event.</li>
+                                        <li>You can play in this tournament only if your registered and in-game names match,
+                                            otherwise you will be disqualified.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="sidebar">
+                                <div class="single-side">
+                                    <h5>Participants</h5>
+                                    <div class="participants">
+                                        <ul>
+                                            <li><span>Registered</span><span>{{ nbparticipations }}</span></li>
+                                            <li><span>Available slots</span><span>{{ event.nbticketavailable }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="matches" role="tabpanel" aria-labelledby="matches-tab">
+                <section id="products-content" class="pb-120">
+                    <div class="container">
+                        <div class="row">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    <div class="description">
+                                        <div class="single">
+                                            <h5>Stay one step ahead</h5>
+                                            <p>This fully customisable controller offers features and settings specially designed for eSports,
+                                                so you can adapt to any competitive gameplay style.</p>
+                                        </div>
+                                        <div class="single">
+                                            <h5>Features</h5>
+                                            <p>Inheriting all the features that made the first REVOLUTION Pro Controller such a success, it also adds new customisation features for
+                                                competitive gamers. With two sticks using NACON-patented technology to provide up to 46° amplitude,
+                                                you can play with unrivalled precision.</p>
+                                        </div>
+                                        <div class="single">
+                                            <h5>Technical specifications</h5>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="single-side">
+                                                        <h6>Connectivity</h6>
+                                                        <ul>
+                                                            <li><span>Connection</span> <span>Detachable USB-C/USB cable</span></li>
+                                                            <li><span>Wireless</span> <span>No</span></li>
+                                                            <li><span>Cable included</span> <span>Yes</span></li>
+                                                            <li><span>Cable length (cm)</span> <span>300</span></li>
+                                                            <li><span>Software</span> <span>Yes</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="single-side">
+                                                        <h6>Ergonomics</h6>
+                                                        <ul>
+                                                            <li><span>Joystick position</span> <span>Asymmetric</span></li>
+                                                            <li><span>Wireless</span> <span>Profiles</span></li>
+                                                            <li><span>Programmable buttons</span> <span>Yes</span></li>
+                                                            <li><span>Backlighting</span> <span>RGB</span></li>
+                                                            <li><span>LED player indicator</span> <span>Yes</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="information" role="tabpanel" aria-labelledby="information-tab">
+                                    <div class="information">
+                                        <div class="single">
+                                            <h5>Drivers and downloads</h5>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="single-side">
+                                                        <h6>Documents</h6>
+                                                        <ul>
+                                                            <li><span>Certificate of Conformity</span> <span><a href="#">Download</a></span></li>
+                                                            <li><span>User Manual</span> <span><a href="#">Download</a></span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="single-side">
+                                                        <h6>Software</h6>
+                                                        <ul>
+                                                            <li><span>Mac OS X</span> <span><a href="#">Download</a></span></li>
+                                                            <li><span>Windows</span> <span><a href="#">Download</a></span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{ render(controller(
+                                    'App\\Controller\\CommentController::new',{'idpost' : event.idpost , 'request' : app.request}
+                                )) }}
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+
+
+
+
+            <div class="tab-pane fade" id="participants" role="tabpanel" aria-labelledby="participants-tab">
+                <div class="participants">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="participants-area pb-120">
+                                    <h4>Participants</h4>
+
+                                    {% for participant in participants %}
+                                    <div class="participants-single">
+                                        <div class="left-area d-flex align-items-center">
+                                            <img src={{ asset ('frontTemplate/images/' ~ participant.photouser)}} alt="images">
+                                            <div class="right-side">
+                                                <h6>{{ participant.nameUser }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="right-area">
+                                            <div class="nice-select"><span class="current single-item share">
+                                                    <span class="dot"></span>
+                                                    <span class="dot"></span>
+                                                    <span class="dot"></span>
+                                                </span>
+                                                <ul class="list">
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i>Share</a></li>
+                                                    <li><a href="profile.html"><i class="fas fa-share-alt"></i>View Profile</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="prizes" role="tabpanel" aria-labelledby="prizes-tab">
+                <div class="prizes pb-120">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Placement</th>
+                                            <th scope="col">Current Prize</th>
+                                            <th scope="col">Potential Prize</th>
+                                            <th scope="col">Team</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th class="first" scope="row">1st</th>
+                                            <td>$100.00</td>
+                                            <td>$100.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="second" scope="row">2nd</th>
+                                            <td>$60.00</td>
+                                            <td>$60.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="third" scope="row">3rd</th>
+                                            <td>$40.00</td>
+                                            <td>$40.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4th</th>
+                                            <td>$25.00</td>
+                                            <td>$25.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">5th - 6th</th>
+                                            <td>$20.00</td>
+                                            <td>$20.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">7th - 8th</th>
+                                            <td>$15.00</td>
+                                            <td>$15.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">9th - 11th</th>
+                                            <td>$10.00</td>
+                                            <td>$10.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">12th - 15th</th>
+                                            <td>$5.00</td>
+                                            <td>$5.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">16th - 19th</th>
+                                            <td>$4.00</td>
+                                            <td>$4.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">20th - 26th</th>
+                                            <td>$3.00</td>
+                                            <td>$3.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">27th - 34th</th>
+                                            <td>$2.00</td>
+                                            <td>$2.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">35th - 44th</th>
+                                            <td>$1.00</td>
+                                            <td>$1.00</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">45th - 75th</th>
+                                            <td>$0.75</td>
+                                            <td>$0.75</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">76th - 115th</th>
+                                            <td>$0.50</td>
+                                            <td>$0.50</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">116th - 180th</th>
+                                            <td>$0.25</td>
+                                            <td>$0.25</td>
+                                            <td><i class="fas fa-users"></i>To be decided</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
