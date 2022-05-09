@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -7,6 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
+composer.lock
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -22,3 +22,9 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+### EDITOR ###
+.idea/
+.vscode/
+
+TestController.php
