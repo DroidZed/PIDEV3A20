@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\TblPublication;
 use App\Entity\TblVideogame;
 use App\Form\JeuVideoType;
-use App\services\QrcodeService;
+use App\Services\QrCodeService;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,7 +82,7 @@ class JeuVideoController extends AbstractController
      * @param QrcodeService $qrcodeService
      * @return Response
      */
-    public function addJeu(Request $request, QrcodeService $qrcodeService): Response
+    public function addJeu(Request $request, QrCodeService $qrCodeService): Response
     {
 
         $JV = new  TblVideogame();
@@ -94,17 +94,9 @@ class JeuVideoController extends AbstractController
         if($form->isSubmitted() &&  $form->isValid() )
         {
             $data = $form->get('namevg')->getData();
-            $qrcodeService->qrcode($data);
             $file = $form->get('imagevg')->getData();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            try {
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
-                );
-            } catch (FileException $e){
-
-            }
+            $qrCodeService->gen($data, $this->getParameter('images_directory').$fileName);
             $em = $this->getDoctrine()->getManager();
             $JV->setImagevg($fileName);
             $em->persist($JV); //add
