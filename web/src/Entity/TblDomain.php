@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TblDomain
@@ -23,17 +24,24 @@ class TblDomain
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     *@Assert\NotBlank(message="Nom est vide!")
      */
     private $name;
 
     /**
-     * @var string
-     *
+     * @Assert\NotBlank(message="Description ne doit pas etre vide!")
+     * @Assert\Length (
+     *     min=7 ,
+     *     max=100 ,
+     *     minMessage= "doit etre >=7 ",
+     *     maxMessage= "doit etre <=100" )
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     *
      */
     private $description;
+
+
 
     public function getId(): ?int
     {

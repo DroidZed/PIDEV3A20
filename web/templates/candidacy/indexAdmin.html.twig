@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidatures{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="row"style="display: flex;align-items: center;justify-content: center" >
+
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Liste des offres</h5>
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+    <table class="table">
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">Date Candidature</th>
+            <th scope="col">Titre Offre</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Image CV</th>
+
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for candidacy in candidacys %}
+            <tr class="table-light" >
+                <td>{{ candidacy.candidacydtm|date('d-m-Y')}}</td>
+                <td>{{ candidacy.idoffer.titleoffer }}</td>
+                <td>{{ candidacy.etat }}</td>
+                <td>
+                    <img width="100" height="100" src="{{ asset('uploads/images/') }}{{ candidacy.imagecv }}" >
+                </td>
+                {% if(candidacy.etat=="En Cours") %}
+                <td>
+                    <a href="{{path('editAutoriser',{'id':candidacy.id,'idoffre':candidacy.idoffer.idoffer})}}" class="btn btn-warning">Autoriser a faire le Test</a>
+                    <a href="{{path('editRefuser',{'id':candidacy.id,'idoffre':candidacy.idoffer.idoffer})}}" class="btn btn-danger">Refuser</a>
+                </td>
+                {% elseif(candidacy.etat=="Faire le test") %}
+                    <td>
+                        <a class="btn btn-warning">Test en cours</a>
+                    </td>
+                {% elseif(candidacy.etat=="Refuser") %}
+                    <td>
+                        <a class="btn btn-danger">Test Refuser</a>
+                    </td>
+                {% elseif(candidacy.etat=="Admis") %}
+                    <td>
+                        <a class="btn btn-success">Candidature Admis</a>
+                    </td>
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                <br>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

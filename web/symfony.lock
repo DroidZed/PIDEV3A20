@@ -7,6 +7,9 @@
     },
     "dasprid/enum": {
         "version": "1.0.3"
+	},
+    "cmen/google-charts-bundle": {
+        "version": "4.0.0"
     },
     "doctrine/annotations": {
         "version": "1.13",
@@ -180,6 +183,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
+    },
+    "nomaya/social-bundle": {
+        "version": "1.0-dev"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
