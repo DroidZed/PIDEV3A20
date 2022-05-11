@@ -23,5 +23,20 @@ public class Product {
  private Integer qtyproduct;
  Category idCategory;
  User idUser;
+
+    public Product(String nameproduct, Float priceproduct, Integer qtyproduct, Category idCategory, User idUser) {
+	this.nameproduct = nameproduct;
+	this.priceproduct = priceproduct;
+	this.qtyproduct = qtyproduct;
+	this.idCategory = idCategory;
+	this.idUser = idUser;
+    }
+
+    public Product(String nameproduct, Float priceproduct, Integer qtyproduct) {
+	this.nameproduct = nameproduct;
+	this.priceproduct = priceproduct;
+	this.qtyproduct = qtyproduct;
+    }
+
     
 }

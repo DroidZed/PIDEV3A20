@@ -33,7 +33,9 @@ public class ListProducts extends BaseForm {
 
     public ListProducts(Resources res) {
 
-	super("Products list",BoxLayout.y());
+	super("Shop",BoxLayout.y());
+        
+        super.addSideMenu(res);
 
 	productList = productService.getAllProducts();
 
@@ -42,6 +44,7 @@ public class ListProducts extends BaseForm {
 	    Container main = new Container(BoxLayout.y());
 
 	    main.setScrollableY(true);
+	    
 
 	    for (Product product : productList) {
 		Container c = new Container(new BoxLayout(BoxLayout.Y_AXIS));

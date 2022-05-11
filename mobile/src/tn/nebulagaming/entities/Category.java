@@ -19,4 +19,10 @@ public class Category {
 
     private Integer idcategory;
     private String nameCategory;
+
+    public Category(String nameCategory) {
+	this.nameCategory = nameCategory;
+    }
+
+    
 }

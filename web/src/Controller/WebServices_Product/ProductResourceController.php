@@ -56,7 +56,7 @@ class ProductResourceController extends AbstractController
         $product->setNameproduct($data["nameProduct"]);
         $product->setQtyproduct($data["qtyProd"]);
         $product->setPriceproduct($data["priceProduct"]);
-        $product->setIdcategory($categoryRepository->find($data["idCategory"]));
+        $product->setIdcategory($categoryRepository->findOneBy([ "nameCategory" => $data["nameCategory"]]));
         $product->setIduser($userRepository->find($data["idUser"]));
 
         $em = $this->getDoctrine()->getManager();

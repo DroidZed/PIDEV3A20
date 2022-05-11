@@ -4,7 +4,9 @@
  */
 package tn.nebulagaming.screens;
 
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
@@ -24,9 +26,11 @@ public class ShowProduct extends BaseForm {
 
     Product prod;
 
-     public ShowProduct(Resources res, int idProd) {
+    public ShowProduct(Resources res, int idProd) {
 
-	super("Products list",BoxLayout.y());
+	super("Products Details", BoxLayout.y());
+        
+        super.addSideMenu(res);
 
 	prod = productService.getById(idProd);
 
@@ -38,12 +42,25 @@ public class ShowProduct extends BaseForm {
 
 	add(new Label("Product Price: " + prod.getPriceproduct()));
 
-	add(new Label("Product Category: " +prod.getIdCategory().getNameCategory()));
+	add(new Label("Product Category: " + prod.getIdCategory().getNameCategory()));
 
 	add(new Label("Product Quantity: " + prod.getQtyproduct()));
 
 	add(new Label("Publiser: " + prod.getIdUser().getNameuser()));
-	
+
+	Button btnDel = new Button("Delete");
+
+	btnDel.addActionListener(e -> {
+
+	    Dialog.show("Info",
+		    productService.delProd(prod.getIdproduct()).getMessage(),
+		    "OK",
+		    null);
+		    new ListProducts(res).show();
+	});
+
+	add(btnDel);
+
     }
 
 }

@@ -20,4 +20,10 @@ public class User {
     private Integer iduser;
     private String nameuser;
     private String emailuser;
+
+    public User(Integer iduser) {
+	this.iduser = iduser;
+    }
+
+    
 }

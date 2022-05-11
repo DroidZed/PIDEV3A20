@@ -71,7 +71,7 @@ public class ServiceProduct extends MainServiceClass {
 	return products;
     }
 
-    public CustomResponse addToWishlist(Product p) {
+    public CustomResponse addProduct(Product p, String catName, int idUser) {
 
 	String POST_URL = URL + "/add";
 
@@ -87,9 +87,10 @@ public class ServiceProduct extends MainServiceClass {
 		"{\"nameProduct\":\"" + p.getNameproduct()
 		+ "\",\"qtyProd\":" + p.getQtyproduct()
 		+ ",\"priceProduct\":" + p.getPriceproduct()
-		+ ",\"idCategory\":" + p.getIdCategory().getIdcategory()
-		+ ",\"idUser\":" + p.getIdUser().getIduser() + "}"
+		+ ",\"nameCategory\":" + "\""+catName+"\""
+		+ ",\"idUser\":" + idUser + "}"
 	);
+	System.out.println(req.getRequestBody());
 	req.addResponseListener(new ActionListener<NetworkEvent>() {
 
 	    @Override
@@ -114,6 +115,35 @@ public class ServiceProduct extends MainServiceClass {
 	}
 
 	return product;
+    }
+
+    public CustomResponse delProd(int idProd) {
+	
+	String DEL_URL = URL + "/del/" + idProd;
+
+	
+	resp = new CustomResponse();
+
+	System.out.println("===> " + DEL_URL);
+
+	req.setPost(false);
+	req.setUrl(DEL_URL);
+	req.setHttpMethod("DELETE");
+
+	req.addResponseListener(new ActionListener<NetworkEvent>() {
+
+	    @Override
+	    public void actionPerformed(NetworkEvent evt) {
+
+		resp = respService.parseObject(new String(req.getResponseData()));
+		req.removeResponseListener(this);
+
+	    }
+	});
+
+	NetworkManager.getInstance().addToQueueAndWait(req);
+
+	return resp;
     }
 
     @Override

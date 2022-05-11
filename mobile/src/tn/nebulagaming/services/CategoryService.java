@@ -7,6 +7,9 @@ package tn.nebulagaming.services;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
+import com.codename1.io.NetworkEvent;
+import com.codename1.io.NetworkManager;
+import com.codename1.ui.events.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +29,6 @@ public class CategoryService extends MainServiceClass {
 
     private CustomResponse resp;
 
-    private CustomResponseService respService = CustomResponseService.getInstance();
-
     private static CategoryService instance = null;
 
     private ConnectionRequest req;
@@ -44,6 +45,27 @@ public class CategoryService extends MainServiceClass {
 	    instance = new CategoryService();
 	}
 	return instance;
+    }
+
+    public List<Category> getAllCategories() {
+
+	final String ALL_PRODUCTS_URL = URL + "/get";
+
+	req = new ConnectionRequest();
+	System.out.println("===> " + ALL_PRODUCTS_URL);
+	req.setUrl(ALL_PRODUCTS_URL);
+	req.setPost(false);
+	req.addResponseListener(new ActionListener<NetworkEvent>() {
+	    @Override
+	    public void actionPerformed(NetworkEvent evt) {
+		categories = parseObjects(new String(req.getResponseData()));
+		req.removeResponseListener(this);
+	    }
+	});
+	NetworkManager.getInstance().addToQueueAndWait(req);
+
+	return categories;
+
     }
 
     @Override
