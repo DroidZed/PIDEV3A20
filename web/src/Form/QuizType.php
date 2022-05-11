@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Property;
 use App\Entity\TblOption;
 use App\Entity\TblPost;
-use App\Entity\TblUser;
+use App\Entity\User;
 use App\Repository\OptionRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,7 +66,7 @@ class QuizType extends AbstractType
             ])
 
             ->add('iduser',EntityType::class,[
-                'class' => TblUser::class ,
+                'class' => User::class ,
                 'choice_label' => 'nameuser',
                 'label' => false ,
                 'attr' => [

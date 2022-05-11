@@ -8,13 +8,14 @@ use App\Form\EntrepriseType;
 use App\Repository\StateUserRepository;
 use App\Repository\UserRepository;
 
+use App\Services\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 
@@ -22,6 +23,39 @@ class MobileController extends AbstractController
 {
     private $user;
 
+    /**
+     * @Route("/getCodeM", name="getCode")
+     * @param \Swift_Mailer $mailer
+     * @param MailerService $mailerService
+     * @param Request $request
+     * @param NormalizerInterface $normalizable
+     * @param UserRepository $userRepository
+     * @return Response
+     * @throws ExceptionInterface
+     */
+
+    public function getCode(\Swift_Mailer $mailer,MailerService $mailerService,Request $request,NormalizerInterface $normalizable,UserRepository $userRepository): Response
+    {
+        $user=new User();
+        $userEmail = $this->getDoctrine()->getRepository(User::class)->findBy(
+            ['email' =>$request->get('email')]
+        );
+
+        if($userEmail)
+        {
+            $user=$userEmail;
+        }
+
+        $code = md5(uniqid());
+        $mailerService->send(
+            "Recupération compte",
+            "nebulagaming120@gmail.com",
+            $user[0]->getEmail(),
+            "mailTemplates/code.html.twig", ['code' => $code]);
+
+        $jsonContent=$normalizable->normalize($code,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
 
     /**
      * @Route("/checkUserUnique", name="checkUserUnique")
@@ -35,8 +69,9 @@ class MobileController extends AbstractController
     {
 
         $userBD_email = $this->getDoctrine()->getRepository(User::class)->findBy(
-            ['email' =>$request->get($request->get('email'))]
+            ['email' =>$request->get('email')]
         );
+
         if($userBD_email)
         {
             $result=-2;
@@ -54,6 +89,7 @@ class MobileController extends AbstractController
      * @param Request $request
      * @param NormalizerInterface $normalizable
      * @param UserRepository $userRepository
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      * @throws ExceptionInterface
      */
@@ -72,9 +108,9 @@ class MobileController extends AbstractController
             {
 
                 if (in_array('ROLE_MEMBRE',$User[0]->getRoles(), true))
-                $result=1;
+                $result=2;
                 else if (in_array('ROLE_ENTREPRISE', $User[0]->getRoles(), true))
-                    $result=2;
+                    $result=1;
             }}
 
         $jsonContent=$normalizable->normalize($result,'json',[]);
@@ -124,17 +160,17 @@ class MobileController extends AbstractController
         $user = $User[0];
         $user->setNom($request->get('nom'));
         $user->setTel($request->get('tel'));
-        $user->setOffre($request->get('offre'));
+        $user->setOffre($request->get('descuser'));
 
-       /* if($user->getPhoto()!=$request->get('photo'))
+        if($request->get('photo')!=null && $user->getPhoto()!=$request->get('photo')  )
         {
             $fileNamePhoto = $request->get('photo');
-            $filePathMobilePhoto="C://Users//ibeno//AppData//Local//Temp";
+            $filePathMobilePhoto="C://Users//houba//AppData//Local//Temp";
             $uploads_directoryPic = $this->getParameter('images_directory');
             $filesystempic = new Filesystem();
-            $filesystempic->copy($filePathMobilePhoto."//".$fileNamePhoto,$uploads_directoryPic."/$fileNamePhoto");
+            $filesystempic->copy($filePathMobilePhoto."//".$fileNamePhoto , $uploads_directoryPic."$fileNamePhoto");
             $user->setPhoto($request->get('photo'));
-        }*/
+        }
 
         $em->flush();
         $jsonContent=$normalizable->normalize($user,'json',['groups'=>'post:read']);
@@ -144,14 +180,14 @@ class MobileController extends AbstractController
 
 
  /**
-     * @Route("/modifyEtu", name="modifyEtu")
+     * @Route("/modifyMembre", name="modifyMembre")
      * @param Request $request
      * @param NormalizerInterface $normalizable
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      * @throws ExceptionInterface
      */
-    public function modifyEtu(Request $request,NormalizerInterface $normalizable,UserPasswordEncoderInterface $encoder): Response
+    public function modifyMembre(Request $request,NormalizerInterface $normalizable,UserPasswordEncoderInterface $encoder): Response
     {
         $em=$this->getDoctrine()->getManager();
         $User = $this->getDoctrine()->getRepository(User::class)->findBy(
@@ -159,16 +195,18 @@ class MobileController extends AbstractController
         $user = $User[0];
         $user->setNom($request->get('nom'));
         $user->setTel($request->get('tel'));
+$user->setDescuser($request->get('descuser'));
 
-        /*if($user->getPhoto()!=$request->get('photo'))
+
+       if($request->get('photo')!=null && $user->getPhoto()!=$request->get('photo')  )
         {
             $fileNamePhoto = $request->get('photo');
-            $filePathMobilePhoto="C://Users//ibeno//AppData//Local//Temp";
+            $filePathMobilePhoto="C://Users//houba//AppData//Local//Temp";
             $uploads_directoryPic = $this->getParameter('images_directory');
             $filesystempic = new Filesystem();
-            $filesystempic->copy($filePathMobilePhoto."//".$fileNamePhoto , $uploads_directoryPic."/$fileNamePhoto");
+            $filesystempic->copy($filePathMobilePhoto."//".$fileNamePhoto , $uploads_directoryPic."$fileNamePhoto");
             $user->setPhoto($request->get('photo'));
-        }*/
+        }
 
         $em->flush();
         $jsonContent=$normalizable->normalize($user,'json',['groups'=>'post:read']);
@@ -176,17 +214,16 @@ class MobileController extends AbstractController
     }
 
 
-    
-
     /**
-     * @Route("/newEtudiantM", name="etudiantNewM", methods={"GET","POST"})
+     * @Route("/newMembreM", name="membreNewM", methods={"GET","POST"})
      * @param Request $request
      * @param NormalizerInterface $normalizable
-     * @param $encoder
+     * @param UserPasswordEncoderInterface $encoder
+     * @param StateUserRepository $stateUserRepository
      * @return Response
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
-    public function newEtu(Request $request, NormalizerInterface $normalizable, UserPasswordEncoderInterface $encoder,StateUserRepository $stateUserRepository): Response
+    public function newMembre(Request $request, NormalizerInterface $normalizable, UserPasswordEncoderInterface $encoder,StateUserRepository $stateUserRepository): Response
     {
         $em=$this->getDoctrine()->getManager();
         $user=new User();
@@ -198,11 +235,7 @@ class MobileController extends AbstractController
         $filesystempic = new Filesystem();
 
 
-        /*$fileNameCv = $request->get('cv');
-        $filePathMobileCv="C://Users//ibno//AppData//Local//Temp";
-        $uploads_directoryCv = $this->getParameter('cv_directory');
-        $filesystemCv = new Filesystem();
-        $filesystemCv->copy($filePathMobileCv."//".$fileNameCv,$uploads_directoryCv."/$fileNameCv");*/
+
 $user->setNom($request->get('nom'));
 $user->setEmail($request->get('email'));
         $user->setCreateddtm(new \DateTime());
@@ -211,6 +244,47 @@ $user->setEmail($request->get('email'));
         $stateuser =$stateUserRepository->find(0);
         $user->setStateuser($stateuser);
 $user->setPassword($password);
+$user->setPhoto($fileNamePhoto);
+$user->setDescuser($request->get('descuser'));
+        $em->persist($user);
+        $em->flush();
+
+        $jsonContent=$normalizable->normalize($user,'json',[]);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/newEntrepriseM", name="entrepriseNewM", methods={"GET","POST"})
+     * @param Request $request
+     * @param NormalizerInterface $normalizable
+     * @param UserPasswordEncoderInterface $encoder
+     * @param StateUserRepository $stateUserRepository
+     * @return Response
+     * @throws ExceptionInterface
+     */
+    public function newEnt(Request $request, NormalizerInterface $normalizable, UserPasswordEncoderInterface $encoder,StateUserRepository $stateUserRepository): Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user=new User();
+        $password=$encoder->encodePassword($user,$request->get('password'));
+
+        $fileNamePhoto = $request->get('photo');
+
+        $uploads_directoryPic = $this->getParameter('images_directory');
+        $filesystempic = new Filesystem();
+
+
+  
+        $user->setNom($request->get('nom'));
+        $user->setEmail($request->get('email'));
+        $user->setCreateddtm(new \DateTime());
+        $user->setTel($request->get('tel'));
+        $user->setRoles(array('ROLE_ENTREPRISE'));
+        $val=$user->getStateuser();
+        $stateuser =$stateUserRepository->find(0);
+        $user->setPhoto($fileNamePhoto);
+        $user->setStateuser($stateuser);
+        $user->setPassword($password);
         $em->persist($user);
         $em->flush();
 
@@ -219,29 +293,33 @@ $user->setPassword($password);
     }
 
 
-
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/Etudiant/Profil/Change_informationsM", name="ProfilEtudiantM")
+     * @param NormalizerInterface $normalizable
+     * @return Response
+     * @throws ExceptionInterface
+     * @Route("/Entreprise/Profil/Change_informationsM", name="ProfilEtudiantM")
      */
 
-    function modifierEtu(Request $request, NormalizerInterface $normalizable): Response
+    function modifierEnt(Request $request, NormalizerInterface $normalizable): Response
     {
         $em=$this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
+        $User = $this->getDoctrine()->getRepository(User::class)->findBy(
+            ['email' =>$request->get('email')]);
+        $user = $User[0];
         $user->setNom($request->get('nom'));
-        $user->setPrenom($request->get('prenom'));
         $user->setTel($request->get('tel'));
 
-        if($user->getPicture()!=$request->get('picture'))
+
+
+        if($request->get('photo')!=null && $user->getPhoto()!=$request->get('photo')  )
         {
-            $fileName = $request->get('picture');
-            $filePathMobile="C://Users//SeifBS//AppData//Local//Temp";
-            $uploads_directory = $this->getParameter('pictures_directory');
-            $filesystem = new Filesystem();
-            $filesystem->copy($filePathMobile."//".$fileName,$uploads_directory."/$fileName");
-            $user->setPicture($request->get('picture'));
+            $fileNamePhoto = $request->get('photo');
+            $filePathMobilePhoto="C://Users//houba//AppData//Local//Temp";
+            $uploads_directoryPic = $this->getParameter('images_directory');
+            $filesystempic = new Filesystem();
+            $filesystempic->copy($filePathMobilePhoto."//".$fileNamePhoto , $uploads_directoryPic."$fileNamePhoto");
+            $user->setPhoto($request->get('photo'));
         }
 
         $em->flush();
@@ -254,7 +332,7 @@ $user->setPassword($password);
 
 
     /**
-     * @Route("/modifyPasswordEtu", name="etudiantModifyPassword")
+     * @Route("/modifyPasswordEnt", name="entrepriseModifyPassword")
      * @param Request $request
      * @param NormalizerInterface $normalizable
      * @param UserPasswordEncoderInterface $encoder
@@ -298,16 +376,11 @@ $user->setPassword($password);
 
     /**
      * @Route("/api/client/forgetPasswordCheck", name="api_forgetPasswordCheck")
-     * @param MailerService $mailerService
      * @param Request $request
      * @param NormalizerInterface $normalizable
      * @param UserRepository $userRepository
      * @return Response
      * @throws ExceptionInterface
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
      */
 
     public function forgetPasswordCheck(Request $request,NormalizerInterface $normalizable,UserRepository $userRepository): Response

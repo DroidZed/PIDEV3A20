@@ -23,7 +23,7 @@ use Dompdf\Options;
 class JeuVideoController extends AbstractController
 {
     /**
-     * @Route("/Jeu", name="display_Vg")
+     * @Route("/membre/Jeu", name="display_Vg" , methods={"GET"})
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -48,7 +48,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/Stat", name="Stat")
+     * @Route("/membre/Stat", name="Stat")
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -67,7 +67,6 @@ class JeuVideoController extends AbstractController
 
         return $this->render('jeu_video/Stat.html.twig',[
             'b'=>$jeux,
-
             'videog'=>$donnees,
             'pub'=>$pub
 
@@ -77,7 +76,7 @@ class JeuVideoController extends AbstractController
 
 
     /**
-     * @Route("/addJeu", name="addJeu")
+     * @Route("/membre/addJeu", name="addJeu")
      * @param Request $request
      * @param QrcodeService $qrcodeService
      * @return Response
@@ -116,7 +115,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/removeJeu/{id}", name="supp_Vg")
+     * @Route("/membre/removeJeu/{id}", name="supp_Vg")
      */
     public function suppressionJeu(TblVideogame $JV): Response
     {
@@ -129,7 +128,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/modifJeu/{id}", name="modifJeu")
+     * @Route("/membre/modifJeu/{id}", name="modifJeu")
      */
     public function modifJeu(Request $request, $id): Response
     {
@@ -163,7 +162,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/r/search_recc", name="search_recc", methods={"GET"})
+     * @Route("/membre/r/search_recc", name="search_recc", methods={"GET"})
      */
     public function search_rec(Request $request, NormalizerInterface $Normalizer): Response
     {
@@ -194,7 +193,7 @@ class JeuVideoController extends AbstractController
         }
     }
     /**
-     * @Route("/pdfC", name="pdfC")
+     * @Route("/membre/pdfC", name="pdfC")
      */
     public function listpdf(Request $request)
     {

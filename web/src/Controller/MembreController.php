@@ -106,7 +106,7 @@ class MembreController extends AbstractController
     }
 
     /**
-     * @Route("/Membre/pdfMembre",name="pdfMembre")
+     * @Route("/admin/pdfMembre",name="pdfMembre")
      */
 
     public function pdf()

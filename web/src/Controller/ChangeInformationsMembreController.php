@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\MembreModifyType;
 use App\Repository\UserRepository;
+use App\Repository\FidCardRepository;
 use App\Services\GetUser;
 use App\Entity\User;
 use App\Repository\StateUserRepository;
@@ -34,11 +35,14 @@ class ChangeInformationsMembreController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/Membre/Profil/Change_informations", name="profilMembre")
      */
-    function modifier(Request $request)
+    function modifier(Request $request, FidCardRepository $fidCardRepository)
     {   $entityManager = $this->getDoctrine()->getManager();
         $form = $this->createForm(MembreModifyType::class,$this->user);
         $form->handleRequest($request);
         $file = $form->get('photo')->getData();
+        $fidCard = $fidCardRepository->findOneBy([
+            "iduser" => $this->user
+        ]);
         if($form->isSubmitted()&&$form->isValid())
         {
             if($file)
@@ -55,6 +59,7 @@ class ChangeInformationsMembreController extends AbstractController
         return $this->render('membre/profile.html.twig',
             ['form_modify' => $form->createView(),
                 'User'=>$this->user,
+                'fidCard' => $fidCard
             ]);
 
 

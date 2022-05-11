@@ -83,7 +83,7 @@ class TblUserorder
         return $this->numberorder;
     }
 
-    public function getCreateddtm(): ?DateTimeInterface
+    public function getCreateddtm(): DateTimeInterface
     {
         return $this->createddtm;
     }

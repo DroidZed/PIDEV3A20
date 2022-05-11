@@ -40,7 +40,15 @@
                             </div>
                             <div class="name-area">
                                 <h4>{{ User.nom }}</h4>
-                                <span>536K followers</span>
+                                    <span>{{ fidCard.nbpointsfid }} Points - </span>
+                                    {% set cardType = fidCard.idcardtype | upper  %}
+                                    {% if cardType == 'GOLD' %}
+                                        <span style="color:gold;">{{ fidCard.idcardtype }}</span>
+                                    {% elseif cardType == 'SILVER'  %}
+                                        <span style="color:silver;">{{ fidCard.idcardtype }}</span>
+                                    {% else %}
+                                        <span style="color:#cd7f32;">{{ fidCard.idcardtype }}</span>
+                                    {% endif %}
                             </div>
                         </div>
                     </div>
@@ -48,6 +56,11 @@
                         <div class="right d-flex align-items-center">
                             <a href="{{ path('change_passwordMembre') }}" class="cmn-btn">Change Password</a>
                         </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end">
+                    <div class="right d-flex align-items-center">
+                        <a href="{{ path('app_tbl_wishlist_show') }}" class="cmn-btn">Wishlist</a>
+                    </div>
                     </div>
                 </div>
             </div>

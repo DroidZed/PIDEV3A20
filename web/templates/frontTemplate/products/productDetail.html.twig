@@ -1,4 +1,5 @@
 {%  extends 'baseFront.html.twig' %}
+{% block banner %} {% endblock %}
 {% block content %}
     <body>
 
@@ -28,8 +29,8 @@
                                 <div class="breadcrumb-area">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb d-flex justify-content-center">
-                                            <li class="breadcrumb-item"><a href="index-2.html">Accueil</a></li>
-                                            <li class="breadcrumb-item"><a href="{{path('displayProduct') }}">Liste Produits</a></li>
+                                            <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                                            <li class="breadcrumb-item"><a href="{{path('allProducts') }}">Liste Produits</a></li>
                                             <li class="breadcrumb-item"><a href="#">Shop</a></li>
                                             <li class="breadcrumb-item active" aria-current="page">{{ product.idcategory.nameCategory }}</li>
                                         </ol>
@@ -67,8 +68,8 @@
 
                             <div class="bottom-area d-flex align-items-center">
                                 <h5>{{  product.priceproduct }} TND</h5>
-                                    <a href="#" class="cmn-btn">Add to Basket</a>
-                                <a href="#" class="cmn-btn cus-style">Add to WisList</a>
+                                    <a href="{{ path("addToCart", {"idProd":product.idproduct }) }}" class="cmn-btn">Add to Basket</a>
+                                <a href="{{ path("addToWishlist", {"idProduct": product.idproduct}) }}" class="cmn-btn cus-style">Add to WisList</a>
                             </div>
                         </div>
                     </div>

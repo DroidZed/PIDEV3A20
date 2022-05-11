@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\TblComment;
 use App\Entity\TblPost;
-use App\Entity\TblUser;
+use App\Entity\User;
 use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +30,7 @@ class CommentController extends AbstractController
     public function new(Request $request ,EntityManagerInterface $entityManager , TblPost $event): Response
     {
 
-        $repositoryUser = $entityManager->getRepository(TblUser::class) ;
+        $repositoryUser = $entityManager->getRepository(User::class) ;
 
         //Comment part
         $comments = $entityManager

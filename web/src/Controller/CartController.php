@@ -6,7 +6,7 @@ use App\Entity\CartItem;
 use App\Entity\TblPromo;
 use App\Repository\ProductRepository;
 use App\Repository\PromoRepository;
-use DateTime;
+use App\Services\GetUser;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,14 +15,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class CartController extends AbstractController
 {
     private SessionInterface $session;
 
-    public function __construct(SessionInterface $session)
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+    private $getUser;
+
+    /**
+     * @param SessionInterface $session
+     * @param RouterInterface $router
+     * @param GetUser $getUser
+     */
+    public function __construct(SessionInterface $session, RouterInterface $router,GetUser $getUser)
     {
+        $this->router = $router;
+        $this->getUser=$getUser;
         $this->session = $session;
+
     }
 
     /**
@@ -65,7 +80,7 @@ class CartController extends AbstractController
         }
 
 
-        $cartItem = new CartItem(1); // TODO: integrate user session !
+        $cartItem = new CartItem($this->getUser->Get_User()->getId()); // TODO: integrate user session !
 
         $cartItem->setProduct($product)->setQuantity(1);
 

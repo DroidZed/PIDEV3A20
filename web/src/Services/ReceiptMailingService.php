@@ -9,7 +9,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 
-class MailingService
+class ReceiptMailingService
 {
     private MailerInterface $mailer;
 
@@ -47,7 +47,7 @@ class MailingService
             ->context([
                 'website' => 'Nebula Gaming',
                 'qrPath' => $qrPath,
-                'name' => $order->getIduser()->getNameuser(),
+                'name' => $order->getIduser()->getNom(),
                 'address' => $order->getOrderaddress(),
                 'orderNo' => $order->getNumberorder(),
                 'orderLines' => $orderLines

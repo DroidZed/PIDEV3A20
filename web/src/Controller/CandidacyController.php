@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\TblCandidacy;
 use App\Entity\TblOffer;
-use App\Entity\TblUser;
+use App\Entity\User;
 use App\Form\CandidacyType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -71,7 +71,7 @@ class CandidacyController extends AbstractController
             $candidacy->setEtat("En Cours");
             $candidacy->setCandidacydtm(new \DateTime());
 
-            $candidacy->setIduser($this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1));
+            $candidacy->setIduser($this->getDoctrine()->getManager()->getRepository(User::class)->find(1));
             $candidacy->setIdoffer($offer);
             $em = $this->getDoctrine()->getManager();
 

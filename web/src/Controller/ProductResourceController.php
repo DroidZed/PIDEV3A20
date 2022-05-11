@@ -27,7 +27,7 @@ class ProductResourceController extends AbstractController
 
 
     /**
-     * @Route("/membre/get/products", name="allProducts", methods={"GET"})
+     * @Route("/membre/get/products", name="allProductsJson", methods={"GET"})
      * @throws ExceptionInterface
      */
     public function index(ProductRepository $productRepository, NormalizerInterface $normalizer): JsonResponse

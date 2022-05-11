@@ -10,39 +10,60 @@ use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use App\Services\SendEmailService;
+use App\Services\GetUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product", name="displayProduct")
+     * @var RouterInterface
+     */
+    private $router;
+    private $getUser;
+
+    /**
+     * @param RouterInterface $router
+     * @param GetUser $getUser
+     */
+    public function __construct(RouterInterface $router,GetUser $getUser)
+    {
+        $this->router = $router;
+        $this->getUser=$getUser;
+
+    }
+
+    /**
+     * @Route("/member/myproducts", name="myProducts")
      */
     public function displayProduct(): Response
     {
-        $products = $this->getDoctrine()->getManager()->getRepository(TblProduct::class)->findAll();
-        return $this->render('products/index.html.twig', [
+        $products = $this->getDoctrine()->getManager()->getRepository(TblProduct::class)->findBy(
+            ["iduser" => $this->getUser->Get_User()]
+        );
+        return $this->render('frontTemplate/products/index.html.twig', [
             'b'=>$products
         ]);
     }
 
     /**
-     * @Route("/productDetail/{idproduct}" , name="productDetail" , methods={"GET"})
+     * @Route("/member/productDetail/{idproduct}" , name="productDetail" , methods={"GET"})
      */
     public function productDetail(int $idproduct, ProductRepository $productRepository): Response
     {
         $product = $productRepository->find($idproduct);
-        return $this->render('products/productDetail.html.twig', [
+        return $this->render('frontTemplate/products/productDetail.html.twig', [
             'product'=>$product,
         ]);
     }
 
     /**
-     * @Route("/addProduct", name="addProduct")
+     * @Route("/member/addProduct", name="addProduct")
      */
-    public function addProduct(Request $request , UserRepository $userRepository , SendEmailService $mailer): Response
+    public function addProduct(Request $request , UserRepository $userRepository ,  SendEmailService $mailer): Response
     {
         $product = new TblProduct();
         $form =$this->createForm(ProductType::class,$product);
@@ -51,33 +72,33 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $product->setCreateddtm(new \DateTime());
-            $product->setIduser($userRepository->find(1));
+            $product->setIduser($this->getUser->Get_User());
             $message="votre produit";
             $message2="est mis en ligne";
             $mailMessage = $message.' '.$product->getNameproduct().' '.$message2;
 
-            $mailer->sendEmail('rayen.bakali@gmail.com', 'Product Online',$mailMessage);
+            $mailer->sendEmail($this->getUser->Get_User()->getEmail(), 'Product Online',$mailMessage);
             $em ->persist($product);//Hedhi nzidou
             $em ->flush();
-            return $this->redirectToRoute( 'displayProduct');
+            return $this->redirectToRoute( 'myProducts');
         }
         $message="failed";
-        return $this->render('products/createProduct.html.twig',[ 'f'=>$form->createView()]);
+        return $this->render('frontTemplate/products/createProduct.html.twig',[ 'f'=>$form->createView()]);
     }
 
     /**
-     * @Route("/deleteProduct/{id}", name="deleteProduct")
+     * @Route("/membre/deleteProduct/{id}", name="deleteProduct")
      */
     public function deleteProduct(TblProduct  $product): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($product);
         $em->flush();
-        return  $this->redirectToRoute('displayProduct');
+        return  $this->redirectToRoute('myProducts');
     }
 
     /**
-     * @Route("/editProduct/{id}", name="editProduct")
+     * @Route("/membre/editProduct/{id}", name="editProduct")
      */
     public function editCategory(Request $request, $id): Response
     {
@@ -90,18 +111,18 @@ class ProductController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em ->flush();
 
-            return $this->redirectToRoute( 'displayProduct');
+            return $this->redirectToRoute( 'myProducts');
         }
-        return $this->render('products/updateProduct.html.twig',[ 'f'=>$form->createView()]);
+        return $this->render('frontTemplate/products/updateProduct.html.twig',[ 'f'=>$form->createView()]);
     }
 
     /**
-     * @Route("/allProducts", name="allProducts")
+     * @Route("/membre/allProducts", name="allProducts")
      */
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
 
-        return $this->render('products/ListProduct.html.twig', [
+        return $this->render('frontTemplate/products/ListProduct.html.twig', [
             'products' => $productRepository->findAll(),
             'categories' => $categoryRepository->findAll()
         ]);

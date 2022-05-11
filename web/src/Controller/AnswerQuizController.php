@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\TblAnswerpost;
 use App\Entity\TblOption;
 use App\Entity\TblPost;
-use App\Entity\TblUser;
+use App\Entity\User;
 use App\Form\AnswerQuizType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

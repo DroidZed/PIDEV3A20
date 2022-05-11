@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DomainController extends AbstractController
 {
     /**
-     * @Route("/", name="display_Domain")
+     * @Route("/showDomain", name="display_Domain")
      */
     public function index(): Response
     {

@@ -320,7 +320,18 @@
                 answer: selectedAnswer
             });
             if (data.status==="ok"){
-                alert("yeeey");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Yaay !!',
+                    text: 'Your anwser has been submitted !'
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong and I feel it !!'
+                })
             }
             //RESET THE RADIO BOTTONS
         }

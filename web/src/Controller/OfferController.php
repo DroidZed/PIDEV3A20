@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\TblCandidacy;
 use App\Entity\TblOffer;
-use App\Entity\TblUser;
+use App\Entity\User;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,15 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 
-/**
- * @Route("/offer")
- */
-
 class OfferController extends AbstractController
 {
 
     /**
-     * @Route("/", name="display_Offer")
+     * @Route("/membre/showOffer", name="display_Offer")
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -31,7 +27,7 @@ class OfferController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
-        $user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
+        $user =$this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
         $donnees = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
         $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
                 'iduser' => $user,
@@ -49,7 +45,7 @@ class OfferController extends AbstractController
             'candidacys'=>$candidacys,
             'test' => $test
         ]);
-        /*$user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
+        /*$user =$this->getDoctrine()->getManager()->getRepository(::class)->find(1);
         $Offers = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
         $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
             'iduser' => $user,
@@ -65,7 +61,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/Admin", name="display_Offer_Admin")
+     * @Route("/Admin/show-offer", name="display_Offer_Admin")
      */
     public function indexAdmin(): Response
     {
@@ -89,7 +85,7 @@ class OfferController extends AbstractController
 
         if($form->isSubmitted() &&  $form->isValid() )
         {
-            $OFFER->setIduser($this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1));
+            $OFFER->setIduser($this->getDoctrine()->getManager()->getRepository(User::class)->find(1));
             $em = $this->getDoctrine()->getManager();
             $em->persist($OFFER); //add
             $em->flush();

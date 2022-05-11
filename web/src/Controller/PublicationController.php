@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class PublicationController extends AbstractController
 {
     /**
-     * @Route("/publication/{id}", name="display_Pub")
+     * @Route("/membre/publication/{id}", name="display_Pub")
      */
     public function index($id): Response
     {
@@ -34,7 +34,7 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/addPub/{id}", name="addPub")
+     * @Route("/membre/addPub/{id}", name="addPub")
      */
     public function addPub(Request $request, $id): Response
     {
@@ -59,7 +59,7 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/removePub/{id}", name="supp_Pub")
+     * @Route("/membre/removePub/{id}", name="supp_Pub")
      */
     public function suppressionPub(TblPublication $pub, $id): Response
     {
@@ -72,7 +72,7 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/modifPub/{id}", name="modifPub")
+     * @Route("/membre/modifPub/{id}", name="modifPub")
      */
     public function modifPub(Request $request, $id): Response
     {
@@ -96,7 +96,7 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/publication/{id}/croi", name="croi")
+     * @Route("/membre/publication/{id}/croi", name="croi")
      * @return Response
      */
 

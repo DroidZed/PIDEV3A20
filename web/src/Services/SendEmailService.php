@@ -16,8 +16,8 @@ class SendEmailService
     }
 
     public function sendEmail($to = 'rayen.bakali@gmail.com',
-                              $subject ='Product Online',
-                              $content ='<p>See Twig integration for better HTML integration!</p>'): void
+                              $subject ,
+                              $content ): void
     {
         $email = (new Email())
             ->from('nebulaagaming67@gmail.com')

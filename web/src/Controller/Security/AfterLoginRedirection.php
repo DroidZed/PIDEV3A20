@@ -57,18 +57,18 @@ class AfterLoginRedirection extends AbstractController implements Authentication
         if (in_array('ROLE_ENTREPRISE', $rolesTab, true) && $user->getStateuser()->getName() !='Banned'  && $user->getStateuser() !='Inactive' && $user->getActivationToken()=='activé' && $user->getStateuser() !='Restricted' )
         {
 
-           $redirection = new RedirectResponse($this->router->generate('home'));
+           $redirection = new RedirectResponse($this->router->generate('app_homepage_index'));
         }
 
         elseif (in_array('ROLE_MEMBRE', $rolesTab, true) && $user->getStateuser()->getName() !='Banned'  && $user->getStateuser() !='Inactive' && $user->getStateuser() !='Restricted')
-            $redirection = new RedirectResponse($this->router->generate('home'));
+            $redirection = new RedirectResponse($this->router->generate('app_homepage_index'));
         elseif (in_array('ROLE_ADMIN', $rolesTab, true)  )
             $redirection = new RedirectResponse($this->router->generate('ProfilAdmin'));
         // otherwise we redirect user to the member area
         
         else
 
-            $redirection = new RedirectResponse($this->router->generate('loginBack'));
+            $redirection = new RedirectResponse($this->router->generate('logout'));
 
         return $redirection;
     }

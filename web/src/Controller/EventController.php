@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\TblParticipation;
-use App\Entity\TblUser;
+use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route ;
 use App\Entity\TblPost;
 use App\Form\EventType;
@@ -11,14 +11,33 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
+use App\Services\GetUser;
+use App\Services\SendEmailService;
 
-/**
- * @Route("/event")
- */
+
 class EventController extends AbstractController
 {
+
     /**
-     * @Route("/", name="app_event_index", methods={"GET"})
+     * @var RouterInterface
+     */
+    private $router;
+    private $getUser;
+
+    /**
+     * @param RouterInterface $router
+     * @param GetUser $getUser
+     */
+    public function __construct(RouterInterface $router,GetUser $getUser)
+    {
+        $this->router = $router;
+        $this->getUser=$getUser;
+
+    }
+
+    /**
+     * @Route("/admin/event", name="app_event_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -33,7 +52,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_event_new", methods={"GET", "POST"})
+     * @Route("/admin/event/new", name="app_event_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -50,8 +69,6 @@ class EventController extends AbstractController
             $event->setAddressevent($addressEvent) ;
             $event->setLatitude(TblPost::LOCATIONS[$addressEvent]['latitude']);
             $event->setLongitude(TblPost::LOCATIONS[$addressEvent]['longitude']) ;
-
-
 
             $uploads_directory = $this->getParameter('uploads_directory') ;
 
@@ -82,7 +99,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{idpost}", name="app_event_show", methods={"GET"})
+     * @Route("/admin/event/{idpost}", name="app_event_show", methods={"GET"})
      */
     public function show(TblPost $event): Response
     {
@@ -92,9 +109,9 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{idpost}/edit", name="app_event_edit", methods={"GET", "POST"})
+     * @Route("/admin/event/{idpost}/edit", name="app_event_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, TblPost $event , EntityManagerInterface $entityManager , \Swift_Mailer $mailer): Response
+    public function edit(Request $request, TblPost $event , EntityManagerInterface $entityManager , \Swift_Mailer $mailer , SendEmailService $mailerService): Response
     {
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
@@ -147,21 +164,28 @@ class EventController extends AbstractController
 
             //Send Email of Notification to participants of event
             foreach ($participants as  $participant) {
+                $participant = $entityManager->getRepository(User::class)->find($participant->getIdUser()) ;
+
 
                 if ($addressEvent != null) { //Modifications had occured on address
-                    $this->mailer($participant->getIdUser() , $mailer ,
-                        "Bonjour ". $participant->getIdUser()  . "\nL'adresse de l'évenement ".$event->getTitlepost().
-                        "dont vous etes un participant à été modifiée à ". $addressEvent) ;
+                    $mailerService->sendEmail(
+                        $participant->getEmail() ,
+                        'Nebula Gaming wants to tell you something ! ' ,
+                        "Modifications had occured on address of ".$event->getTitlePost() );
                         
                 }if (  $startDate != null) {
-                    $this->mailer($participant->getIdUser() , $mailer ,
-                        "Bonjour ". $participant->getIdUser()  . "\nLa date de début de l'évenement ".$event->getTitlepost().
-                        "dont vous etes un participant à été modifiée à ". $startDate->format('Y-m-d H:i')) ;
+                    $mailerService->sendEmail(
+                        $participant->getEmail() ,
+                        'Nebula Gaming wants to tell you something ! ' ,
+                        "Modifications had occured on start Date of ".$event->getTitlePost() );
 
                 }if ($endDate != null) {
-                    $this->mailer($participant->getIdUser() , $mailer ,
-                        "Bonjour ". $participant->getIdUser() . "\n La date de fin de l'évenement ".$event->getTitlepost().
-                        "dont vous etes un participant à été modifiée à ". $endDate->format('Y-m-d H:i')) ;
+
+                    $mailerService->sendEmail(
+                        $participant->getEmail() ,
+                        'Nebula Gaming wants to tell you something ! ' ,
+                        "Modifications had occured on end Date of ".$event->getTitlePost() );
+
                 }
             }
 
@@ -178,7 +202,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{idpost}", name="app_event_delete", methods={"POST"})
+     * @Route("/admin/event/{idpost}", name="app_event_delete", methods={"POST"})
      */
     public function delete(Request $request, TblPost $event, EntityManagerInterface $entityManager): Response
     {
@@ -192,14 +216,14 @@ class EventController extends AbstractController
     }
 
 
-    public function mailer (TblUser $user , \Swift_Mailer $mailer , String $mailContent) {
+    public function mailer ( User $user , \Swift_Mailer $mailer , String $mailContent) {
 
         $from = array("hindzaafouri19@gmail.com" => "Nebula Gaming");
         $message = (new \Swift_Message("Nebula Gaming Wants to tell you Something !"))
         //Expediteur
         ->setFrom($from)
         //Destinataire
-        ->setTo($user->getEmailuser())
+        ->setTo($user->getEmail())
         ->setSubject("Nebula Gaming Wants to tell you Something !")
         ->setBody($mailContent , 'text/plain') ;
 

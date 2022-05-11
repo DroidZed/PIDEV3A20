@@ -5,17 +5,40 @@ namespace App\Controller;
 use App\Entity\TblParticipation;
 use App\Entity\TblPaytype;
 use App\Entity\TblPost;
-use App\Entity\TblUser;
+use App\Entity\User;
+use App\Services\GetUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @Route ("/participation")
  */
 class ParticipationEventController extends AbstractController
 {
+
+
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+    private $getUser;
+
+    /**
+     * @param RouterInterface $router
+     * @param GetUser $getUser
+     */
+    public function __construct(RouterInterface $router,GetUser $getUser)
+
+    {
+        $this->router = $router;
+        $this->getUser=$getUser;
+
+    }
+
+
     /**
      * @Route("/", name="app_participation_event")
      */
@@ -32,17 +55,14 @@ class ParticipationEventController extends AbstractController
     public function new(EntityManagerInterface $entityManager , TblPost $idpost): Response
     {
 
-        $user = new TblUser() ;
         $paytype = new TblPaytype() ;
-
         $participation = new TblParticipation();
         $participation->setBookeddtm(new \DateTime()) ;
         $participation->setRank(0) ;
         $participation->setResult(0) ;
         $participation->setIdpost($idpost) ;
-        $participation->setIdUser($user) ;
+        $participation->setIdUser($this->getUser->Get_User()) ;
         $participation->setIdpaytype($paytype) ;
-
         $entityManager->persist($participation);
         $entityManager->flush();
 

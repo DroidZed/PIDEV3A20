@@ -76,7 +76,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-4 text-center">
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" %}
                                 <a href="{{ path ('app_participation_new', {'idpost' : event.idpost} )  }}" class="cmn-btn">Participate !</a>
+                                {% endif %}
                             </div>
                         </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">

@@ -83,10 +83,19 @@ class HomePageController extends AbstractController
 
         $rss = simplexml_load_file("https://esportsinsider.com/feed/");
 
+
         foreach ($quizzes as $quiz) {
             $quizzesAndOptions [] = $entityManager
                 ->getRepository(TblOption::class)
                 ->findBy(['idpost' => $quiz->getIdPost()]);
+        }
+
+        if ($rss == null) {
+            return $this->render('frontTemplate/homePage.html.twig', [
+                'events' => $events ,
+                'quizzesOutput' => $quizzesAndOptions,
+                'posts' => $posts ,
+            ]);
         }
 
         return $this->render('frontTemplate/homePage.html.twig', [

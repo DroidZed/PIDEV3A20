@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\TblPost;
-use App\Entity\TblUser;
+use App\Entity\User;
 use App\Helpers_NewsFeed\LocationHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -98,8 +98,8 @@ class EventType extends AbstractType
             ])
 
             ->add('iduser',EntityType::class,[
-                'class' => TblUser::class ,
-                'choice_label' => 'nameuser',
+                'class' => User::class ,
+                'choice_label' => 'nom',
                 'label' => false ,
                 'attr' => [
                     'class' => 'form-control'

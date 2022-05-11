@@ -28,7 +28,7 @@ class CategoryController extends AbstractController
 
         $maxPages = ceil($categories->count() / 5);
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('backTemplate/category/index.html.twig', [
             'b' => $categories,
             'maxPages' => $maxPages,
             'currPage' => $page
@@ -51,7 +51,7 @@ class CategoryController extends AbstractController
             $em ->flush();
             return $this->redirectToRoute( 'displayCategory');
         }
-        return $this->render('category/createCategory.html.twig',[ 'f'=>$form->createView()]);
+        return $this->render('backTemplate/category/createCategory.html.twig',[ 'f'=>$form->createView()]);
     }
 
     //Suppresion
@@ -81,6 +81,6 @@ class CategoryController extends AbstractController
             $em ->flush();
             return $this->redirectToRoute( 'displayCategory');
         }
-        return $this->render('category/updateCategory.html.twig',[ 'f'=>$form->createView()]);
+        return $this->render('backTemplate/category/updateCategory.html.twig',[ 'f'=>$form->createView()]);
     }
 }

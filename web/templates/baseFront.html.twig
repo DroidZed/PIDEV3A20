@@ -59,18 +59,24 @@
                         <nav class="navbar navbar-expand-lg p-0">
                             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav main-menu ml-auto">
-                                    <li><a href="#" class="active">Home</a></li>
+                                    <li><a href="/" class="active">Home</a></li>
                                     <li class="menu_has_children"><a href="#0">Tournaments</a>
+
+                                    </li>
+                                    <li class="menu_has_children"><a href="#">Market</a>
                                         <ul class="sub-menu">
-                                            <li><a href="#">Tournaments</a></li>
-                                            <li><a href="#">Tournaments Single</a></li>
+                                            <li><a href="{{ path('allProducts') }}">Shop</a></li>
+                                            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" %}
+                                                <li><a href="{{ path('myProducts') }}">Your Products</a></li>
+                                            {% endif %}
+                                            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" %}
+                                                <li><a href="{{ path('addProduct') }}">Publish A New Product</a></li>
+                                            {% endif %}
+
                                         </ul>
                                     </li>
                                     <li class="menu_has_children"><a href="#0">Pages</a>
                                         <ul class="sub-menu">
-                                            <li><a href="#">About Us</a></li>
-                                            <li><a href="#">Shop</a></li>
-                                            <li><a href="#">Shop Details</a></li>
                                             <li>
                                                 {% if is_granted('ROLE_ENTREPRISE') and app.user.stateuser=="Active" %}
                                             <li><a href={{ path('ProfilEntreprise') }}>My Space</a></li>
@@ -93,17 +99,6 @@
                             </div>
                         </nav>
                         <div class="right-area header-action d-flex align-items-center">
-                            <div class="search-icon">
-                                <a href="#"><img src={{ asset ("frontTemplate/images/search_btn.png") }} alt="icon"></a>
-                            </div>
-                            <div class="lang d-flex align-items-center">
-                                <select>
-                                    <option value="1">EN</option>
-                                    <option value="2">BN</option>
-                                    <option value="3">ES</option>
-                                    <option value="4">NL</option>
-                                </select>
-                            </div>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" %}
                                 <p>{{ app.user.nom }}</p>
                                 <div class="header-btn d-none f-right d-lg-block">
