@@ -22,7 +22,7 @@ class TblCategory
      * @ORM\Column(name="idCategory", type="integer", nullable=false )
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups({"products"})
+     * @Groups({"wishlist:items", "products"})
      */
     private $idcategory;
 
