@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.service;
+package tn.nebulagaming.services;
 
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
@@ -11,12 +11,13 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
-import edu.esprit.pidev.entities.User;
-import edu.esprit.pidev.utils.Statics;
+
+import tn.nebulagaming.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import tn.nebulagaming.entities.User;
 
 /**
  *
@@ -71,7 +72,7 @@ public class ServiceUser {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        System.out.println(loginResult + " login");
+        System.out.println(loginResult + " login test");
         return loginResult;
     }
     

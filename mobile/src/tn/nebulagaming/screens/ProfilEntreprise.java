@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.gui;
+package tn.nebulagaming.screens;
 
 import com.codename1.capture.Capture;
 import com.codename1.io.FileSystemStorage;
@@ -21,9 +21,9 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.ImageIO;
-import edu.esprit.pidev.entities.Entreprise;
-import edu.esprit.pidev.service.ServiceEntreprise;
-import static edu.esprit.pidev.utils.Statics.PATH;
+
+import tn.nebulagaming.services.ServiceEntreprise;
+
 
 import java.io.IOException;
 
@@ -31,6 +31,8 @@ import java.io.OutputStream;
 import static java.lang.String.valueOf;
 
 import java.util.Random;
+import tn.nebulagaming.entities.Entreprise;
+import static tn.nebulagaming.utils.Statics.PATH;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.gui;
+package tn.nebulagaming.screens;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Form;
@@ -34,7 +34,7 @@ public class Login extends Form {
         btnAddTask.addActionListener(e -> {
             try {
                 new ProfilMembre(username).show();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                
             }
         });

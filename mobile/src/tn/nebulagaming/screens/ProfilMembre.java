@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.gui;
+package tn.nebulagaming.screens;
 
 import com.codename1.capture.Capture;
 import com.codename1.io.FileSystemStorage;
@@ -23,26 +23,29 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.ImageIO;
-import edu.esprit.pidev.entities.Membre;
-import edu.esprit.pidev.service.ServiceMembre;
-import edu.esprit.pidev.utils.Statics;
+
+
+import tn.nebulagaming.services.ServiceMembre;
+import tn.nebulagaming.utils.Statics;
 import java.io.IOException;
 import java.io.OutputStream;
 import static java.lang.String.valueOf;
-import static edu.esprit.pidev.utils.Statics.*;
+
 import java.util.Random;
 import static java.util.concurrent.ThreadLocalRandom.current;
+import tn.nebulagaming.entities.Membre;
+import static tn.nebulagaming.utils.Statics.PATH;
 
 /**
  *
  * @author ibeno
  */
-public class ProfilMembre extends Form {
+public class ProfilMembre extends BaseForm {
 
     Form current;
 
     public static String username;
-    public Membre membre;
+    public static Membre membre;
 
     public ProfilMembre(Form previous) {
         current = this; //Récupération de l'interface(Form) en cours

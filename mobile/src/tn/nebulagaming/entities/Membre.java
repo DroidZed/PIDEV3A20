@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.entities;
+package tn.nebulagaming.entities;
 
 
 public class Membre extends User {

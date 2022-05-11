@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.gui;
+package tn.nebulagaming.screens;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -14,14 +14,15 @@ import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import edu.esprit.pidev.entities.Membre;
-import edu.esprit.pidev.entities.Entreprise;
-import edu.esprit.pidev.service.ServiceMembre;
-import edu.esprit.pidev.service.ServiceEntreprise;
-import edu.esprit.pidev.service.ServiceUser;
+
+import tn.nebulagaming.services.ServiceMembre;
+import tn.nebulagaming.services.ServiceEntreprise;
+import tn.nebulagaming.services.ServiceUser;
 import java.io.IOException;
 import static java.lang.String.valueOf;
 import java.util.Random;
+import tn.nebulagaming.entities.Entreprise;
+import tn.nebulagaming.entities.Membre;
 
 /**
  *
@@ -38,9 +39,9 @@ public class Login1 extends Form {
         setLayout(BoxLayout.y());
 
         
-        Button InscritEtu = new Button("Inscription entreprise");
+        Button InscritMembre = new Button("Inscription entreprise");
         Button InscritEnt = new Button("Inscription membre");
-        FontImage.setMaterialIcon(InscritEtu, FontImage.MATERIAL_CREATE);
+        FontImage.setMaterialIcon(InscritMembre, FontImage.MATERIAL_CREATE);
         FontImage.setMaterialIcon(InscritEnt, FontImage.MATERIAL_CREATE);
 
         Button seConnecter = new Button("Se connecter");
@@ -71,7 +72,7 @@ public class Login1 extends Form {
                 d.add(BorderLayout.CENTER, popupBody);
                 try {
                     new ProfilEntreprise(this.username).show();
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                 }
             }else if ("2".equals(result)) {
                 Membre ent = new Membre();
@@ -89,7 +90,7 @@ public class Login1 extends Form {
                 System.out.println(ent.getDescription());
                 try {
                     new ProfilMembre(this.username).show();
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                 }
             } else {
                 Dialog.show("Attention", "Veuillez verifier vos données ", new Command("OK"));
@@ -107,7 +108,7 @@ public class Login1 extends Form {
         
         
         
-          InscritEtu.addActionListener((e) -> {
+          InscritMembre.addActionListener((e) -> {
 
             new InscriEntreprise(current).show();
 
@@ -121,7 +122,7 @@ public class Login1 extends Form {
         
         
         
-        addAll(email, password,seConnecter,forgetPassword,InscritEtu,InscritEnt);
+        addAll(email, password,seConnecter,forgetPassword,InscritMembre,InscritEnt);
 
     }
     

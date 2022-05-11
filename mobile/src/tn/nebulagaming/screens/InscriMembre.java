@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.gui;
+package tn.nebulagaming.screens;
 
 import com.codename1.capture.Capture;
 import com.codename1.ui.Button;
@@ -15,12 +15,13 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import edu.esprit.pidev.entities.Membre;
-import edu.esprit.pidev.service.ServiceMembre;
-import edu.esprit.pidev.service.ServiceEntreprise;
-import edu.esprit.pidev.service.ServiceUser;
+import tn.nebulagaming.entities.Membre;
 
-import edu.esprit.pidev.utils.Validators;
+import tn.nebulagaming.services.ServiceMembre;
+
+import tn.nebulagaming.services.ServiceUser;
+import tn.nebulagaming.utils.Validators;
+
 
 /**
  *

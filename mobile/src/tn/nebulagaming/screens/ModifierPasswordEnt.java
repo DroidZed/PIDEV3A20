@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.esprit.pidev.gui;
+package tn.nebulagaming.screens;
 
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
@@ -12,13 +12,14 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
-import edu.esprit.pidev.entities.Entreprise;
-import edu.esprit.pidev.entities.User;
-import edu.esprit.pidev.service.ServiceEntreprise;
-import edu.esprit.pidev.service.ServiceUser;
 
-import edu.esprit.pidev.utils.Validators;
+import tn.nebulagaming.services.ServiceEntreprise;
+import tn.nebulagaming.services.ServiceUser;
+
+
 import java.io.IOException;
+import tn.nebulagaming.entities.User;
+import tn.nebulagaming.utils.Validators;
 
 /**
  *
@@ -63,7 +64,7 @@ public class ModifierPasswordEnt extends Form {
                     Dialog.show("Success", "Modification effectuée", new Command("OK"));
                     try {
                         new ProfilEntreprise(this.username).show();
-                    } catch (IOException ex) {
+                    } catch (Exception ex) {
                     }
 
                 

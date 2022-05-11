@@ -1,4 +1,4 @@
-package edu.esprit.pidev.entities;
+package tn.nebulagaming.entities;
 
 
 
