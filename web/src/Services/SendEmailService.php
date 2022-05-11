@@ -15,7 +15,7 @@ class SendEmailService
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($to = 'rayen.bakali@gmail.com',
+    public function sendEmail($to,
                               $subject ,
                               $content ): void
     {
