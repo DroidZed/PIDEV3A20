@@ -17,61 +17,69 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package tn.nebulagaming.screens;
+package com.mycompany.gui;
 
 import com.codename1.components.FloatingHint;
+import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 
 /**
- * Sign in UI
+ * Account activation UI
  *
  * @author Shai Almog
  */
-public class SignInForm extends BaseForm {
+public class ActivateForm extends BaseForm {
 
-    public SignInForm(Resources res) {
+    public ActivateForm(Resources res) {
         super(new BorderLayout());
-        
-        if(!Display.getInstance().isTablet()) {
-            BorderLayout bl = (BorderLayout)getLayout();
-            bl.defineLandscapeSwap(BorderLayout.NORTH, BorderLayout.EAST);
-            bl.defineLandscapeSwap(BorderLayout.SOUTH, BorderLayout.CENTER);
-        }
+        Toolbar tb = new Toolbar(true);
+        setToolbar(tb);
+        tb.setUIID("Container");
         getTitleArea().setUIID("Container");
-        setUIID("SignIn");
+        Form previous = Display.getInstance().getCurrent();
+        tb.setBackCommand("", e -> previous.showBack());
+        setUIID("Activate");
         
-        add(BorderLayout.NORTH, new Label(res.getImage("Logo.png"), "LogoLabel"));
+        add(BorderLayout.NORTH, 
+                BoxLayout.encloseY(
+                        new Label(res.getImage("smily.png"), "LogoLabel"),
+                        new Label("Awsome Thanks!", "LogoLabel")
+                )
+        );
         
-        TextField username = new TextField("", "Username", 20, TextField.ANY);
-        TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
-        username.setSingleLineTextArea(false);
-        password.setSingleLineTextArea(false);
-        Button signIn = new Button("Sign In");
+        TextField code = new TextField("", "Enter Code", 20, TextField.PASSWORD);
+        code.setSingleLineTextArea(false);
+        
         Button signUp = new Button("Sign Up");
-        signUp.addActionListener(e -> new SignUpForm(res).show());
-        signUp.setUIID("Link");
-        Label doneHaveAnAccount = new Label("Don't have an account?");
+        Button resend = new Button("Resend");
+        resend.setUIID("CenterLink");
+        Label alreadHaveAnAccount = new Label("Already have an account?");
+        Button signIn = new Button("Sign In");
+        signIn.addActionListener(e -> previous.showBack());
+        signIn.setUIID("CenterLink");
         
         Container content = BoxLayout.encloseY(
-                new FloatingHint(username),
+                new FloatingHint(code),
                 createLineSeparator(),
-                new FloatingHint(password),
-                createLineSeparator(),
-                signIn,
-                FlowLayout.encloseCenter(doneHaveAnAccount, signUp)
+                new SpanLabel("We've sent the confirmation code to your email. Please check your inbox", "CenterLabel"),
+                resend,
+                signUp,
+                FlowLayout.encloseCenter(alreadHaveAnAccount, signIn)
         );
         content.setScrollableY(true);
         add(BorderLayout.SOUTH, content);
-        signIn.requestFocus();
-        signIn.addActionListener(e -> new NewsfeedForm(res).show());
+        signUp.requestFocus();
+        signUp.addActionListener(e -> new NewsfeedForm(res).show());
     }
     
 }

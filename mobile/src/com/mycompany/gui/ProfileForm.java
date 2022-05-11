@@ -17,7 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package tn.nebulagaming.screens;
+package com.mycompany.gui;
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.CheckBox;

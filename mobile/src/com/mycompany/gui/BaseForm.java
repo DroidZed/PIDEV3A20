@@ -17,11 +17,9 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package tn.nebulagaming.screens;
+package com.mycompany.gui;
 
-import tn.nebulagaming.screens.NewsfeedForm;
-import tn.nebulagaming.screens.ProfileForm;
-import tn.nebulagaming.screens.WalkthruForm;
+import Domaine.gui.AllDomaine;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Component;
 import com.codename1.ui.Display;
@@ -87,6 +85,7 @@ public class BaseForm extends Form {
         
         tb.addMaterialCommandToSideMenu("Newsfeed", FontImage.MATERIAL_UPDATE, e -> new NewsfeedForm(res).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
+        tb.addMaterialCommandToSideMenu("All Domaines", FontImage.MATERIAL_SETTINGS, e -> new AllDomaine(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }
 }
