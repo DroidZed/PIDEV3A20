@@ -22,7 +22,7 @@ class TblCategory
      * @ORM\Column(name="idCategory", type="integer", nullable=false )
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups({"products"})
+     * @Groups({"wishlist:items", "products", "category"})
      */
     private $idcategory;
 
@@ -33,7 +33,7 @@ class TblCategory
      *      minMessage=" Entrer un nom de Category au mini de 5 caracteres"
      *     )
      * @ORM\Column(type="string", length=255 , name="nameCategory")
-     * @Groups({"wishlist:items", "products"})
+     * @Groups({"wishlist:items", "products", "category"})
      */
     private $nameCategory;
 

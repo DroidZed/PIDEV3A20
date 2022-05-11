@@ -88,6 +88,7 @@ class TblProduct
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCategory", referencedColumnName="idCategory")
      * })
+     * @Groups({"wishlist:items", "products"})
      */
     private $idcategory;
 
