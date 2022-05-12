@@ -25,6 +25,15 @@
     <image name="signin-background.jpg"  />
     <image name="signup-background.jpg"  />
     <image name="smily.png" type="multi"  />
+    <image name="TextField.borderBottom_1.png" type="multi"  />
+    <image name="TextField.borderBottomL_1.png" type="multi"  />
+    <image name="TextField.borderBottomR_1.png" type="multi"  />
+    <image name="TextField.borderCenter_1.png" type="multi"  />
+    <image name="TextField.borderLeft_1.png" type="multi"  />
+    <image name="TextField.borderRight_1.png" type="multi"  />
+    <image name="TextField.borderTop_1.png" type="multi"  />
+    <image name="TextField.borderTopL_1.png" type="multi"  />
+    <image name="TextField.borderTopR_1.png" type="multi"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
         <val key="@tabPlacementInt" value="0" />
@@ -258,10 +267,11 @@
         <val key="StatusBarSideMenu.padding" value="0,0,0,0" />
         <val key="TextField.align" value="4" />
         <border key="TextField.border" type="empty" />
-        <val key="TextField.fgColor" value="ffffff" />
-        <val key="TextField.margin" value="0,0,0,0" />
+        <val key="TextField.fgColor" value="330033" />
+        <font key="TextField.font" type="system" face="0" style="0" size="0" />
+        <val key="TextField.margin" value="0.0,0.0,0.0,0.0" />
         <val key="TextField.padUnit" value="2,2,2,2" />
-        <val key="TextField.padding" value="2,2,2,2" />
+        <val key="TextField.padding" value="2.0,2.0,2.0,2.0" />
         <val key="TextField.sel#align" value="4" />
         <border key="TextField.sel#border" type="empty" />
         <val key="TextField.sel#fgColor" value="ffffff" />
@@ -287,9 +297,15 @@
         <val key="TextHint.align" value="4" />
         <val key="TextHint.sel#align" value="4" />
         <val key="Title.align" value="4" />
+
         <val key="Title.fgColor" value="ffffff" />
         <font key="Title.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="Title.textDecoration" value="0" />
+
+        <val key="Title.bgColor" value="000000" />
+        <val key="Title.textDecoration" value="0" />
+        <val key="Title.transparency" value="0" />
+
         <val key="TitleCommand.fgColor" value="ffffff" />
         <font key="TitleCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="TitleCommand.padUnit" value="2,2,2,2" />
@@ -332,6 +348,7 @@
         <val key="WhiteSeparator.padding" value="1,1,1,1" />
         <val key="WhiteSeparator.transparency" value="26" />
         <val key="transparency" value="0" />
+        <font key="font" type="system" face="0" style="0" size="0" />
     </theme>
     <image name="timeline-background.jpg"  />
     <image name="twitter-logo.png" type="multi"  />

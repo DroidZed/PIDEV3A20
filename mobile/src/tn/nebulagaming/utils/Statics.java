@@ -5,13 +5,13 @@
  */
 package tn.nebulagaming.utils;
 
-/**
- *
- * @author dell
- */
-public class Statics {
-    
-    public static final String BASE_URL="http://127.0.0.1:8000";
-    
-}
 
+public class Statics {
+    public static final String BASE_URL="http://127.0.0.1:8000";
+    public static final String PATH="file://C:/ASUS/houba/AppData/Local/Temp/";
+    public static final String IMG_PATH = "C:\\Users\\ASUS\\Music\\javaopen\\PiDev-main\\Images";
+    
+
+    
+      
+}
