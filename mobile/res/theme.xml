@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
-    <image name="0f10337fa38b554a15ea85301d6ae05f.png"  />
-    <image name="188fca76efa6735c15ba3752569a1d58.png"  />
-    <image name="6085a64ae249cd6176b086b4ff8d0c6e.png"  />
     <image name="activation-background.jpg"  />
-    <image name="banner.jpg"  />
     <image name="confirmation-background.jpg"  />
     <image name="dog.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
-    <image name="fdf7fd1b9a7e816763fc297b19338781.jpg"  />
     <image name="Logo.png" type="multi"  />
     <image name="news-item-1.jpg"  />
     <image name="news-item-2.jpg"  />
