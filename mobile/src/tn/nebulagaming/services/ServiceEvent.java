@@ -106,7 +106,7 @@ public class ServiceEvent {
     
     public ArrayList<Event> getAllEvents(){
         request = new ConnectionRequest();
-        String url = Statics.BASE_URL+"wsevents/getEvents";
+        String url = Statics.BASE_URL+"/wsevents/getEvents";
         System.out.println("===>"+url);
         request.setUrl(url);
         request.setPost(false);

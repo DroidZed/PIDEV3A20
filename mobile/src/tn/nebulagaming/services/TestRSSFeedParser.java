@@ -82,7 +82,7 @@ public class TestRSSFeedParser implements TreeModel {
         try {
             
             System.out.println("jsonText :" +jsonText);
-            feed = new ArrayList<Feed>();
+            feed = new ArrayList<>();
             JSONParser j = new JSONParser();
             Map<String, Object> eventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             System.out.println("event:" + eventsListJson);

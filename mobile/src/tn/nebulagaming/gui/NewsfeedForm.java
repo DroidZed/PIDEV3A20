@@ -56,8 +56,6 @@ import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import tn.nebulagaming.entities.Event;
 import tn.nebulagaming.entities.Feed;
-import tn.nebulagaming.screens.BaseForm;
-import tn.nebulagaming.screens.DetailsEvent;
 import tn.nebulagaming.services.ServiceEvent;
 import tn.nebulagaming.services.TestRSSFeedParser;
 
