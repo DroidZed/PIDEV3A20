@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import tn.nebulagaming.entities.Category;
 import tn.nebulagaming.entities.CustomResponse;
+import tn.nebulagaming.entities.Membre;
 import tn.nebulagaming.entities.Product;
-import tn.nebulagaming.entities.User;
 
 /**
  *
@@ -31,7 +31,7 @@ public class ServiceProduct extends MainServiceClass {
 
     private CustomResponse resp;
 
-    private CustomResponseService respService = CustomResponseService.getInstance();
+    private static final CustomResponseService respService = CustomResponseService.getInstance();
 
     private static ServiceProduct instance = null;
 
@@ -223,15 +223,15 @@ public class ServiceProduct extends MainServiceClass {
 	return category;
     }
 
-    private User parseUser(Map<String, Object> map) {
+    private Membre parseUser(Map<String, Object> map) {
 
-	User user = new User();
+	Membre user = new Membre();
 
 	try {
 
-	    Map<String, Object> object = (Map<String, Object>) map.get("iduser");
+	    Map<String, Object> object = (Map<String, Object>) map.get("id");
 
-	    user.setNameuser(object.get("nom").toString());
+	    user.setNom(object.get("nom").toString());
 	} catch (NullPointerException ex) {
 
 	    System.out.println("[Parse user]: Something went wrong: " + ex.getMessage());

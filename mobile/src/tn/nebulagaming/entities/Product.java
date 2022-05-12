@@ -22,9 +22,9 @@ public class Product {
  private Float priceproduct;
  private Integer qtyproduct;
  Category idCategory;
- User idUser;
+ Membre idUser;
 
-    public Product(String nameproduct, Float priceproduct, Integer qtyproduct, Category idCategory, User idUser) {
+    public Product(String nameproduct, Float priceproduct, Integer qtyproduct, Category idCategory, Membre idUser) {
 	this.nameproduct = nameproduct;
 	this.priceproduct = priceproduct;
 	this.qtyproduct = qtyproduct;

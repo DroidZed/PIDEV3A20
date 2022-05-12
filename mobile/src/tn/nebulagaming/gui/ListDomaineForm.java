@@ -56,7 +56,7 @@ public class ListDomaineForm extends BaseForm {
 	Label s1 = new Label();
 	Label s2 = new Label();
 
-	addTab(swipe, s1, res.getImage("back.png"), "", "", res);
+	addTab(swipe, s1, res.getImage("Capture.png"), "", "", res);
 
 	swipe.setUIID("Container");
 	swipe.getContentPane().setUIID("Container");

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Dialog;
@@ -44,7 +44,7 @@ public class ShowProduct extends BaseForm {
 
 	add(new Label("Product Quantity: " + prod.getQtyproduct()));
 
-	add(new Label("Publiser: " + prod.getIdUser().getNameuser()));
+	add(new Label("Publiser: " + prod.getIdUser().getNom()));
 
 	Button btnDel = new Button("Delete");
 

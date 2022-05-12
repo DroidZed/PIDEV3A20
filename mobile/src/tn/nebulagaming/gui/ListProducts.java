@@ -2,19 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
-import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import java.util.List;
@@ -33,9 +28,9 @@ public class ListProducts extends BaseForm {
 
     public ListProducts(Resources res) {
 
-	super("Shop",BoxLayout.y());
-        
-        super.addSideMenu(res);
+	super("Shop", BoxLayout.y());
+
+	super.addSideMenu(res);
 
 	productList = productService.getAllProducts();
 
@@ -44,7 +39,6 @@ public class ListProducts extends BaseForm {
 	    Container main = new Container(BoxLayout.y());
 
 	    main.setScrollableY(true);
-	    
 
 	    for (Product product : productList) {
 		Container c = new Container(new BoxLayout(BoxLayout.Y_AXIS));

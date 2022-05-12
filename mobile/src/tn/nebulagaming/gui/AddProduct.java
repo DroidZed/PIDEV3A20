@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
-import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -23,9 +22,9 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import tn.nebulagaming.entities.Category;
 import tn.nebulagaming.entities.Product;
-import tn.nebulagaming.entities.User;
 import tn.nebulagaming.services.CategoryService;
 import tn.nebulagaming.services.ServiceProduct;
+import tn.nebulagaming.utils.SingletonUser;
 
 /**
  *
@@ -33,8 +32,9 @@ import tn.nebulagaming.services.ServiceProduct;
  */
 public class AddProduct extends BaseForm {
 
-    private CategoryService catService = CategoryService.getInstance();
-    private ServiceProduct serviceProd = ServiceProduct.getInstance();
+    private static final CategoryService catService = CategoryService.getInstance();
+    private static final ServiceProduct serviceProd = ServiceProduct.getInstance();
+    private static final SingletonUser singUser = SingletonUser.getInstance();
 
     public AddProduct(Resources res) {
 
@@ -96,7 +96,7 @@ public class AddProduct extends BaseForm {
 	    String category = cbxCategory.getSelectedItem().toString();
 	    System.out.println(name + "\n" + quant + "\n" + price + "\n" + category);
 	    Dialog.show("Info",
-		    serviceProd.addProduct(new Product(name, price, quant), category, 1).getMessage(),
+		    serviceProd.addProduct(new Product(name, price, quant), category, singUser.getIdUser()).getMessage(),
 		    "OK",
 		    null);
 	});
