@@ -17,10 +17,8 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.mycompany.gui;
+package tn.nebulagaming.gui;
 
-import JV.gui.AjoutJeuForm;
-import JV.gui.ListJeuForm;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Component;
 import com.codename1.ui.Display;

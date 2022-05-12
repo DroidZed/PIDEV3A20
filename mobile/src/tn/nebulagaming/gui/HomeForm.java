@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.gui;
+package tn.nebulagaming.gui;
 
-import JV.gui.ListJeuForm;
 import com.codename1.ui.Button;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;

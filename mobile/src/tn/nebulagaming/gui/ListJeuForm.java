@@ -17,10 +17,10 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package JV.gui;
+package tn.nebulagaming.gui;
 
 
-import JV.gui.AjoutJeuForm;
+import tn.nebulagaming.gui.AjoutJeuForm;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -59,9 +59,9 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
-import com.company.entities.JeuVideo;
-import com.mycompany.gui.BaseForm;
-import com.mycompany.services.ServiceJeuVideo;
+import tn.nebulagaming.entities.JeuVideo;
+import tn.nebulagaming.gui.BaseForm;
+import tn.nebulagaming.services.ServiceJeuVideo;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;

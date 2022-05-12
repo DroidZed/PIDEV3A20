@@ -17,7 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package JV.gui;
+package tn.nebulagaming.gui;
 
 import com.codename1.capture.Capture;
 import com.codename1.components.ScaleImageLabel;
@@ -55,9 +55,9 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.ImageIO;
 import com.codename1.ui.util.Resources;
 import com.codename1.util.Base64;
-import com.company.entities.JeuVideo;
-import com.mycompany.gui.BaseForm;
-import com.mycompany.services.ServiceJeuVideo;
+import tn.nebulagaming.entities.JeuVideo;
+import tn.nebulagaming.gui.BaseForm;
+import tn.nebulagaming.services.ServiceJeuVideo;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;

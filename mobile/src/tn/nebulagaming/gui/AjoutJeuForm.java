@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JV.gui;
+package tn.nebulagaming.gui;
 
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ScaleImageLabel;
@@ -30,9 +30,9 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
-import com.company.entities.JeuVideo;
-import com.mycompany.gui.BaseForm;
-import com.mycompany.services.ServiceJeuVideo;
+import tn.nebulagaming.entities.JeuVideo;
+import tn.nebulagaming.gui.BaseForm;
+import tn.nebulagaming.services.ServiceJeuVideo;
 
 /**
  *
