@@ -3,27 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.company.entities;
+package tn.nebulagaming.entities;
 
 /**
  *
  * @author User
  */
-public class domain {
+public class Domain {
     
     private int id;
     private String name;
     private String description;
 
-    public domain() {
+    public Domain() {
     }
 
-    public domain(String name, String description) {
+    public Domain(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public domain(int id, String name, String description) {
+    public Domain(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;

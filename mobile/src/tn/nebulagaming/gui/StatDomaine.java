@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domaine.gui;
+package tn.nebulagaming.gui;
 
 import com.codename1.charts.ChartComponent;
 import com.codename1.charts.models.CategorySeries;
@@ -11,19 +11,14 @@ import com.codename1.charts.renderers.DefaultRenderer;
 import com.codename1.charts.renderers.SimpleSeriesRenderer;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.charts.views.PieChart;
-import com.codename1.components.InfiniteProgress;
-import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
-import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
-import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -33,25 +28,21 @@ import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
-import com.company.entities.domain;
-import com.company.services.ServiceDomain;
-import com.mycompany.gui.BaseForm;
-import java.util.ArrayList;
+import tn.nebulagaming.entities.Domain;
+import tn.nebulagaming.services.ServiceDomain;
 import java.util.List;
 
 /**
  *
  * @author wajih
  */
-public class StatDomaine extends BaseForm{
+public class StatDomaine extends BaseForm {
         Form current;
 
         public StatDomaine(Resources res) {
@@ -146,7 +137,6 @@ public class StatDomaine extends BaseForm{
 /**
  * Builds a category series using the provided values.
  *
- * @param titles the series titles
  * @param values the values
  * @return the category series
  */
@@ -160,12 +150,12 @@ protected CategorySeries buildCategoryDataset(String title, double[] values) {
     */
              int nbnontrait=0;
              
-             List<domain> lista = ServiceDomain.getInstance().afficherDomain();;
-             for (domain fi : lista) {
+             List<Domain> lista = ServiceDomain.getInstance().afficherDomain();;
+             for (Domain fi : lista) {
                              int nb=0;
 
-             List<domain> listaaa = ServiceDomain.getInstance().afficherDomainOffre(fi.getId());
-                              for (domain fii : listaaa) {
+             List<Domain> listaaa = ServiceDomain.getInstance().afficherDomainOffre(fi.getId());
+                              for (Domain fii : listaaa) {
                                   nb++;
                                   }
               series.add(fi.getName() ,nb);

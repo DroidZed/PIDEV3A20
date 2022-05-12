@@ -17,14 +17,8 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-<<<<<<<< HEAD:mobile/src/tn/nebulagaming/gui/BaseForm.java
 package tn.nebulagaming.gui;
 
-========
-package com.mycompany.gui;
-
-import Domaine.gui.AllDomaine;
->>>>>>>> origin/farah-mobile:mobile/src/com/mycompany/gui/BaseForm.java
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Component;
 import com.codename1.ui.Display;
@@ -89,13 +83,9 @@ public class BaseForm extends Form {
         ));
         
         tb.addMaterialCommandToSideMenu("Newsfeed", FontImage.MATERIAL_UPDATE, e -> new NewsfeedForm(res).show());
-<<<<<<<< HEAD:mobile/src/tn/nebulagaming/gui/BaseForm.java
-        tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());        
-        tb.addMaterialCommandToSideMenu("Afficher Jeux", FontImage.MATERIAL_SETTINGS, e -> new ListJeuForm(res).show());
-========
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
+        tb.addMaterialCommandToSideMenu("Afficher Jeux", FontImage.MATERIAL_SETTINGS, e -> new ListJeuForm(res).show());
         tb.addMaterialCommandToSideMenu("All Domaines", FontImage.MATERIAL_SETTINGS, e -> new AllDomaine(res).show());
->>>>>>>> origin/farah-mobile:mobile/src/com/mycompany/gui/BaseForm.java
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }
 }

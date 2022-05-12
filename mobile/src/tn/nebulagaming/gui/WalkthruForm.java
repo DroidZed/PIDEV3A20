@@ -17,11 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-<<<<<<<< HEAD:mobile/src/tn/nebulagaming/gui/WalkthruForm.java
 package tn.nebulagaming.gui;
-========
-package com.mycompany.gui;
->>>>>>>> origin/farah-mobile:mobile/src/com/mycompany/gui/WalkthruForm.java
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;

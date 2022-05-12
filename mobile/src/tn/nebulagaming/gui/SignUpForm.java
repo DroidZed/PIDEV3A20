@@ -17,11 +17,8 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-<<<<<<<< HEAD:mobile/src/tn/nebulagaming/gui/SignUpForm.java
 package tn.nebulagaming.gui;
-========
-package com.mycompany.gui;
->>>>>>>> origin/farah-mobile:mobile/src/com/mycompany/gui/SignUpForm.java
+
 
 import com.codename1.components.FloatingHint;
 import com.codename1.ui.Button;
@@ -37,7 +34,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 
 /**
- * Signup UI
+ * Sign up UI
  *
  * @author Shai Almog
  */

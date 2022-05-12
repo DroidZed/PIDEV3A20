@@ -17,49 +17,54 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-<<<<<<<< HEAD:mobile/src/tn/nebulagaming/gui/NewsfeedForm.java
 package tn.nebulagaming.gui;
-========
-package com.mycompany.gui;
->>>>>>>> origin/farah-mobile:mobile/src/com/mycompany/gui/NewsfeedForm.java
 
+
+import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
-import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
+import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
-import com.codename1.ui.TextArea;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import tn.nebulagaming.entities.Domain;
+import tn.nebulagaming.services.ServiceDomain;
+import java.util.ArrayList;
 
 /**
- * The newsfeed form
+ * The all domaine form
  *
  * @author Shai Almog
  */
-public class NewsfeedForm extends BaseForm {
+public class AllDomaine extends BaseForm {
+        Form current;
+           ImageViewer imgv;
 
-    public NewsfeedForm(Resources res) {
-        super("Newsfeed", BoxLayout.y());
+    public AllDomaine(Resources res) {
+        super("Domaine", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Newsfeed");
+        setTitle("Offre");
         getContentPane().setScrollVisible(false);
         
         super.addSideMenu(res);
@@ -68,9 +73,7 @@ public class NewsfeedForm extends BaseForm {
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
-        Label spacer2 = new Label();
-        addTab(swipe, res.getImage("Capture.PNG"), spacer1, "15 Likes  ", "85 Comments", "Integer ut placerat purued non dignissim neque. ");
-        addTab(swipe, res.getImage("dog.jpg"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, res.getImage("news-item.jpg"), spacer1, "  ", "", " ");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
@@ -107,54 +110,76 @@ public class NewsfeedForm extends BaseForm {
             }
         });
         
-        Component.setSameSize(radioContainer, spacer1, spacer2);
+        Component.setSameSize(radioContainer, spacer1);
         add(LayeredLayout.encloseIn(swipe, radioContainer));
+                                    
+        Button Ajouter = new Button("Ajouter");
+        Ajouter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                    new AddDomaine(res, current).show();
+            }
+        });
+        add(Ajouter);
+                Button stat = new Button("Stat");
+        stat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                    new StatDomaine(res).show();
+            }
+        });
+        add(stat);
         
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton all = RadioButton.createToggle("All", barGroup);
-        all.setUIID("SelectBar");
-        RadioButton featured = RadioButton.createToggle("Featured", barGroup);
-        featured.setUIID("SelectBar");
-        RadioButton popular = RadioButton.createToggle("Popular", barGroup);
-        popular.setUIID("SelectBar");
-        RadioButton myFavorite = RadioButton.createToggle("My Favorites", barGroup);
-        myFavorite.setUIID("SelectBar");
-        Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
-        
-        add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(4, all, featured, popular, myFavorite),
-                FlowLayout.encloseBottom(arrow)
-        ));
-        
-        all.setSelected(true);
-        arrow.setVisible(false);
-        addShowListener(e -> {
-            arrow.setVisible(true);
-            updateArrowPosition(all, arrow);
+                  Container co=new Container(BoxLayout.xCenter());;
+                    ArrayList <Domain> dms = new ArrayList();
+                    ServiceDomain sa =new ServiceDomain();
+                    dms=sa.afficherDomain();
+
+                 for (Domain fi : dms) {
+                            Container ct = new Container(BoxLayout.y());
+
+                            Label l = new Label("ID : "+fi.getId());
+                            Label l2 = new Label("Description : "+fi.getDescription(),"RedLabel");
+                            Label l3 = new Label("Nom : "+fi.getName(),"SmallLabel");
+                            l2.getAllStyles().setFgColor(0xf15f5f);
+                            ct.add(l);
+                            ct.add(l2);
+                            ct.add(l3);
+
+                            Button Modif = new Button("Modifier");
+                            Button Supprimer = new Button("Supprimer");
+                            Modif.addActionListener(new ActionListener() {
+                                            @Override
+            public void actionPerformed(ActionEvent evt) {               
+                                 //ew ModifierOffre(res,current,fi).show();                   
+                                                    }   
+                                            });
+                            Supprimer.addActionListener(new ActionListener() {
+                                            @Override
+            public void actionPerformed(ActionEvent evt) {               
+                if (Dialog.show("Confirmation", "Voulez vous supprimer cett offre ?", "Oui", "Annuler")) {
+
+                  if( ServiceDomain.getInstance().deleteDomain(fi.getId()))
+                            {
+                                Dialog.show("Success","supprimer",new Command("OK"));
+                                new AllDomaine(res).show();
+                            }
+
+                            }
+                   
+                }   
         });
-        bindButtonSelection(all, arrow);
-        bindButtonSelection(featured, arrow);
-        bindButtonSelection(popular, arrow);
-        bindButtonSelection(myFavorite, arrow);
-        
-        // special case for rotation
-        addOrientationListener(e -> {
-            updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
-        });
-        
-        addButton(res.getImage("news-item-1.jpg"), "Morbi per tincidunt tellus sit of amet eros laoreet.", false, 26, 32);
-        addButton(res.getImage("news-item-2.jpg"), "Fusce ornare cursus masspretium tortor integer placera.", true, 15, 21);
-        addButton(res.getImage("news-item-3.jpg"), "Maecenas eu risus blanscelerisque massa non amcorpe.", false, 36, 15);
-        addButton(res.getImage("news-item-4.jpg"), "Pellentesque non lorem diam. Proin at ex sollicia.", false, 11, 9);
+                       ct.add(Modif);
+                       ct.add(Supprimer);
+
+
+                       Label separator = new Label("","Separator");
+                       ct.add(separator);
+                       add(ct);
+               }
     }
-    
-    private void updateArrowPosition(Button b, Label arrow) {
-        arrow.getUnselectedStyle().setMargin(LEFT, b.getX() + b.getWidth() / 2 - arrow.getWidth() / 2);
-        arrow.getParent().repaint();
         
-        
-    }
-    
     private void addTab(Tabs swipe, Image img, Label spacer, String likesStr, String commentsStr, String text) {
         int size = Math.min(Display.getInstance().getDisplayWidth(), Display.getInstance().getDisplayHeight());
         if(img.getHeight() < size) {
@@ -184,7 +209,6 @@ public class NewsfeedForm extends BaseForm {
                 BorderLayout.south(
                     BoxLayout.encloseY(
                             new SpanLabel(text, "LargeWhiteText"),
-                            FlowLayout.encloseIn(likes, comments),
                             spacer
                         )
                 )
@@ -193,45 +217,4 @@ public class NewsfeedForm extends BaseForm {
         swipe.addTab("", page1);
     }
     
-   private void addButton(Image img, String title, boolean liked, int likeCount, int commentCount) {
-       int height = Display.getInstance().convertToPixels(11.5f);
-       int width = Display.getInstance().convertToPixels(14f);
-       Button image = new Button(img.fill(width, height));
-       image.setUIID("Label");
-       Container cnt = BorderLayout.west(image);
-       cnt.setLeadComponent(image);
-       TextArea ta = new TextArea(title);
-       ta.setUIID("NewsTopLine");
-       ta.setEditable(false);
-
-       Label likes = new Label(likeCount + " Likes  ", "NewsBottomLine");
-       likes.setTextPosition(RIGHT);
-       if(!liked) {
-           FontImage.setMaterialIcon(likes, FontImage.MATERIAL_FAVORITE);
-       } else {
-           Style s = new Style(likes.getUnselectedStyle());
-           s.setFgColor(0xff2d55);
-           FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, s);
-           likes.setIcon(heartImage);
-       }
-       Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
-       FontImage.setMaterialIcon(likes, FontImage.MATERIAL_CHAT);
-       
-       
-       cnt.add(BorderLayout.CENTER, 
-               BoxLayout.encloseY(
-                       ta,
-                       BoxLayout.encloseX(likes, comments)
-               ));
-       add(cnt);
-       image.addActionListener(e -> ToastBar.showMessage(title, FontImage.MATERIAL_INFO));
-   }
-    
-    private void bindButtonSelection(Button b, Label arrow) {
-        b.addActionListener(e -> {
-            if(b.isSelected()) {
-                updateArrowPosition(b, arrow);
-            }
-        });
     }
-}
