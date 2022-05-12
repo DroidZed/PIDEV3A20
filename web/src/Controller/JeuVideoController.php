@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\TblPublication;
 use App\Entity\TblVideogame;
 use App\Form\JeuVideoType;
-use App\Services\QrCodeService;
+use App\services\QrcodeService;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -16,14 +18,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Endroid\QrCode\Builder\BuilderInterface;
 use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Endroid\QrCode\QrCode;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class JeuVideoController extends AbstractController
 {
     /**
-     * @Route("/membre/Jeu", name="display_Vg" , methods={"GET"})
+     * @Route("/Jeu", name="display_Vg")
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -48,7 +53,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/membre/Stat", name="Stat")
+     * @Route("/Stat", name="Stat")
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -67,21 +72,30 @@ class JeuVideoController extends AbstractController
 
         return $this->render('jeu_video/Stat.html.twig',[
             'b'=>$jeux,
+
             'videog'=>$donnees,
             'pub'=>$pub
 
         ]);
     }
 
+    /**
+     * @Route("/", name="display_Accueil")
+     */
+    public function indexFront(): Response
+    {
+        return $this->render('indexFront.html');
+    }
+
 
 
     /**
-     * @Route("/membre/addJeu", name="addJeu")
+     * @Route("/addJeu", name="addJeu")
      * @param Request $request
      * @param QrcodeService $qrcodeService
      * @return Response
      */
-    public function addJeu(Request $request, QrCodeService $qrCodeService): Response
+    public function addJeu(Request $request, QrcodeService $qrcodeService): Response
     {
 
         $JV = new  TblVideogame();
@@ -93,9 +107,17 @@ class JeuVideoController extends AbstractController
         if($form->isSubmitted() &&  $form->isValid() )
         {
             $data = $form->get('namevg')->getData();
+            $qrcodeService->qrcode($data);
             $file = $form->get('imagevg')->getData();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $qrCodeService->gen($data, $this->getParameter('images_directory').$fileName);
+            try {
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+            } catch (FileException $e){
+
+            }
             $em = $this->getDoctrine()->getManager();
             $JV->setImagevg($fileName);
             $em->persist($JV); //add
@@ -115,7 +137,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/membre/removeJeu/{id}", name="supp_Vg")
+     * @Route("/removeJeu/{id}", name="supp_Vg")
      */
     public function suppressionJeu(TblVideogame $JV): Response
     {
@@ -128,7 +150,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/membre/modifJeu/{id}", name="modifJeu")
+     * @Route("/modifJeu/{id}", name="modifJeu")
      */
     public function modifJeu(Request $request, $id): Response
     {
@@ -162,7 +184,7 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/membre/r/search_recc", name="search_recc", methods={"GET"})
+     * @Route("/r/search_recc", name="search_recc", methods={"GET"})
      */
     public function search_rec(Request $request, NormalizerInterface $Normalizer): Response
     {
@@ -193,7 +215,7 @@ class JeuVideoController extends AbstractController
         }
     }
     /**
-     * @Route("/membre/pdfC", name="pdfC")
+     * @Route("/pdfC", name="pdfC")
      */
     public function listpdf(Request $request)
     {
@@ -263,5 +285,104 @@ class JeuVideoController extends AbstractController
         return new Response("Image succesfully created in ".$filepath);
     }
 */
+
+    //*****MOBILE
+
+    /**
+     * @Route("/Jeu/mobile/aff", name="affmobjv")
+     */
+    public function affmobjv(NormalizerInterface $normalizer)
+    {
+        $med=$this->getDoctrine()->getRepository(TblVideogame::class)->findAll();
+
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($med) {
+            return $med->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($med);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/jeu/mobile/new", name="addmobJeu")
+     */
+    public function addmobRec(Request $request,NormalizerInterface $normalizer,EntityManagerInterface $entityManager)
+    {
+        $jv= new TblVideogame();
+
+        $jv->setImagevg($request->get('image'));
+
+        $jv->setNamevg($request->get('name'));
+        $jv->setStatusvg(1);
+        $jv->setRating($request->get('rating'));
+
+        $entityManager->persist($jv);
+        $entityManager->flush();
+
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($jv) {
+            return $jv->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($jv);
+        return new JsonResponse($formatted);
+
+    }
+
+    /**
+     * @Route("/reclamation/mobile/editrec", name="editmobrec")
+     */
+    public function editmobrec(Request $request,NormalizerInterface $normalizer)
+    {   $em=$this->getDoctrine()->getManager();
+
+        $rec = $em->getRepository(Reclamation::class)->find($request->get('id'));
+
+
+        $rec->setClaim($request->get('claim'));
+        $rec->setSubject($request->get('sujet'));
+
+
+        $em->flush();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($rec) {
+            return $rec->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($rec);
+        return new JsonResponse($formatted);
+    }
+    /**
+     * @Route("/jeu/mobile/del", name="delmobjv")
+     */
+    public function delmobcoach(Request $request,NormalizerInterface $normalizer)
+    {           $em=$this->getDoctrine()->getManager();
+        $rec=$this->getDoctrine()->getRepository(TblVideogame::class)
+            ->find($request->get('id'));
+        $em->remove($rec);
+        $em->flush();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($rec) {
+            return $rec->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($rec);
+        return new JsonResponse($formatted);
+
+    }
+
+
 
 }
