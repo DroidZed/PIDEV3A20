@@ -33,7 +33,7 @@ class User implements UserInterface,\Serializable
 
     /**
      * @var string
-     * @Groups ("post:read")
+     * @Groups({"post:read", "products"})
      * @ORM\Column(name="nameUser", type="string", length=100, nullable=false)
      * @Assert\NotBlank
      * @Assert\Length (

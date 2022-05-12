@@ -186,6 +186,7 @@ public abstract class User {
     public void setDate(String date){
     this.creationDTM=date;
     }
+	
     public String getDate(){
     return this.creationDTM;
     }
