@@ -17,18 +17,26 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-<<<<<<<< HEAD:mobile/src/tn/nebulagaming/gui/ProfileForm.java
-package tn.nebulagaming.gui;
-========
-package com.mycompany.gui;
->>>>>>>> origin/farah-mobile:mobile/src/com/mycompany/gui/ProfileForm.java
+package Domaine.gui;
 
+import com.codename1.capture.Capture;
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.io.FileSystemStorage;
+import com.codename1.l10n.DateFormatPatterns;
+import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
+import com.codename1.ui.ComboBox;
+import com.codename1.ui.Command;
 import com.codename1.ui.Component;
+import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
+import com.codename1.ui.Font;
+import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextComponent;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
@@ -36,22 +44,36 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.Style;
+import com.codename1.ui.spinner.Picker;
+import com.codename1.ui.util.ImageIO;
 import com.codename1.ui.util.Resources;
+import com.codename1.util.Base64;
+import com.company.entities.domain;
+import com.company.services.ServiceDomain;
+import com.mycompany.gui.BaseForm;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * The user profile form
  *
  * @author Shai Almog
  */
-public class ProfileForm extends BaseForm {
+public class AddDomaine extends BaseForm {
+   String Imagecode;
+   String filePath="";
 
-    public ProfileForm(Resources res) {
-        super("Newsfeed", BoxLayout.y());
+    public AddDomaine(Resources res,Form previous) {
+        super("Ajouter Domaine", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Profile");
+        setTitle("Ajouter Domaine");
         getContentPane().setScrollVisible(false);
         
         super.addSideMenu(res);
@@ -72,39 +94,49 @@ public class ProfileForm extends BaseForm {
         facebook.setTextPosition(BOTTOM);
         twitter.setTextPosition(BOTTOM);
         
-        add(LayeredLayout.encloseIn(
+                add(LayeredLayout.encloseIn(
                 sl,
                 BorderLayout.south(
-                    GridLayout.encloseIn(3, 
-                            facebook,
-                            FlowLayout.encloseCenter(
-                                new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond")),
-                            twitter
+                    GridLayout.encloseIn(2, 
+                            facebook, twitter
                     )
                 )
         ));
 
-        TextField username = new TextField("sandeep");
-        username.setUIID("TextFieldBlack");
-        addStringValue("Username", username);
 
-        TextField email = new TextField("sandeep@gmail.com", "E-Mail", 20, TextField.EMAILADDR);
-        email.setUIID("TextFieldBlack");
-        addStringValue("E-Mail", email);
-        
-        TextField password = new TextField("sandeep", "Password", 20, TextField.PASSWORD);
-        password.setUIID("TextFieldBlack");
-        addStringValue("Password", password);
+                        
+        TextComponent nom= new TextComponent().label("Nom");
+        add(nom);
+                              
+        TextComponent description= new TextComponent().label("description");
+        add(description);
 
-        CheckBox cb1 = CheckBox.createToggle(res.getImage("on-off-off.png"));
-        cb1.setUIID("Label");
-        cb1.setPressedIcon(res.getImage("on-off-on.png"));
-        CheckBox cb2 = CheckBox.createToggle(res.getImage("on-off-off.png"));
-        cb2.setUIID("Label");
-        cb2.setPressedIcon(res.getImage("on-off-on.png"));
+
+
+         
+        Button Ajouter = new Button("Ajouter");
+        Ajouter.addActionListener((evt) -> {
+                if (description.getText().equals("")||(nom.getText().equals("")))
+                    Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
+                else
+                {
+            
+                    ServiceDomain sp = new ServiceDomain();
+                    domain fi = new domain();
+            fi.setDescription(description.getText());
+            fi.setName(nom.getText());
+           
+                                   
+
+           
+            sp.ajoutDomain(fi);
+            Dialog.show("Success","Domaine Ajouter avec success",new Command("OK"));
+            new AllDomaine(res).show();
+                
+            }      
+        });
+        addStringValue("", FlowLayout.encloseRightMiddle(Ajouter));
         
-        addStringValue("Facebook", FlowLayout.encloseRightMiddle(cb1));
-        addStringValue("Twitter", FlowLayout.encloseRightMiddle(cb2));
     }
     
     private void addStringValue(String s, Component v) {

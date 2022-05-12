@@ -3,23 +3,32 @@
 namespace App\Controller;
 
 use App\Entity\TblCandidacy;
+use App\Entity\TblDomain;
 use App\Entity\TblOffer;
-use App\Entity\User;
+use App\Entity\TblUser;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\OfferType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
+
+/**
+ * @Route("/offer")
+ */
 
 class OfferController extends AbstractController
 {
 
     /**
-     * @Route("/membre/showOffer", name="display_Offer")
+     * @Route("/", name="display_Offer")
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -27,7 +36,7 @@ class OfferController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
-        $user =$this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
+        $user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
         $donnees = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
         $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
                 'iduser' => $user,
@@ -45,7 +54,7 @@ class OfferController extends AbstractController
             'candidacys'=>$candidacys,
             'test' => $test
         ]);
-        /*$user =$this->getDoctrine()->getManager()->getRepository(::class)->find(1);
+        /*$user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
         $Offers = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
         $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
             'iduser' => $user,
@@ -61,7 +70,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/Admin/show-offer", name="display_Offer_Admin")
+     * @Route("/Admin", name="display_Offer_Admin")
      */
     public function indexAdmin(): Response
     {
@@ -85,7 +94,7 @@ class OfferController extends AbstractController
 
         if($form->isSubmitted() &&  $form->isValid() )
         {
-            $OFFER->setIduser($this->getDoctrine()->getManager()->getRepository(User::class)->find(1));
+            $OFFER->setIduser($this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1));
             $em = $this->getDoctrine()->getManager();
             $em->persist($OFFER); //add
             $em->flush();
@@ -164,6 +173,31 @@ class OfferController extends AbstractController
         } else {
             return new Response($jsonc);
         }
+    }
+
+
+    //*****MOBILE
+
+    /**
+     * @Route("/mobile/aff", name="affmoboffredom")
+     */
+    public function affmoboffredom(Request $request,NormalizerInterface $normalizer)
+    {
+
+        $dom=$this->getDoctrine()->getRepository(TblDomain::class)->find($request->get("id"));
+        $med=$this->getDoctrine()->getRepository(TblOffer::class)->findBy([
+            'iddomain' => $dom
+        ]);
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($med) {
+            return $med->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($med);
+        return new JsonResponse($formatted);
     }
 
 

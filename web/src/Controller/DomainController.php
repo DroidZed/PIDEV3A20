@@ -6,15 +6,22 @@ use App\Entity\TblDomain;
 use App\Entity\TblOffer;
 use App\Form\DomainType;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use CMEN\GoogleChartsBundle\GoogleCharts\Options\Domain;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
 
 class DomainController extends AbstractController
 {
     /**
-     * @Route("/showDomain", name="display_Domain")
+     * @Route("/", name="display_Domain")
      */
     public function index(): Response
     {
@@ -115,6 +122,102 @@ class DomainController extends AbstractController
         }
 
         return $this->render('domain/updateDomain.html.twig', ['f'=>$form->createView()]);
+
+    }
+
+    //*****MOBILE
+
+    /**
+     * @Route("/domain/mobile/aff", name="affmobdom")
+     */
+    public function affmobdom(Request $request,NormalizerInterface $normalizer)
+    {
+
+        $med=$this->getDoctrine()->getRepository(TblDomain::class)->findAll();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($med) {
+            return $med->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($med);
+        return new JsonResponse($formatted);
+    }
+
+
+
+    /**
+     * @Route("/domain/mobile/new", name="addmobdom")
+     */
+    public function addmobdom(Request $request,NormalizerInterface $normalizer,EntityManagerInterface $entityManager)
+    {
+        $msg= new TblDomain();
+
+        $msg->setDescription($request->get('description'));
+        $msg->setName($request->get('name'));
+
+
+        $entityManager->persist($msg);
+        $entityManager->flush();
+
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($msg) {
+            return $msg->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($msg);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/messages/mobile/editmsg", name="editmobmsg")
+     */
+    public function editmobmsg(Request $request,NormalizerInterface $normalizer)
+    {   $em=$this->getDoctrine()->getManager();
+
+        $msg = $em->getRepository(Messages::class)->find($request->get('id'));
+
+        $msg->setImage($request->get('image'));
+        $msg->setMessage($request->get('msg'));
+        $msg->setTitle($request->get('title'));
+
+
+        $em->flush();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($msg) {
+            return $msg->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($msg);
+        return new JsonResponse($formatted);
+    }
+    /**
+     * @Route("/domaine/mobile/del", name="delmobmsg")
+     */
+    public function delmobmsg(Request $request,NormalizerInterface $normalizer)
+    {           $em=$this->getDoctrine()->getManager();
+        $msg=$this->getDoctrine()->getRepository(TblDomain::class)
+            ->find($request->get('id'));
+        $em->remove($msg);
+        $em->flush();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($msg) {
+            return $msg->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($msg);
+        return new JsonResponse($formatted);
 
     }
 
