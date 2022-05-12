@@ -9,6 +9,9 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Display;
+import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class WishlistService extends MotherService {
     private static JsonResponseDAOService daoService = JsonResponseDAOService.getInstance();
     private static ConnectionRequest req;
 
-    private final String WISHLIST_URL = URL + "/wishlist";
+    private final String WISHLIST_URL = URL + "wishlist";
 
     private WishlistService() {
 
@@ -155,8 +158,7 @@ public class WishlistService extends MotherService {
 	product.setNameproduct(object.get("nameproduct").toString());
 	product.setPriceproduct(Float.parseFloat(object.get("priceproduct").toString()));
 	product.setQtyproduct((int) Float.parseFloat(object.get("qtyproduct").toString()));
-	product.setImageproduct(object.get("imageproduct").toString());
-	product.setIdcategory(parseCategory(object));
+	product.setIdCategory(parseCategory(object));
 
 	return product;
     }
@@ -168,7 +170,7 @@ public class WishlistService extends MotherService {
 	try {
 	    Map<String, String> object = (Map<String, String>) map.get("idcategory");
 
-	    category.setNamecategory(object.get("namecategory"));
+	    category.setNameCategory(object.get("namecategory"));
 	} catch (NullPointerException ex) {
 
 	    System.out.println("Something went wrong: " + ex.getMessage());

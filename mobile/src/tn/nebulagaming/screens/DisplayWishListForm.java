@@ -41,28 +41,6 @@ public class DisplayWishListForm extends BaseForm {
         
         super.addSideMenu(theme);
 
-	Toolbar tb = getToolbar();
-
-	Image icon = theme.getImage("nebula_firstshot.png");
-
-	Container topBar = BorderLayout.east(new Label(icon));
-
-	topBar.add(BorderLayout.SOUTH, new Label("Nebula Gaming"));
-
-	topBar.setUIID("SideCommand");
-	tb.addComponentToSideMenu(topBar);
-
-	tb.addMaterialCommandToSideMenu("Home", FontImage.MATERIAL_HOME, e -> {
-	    new HomeScreen(theme).show();
-	});
-
-	tb.addMaterialCommandToSideMenu("My Wishlist", FontImage.MATERIAL_LIST, e -> {
-	    this.showBack();
-	});
-	tb.addMaterialCommandToSideMenu("Products List", FontImage.MATERIAL_WEB, e -> {
-	    new ShowProductsList(theme).show();
-	});
-
 	wishListItems = wishListService.getWishedItems(1);
 
 	if (!wishListItems.isEmpty()) {
@@ -81,15 +59,14 @@ public class DisplayWishListForm extends BaseForm {
 			JsonResponseDAO delOperation = WishlistService.getInstance().removeItem(item.getIdwishlist());
 			Dialog.show("Information", delOperation.getMessage(), "OK", null);
 
-			current.repaint();
-
+			new DisplayWishListForm(theme).show();
 		    }
 
 		});
 
 		c.addAll(
 			new SpanLabel(item.getIdproduct().getNameproduct()),
-			new Label(item.getIdproduct().getIdcategory().getNamecategory()),
+			new Label(item.getIdproduct().getIdCategory().getNameCategory()),
 			new Label(item.getIdproduct().getQtyproduct() + " TND"),
 			btnRem
 		);
@@ -101,13 +78,6 @@ public class DisplayWishListForm extends BaseForm {
 	} else {
 	    add(new Label("Empty list..."));
 	}
-
-	getContentPane()
-		.addPullToRefresh(() -> {
-		    wishListItems = wishListService.getWishedItems(1);
-		    current.repaint();
-		}
-		);
 
 	// String delOperation = WishlistService.getInstance().removeItem(idWishLisht);
 	// Dialog.show("Alert !", delOperation.getMessage(), "OK", null);

@@ -5,16 +5,13 @@
 package tn.nebulagaming.screens;
 
 import com.codename1.ui.Button;
-import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Form;
 import com.codename1.ui.Label;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 import tn.nebulagaming.entities.Product;
 import tn.nebulagaming.services.ServiceProduct;
+import tn.nebulagaming.services.WishlistService;
 
 /**
  *
@@ -23,6 +20,7 @@ import tn.nebulagaming.services.ServiceProduct;
 public class ShowProduct extends BaseForm {
 
     private final ServiceProduct productService = ServiceProduct.getInstance();
+    private final WishlistService wishListService = WishlistService.getInstance();
 
     Product prod;
 
@@ -50,6 +48,8 @@ public class ShowProduct extends BaseForm {
 
 	Button btnDel = new Button("Delete");
 
+	Button btnWl = new Button("Add to wishlist");
+
 	btnDel.addActionListener(e -> {
 
 	    Dialog.show("Info",
@@ -59,7 +59,18 @@ public class ShowProduct extends BaseForm {
 		    new ListProducts(res).show();
 	});
 
-	add(btnDel);
+	btnWl.addActionListener(e -> {
+
+	    Dialog.show("Info",
+		wishListService.addToWishlist(idProd, 1).getMessage(),
+		        "OK",
+		    null);
+
+		new DisplayWishListForm(res).show();
+	    
+	});
+
+	addAll(btnDel, btnWl);
 
     }
 
