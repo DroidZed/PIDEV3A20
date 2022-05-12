@@ -283,9 +283,9 @@
         <val key="TextFieldBlack.align" value="3" />
         <border key="TextFieldBlack.border" type="empty" />
         <val key="TextFieldBlack.fgColor" value="0" />
-        <val key="TextFieldBlack.margin" value="0,0,0,0" />
+        <val key="TextFieldBlack.margin" value="0.0,0.0,0.0,0.0" />
         <val key="TextFieldBlack.padUnit" value="2,2,2,2" />
-        <val key="TextFieldBlack.padding" value="1,1,1,1" />
+        <val key="TextFieldBlack.padding" value="1.0,1.0,1.0,1.0" />
         <val key="TextFieldBlack.sel#align" value="3" />
         <border key="TextFieldBlack.sel#border" type="empty" />
         <val key="TextFieldBlack.sel#fgColor" value="0" />
@@ -297,15 +297,11 @@
         <val key="TextHint.align" value="4" />
         <val key="TextHint.sel#align" value="4" />
         <val key="Title.align" value="4" />
-
+        <val key="Title.bgColor" value="000000" />
         <val key="Title.fgColor" value="ffffff" />
         <font key="Title.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="Title.textDecoration" value="0" />
-
-        <val key="Title.bgColor" value="000000" />
-        <val key="Title.textDecoration" value="0" />
         <val key="Title.transparency" value="0" />
-
         <val key="TitleCommand.fgColor" value="ffffff" />
         <font key="TitleCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="TitleCommand.padUnit" value="2,2,2,2" />
@@ -347,8 +343,8 @@
         <val key="WhiteSeparator.margin" value="0,0,0,0" />
         <val key="WhiteSeparator.padding" value="1,1,1,1" />
         <val key="WhiteSeparator.transparency" value="26" />
-        <val key="transparency" value="0" />
         <font key="font" type="system" face="0" style="0" size="0" />
+        <val key="transparency" value="0" />
     </theme>
     <image name="timeline-background.jpg"  />
     <image name="twitter-logo.png" type="multi"  />

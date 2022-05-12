@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.capture.Capture;
 import com.codename1.io.FileSystemStorage;
@@ -22,8 +22,9 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.ImageIO;
-
+import com.codename1.ui.util.Resources;
 
 import tn.nebulagaming.services.ServiceMembre;
 import tn.nebulagaming.utils.Statics;
@@ -48,120 +49,124 @@ public class ProfilMembre extends BaseForm {
     public static Membre membre;
 
     public ProfilMembre(Form previous) {
-        current = this; //Récupération de l'interface(Form) en cours
-        setTitle("Profil Membre");
+	current = this; //Récupération de l'interface(Form) en cours
+	setTitle("Profil Membre");
 
     }
 
-    public ProfilMembre(String username) throws IOException {
+    public ProfilMembre(String username, Resources res) throws IOException {
 
-        this.username = username;
-        this.membre = ServiceMembre.getInstance().getMembre(this.username);
+	super("Profil Membre", BoxLayout.y());
 
-        Dialog d = new Dialog("Bienvenue");
-        TextArea popupBody = new TextArea("Salut " + this.membre.getNom().toUpperCase() + " Bienvenu dans votre profil.", 3, 20);
-        popupBody.setUIID("PopupBody");
-        popupBody.setEditable(false);
-        d.setLayout(new BorderLayout());
-        d.add(BorderLayout.CENTER, popupBody);
-        current = this; //Récupération de l'interface(Form) en cours
-        setTitle("Modifer vos parametres");
+	getContentPane().setScrollVisible(false);
 
-       Image image = Image.createImage(PATH + this.membre.getPhoto());
-        int w = image.getWidth();
-        int h = image.getHeight();
-        Image maskImage = Image.createImage(w, h);
-        Graphics g = maskImage.getGraphics();
-       g.setAntiAliased(true);
-        g.setColor(0x000000);
-        g.fillRect(0, 0, w, h);
-        g.setColor(0xffffff);
-        g.fillArc(0, 0, w, h, 0, 360);
-        Object mask = maskImage.createMask();
-        Image maskedImage = image.applyMask(mask);
-        Label photo = new Label(maskedImage);
+	super.addSideMenu(res);
 
-        TextField nom = new TextField(this.membre.getNom(), "Nom");
-        TextField tel = new TextField(this.membre.getTel(), "tel");
-        TextField description = new TextField(this.membre.getDescription(), "descuser");
+	this.username = username;
+	this.membre = ServiceMembre.getInstance().getMembre(this.username);
 
-        Button btnModifier = new Button("Confirmer");
+	Dialog d = new Dialog("Bienvenue");
+	TextArea popupBody = new TextArea("Salut " + this.membre.getNom().toUpperCase() + " Bienvenu dans votre profil.", 3, 20);
+	popupBody.setUIID("PopupBody");
+	popupBody.setEditable(false);
+	d.setLayout(new BorderLayout());
+	d.add(BorderLayout.CENTER, popupBody);
+	current = this; //Récupération de l'interface(Form) en cours
+	setTitle("Modifer vos parametres");
 
-        d.showPopupDialog(btnModifier);
-        Button btnModifierPassword = new Button("Modifier mon mot de passe");
-        Button uploadPicture = new Button("Modifier Votre photo");
+	Image image = Image.createImage(PATH + this.membre.getPhoto());
+	int w = image.getWidth();
+	int h = image.getHeight();
+	Image maskImage = Image.createImage(w, h);
+	Graphics g = maskImage.getGraphics();
+	g.setAntiAliased(true);
+	g.setColor(0x000000);
+	g.fillRect(0, 0, w, h);
+	g.setColor(0xffffff);
+	g.fillArc(0, 0, w, h, 0, 360);
+	Object mask = maskImage.createMask();
+	Image maskedImage = image.applyMask(mask);
+	Label photo = new Label(maskedImage);
 
-        uploadPicture.addActionListener((ActionEvent e) -> {
-            
-            try {
-                String imgPath = Capture.capturePhoto();
-                String link = imgPath.toString();
-                int pod = link.indexOf("/", 4);
-                String news = link.substring(pod + 36, link.length());
-Membre ent = new Membre( nom.getText(),this.membre.getEmail(), tel.getText(), description.getText());
-                ent.setPhoto(news);
-                
-if (ServiceMembre.getInstance().modifierMembre(ent)) {
-                Dialog.show("Success", "Modification effectuée", new Command("OK"));
-            } else {
-                Dialog.show("ERROR", "Server error", new Command("OK"));
-            }
+	TextField nom = new TextField(this.membre.getNom(), "Nom");
+	TextField tel = new TextField(this.membre.getTel(), "tel");
+	TextField description = new TextField(this.membre.getDescription(), "descuser");
+
+	Button btnModifier = new Button("Confirmer");
+
+	d.showPopupDialog(btnModifier);
+	Button btnModifierPassword = new Button("Modifier mon mot de passe");
+	Button uploadPicture = new Button("Modifier Votre photo");
+
+	uploadPicture.addActionListener((ActionEvent e) -> {
+
+	    try {
+		String link = Capture.capturePhoto();
+		int pod = link.indexOf("/", 4);
+		String news = link.substring(pod + 36, link.length());
+		Membre ent = new Membre(nom.getText(), membre.getEmail(), tel.getText(), description.getText());
+		ent.setPhoto(news);
+
+		if (ServiceMembre.getInstance().modifierMembre(ent)) {
+		    Dialog.show("Success", "Modification effectuée", new Command("OK"));
+		} else {
+		    Dialog.show("ERROR", "Server error", new Command("OK"));
+		}
 //              
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+	    } catch (Exception ex) {
+		ex.printStackTrace();
+	    }
 
-     try {
-                    new ProfilMembre(this.username).show();
-                } catch (IOException ex) {
-                }
-            
-        }
-                
-        );
+	    try {
+		new ProfilMembre(this.username, res).show();
+	    } catch (IOException ex) {
+	    }
 
-        btnModifier.addActionListener((e) -> {
+	}
+	);
 
-            Membre ent = new Membre( nom.getText(),this.membre.getEmail(), tel.getText(), description.getText(),this.membre.getPhoto());
-            System.out.println(ent.getEmail());
+	btnModifier.addActionListener((e) -> {
 
-            if (ServiceMembre.getInstance().modifierMembre(ent)) {
-                Dialog.show("Success", "Modification effectuée", new Command("OK"));
-            } else {
-                Dialog.show("ERROR", "Server error", new Command("OK"));
-            }
-        });
+	    Membre ent = new Membre(nom.getText(), this.membre.getEmail(), tel.getText(), description.getText(), this.membre.getPhoto());
+	    System.out.println(ent.getEmail());
 
-        btnModifierPassword.addActionListener((e) -> {
-        ModifierPasswordMembre modiferPassword = new ModifierPasswordMembre(current, this.username);
-        // homeClient(current).show();
-        modiferPassword.show();
-        });
-        Button btnDeconnexion= new Button("Deconnexion");
-        btnDeconnexion.addActionListener((e) -> {
-        Login1 login = new Login1();
-        this.membre=null;
-        this.username=null;
-        login.show();
-        });
-        Button capture = new Button();
-        FontImage.setMaterialIcon(capture, FontImage.MATERIAL_PHOTO_CAMERA);
+	    if (ServiceMembre.getInstance().modifierMembre(ent)) {
+		Dialog.show("Success", "Modification effectuée", new Command("OK"));
+	    } else {
+		Dialog.show("ERROR", "Server error", new Command("OK"));
+	    }
+	});
 
-        capture.addActionListener((e) -> {
-            Image screenshot = Image.createImage(this.getWidth(), this.getHeight());
-            this.revalidate();
-            this.setVisible(true);
-            this.paintComponent(screenshot.getGraphics(), true);
-            String imageFile = PATH + "screenshot" + valueOf(new Random().nextInt()).substring(1, 6) + ".png";
-            FileSystemStorage.getInstance().getAppHomePath();
-            try (OutputStream os = FileSystemStorage.getInstance().openOutputStream(imageFile)) {
-                ImageIO.getImageIO().save(screenshot, os, ImageIO.FORMAT_PNG, 1);
-            } catch (IOException err) {
-                Log.e(err);
-            }
-        });
-        System.out.println(description + "la description");
-        addAll(photo,nom, tel,description, btnModifier, capture,btnModifierPassword,btnDeconnexion,uploadPicture);
+	btnModifierPassword.addActionListener((e) -> {
+	    ModifierPasswordMembre modiferPassword = new ModifierPasswordMembre(current, this.username);
+	    // homeClient(current).show();
+	    modiferPassword.show();
+	});
+	Button btnDeconnexion = new Button("Deconnexion");
+	btnDeconnexion.addActionListener((e) -> {
+	    Login1 login = new Login1(res);
+	    this.membre = null;
+	    this.username = null;
+	    login.show();
+	});
+	Button capture = new Button();
+	FontImage.setMaterialIcon(capture, FontImage.MATERIAL_PHOTO_CAMERA);
+
+	capture.addActionListener((e) -> {
+	    Image screenshot = Image.createImage(this.getWidth(), this.getHeight());
+	    this.revalidate();
+	    this.setVisible(true);
+	    this.paintComponent(screenshot.getGraphics(), true);
+	    String imageFile = PATH + "screenshot" + valueOf(new Random().nextInt()).substring(1, 6) + ".png";
+	    FileSystemStorage.getInstance().getAppHomePath();
+	    try (OutputStream os = FileSystemStorage.getInstance().openOutputStream(imageFile)) {
+		ImageIO.getImageIO().save(screenshot, os, ImageIO.FORMAT_PNG, 1);
+	    } catch (IOException err) {
+		Log.e(err);
+	    }
+	});
+	System.out.println(description + "la description");
+	addAll(photo, nom, tel, description, btnModifier, capture, btnModifierPassword, btnDeconnexion, uploadPicture);
 
     }
 

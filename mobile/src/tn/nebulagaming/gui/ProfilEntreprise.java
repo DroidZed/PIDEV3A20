@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.capture.Capture;
 import com.codename1.io.FileSystemStorage;
@@ -18,9 +18,12 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.ImageIO;
+import com.codename1.ui.util.Resources;
 
 import tn.nebulagaming.services.ServiceEntreprise;
 
@@ -32,13 +35,14 @@ import static java.lang.String.valueOf;
 
 import java.util.Random;
 import tn.nebulagaming.entities.Entreprise;
+import tn.nebulagaming.gui.BaseForm;
 import static tn.nebulagaming.utils.Statics.PATH;
 
 /**
  *
  * @author ibeno
  */
-public class ProfilEntreprise extends Form {
+public class ProfilEntreprise extends BaseForm {
 
     Form current;
 
@@ -47,11 +51,15 @@ public class ProfilEntreprise extends Form {
 
     public ProfilEntreprise(Form previous) {
         current = this; //Récupération de l'interface(Form) en cours
-        setTitle("Profil Entreprise");
-
+ 
     }
 
-    public ProfilEntreprise(String username) throws IOException {
+    public ProfilEntreprise(Resources res, String username) throws IOException {
+
+	super("Profil Membre", BoxLayout.y());
+        getContentPane().setScrollVisible(false);
+
+        super.addSideMenu(res);
 
         this.username = username;
         this.entreprise = ServiceEntreprise.getInstance().getUser(this.username);
@@ -110,7 +118,7 @@ if (ServiceEntreprise.getInstance().modifierEntreprise(ent)) {
             }
 
      try {
-                    new ProfilEntreprise(this.username).show();
+                    new ProfilEntreprise(res, this.username).show();
                 } catch (IOException ex) {
                 }
             
@@ -131,7 +139,7 @@ if (ServiceEntreprise.getInstance().modifierEntreprise(ent)) {
         });
 
         btnModifierPassword.addActionListener((e) -> {
-            ModifierPasswordEnt modiferPassword = new ModifierPasswordEnt(current, this.username);
+            ModifierPasswordEnt modiferPassword = new ModifierPasswordEnt(res, current, this.username);
             // homeClient(current).show();
             modiferPassword.show();
         });

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -11,6 +11,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
+import com.codename1.ui.util.Resources;
 import tn.nebulagaming.utils.Validators;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class VerificationCodeForgetPassword extends Form {
     public VerificationCodeForgetPassword() {
     }
 
-    public VerificationCodeForgetPassword(Form previous) {
+    public VerificationCodeForgetPassword(Resources res, Form previous) {
 
         current = this;
         setTitle("Code de verification");
@@ -52,14 +53,14 @@ public class VerificationCodeForgetPassword extends Form {
                 if(tentative>2)
                 {
                 Dialog.show("Erreur", "Vous avez atteint toutes les tentatives ", new Command("OK"));
-                new Login1().show();
+                new Login1(res).show();
                 }
 
             } 
             
             else {
                 Dialog.show("Succees", "Code correct", new Command("OK"));
-                new ForgetPassword(current).show();
+                new ForgetPassword(res, current).show();
             }
 
         });

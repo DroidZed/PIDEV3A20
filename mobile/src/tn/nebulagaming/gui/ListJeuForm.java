@@ -89,6 +89,9 @@ public class ListJeuForm extends BaseForm {
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
+
+	System.out.println("res image aziz:" + res.getImage("Capture.PNG"));
+
         addTab(swipe, res.getImage("Capture.PNG"), spacer1, "  ", "", " ");
                 
         swipe.setUIID("Container");

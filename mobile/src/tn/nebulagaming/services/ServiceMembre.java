@@ -78,7 +78,7 @@ public class ServiceMembre {
             for (Map<String, Object> obj : list) {
                 //Création des tâches et récupération de leurs données
                 Membre e = new Membre();
-                //int idd = Integer.parseInt(obj.get("id").toString());
+                e.setId((int) Float.parseFloat(obj.get("id").toString()));
                 e.setNom(obj.get("nom").toString());
                 e.setEmail(obj.get("email").toString());
                 e.setPassword(obj.get("password").toString());

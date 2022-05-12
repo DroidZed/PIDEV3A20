@@ -9,6 +9,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import tn.nebulagaming.entities.Comment;
+import tn.nebulagaming.utils.SingletonUser;
 import tn.nebulagaming.utils.Statics;
 
 
@@ -20,6 +21,7 @@ public class ServiceComment {
 
     private ConnectionRequest request;
     public boolean resultOK;
+    private SingletonUser singUser = SingletonUser.getInstance();
 
     public ServiceComment() {
         request = new ConnectionRequest();
@@ -27,14 +29,14 @@ public class ServiceComment {
 
     public boolean addComment(Comment comment) {
         System.out.println("********");
-        String url = Statics.BASE_URL + "wscomments/comment";
+        String url = Statics.BASE_URL + "/wscomments/comment";
         System.out.println("===>" + url);
 
         request.setUrl(url);
         request.setPost(true);
         System.out.println("{\n"
                 + "        \"idPost\": " + comment.getIdPost() + ",\n"
-                + "        \"idUser\": 2 ,\n"
+                + "        \"idUser\": "+singUser.getIdUser()+" ,\n"
                 + "        \"comment\": " + comment.getComment() + ",\n"
                 + "}");
         request.setRequestBody("{\n"

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.nebulagaming.screens;
+package tn.nebulagaming.gui;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -11,6 +11,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
+import com.codename1.ui.util.Resources;
 import tn.nebulagaming.entities.User;
 import tn.nebulagaming.services.ServiceUser;
 
@@ -30,7 +31,7 @@ public class ForgetPassword extends Form {
     public ForgetPassword() {
     }
 
-    public ForgetPassword(Form previous) {
+    public ForgetPassword(Resources res, Form previous) {
         this.username = ForgetPasswordCheck.username;
 
         current = this; //Récupération de l'interface(Form) en cours
@@ -56,7 +57,7 @@ public class ForgetPassword extends Form {
 
                 if (ServiceUser.getInstance().modifierUserMotDePasse(this.username,new_password.getText())) {
                     Dialog.show("Success", "Modification effectuée", new Command("OK"));
-                    new Login1().show();
+                    new Login1(res).show();
                 } else {
                     Dialog.show("ERROR", "Server error", new Command("OK"));
                 }

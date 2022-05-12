@@ -48,7 +48,7 @@ public class MyApplication {
     
     public void start() {
 
-        new Login1().show();
+        new Login1(theme).show();
     }
 
     public void stop() {
