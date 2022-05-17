@@ -73,7 +73,7 @@ public class AllDomaine extends BaseForm {
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
-        addTab(swipe, res.getImage("news-item.jpg"), spacer1, "  ", "", " ");
+        addTab(swipe, res.getImage("banner.jpg"), spacer1, "  ", "", " ");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");

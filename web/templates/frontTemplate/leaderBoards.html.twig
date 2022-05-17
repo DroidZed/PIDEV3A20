@@ -1,0 +1,164 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %} Nebula Gaming | Leaderboards {% endblock %}
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+
+    <section id="players-week-section">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="overlay pt-120 pb-120">
+            <div class="container wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 mb-30">
+                        <div class="section-header text-center">
+                            <h2 class="title">Leaderboards</h2>
+                            <p>Our best users honored by their achievements 🏅</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mp-none">
+                    {% for l in top3 %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-item {{ l.order == 1 ? "mid-area" : "" }} text-center">
+                            {% if l.order == 1 %}
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" and app.user.nom == l.nom %}
+                            <div class="top-level" style="background-color: var(--blue);">
+                                {% else %}
+                                <div class="top-level">
+                                    {% endif %}
+                                    <img src="{{ asset("frontTemplate/images/star.png") }}" alt="image">
+                                </div>
+                                {% endif %}
+                                <div class="img-area" id="i{{ l.order }}">
+
+
+                                    <div class="img-wrapper">
+                                    {% if asset_exists('Uploads/Images/'~l.photo) %}
+                                        <img
+                                                width="91"
+                                                height="91"
+                                                src="{{ asset('Uploads/Images/'~l.photo) }}"
+                                                alt="image">
+                                    {% else %}
+                                        <img src="{{ asset("images/player-2.png") }}" alt="images">
+                                    {% endif %}
+                                    </div>
+                                </div>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.stateuser=="Active" and l.order == 1 and app.user.nom == l.nom %}
+                                    <a id="cnf" href="javascript:void(0);" onclick="show_confetti()">
+                                        <h5>
+                                            <span>🎉 {{ l.nom }} 🎉</span>
+                                        </h5>
+                                    </a>
+                                {% else %}
+                                    <a href="#">
+                                        <h5>
+                                            <span>{{ l.nom }}</span>
+                                        </h5>
+                                    </a>
+                                {% endif %}
+                                <p class="date">
+                                    <span class="text-sm">{{ l.descuser }}</span>
+                                </p>
+                                <p class="text-sm credit">
+                                    {% set cardType = l.cardtype %}
+                                    <span style="color:{{ cardType == 'GOLD' ? "gold" : cardType == 'SILVER' ? "silver" : "#cd7f32" }};">{{ l.nbpointsfid }} </span>
+                                    {% if cardType == 'GOLD' %}
+                                        <img src="{{ asset("frontTemplate/images/trophies-icon-2.png") }}"
+                                             alt="trophy gold"/>
+                                    {% elseif cardType == 'SILVER' %}
+                                        <img src="{{ asset("frontTemplate/images/trophies-icon-3.png") }}"
+                                             alt="trophy silver"/>
+                                    {% else %}
+                                        <img src="{{ asset("frontTemplate/images/trophies-icon-4.png") }}"
+                                             alt="trophy bronze"/>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tournaments-content">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="participants" role="tabpanel" aria-labelledby="participants-tab">
+                <div class="participants">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="participants-area pb-120">
+                                    <h4>Leaderboards # TOP {{ leaders | length }}</h4>
+                                    {% for item in leaders %}
+                                        <div class="participants-single">
+                                            <div class="left-area d-flex align-items-center">
+                                                {% if asset_exists('Uploads/Images/'~item.photo) %}
+                                                    <img
+                                                            width="41"
+                                                            height="40"
+                                                            src="{{ asset('Uploads/Images/'~item.photo) }}"
+                                                            alt="image">
+                                                {% else %}
+                                                    <img src="{{ asset("images/player-2.png") }}" alt="images">
+                                                {% endif %}
+                                                <div class="right-side">
+                                                    <h5>{{ item.nom }}</h5>
+                                                    <h6 style="color: gray; font-size: small">{{ item.descuser }}</h6>
+                                                </div>
+                                            </div>
+                                            <div class="right-area">
+                                                <span style="color:{{ item.cardtype == "GOLD" ? "gold" : item.cardtype == "SILVER" ? "silver" : "#CD7F32" }};">{{ item.cardtype }} # <span
+                                                            style="color:{{ item.cardtype == "GOLD" ? "gold" : item.cardtype == "SILVER" ? "silver" : "#CD7F32" }};"> {{ item.nbpointsfid }} </span> </span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="{{ asset("frontTemplate/js/confetti.js") }}"></script>
+
+    <script>
+        for (let i = 1; i <= 3; i++) {
+            document.querySelector(`#i${i}`).style.setProperty("--cnt", `'${i}'`);
+        }
+
+        function show_confetti() {
+
+            const audio = new Audio("{{ asset("frontTemplate/audio/happy.mp3") }}");
+
+            const start = () => {
+                setTimeout(function () {
+                    confetti.start();
+                    audio.play();
+                }, 1000);
+            };
+
+            const stop = () => {
+                setTimeout(function () {
+                    confetti.stop();
+                    audio.stop();
+                }, 5000);
+            };
+            start();
+            stop();
+        }
+    </script>
+
+{% endblock %}

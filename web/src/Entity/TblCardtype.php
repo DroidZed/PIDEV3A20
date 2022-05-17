@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblCardtype
@@ -25,6 +26,7 @@ class TblCardtype
      * @var string
      *
      * @ORM\Column(name="cardType", type="string", length=8, nullable=false)
+     * @Groups("fidcard")
      */
     private $cardtype;
 

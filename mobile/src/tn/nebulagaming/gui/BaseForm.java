@@ -112,10 +112,11 @@ public class BaseForm extends Form {
 	{
 
 	    tb.addMaterialCommandToSideMenu("Video Games", FontImage.MATERIAL_SETTINGS, e -> new ListJeuForm(res).show());
+	    tb.addMaterialCommandToSideMenu("Cart", FontImage.MATERIAL_SHOPPING_BASKET, e -> new ShoppingCart(res).show());
 	    tb.addMaterialCommandToSideMenu("All Domaines", FontImage.MATERIAL_SETTINGS, e -> new AllDomaine(res).show());
-	    tb.addMaterialCommandToSideMenu("Shop", FontImage.MATERIAL_LIST, e -> new ListProducts(res).show());
-	    tb.addMaterialCommandToSideMenu("Wishlist", FontImage.MATERIAL_LIST, e -> new DisplayWishListForm(res).show());
-	    tb.addMaterialCommandToSideMenu("Publish Product", FontImage.MATERIAL_PLUS_ONE, e -> new AddProduct(res).show());
+	    tb.addMaterialCommandToSideMenu("Shop", FontImage.MATERIAL_SHOP, e -> new ListProducts(res).show());
+	    tb.addMaterialCommandToSideMenu("Wishlist", FontImage.MATERIAL_FAVORITE, e -> new DisplayWishListForm(res).show());
+	    tb.addMaterialCommandToSideMenu("Publish Product", FontImage.MATERIAL_INVENTORY, e -> new AddProduct(res).show());
 	    tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> {
 		singUser = null;
 		new Login1(res).show();

@@ -32,7 +32,8 @@ class ChangeInformationsMembreController extends AbstractController
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param FidCardRepository $fidCardRepository
+     * @return Response
      * @Route("/Membre/Profil/Change_informations", name="profilMembre")
      */
     function modifier(Request $request, FidCardRepository $fidCardRepository)
@@ -65,7 +66,7 @@ class ChangeInformationsMembreController extends AbstractController
 
     }
     /**
-     * @Route("/", name="app_membre_delete", methods={"POST"})
+     * @Route("/Membre/del", name="app_membre_delete", methods={"POST"})
      */
     public function delete(Request $request,  UserRepository $userRepository,StateUserRepository $stateUserRepository): Response
     {

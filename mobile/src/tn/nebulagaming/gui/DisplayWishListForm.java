@@ -10,7 +10,6 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import java.util.List;
-import tn.nebulagaming.entities.JsonResponseDAO;
 import tn.nebulagaming.entities.Wishlist;
 import tn.nebulagaming.services.WishlistService;
 
@@ -26,15 +25,13 @@ public class DisplayWishListForm extends BaseForm {
 
     private WishlistService wishListService = WishlistService.getInstance();
 
-    private List<Wishlist> wishListItems;
+    private final List<Wishlist> wishListItems = wishListService.getWishedItems();;
 
     public DisplayWishListForm(Resources theme) {
 
 	super("My Wishlist", BoxLayout.y());
-        
-        super.addSideMenu(theme);
 
-	wishListItems = wishListService.getWishedItems(1);
+	super.addSideMenu(theme);
 
 	if (!wishListItems.isEmpty()) {
 
@@ -49,8 +46,11 @@ public class DisplayWishListForm extends BaseForm {
 		btnRem.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
-			JsonResponseDAO delOperation = WishlistService.getInstance().removeItem(item.getIdwishlist());
-			Dialog.show("Information", delOperation.getMessage(), "OK", null);
+
+			Dialog.show("Notif",
+				wishListService.removeItem(item.getIdwishlist()).getMessage(),
+				"OK",
+				null);
 
 			new DisplayWishListForm(theme).show();
 		    }
@@ -71,9 +71,6 @@ public class DisplayWishListForm extends BaseForm {
 	} else {
 	    add(new Label("Empty list..."));
 	}
-
-	// String delOperation = WishlistService.getInstance().removeItem(idWishLisht);
-	// Dialog.show("Alert !", delOperation.getMessage(), "OK", null);
     }
 
 }

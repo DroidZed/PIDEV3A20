@@ -37,7 +37,7 @@ class ProductResourceController extends AbstractController
     }
 
     /**
-     * @Route("/add", name="addProduct", methods={"POST"})
+     * @Route("/add", name="addProductJson", methods={"POST"})
      */
     public function addProduct(Request $request,
                                ProductRepository $productRepository,
@@ -83,7 +83,7 @@ class ProductResourceController extends AbstractController
     {
 
         return $this->json($normalizer->normalize(
-            $productRepository->findAll(),
+            $productRepository->findNonZero(),
             'json',
             ['groups' => 'products']
         )

@@ -50,7 +50,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/member/productDetail/{idproduct}" , name="productDetail" , methods={"GET"})
+     * @Route("/productDetail/{idproduct}" , name="productDetail" , methods={"GET"})
      */
     public function productDetail(int $idproduct, ProductRepository $productRepository): Response
     {
@@ -117,13 +117,13 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/membre/allProducts", name="allProducts")
+     * @Route("/shop", name="allProducts")
      */
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
 
         return $this->render('frontTemplate/products/ListProduct.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $productRepository->findNonZero(),
             'categories' => $categoryRepository->findAll()
         ]);
     }

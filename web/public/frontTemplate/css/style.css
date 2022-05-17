@@ -6,7 +6,7 @@
     --body-color: #fff;
     --para-color: #64BE56;
     --para-alt-color: #00FADF;
-
+    --cnt: '';
     --body-bg:#0E063D;
 }
 html{
@@ -1248,7 +1248,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 #players-week-section .single-item .img-area::after{
     position: absolute;
-    content: '02';
+    content: var(--cnt);
     width: 100%;
     height: 60%;
     color: #fff;

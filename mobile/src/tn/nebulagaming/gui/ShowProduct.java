@@ -11,6 +11,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import tn.nebulagaming.entities.Product;
 import tn.nebulagaming.services.ServiceProduct;
+import tn.nebulagaming.services.ShoppingCartService;
 import tn.nebulagaming.services.WishlistService;
 
 /**
@@ -21,6 +22,7 @@ public class ShowProduct extends BaseForm {
 
     private final ServiceProduct productService = ServiceProduct.getInstance();
     private final WishlistService wishListService = WishlistService.getInstance();
+    private final ShoppingCartService shoppingCartService = ShoppingCartService.getInstance();
 
     Product prod;
 
@@ -48,6 +50,8 @@ public class ShowProduct extends BaseForm {
 
 	Button btnDel = new Button("Delete");
 
+	Button btnCart = new Button("Add to cart");
+
 	Button btnWl = new Button("Add to wishlist");
 
 	btnDel.addActionListener(e -> {
@@ -62,7 +66,7 @@ public class ShowProduct extends BaseForm {
 	btnWl.addActionListener(e -> {
 
 	    Dialog.show("Info",
-		wishListService.addToWishlist(idProd, 1).getMessage(),
+		wishListService.addToWishlist(idProd).getMessage(),
 		        "OK",
 		    null);
 
@@ -70,7 +74,21 @@ public class ShowProduct extends BaseForm {
 	    
 	});
 
-	addAll(btnDel, btnWl);
+	btnCart.addActionListener(e -> {
+
+	    
+
+	    Dialog.show("Info",
+		shoppingCartService.addToCart(prod).getMessage(),
+		        "OK",
+		    null);
+
+		new ShoppingCart(res).show();
+	    
+	});
+	
+
+	addAll(btnDel, btnWl, btnCart);
 
     }
 

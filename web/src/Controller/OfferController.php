@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\TblCandidacy;
 use App\Entity\TblDomain;
 use App\Entity\TblOffer;
-use App\Entity\TblUser;
+use App\Entity\User;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,22 +13,38 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\OfferType;
+use App\Services\GetUser;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 
-/**
- * @Route("/offer")
- */
 
 class OfferController extends AbstractController
 {
 
     /**
-     * @Route("/", name="display_Offer")
+     * @var RouterInterface
+     */
+    private $router;
+    private $getUser;
+
+    /**
+     * @param RouterInterface $router
+     * @param GetUser $getUser
+     */
+    public function __construct(RouterInterface $router,GetUser $getUser)
+    {
+        $this->router = $router;
+        $this->getUser=$getUser;
+
+    }
+
+    /**
+     * @Route("/membre/offer", name="display_Offer")
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -36,7 +52,7 @@ class OfferController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
-        $user =$this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1);
+        $user =$this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
         $donnees = $this->getDoctrine()->getManager()->getRepository(TblOffer::class)->findAll();
         $candidacys = $this->getDoctrine()->getManager()->getRepository(TblCandidacy::class)->findBy([
                 'iduser' => $user,
@@ -70,7 +86,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/Admin", name="display_Offer_Admin")
+     * @Route("/admin/offer", name="display_Offer_Admin")
      */
     public function indexAdmin(): Response
     {
@@ -82,7 +98,7 @@ class OfferController extends AbstractController
 
 
     /**
-     * @Route("/add", name="addOffer")
+     * @Route("/admin/offer/add", name="addOffer")
      */
     public function addOffer(Request $request): Response
     {
@@ -94,7 +110,7 @@ class OfferController extends AbstractController
 
         if($form->isSubmitted() &&  $form->isValid() )
         {
-            $OFFER->setIduser($this->getDoctrine()->getManager()->getRepository(TblUser::class)->find(1));
+            $OFFER->setIduser($this->getUser->Get_User());
             $em = $this->getDoctrine()->getManager();
             $em->persist($OFFER); //add
             $em->flush();
@@ -107,7 +123,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/remove/{id}", name="supp_Offer")
+     * @Route("/admin/offer/remove/{id}", name="supp_Offer")
      */
     public function suppressionDomain(TblOffer $OFFER): Response
     {
@@ -120,7 +136,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/modif/{id}", name="modifOffer")
+     * @Route("/admin/offer/modif/{id}", name="modifOffer")
      */
     public function modifOffer(Request $request, $id): Response
     {
@@ -144,7 +160,7 @@ class OfferController extends AbstractController
 
 
     /**
-     * @Route("/r/search_recc", name="search_recc", methods={"GET"})
+     * @Route("/offer/r/search_recc", name="search_recc", methods={"GET"})
      */
     public function search_rec(Request $request, NormalizerInterface $Normalizer): Response
     {
@@ -179,7 +195,7 @@ class OfferController extends AbstractController
     //*****MOBILE
 
     /**
-     * @Route("/mobile/aff", name="affmoboffredom")
+     * @Route("/offer/mobile/aff", name="affmoboffredom")
      */
     public function affmoboffredom(Request $request,NormalizerInterface $normalizer)
     {

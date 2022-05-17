@@ -24,7 +24,7 @@ use Symfony\Component\Routing\RouterInterface;
 class ReclamationController extends AbstractController
 {
     /**
-     * @var \Symfony\Component\Routing\RouterInterface
+     * @var RouterInterface
      */
     private $router;
     private $getUser;
@@ -40,7 +40,7 @@ class ReclamationController extends AbstractController
 
     }
     /**
-     * @Route("/reclamation/show", name="app_reclamation_index", methods={"GET"})
+     * @Route("/membre/reclamation/show", name="app_reclamation_index", methods={"GET"})
      */
     public function index(ReclamationRepository $reclamationRepository): Response
     {
@@ -55,7 +55,7 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/reclamation/new", name="passerRec", methods={"GET", "POST"})
+     * @Route("/membre/reclamation/new", name="passerRec", methods={"GET", "POST"})
      */
     public function new(Request $request, ReclamationRepository $reclamationRepository): Response
     {
@@ -79,7 +79,7 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/reclamation/{idcomplaint}", name="app_reclamation_show", methods={"GET"})
+     * @Route("/membre/reclamation/{idcomplaint}", name="app_reclamation_show", methods={"GET"})
      */
     public function show(TblReclamation $tblReclamation): Response
     {
@@ -90,7 +90,7 @@ class ReclamationController extends AbstractController
 
 
     /**
-     * @Route("/reclamation/{idcomplaint}/edit", name="app_reclamation_edit", methods={"GET", "POST"})
+     * @Route("/membre/reclamation/{idcomplaint}/edit", name="app_reclamation_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, TblReclamation $tblReclamation, ReclamationRepository $reclamationRepository): Response
     {
@@ -110,7 +110,7 @@ class ReclamationController extends AbstractController
 
 
     /**
-     * @Route("/reclamation/{idcomplaint}", name="app_reclamation_delete", methods={"POST"})
+     * @Route("/membre/reclamation/{idcomplaint}", name="app_reclamation_delete", methods={"POST"})
      */
     public function delete(Request $request, TblReclamation $tblReclamation, ReclamationRepository $reclamationRepository): Response
     {

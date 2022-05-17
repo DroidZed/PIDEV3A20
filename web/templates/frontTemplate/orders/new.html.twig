@@ -1,6 +1,6 @@
 {% extends 'baseFront.html.twig' %}
 
-{% block bannerTitle %} Place Your Order {% endblock %}
+{% block banner %} {% endblock %}
 
 {% block content %}
 <!-- Check Out Start -->
@@ -192,9 +192,13 @@
                             </ul>
                             <ul>
                                 <li class="d-flex align-items-center">
+                                    {% if cart is not empty %}
                                     <span>Total Order</span>
                                     {% set total = subTotal + 23.00 %}
                                     <h4>{{ total }}</h4>
+                                    {% else %}
+                                        <span>Your cart is empty !</span>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </div>

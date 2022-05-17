@@ -45,22 +45,18 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return TblProduct[] Returns an array of TblProduct objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return TblProduct[] Returns an array of TblProduct objects
+    */
+    public function findNonZero()
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.qtyproduct > 0')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?TblProduct

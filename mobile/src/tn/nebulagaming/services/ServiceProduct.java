@@ -18,6 +18,7 @@ import tn.nebulagaming.entities.Category;
 import tn.nebulagaming.entities.CustomResponse;
 import tn.nebulagaming.entities.Membre;
 import tn.nebulagaming.entities.Product;
+import tn.nebulagaming.utils.SingletonUser;
 
 /**
  *
@@ -32,6 +33,8 @@ public class ServiceProduct extends MainServiceClass {
     private CustomResponse resp;
 
     private static final CustomResponseService respService = CustomResponseService.getInstance();
+
+    private final SingletonUser singUser = SingletonUser.getInstance();
 
     private static ServiceProduct instance = null;
 
@@ -71,7 +74,7 @@ public class ServiceProduct extends MainServiceClass {
 	return products;
     }
 
-    public CustomResponse addProduct(Product p, String catName, int idUser) {
+    public CustomResponse addProduct(Product p, String catName) {
 
 	String POST_URL = URL + "/add";
 
@@ -88,9 +91,9 @@ public class ServiceProduct extends MainServiceClass {
 		+ "\",\"qtyProd\":" + p.getQtyproduct()
 		+ ",\"priceProduct\":" + p.getPriceproduct()
 		+ ",\"nameCategory\":" + "\""+catName+"\""
-		+ ",\"idUser\":" + idUser + "}"
+		+ ",\"idUser\":" + singUser.getIdUser() + "}"
 	);
-	System.out.println(req.getRequestBody());
+
 	req.addResponseListener(new ActionListener<NetworkEvent>() {
 
 	    @Override
@@ -229,7 +232,7 @@ public class ServiceProduct extends MainServiceClass {
 
 	try {
 
-	    Map<String, Object> object = (Map<String, Object>) map.get("id");
+	    Map<String, Object> object = (Map<String, Object>) map.get("iduser");
 
 	    user.setNom(object.get("nom").toString());
 	} catch (NullPointerException ex) {

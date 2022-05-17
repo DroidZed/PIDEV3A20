@@ -2,32 +2,55 @@
 
 {% block title %} Your Orders {% endblock %}
 
-{% block content %}
-    <h1>Your Orders</h1>
+{% block banner %} {% endblock %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Numberorder</th>
-                <th>Createddtm</th>
-                <th>Paydtm</th>
-                <th>Orderaddress</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tbl_userorder in ordersList %}
-            <tr>
-                <td>{{ tbl_userorder.numberorder }}</td>
-                <td>{{ tbl_userorder.createddtm ? tbl_userorder.createddtm|date('Y-m-d') : '' }}</td>
-                <td>{{ tbl_userorder.paydtm ? tbl_userorder.paydtm|date('Y-m-d') : '' }}</td>
-                <td>{{ tbl_userorder.orderaddress }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block content %}
+
+    <section id="shop-cart-section" class="pt-120 pb-120">
+
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Your orders</h1>
+                        <br>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Issued At</th>
+                                    <th scope="col">Pay Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Address</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if ordersList is not empty %}
+                                    {% for order in ordersList %}
+                                        <tr>
+                                            <td>#{{ order.numberorder }}</td>
+                                            <td>{{ order.createddtm ? order.createddtm|date('Y-m-d') : '' }}</td>
+                                            <td>{{ order.paydtm ? order.paydtm|date('Y-m-d') : 'Unpaid' }}</td>
+                                            <td style="color:{{ order.idstatusorder | upper == 'PENDING' ? 'gold' :
+                                            order.idstatusorder | upper == 'DELIVERY' ? 'CYAN' : order.idstatusorder | upper == 'DONE' ? 'pink' : 'red' }};">
+                                                {{ order.idstatusorder }}
+                                            </td>
+                                            <td>{{ order.orderaddress }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>No items for now</td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

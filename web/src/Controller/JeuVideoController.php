@@ -80,16 +80,6 @@ class JeuVideoController extends AbstractController
     }
 
     /**
-     * @Route("/", name="display_Accueil")
-     */
-    public function indexFront(): Response
-    {
-        return $this->render('indexFront.html');
-    }
-
-
-
-    /**
      * @Route("/addJeu", name="addJeu")
      * @param Request $request
      * @param QrcodeService $qrcodeService

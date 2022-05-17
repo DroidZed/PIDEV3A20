@@ -20,8 +20,6 @@ import tn.nebulagaming.services.ServiceMembre;
 import tn.nebulagaming.services.ServiceEntreprise;
 import tn.nebulagaming.services.ServiceUser;
 import java.io.IOException;
-import static java.lang.String.valueOf;
-import java.util.Random;
 import tn.nebulagaming.entities.Entreprise;
 import tn.nebulagaming.entities.Membre;
 import tn.nebulagaming.utils.RoleEnum;
@@ -68,8 +66,10 @@ public class Login1 extends BaseForm {
 		etu = ServiceEntreprise.getInstance().getUser(this.username);
 
 		singUser.setIdUser(etu.getId());
-		singUser.setUsername(etu.getEmail());
+		singUser.setUsername(etu.getNom());
 		singUser.setRole(RoleEnum.ENTTERPRISE);
+		singUser.setTel(etu.getTel());
+		singUser.setEmail(etu.getEmail());
 		System.out.println("login entreprise singleton: "+singUser);
 
 		Dialog d = new Dialog("Bienvenue");
@@ -89,8 +89,10 @@ public class Login1 extends BaseForm {
 		ent = ServiceMembre.getInstance().getMem(this.username);
 
 		singUser.setIdUser(ent.getId());
-		singUser.setUsername(ent.getEmail());
+		singUser.setUsername(ent.getNom());
 		singUser.setRole(RoleEnum.MEMBER);
+		singUser.setTel(ent.getTel());
+		singUser.setEmail(ent.getEmail());
 		System.out.println("login user singleton: "+singUser);
 
 		Dialog d = new Dialog("Bienvenue");

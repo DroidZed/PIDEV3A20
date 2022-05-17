@@ -24,7 +24,6 @@ import tn.nebulagaming.entities.Category;
 import tn.nebulagaming.entities.Product;
 import tn.nebulagaming.services.CategoryService;
 import tn.nebulagaming.services.ServiceProduct;
-import tn.nebulagaming.utils.SingletonUser;
 
 /**
  *
@@ -34,7 +33,6 @@ public class AddProduct extends BaseForm {
 
     private static final CategoryService catService = CategoryService.getInstance();
     private static final ServiceProduct serviceProd = ServiceProduct.getInstance();
-    private static final SingletonUser singUser = SingletonUser.getInstance();
 
     public AddProduct(Resources res) {
 
@@ -96,7 +94,7 @@ public class AddProduct extends BaseForm {
 	    String category = cbxCategory.getSelectedItem().toString();
 	    System.out.println(name + "\n" + quant + "\n" + price + "\n" + category);
 	    Dialog.show("Info",
-		    serviceProd.addProduct(new Product(name, price, quant), category, singUser.getIdUser()).getMessage(),
+		    serviceProd.addProduct(new Product(name, price, quant), category).getMessage(),
 		    "OK",
 		    null);
 	});

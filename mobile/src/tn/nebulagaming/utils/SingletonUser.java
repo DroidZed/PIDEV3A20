@@ -16,12 +16,33 @@ public class SingletonUser {
     
     private String username;
 
+    private String email;
+
+    private String tel;
+
     private RoleEnum role;
 
     private SingletonUser() {
 	
     }
 
+    public String getEmail() {
+	return email;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    public String getTel() {
+	return tel;
+    }
+
+    public void setTel(String tel) {
+	this.tel = tel;
+    }
+
+    
 
     public String getUsername() {
 	return username;

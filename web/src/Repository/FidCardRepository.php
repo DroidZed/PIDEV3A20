@@ -45,6 +45,22 @@ class FidCardRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function joinUsersWithFidCard()
+    {
+        return $this->_em->createQuery("SELECT u.nom, u.descuser, f.nbpointsfid, u.photo, t.cardtype from App\Entity\TblFidcard f JOIN f.iduser u JOIN f.idcardtype t order by f.nbpointsfid DESC");
+    }
+
+    public function getUsersAndTheirPoints(int $limit = 3) {
+        $query = $this->joinUsersWithFidCard();
+        if ($limit > 0) {
+            $query->setMaxResults( $limit );
+        }
+        return $query->getResult();
+    }
+
     // /**
     //  * @return TblFidcard[] Returns an array of TblFidcard objects
     //  */

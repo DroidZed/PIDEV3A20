@@ -4,13 +4,17 @@
  */
 package tn.nebulagaming.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author anony
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomResponse {
     private String message;
 }

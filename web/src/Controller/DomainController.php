@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class DomainController extends AbstractController
 {
     /**
-     * @Route("/", name="display_Domain")
+     * @Route("/admin/dmoains", name="display_Domain")
      */
     public function index(): Response
     {
@@ -65,7 +65,7 @@ class DomainController extends AbstractController
 
 
     /**
-     * @Route("/addDomain", name="addDomain")
+     * @Route("/admin/addDomain", name="addDomain")
      */
     public function addDomain(Request $request): Response
     {
@@ -90,7 +90,7 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/removeDomain/{id}", name="supp_Domain")
+     * @Route("/admin/removeDomain/{id}", name="supp_Domain")
      */
     public function suppressionDomain(TblDomain $Domain): Response
     {
@@ -103,7 +103,7 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/modifDomain/{id}", name="modifDomain")
+     * @Route("/admin/modifDomain/{id}", name="modifDomain")
      */
     public function modifDomain(Request $request, $id): Response
     {

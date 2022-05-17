@@ -5,37 +5,26 @@
  */
 package tn.nebulagaming.gui;
 
-import com.codename1.capture.Capture;
-import com.codename1.io.FileSystemStorage;
-import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
-import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
-import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.ImageIO;
 import com.codename1.ui.util.Resources;
 
 import tn.nebulagaming.services.ServiceMembre;
-import tn.nebulagaming.utils.Statics;
 import java.io.IOException;
-import java.io.OutputStream;
-import static java.lang.String.valueOf;
-
-import java.util.Random;
-import static java.util.concurrent.ThreadLocalRandom.current;
+import tn.nebulagaming.entities.FidelityCard;
 import tn.nebulagaming.entities.Membre;
-import static tn.nebulagaming.utils.Statics.PATH;
+import tn.nebulagaming.services.FidelityCardService;
+import tn.nebulagaming.services.ShoppingCartService;
+import static tn.nebulagaming.utils.Statics.TEMP_PATH;
 
 /**
  *
@@ -47,6 +36,8 @@ public class ProfilMembre extends BaseForm {
 
     public static String username;
     public static Membre membre;
+    private ShoppingCartService shoppingCartService = ShoppingCartService.getInstance();
+    private FidelityCardService fidCardService = FidelityCardService.getInstance();
 
     public ProfilMembre(Form previous) {
 	current = this; //Récupération de l'interface(Form) en cours
@@ -60,10 +51,24 @@ public class ProfilMembre extends BaseForm {
 
 	getContentPane().setScrollVisible(false);
 
+	current = this; //Récupération de l'interface(Form) en cours
+
 	super.addSideMenu(res);
 
 	this.username = username;
 	this.membre = ServiceMembre.getInstance().getMembre(this.username);
+
+	FidelityCard card = fidCardService.getUserFidCard();
+
+	int w = current.getWidth() / 5;
+	int h = current.getWidth() / 5;
+
+	String type = card.getType();
+	Image trophy = res.getImage(type.equals("GOLD") ? "trophies-icon-2.png" : type.equals("SILVER") ? "trophies-icon-3.png" : "trophies-icon-4.png");
+
+	trophy = trophy.scaled(w, h);
+
+	Label pts = new Label(card.getPoints() + "", trophy);
 
 	Dialog d = new Dialog("Bienvenue");
 	TextArea popupBody = new TextArea("Salut " + this.membre.getNom().toUpperCase() + " Bienvenu dans votre profil.", 3, 20);
@@ -71,12 +76,23 @@ public class ProfilMembre extends BaseForm {
 	popupBody.setEditable(false);
 	d.setLayout(new BorderLayout());
 	d.add(BorderLayout.CENTER, popupBody);
-	current = this; //Récupération de l'interface(Form) en cours
-	setTitle("Modifer vos parametres");
 
-	Image image = Image.createImage(PATH + this.membre.getPhoto());
-	int w = image.getWidth();
-	int h = image.getHeight();
+	setTitle("Profile");
+
+	Image image = Image.createImage(120, 120);
+
+	try {
+	    image = Image.createImage(TEMP_PATH + this.membre.getPhoto());
+
+	} catch (Exception ex) {
+
+	    System.out.println("here in the exception");
+
+	    image = Image.createImage(TEMP_PATH + "default.png");
+	}
+
+	image = image.scaled(w, h);
+
 	Image maskImage = Image.createImage(w, h);
 	Graphics g = maskImage.getGraphics();
 	g.setAntiAliased(true);
@@ -96,34 +112,6 @@ public class ProfilMembre extends BaseForm {
 
 	d.showPopupDialog(btnModifier);
 	Button btnModifierPassword = new Button("Modifier mon mot de passe");
-	Button uploadPicture = new Button("Modifier Votre photo");
-
-	uploadPicture.addActionListener((ActionEvent e) -> {
-
-	    try {
-		String link = Capture.capturePhoto();
-		int pod = link.indexOf("/", 4);
-		String news = link.substring(pod + 36, link.length());
-		Membre ent = new Membre(nom.getText(), membre.getEmail(), tel.getText(), description.getText());
-		ent.setPhoto(news);
-
-		if (ServiceMembre.getInstance().modifierMembre(ent)) {
-		    Dialog.show("Success", "Modification effectuée", new Command("OK"));
-		} else {
-		    Dialog.show("ERROR", "Server error", new Command("OK"));
-		}
-//              
-	    } catch (Exception ex) {
-		ex.printStackTrace();
-	    }
-
-	    try {
-		new ProfilMembre(this.username, res).show();
-	    } catch (IOException ex) {
-	    }
-
-	}
-	);
 
 	btnModifier.addActionListener((e) -> {
 
@@ -147,26 +135,12 @@ public class ProfilMembre extends BaseForm {
 	    Login1 login = new Login1(res);
 	    this.membre = null;
 	    this.username = null;
+	    shoppingCartService.clearCart();
 	    login.show();
 	});
-	Button capture = new Button();
-	FontImage.setMaterialIcon(capture, FontImage.MATERIAL_PHOTO_CAMERA);
 
-	capture.addActionListener((e) -> {
-	    Image screenshot = Image.createImage(this.getWidth(), this.getHeight());
-	    this.revalidate();
-	    this.setVisible(true);
-	    this.paintComponent(screenshot.getGraphics(), true);
-	    String imageFile = PATH + "screenshot" + valueOf(new Random().nextInt()).substring(1, 6) + ".png";
-	    FileSystemStorage.getInstance().getAppHomePath();
-	    try (OutputStream os = FileSystemStorage.getInstance().openOutputStream(imageFile)) {
-		ImageIO.getImageIO().save(screenshot, os, ImageIO.FORMAT_PNG, 1);
-	    } catch (IOException err) {
-		Log.e(err);
-	    }
-	});
 	System.out.println(description + "la description");
-	addAll(photo, nom, tel, description, btnModifier, capture, btnModifierPassword, btnDeconnexion, uploadPicture);
+	addAll(photo, pts, nom, tel, description, btnModifier, btnModifierPassword, btnDeconnexion);
 
     }
 

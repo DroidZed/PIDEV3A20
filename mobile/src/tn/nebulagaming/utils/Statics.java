@@ -8,8 +8,11 @@ package tn.nebulagaming.utils;
 
 public class Statics {
     public static final String BASE_URL="http://127.0.0.1:8000";
-    public static final String PATH="file://C:/Users/ASUS/AppData/Local/Temp/";
-    public static final String IMG_PATH = "C:\\Users\\ASUS\\Music\\javaopen\\PiDev-main\\Images";
+    public static final String TEMP_PATH="file://C:/Users/ASUS/AppData/Local/Temp/";
+    //public static final String IMG_PATH = "C:\\Users\\ASUS\\AppData\\Local\\Temp";
+
+    public static final String IMG_PATH = "E:\\9raya\\Backup\\Nebula-Gaming\\web\\public\\Uploads\\Images\\";
+    public static final String PATH = "file://E:/9raya/Backup/Nebula-Gaming/web/public/Uploads/Images/";
     
 
     

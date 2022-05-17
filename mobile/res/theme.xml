@@ -8,6 +8,7 @@
     <image name="banner.jpg"  />
     <image name="Capture.PNG"  />
     <image name="confirmation-background.jpg"  />
+    <image name="default.png"  />
     <image name="dog.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
     <image name="fdf7fd1b9a7e816763fc297b19338781.jpg"  />
@@ -45,12 +46,12 @@
         <val key="Activate.padding" value="0,3,0,0" />
         <val key="Activate.transparency" value="255" />
         <val key="BottomPad.align" value="4" />
-        <val key="BottomPad.fgColor" value="a2a1b8" />
+        <val key="BottomPad.fgColor" value="333333" />
         <font key="BottomPad.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.0" />
         <val key="BottomPad.marUnit" value="0,0,2,0" />
-        <val key="BottomPad.margin" value="0,6,0,0" />
+        <val key="BottomPad.margin" value="0.0,6.0,0.0,0.0" />
         <val key="BottomPad.padUnit" value="0,0,2,0" />
-        <val key="BottomPad.padding" value="0,0,0,0" />
+        <val key="BottomPad.padding" value="0.0,0.0,0.0,0.0" />
         <val key="BottomPad.transparency" value="0" />
         <val key="Button.align" value="4" />
         <border key="Button.border" type="round" roundBorderColor="16723285" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
@@ -93,7 +94,7 @@
         <val key="DatePickerDay.sel#transparency" value="0" />
         <val key="DatePickerDay.transparency" value="0" />
         <val key="DatePickerEvent.align" value="4" />
-        <val key="DatePickerEvent.fgColor" value="cccccc" />
+        <val key="DatePickerEvent.fgColor" value="333333" />
         <font key="DatePickerEvent.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="3" actualSize="4.5" />
         <val key="DatePickerEvent.sel#align" value="4" />
         <val key="DatePickerEvent.sel#fgColor" value="777777" />
@@ -109,7 +110,7 @@
         <val key="DatePickerMonth.sel#transparency" value="0" />
         <val key="DatePickerMonth.transparency" value="0" />
         <val key="FloatingHint.align" value="4" />
-        <val key="FloatingHint.fgColor" value="a2a1b8" />
+        <val key="FloatingHint.fgColor" value="333333" />
         <font key="FloatingHint.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="FloatingHint.transparency" value="0" />
         <val key="Form.bgColor" value="ffffff" />
@@ -118,7 +119,7 @@
         <val key="Form.transparency" value="255" />
         <val key="ImageOverlay.bgColor" value="14134b" />
         <val key="ImageOverlay.transparency" value="60" />
-        <val key="Label.fgColor" value="a2a1b8" />
+        <val key="Label.fgColor" value="333333" />
         <font key="Label.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="Label.transparency" value="0" />
         <val key="LargeWhiteText.align" value="1" />
@@ -154,7 +155,7 @@
         <val key="MenuButton.sel#padding" value="2,2,2,2" />
         <val key="MenuButton.sel#transparency" value="0" />
         <val key="MenuButton.transparency" value="0" />
-        <val key="NewsBottomLine.fgColor" value="a2a1b8" />
+        <val key="NewsBottomLine.fgColor" value="333333" />
         <font key="NewsBottomLine.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="1.5" />
         <val key="NewsBottomLine.press#fgColor" value="a2a1b8" />
         <font key="NewsBottomLine.press#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="1.5" />
@@ -172,10 +173,10 @@
         <font key="NewsTopLine.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.0" />
         <val key="NewsTopLine.sel#transparency" value="0" />
         <val key="NewsTopLine.transparency" value="0" />
-        <val key="PaddedLabel.fgColor" value="a2a1b8" />
+        <val key="PaddedLabel.fgColor" value="333333" />
         <font key="PaddedLabel.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="PaddedLabel.padUnit" value="2,2,2,2" />
-        <val key="PaddedLabel.padding" value="2,2,2,2" />
+        <val key="PaddedLabel.padding" value="2.0,2.0,2.0,2.0" />
         <val key="PaddedLabel.transparency" value="0" />
         <val key="PictureWhiteBackgrond.bgColor" value="ffffff" />
         <val key="PictureWhiteBackgrond.margin" value="0,0,0,0" />
@@ -246,11 +247,11 @@
         <val key="SignIn.padUnit" value="0,0,2,0" />
         <val key="SignIn.padding" value="0,3,0,0" />
         <val key="SignIn.transparency" value="255" />
-        <val key="SkipButton.fgColor" value="a2a1b8" />
+        <val key="SkipButton.fgColor" value="333333" />
         <font key="SkipButton.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
-        <val key="SkipButton.margin" value="0,0,0,0" />
+        <val key="SkipButton.margin" value="0.0,0.0,0.0,0.0" />
         <val key="SkipButton.padUnit" value="2,2,2,2" />
-        <val key="SkipButton.padding" value="1,1,1,1" />
+        <val key="SkipButton.padding" value="1.0,1.0,1.0,1.0" />
         <val key="SkipButton.press#fgColor" value="a2a1b8" />
         <font key="SkipButton.press#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
         <val key="SkipButton.press#margin" value="0,0,0,0" />
@@ -296,6 +297,7 @@
         <val key="TextFieldBlack.sel#transparency" value="0" />
         <val key="TextFieldBlack.transparency" value="0" />
         <val key="TextHint.align" value="4" />
+        <val key="TextHint.fgColor" value="333333" />
         <val key="TextHint.sel#align" value="4" />
         <val key="Title.align" value="4" />
         <val key="Title.bgColor" value="000000" />
@@ -348,6 +350,9 @@
         <val key="transparency" value="0" />
     </theme>
     <image name="timeline-background.jpg"  />
+    <image name="trophies-icon-2.png"  />
+    <image name="trophies-icon-3.png"  />
+    <image name="trophies-icon-4.png"  />
     <image name="twitter-logo.png" type="multi"  />
     <image name="welcome-background.jpg"  />
     <image name="welcome-slide-1.png" type="multi"  />

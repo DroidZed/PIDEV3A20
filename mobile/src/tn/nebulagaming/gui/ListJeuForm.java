@@ -20,11 +20,9 @@
 package tn.nebulagaming.gui;
 
 
-import tn.nebulagaming.gui.AjoutJeuForm;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
-import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Command;
@@ -45,7 +43,6 @@ import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Slider;
 import com.codename1.ui.Tabs;
-import com.codename1.ui.TextArea;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
@@ -54,17 +51,14 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import tn.nebulagaming.entities.JeuVideo;
-import tn.nebulagaming.gui.BaseForm;
 import tn.nebulagaming.services.ServiceJeuVideo;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import static tn.nebulagaming.utils.Statics.PATH;
 
 /**
  * The newsfeed form
@@ -149,7 +143,7 @@ public class ListJeuForm extends BaseForm {
 
                  for (JeuVideo fi : jvs) {
                             Container ct = new Container(BoxLayout.y());
-                            String url = "file://D:/WEB_Symfony/Forum/Front/public/uploads/images/"+ fi.getImagevg();
+                            String url = PATH+ fi.getImagevg();
                             int deviceWidth = Display.getInstance().getDisplayWidth();
                             Image placeholder = Image.createImage( deviceWidth/3,  deviceWidth/3, 0xbfc9d2);
                             EncodedImage encImage = EncodedImage.createFromImage(placeholder, false);

@@ -37,12 +37,12 @@ public class ServiceComment {
         System.out.println("{\n"
                 + "        \"idPost\": " + comment.getIdPost() + ",\n"
                 + "        \"idUser\": "+singUser.getIdUser()+" ,\n"
-                + "        \"comment\": " + comment.getComment() + ",\n"
+                + "        \"comment\":\"" + comment.getComment() + "\"\n"
                 + "}");
         request.setRequestBody("{\n"
                 + "        \"idPost\": " + comment.getIdPost() + ",\n"
-                + "        \"idUser\": 2 ,\n"
-                + "        \"comment\": " + comment.getComment() + ",\n"
+                + "        \"idUser\": "+singUser.getIdUser()+" ,\n"
+                + "        \"comment\":\"" + comment.getComment() + "\"\n"
                 + "}");
         request.addRequestHeader("Content-Type", "application/json");
         request.setHttpMethod("POST");

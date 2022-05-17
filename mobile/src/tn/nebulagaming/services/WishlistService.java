@@ -9,18 +9,16 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.ui.Display;
-import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import tn.nebulagaming.entities.Category;
-import tn.nebulagaming.entities.JsonResponseDAO;
+import tn.nebulagaming.entities.CustomResponse;
 import tn.nebulagaming.entities.Product;
 import tn.nebulagaming.entities.Wishlist;
+import tn.nebulagaming.utils.SingletonUser;
 
 /**
  *
@@ -29,10 +27,11 @@ import tn.nebulagaming.entities.Wishlist;
 public class WishlistService extends MotherService {
 
     private static List<Wishlist> wishItems;
-    private JsonResponseDAO resp;
+    private CustomResponse resp;
 
     private static WishlistService instance = null;
-    private static JsonResponseDAOService daoService = JsonResponseDAOService.getInstance();
+    private final CustomResponseService daoService = CustomResponseService.getInstance();
+    private final SingletonUser singUser = SingletonUser.getInstance();
     private static ConnectionRequest req;
 
     private final String WISHLIST_URL = URL + "wishlist";
@@ -49,11 +48,11 @@ public class WishlistService extends MotherService {
 	return instance;
     }
 
-    public JsonResponseDAO addToWishlist(int idProd, int idUser) {
+    public CustomResponse addToWishlist(int idProd) {
 
 	String POST_URL = WISHLIST_URL + "/add";
 
-	resp = new JsonResponseDAO();
+	resp = new CustomResponse();
 
 	System.out.println("===> " + POST_URL);
 
@@ -61,7 +60,7 @@ public class WishlistService extends MotherService {
 	req.setUrl(POST_URL);
 	req.addRequestHeader("Content-Type", "application/json");
 	req.setHttpMethod("POST");
-	req.setRequestBody("{\"idUser\": " + idUser + ",\"idProduct\": " + idProd + "}");
+	req.setRequestBody("{\"idUser\": " + singUser.getIdUser() + ",\"idProduct\": " + idProd + "}");
 	req.addResponseListener(new ActionListener<NetworkEvent>() {
 
 	    @Override
@@ -77,9 +76,9 @@ public class WishlistService extends MotherService {
 	return resp;
     }
 
-    public List<Wishlist> getWishedItems(int userId) {
+    public List<Wishlist> getWishedItems() {
 
-	String GET_URL = WISHLIST_URL + "/get/" + userId;
+	String GET_URL = WISHLIST_URL + "/get/" + singUser.getIdUser();
 
 	req = new ConnectionRequest();
 	System.out.println("===> " + GET_URL);
@@ -96,11 +95,11 @@ public class WishlistService extends MotherService {
 	return wishItems;
     }
 
-    public JsonResponseDAO removeItem(int idWishList) {
+    public CustomResponse removeItem(int idWishList) {
 
 	String REM_URL = WISHLIST_URL + "/rem?idWishlist=" + idWishList;
 
-	resp = new JsonResponseDAO();
+	resp = new CustomResponse();
 
 	System.out.println("===> " + REM_URL);
 
@@ -173,7 +172,7 @@ public class WishlistService extends MotherService {
 	    category.setNameCategory(object.get("namecategory"));
 	} catch (NullPointerException ex) {
 
-	    System.out.println("Something went wrong: " + ex.getMessage());
+	    System.err.println("Something went wrong: " + ex.getMessage());
 	}
 
 	return category;

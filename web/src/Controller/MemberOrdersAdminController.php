@@ -43,10 +43,9 @@ class MemberOrdersAdminController extends AbstractController
      * @param $orderNumber
      * @param Request $req
      * @param UserOrderRepository $userOrderRepository
-     * @param StatusOrderRepository $statusOrderRepository
      * @return Response
      */
-    public function viewOrder($orderNumber, Request $req, UserOrderRepository $userOrderRepository, StatusOrderRepository $statusOrderRepository): Response
+    public function viewOrder($orderNumber, Request $req, UserOrderRepository $userOrderRepository): Response
     {
 
         $order = $userOrderRepository->find($orderNumber);
@@ -57,18 +56,15 @@ class MemberOrdersAdminController extends AbstractController
 
         if ($form->isSubmitted()) {
 
-            $orderStatus = $req->get("status");
+            $userOrderRepository->save($order, true);
 
-            $status = $statusOrderRepository->findOneBy(["statusorder" => $orderStatus]);
-
-            $order->setIdstatusorder($status);
+            $orderStatus = $order->getIdstatusorder()->getStatusorder();
 
             if ($orderStatus == "CANCELLED" || $orderStatus == "DELIVERY") {
 
                 $order->setPaydtm(null);
+                $userOrderRepository->save($order, true);
             }
-
-            $userOrderRepository->save($order, false);
 
             return $this->redirect($req->getUri());
         }

@@ -4,17 +4,18 @@ namespace App\Controller;
 
 use App\Entity\TblOrderline;
 use App\Entity\TblProduct;
-use App\Entity\User;
 use App\Entity\TblUserorder;
+use App\Entity\User;
 use App\Form\PlaceOrderType;
+use App\Repository\FidCardRepository;
 use App\Repository\OrderLineRepository;
+use App\Repository\ProductRepository;
 use App\Repository\StatusOrderRepository;
 use App\Repository\UserOrderRepository;
-use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
-use App\Services\ReceiptMailingService;
-use App\Services\QrCodeService;
 use App\Services\GetUser;
+use App\Services\QrCodeService;
+use App\Services\ReceiptMailingService;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,8 +66,8 @@ class MemberOrdersController extends AbstractController
      * @Route("/membre/checkout", name="checkOut", methods={"GET", "POST"})
      */
     public function new(Request               $request,
-                        UserRepository        $userRepo,
-                        ReceiptMailingService        $mailerService,
+                        FidCardRepository     $fidelityCardRepository,
+                        ReceiptMailingService $mailerService,
                         QrCodeService         $qrCodeService,
                         UserOrderRepository   $userOrderRepository,
                         OrderLineRepository   $orderLineRepository,
@@ -83,6 +84,14 @@ class MemberOrdersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Adding points to the user
+
+            $card = $fidelityCardRepository->findOneBy(["iduser" => $user]);
+
+            $card->setNbpointsfid($card->getNbpointsfid() + rand(1, 10));
+
+            $fidelityCardRepository->add($card, false);
+
             $userOrder->setCreateddtm(new \DateTime());
 
 
@@ -93,9 +102,8 @@ class MemberOrdersController extends AbstractController
 
             if ($userOrder->getIdpaytype()->getPaytype() == "DELIVERY") {
                 $userOrder->setIdstatusorder($statusOrderRepository->findOneBy(["statusorder" => "DELIVERY"]));
+                $userOrder->setPaydtm(null);
             }
-
-            $userOrder->setPaydtm(null);
 
             $userOrder->setIduser($user);
 
@@ -103,15 +111,25 @@ class MemberOrdersController extends AbstractController
             $orderLines = [];
 
             foreach ($cartItems as $v) {
-                    $temp = new TblOrderline();
-                    $temp->setIdproduct($productRepository->find($v->getProduct()->getIdproduct()));
-                    $temp->setNumberorder($userOrderRepository->find($savedOrder));
-                    $temp->setQuantordline($v->getQuantity());
-                    $orderLineRepository->add($temp);
-                    $orderLines += [$v->getProduct()->getNameproduct() => $temp];
+                $temp = new TblOrderline();
+                $prod = $productRepository->find($v->getProduct()->getIdproduct());
+
+                $prod->setQtyproduct($prod->getQtyproduct() - 1);
+
+                if ($prod->getQtyproduct() <= 0) {
+                    $prod->setQtyproduct(0);
+                }
+
+                $productRepository->add($prod, false);
+
+                $temp->setIdproduct($prod);
+                $temp->setNumberorder($userOrderRepository->find($savedOrder));
+                $temp->setQuantordline($v->getQuantity());
+                $orderLineRepository->add($temp);
+                $orderLines += [$v->getProduct()->getNameproduct() => $temp];
             }
 
-            $this->sendEmail($user, $userOrder,$mailerService,$qrCodeService, $orderLines);
+            $this->sendEmail($user, $userOrder, $mailerService, $qrCodeService, $orderLines);
 
             return $this->redirectToRoute('app_homepage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -134,11 +152,11 @@ class MemberOrdersController extends AbstractController
      * @return void
      */
     public function sendEmail(
-                $user,
-                TblUserorder   $order,
-                ReceiptMailingService $mailerService,
-        QrCodeService  $qrCodeService,
-        array          $orderLines): void
+        $user,
+        TblUserorder $order,
+        ReceiptMailingService $mailerService,
+        QrCodeService $qrCodeService,
+        array $orderLines): void
     {
         try {
 

@@ -108,4 +108,26 @@ class FidelityCardController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/leaderBoards", name="leaderBoards")
+     * @param FidCardRepository $fidCardRepository
+     * @return mixed
+     */
+    public function leaderBoards(FidCardRepository $fidCardRepository) {
+
+        $usersAndTheirPoints = $fidCardRepository->getUsersAndTheirPoints(10);
+        $usersAndTheirPointsTop3 = $fidCardRepository->getUsersAndTheirPoints();
+
+        $usersAndTheirPointsTop3[0] += ["order" => 1];
+        $usersAndTheirPointsTop3[1] += ["order" => 2];
+        $usersAndTheirPointsTop3[2] += ["order" => 3];
+
+        [$usersAndTheirPointsTop3[0], $usersAndTheirPointsTop3[1]] = [$usersAndTheirPointsTop3[1], $usersAndTheirPointsTop3[0]];
+
+        return $this->render('frontTemplate/leaderBoards.html.twig', [
+            'leaders' => $usersAndTheirPoints,
+            'top3' => $usersAndTheirPointsTop3
+        ]);
+    }
 }

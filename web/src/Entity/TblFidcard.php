@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * TblFidcard
@@ -25,6 +26,7 @@ class TblFidcard
      * @var int
      *
      * @ORM\Column(name="nbPointsFid", type="integer", nullable=false)
+     * @Groups("fidcard")
      */
     private $nbpointsfid = '0';
 
@@ -52,6 +54,7 @@ class TblFidcard
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCardType", referencedColumnName="idCardType")
      * })
+     * @Groups("fidcard")
      */
     private $idcardtype;
 

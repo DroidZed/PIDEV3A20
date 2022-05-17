@@ -6,9 +6,9 @@
     <!-- banner-section start -->
     <section id="banner-section" class="inner-banner profile">
         <div class="ani-img">
-            <img class="img-1" src="images/banner-circle-1.png" alt="icon">
-            <img class="img-2" src="images/banner-circle-2.png" alt="icon">
-            <img class="img-3" src="images/banner-circle-2.png" alt="icon">
+            <img class="img-1" src="{{ asset("images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("images/banner-circle-2.png") }}" alt="icon">
         </div>
         <div class="banner-content d-flex align-items-center">
             <div class="container">
@@ -19,7 +19,7 @@
                             <div class="breadcrumb-area">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb d-flex justify-content-center">
-                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
                                         <li class="breadcrumb-item"><a href="#">Pages</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Profile Page</li>
                                     </ol>
@@ -36,19 +36,24 @@
                     <div class="col-md-6">
                         <div class="profile-area d-flex align-items-center">
                             <div class="photo">
+                                {% if asset_exists('Uploads/Images/'~User.photo) %}
                                 <img src="{{ asset('Uploads/Images/'~User.photo) }}" alt="Image">
+                                {% else %}
+                                <img src="{{ asset('Uploads/Images/default.png') }}" alt="Image">
+                                {% endif %}
                             </div>
                             <div class="name-area">
                                 <h4>{{ User.nom }}</h4>
-                                    <span>{{ fidCard.nbpointsfid }} Points - </span>
-                                    {% set cardType = fidCard.idcardtype | upper  %}
+                                    {% set cardType = fidCard.idcardtype  %}
+                                    <span style="color:{{ cardType == 'GOLD' ? "gold" : cardType == 'SILVER' ? "silver" : "#cd7f32" }};">{{ fidCard.nbpointsfid }} </span>
                                     {% if cardType == 'GOLD' %}
-                                        <span style="color:gold;">{{ fidCard.idcardtype }}</span>
+                                       <img src="{{ asset("frontTemplate/images/trophies-icon-2.png") }}" alt="trophy gold" />
                                     {% elseif cardType == 'SILVER'  %}
-                                        <span style="color:silver;">{{ fidCard.idcardtype }}</span>
+                                        <img src="{{ asset("frontTemplate/images/trophies-icon-3.png") }}" alt="trophy silver" />
                                     {% else %}
-                                        <span style="color:#cd7f32;">{{ fidCard.idcardtype }}</span>
+                                        <img src="{{ asset("frontTemplate/images/trophies-icon-4.png") }}" alt="trophy bronze" />
                                     {% endif %}
+
                             </div>
                         </div>
                     </div>
